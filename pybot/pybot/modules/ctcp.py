@@ -20,91 +20,91 @@ from pybot import mm, hook, Message, buildanswer
 from types import ListType
 
 class CTCP:
-	def __init__(self, bot):
-		hook.register("Message", self.message, 80)
-		hook.register("Notice", self.notice, 80)
-		mm.register("sendctcp", self.mm_sendctcp)
-		mm.register("answerctcp", self.mm_answerctcp)
-		mm.register("answermsgctcp", self.mm_answermsgctcp)
-		mm.register("answernotctcp", self.mm_answernotctcp)
-	
-	def unload(self):
-		hook.unregister("Message", self.message, 80)
-		hook.unregister("Notice", self.notice, 80)
-		mm.unregister("sendctcp")
-		mm.unregister("answerctcp")
-		mm.unregister("answermsgctcp")
-		mm.unregister("answernotctcp")
-	
-	def message(self, msg):
-		var = []
-		if msg.msg[0] and msg.msg[0][0]=="\01":
-			msg.ctcpcmd = msg.msg[0][1:]
-			msg.msg[-1] = msg.msg[-1][:-1]
-			del msg.msg[0]
-			del msg.rawmsg[0]
-			msg.rawmsg[-1] = msg.rawmsg[-1][:-1]
-			hook.call("CTCP", msg)
-			return -1
-	
-	def notice(self, msg):
-		var = []
-		if msg.msg and msg.msg[0][0]=="\01":
-			msg.ctcpcmd = msg.msg[0][1:]
-			msg.msg[-1] = msg.msg[-1][:-1]
-			del msg.msg[0]
-			hook.call("CTCPReply", msg)
-			return -1
+    def __init__(self, bot):
+        hook.register("Message", self.message, 80)
+        hook.register("Notice", self.notice, 80)
+        mm.register("sendctcp", self.mm_sendctcp)
+        mm.register("answerctcp", self.mm_answerctcp)
+        mm.register("answermsgctcp", self.mm_answermsgctcp)
+        mm.register("answernotctcp", self.mm_answernotctcp)
+    
+    def unload(self):
+        hook.unregister("Message", self.message, 80)
+        hook.unregister("Notice", self.notice, 80)
+        mm.unregister("sendctcp")
+        mm.unregister("answerctcp")
+        mm.unregister("answermsgctcp")
+        mm.unregister("answernotctcp")
+    
+    def message(self, msg):
+        var = []
+        if msg.msg[0] and msg.msg[0][0]=="\01":
+            msg.ctcpcmd = msg.msg[0][1:]
+            msg.msg[-1] = msg.msg[-1][:-1]
+            del msg.msg[0]
+            del msg.rawmsg[0]
+            msg.rawmsg[-1] = msg.rawmsg[-1][:-1]
+            hook.call("CTCP", msg)
+            return -1
+    
+    def notice(self, msg):
+        var = []
+        if msg.msg and msg.msg[0][0]=="\01":
+            msg.ctcpcmd = msg.msg[0][1:]
+            msg.msg[-1] = msg.msg[-1][:-1]
+            del msg.msg[0]
+            hook.call("CTCPReply", msg)
+            return -1
 
-	def handlectcpout(self, server, line):
-		msg = message()
-		msg.setline(server, line)
-		hook.call("OutCommand", msg)
-		msg.ctcpcmd = msg.msg[0][1:]
-		msg.msg[-1] = msg.msg[-1][:-1]
-		del msg.msg[0]
-		msg.rawmsg[-1] = msg.rawmsg[-1][:-1]
-		del msg.rawmsg[0]
-		msg.user = server.user
-		if msg.cmd == "PRIVMSG":
-			hook.call("OutCTCP", msg)
-		else:
-			hook.call("OutCTCPReply", msg)
+    def handlectcpout(self, server, line):
+        msg = message()
+        msg.setline(server, line)
+        hook.call("OutCommand", msg)
+        msg.ctcpcmd = msg.msg[0][1:]
+        msg.msg[-1] = msg.msg[-1][:-1]
+        del msg.msg[0]
+        msg.rawmsg[-1] = msg.rawmsg[-1][:-1]
+        del msg.rawmsg[0]
+        msg.user = server.user
+        if msg.cmd == "PRIVMSG":
+            hook.call("OutCTCP", msg)
+        else:
+            hook.call("OutCTCPReply", msg)
 
-	def mm_sendctcp(self, defret, server, cmd, ctcpcmd, target, nick, params, out=1):
-		if type(params) == ListType:
-			line = cmd+" "+target+" :\01"+ctcpcmd+" "+buildanswer(params, target, nick)+"\01"
-		else:
-			line = cmd+" "+target+" :\01"+ctcpcmd+" "+params+"\01"
-		server.sendline(line)
-		if out: self.handlectcpout(server,line)
+    def mm_sendctcp(self, defret, server, cmd, ctcpcmd, target, nick, params, out=1):
+        if type(params) == ListType:
+            line = cmd+" "+target+" :\01"+ctcpcmd+" "+buildanswer(params, target, nick)+"\01"
+        else:
+            line = cmd+" "+target+" :\01"+ctcpcmd+" "+params+"\01"
+        server.sendline(line)
+        if out: self.handlectcpout(server,line)
 
-	def mm_answerctcp(self, defret, msg, cmd, ctcpcmd, params, outhooks=1):
-		if msg.direct:
-			target = msg.user.nick
-		else:
-			target = msg.target
-		if type(params) == ListType:
-			line = cmd+" "+target+" :\01"+ctcpcmd+" "+buildanswer(params, target, msg.user.nick)+"\01"
-		else:
-			line = cmd+" "+target+" :\01"+ctcpcmd+" "+params+"\01"
-		msg.server.sendline(line)
-		if out: self.handlectcpout(msg.server,line)
-		
-	def mm_answermsgctcp(self, defret, msg, ctcpcmd, params, outhooks=1):
-		self.mm_answerctcp(msg, "PRIVMSG", ctcpcmd, params, outhooks)
+    def mm_answerctcp(self, defret, msg, cmd, ctcpcmd, params, outhooks=1):
+        if msg.direct:
+            target = msg.user.nick
+        else:
+            target = msg.target
+        if type(params) == ListType:
+            line = cmd+" "+target+" :\01"+ctcpcmd+" "+buildanswer(params, target, msg.user.nick)+"\01"
+        else:
+            line = cmd+" "+target+" :\01"+ctcpcmd+" "+params+"\01"
+        msg.server.sendline(line)
+        if out: self.handlectcpout(msg.server,line)
+        
+    def mm_answermsgctcp(self, defret, msg, ctcpcmd, params, outhooks=1):
+        self.mm_answerctcp(msg, "PRIVMSG", ctcpcmd, params, outhooks)
 
-	def mm_answernotctcp(self, defret, msg, ctcpcmd, params, outhooks=1):
-		self.mm_answerctcp(msg, "NOTICE", ctcpcmd, params, outhooks)
+    def mm_answernotctcp(self, defret, msg, ctcpcmd, params, outhooks=1):
+        self.mm_answerctcp(msg, "NOTICE", ctcpcmd, params, outhooks)
 
 
 def __loadmodule__(bot):
-	global ctcp
-	ctcp = CTCP(bot)
+    global ctcp
+    ctcp = CTCP(bot)
 
 def __unloadmodule__(bot):
-	global ctcp
-	ctcp.unload()
-	del ctcp
+    global ctcp
+    ctcp.unload()
+    del ctcp
 
-# vim:ts=4:sw=4
+# vim:ts=4:sw=4:et

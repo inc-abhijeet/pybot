@@ -33,55 +33,55 @@ if os.path.basename(abspath) == "scripts":
 import pybot
 
 random.seed(time.time())
-	
+    
 def random_answer(*pattern):
-	ret = []
-	for tok in pattern:
-		if type(tok) == type(()):
-			recret = self._answer(tok)
-			ret = ret + recret
-		elif type(tok) == type([]):
-			tmptok = tok[random.randint(0,len(tok)-1)]
-			if type(tmptok) == type(""):
-				ret.append(tmptok)
-			elif tmptok != None:
-				recret = self._answer(tmptok)
-				ret.append(recret)
-		elif tok != None:
-			ret.append(tok)
-	if ret:
-		str = ret[0]
-		for tok in ret[1:]:
-			if tok[0] in [".","!","?"]:
-				str = str+tok
-			else:
-				str = str+" "+tok
-	else:
-		str = ""
-	return str
+    ret = []
+    for tok in pattern:
+        if type(tok) == type(()):
+            recret = self._answer(tok)
+            ret = ret + recret
+        elif type(tok) == type([]):
+            tmptok = tok[random.randint(0,len(tok)-1)]
+            if type(tmptok) == type(""):
+                ret.append(tmptok)
+            elif tmptok != None:
+                recret = self._answer(tmptok)
+                ret.append(recret)
+        elif tok != None:
+            ret.append(tok)
+    if ret:
+        str = ret[0]
+        for tok in ret[1:]:
+            if tok[0] in [".","!","?"]:
+                str = str+tok
+            else:
+                str = str+" "+tok
+    else:
+        str = ""
+    return str
 
 if len(sys.argv)==3 and sys.argv[1] in ["show","print"]:
-	if os.path.exists("options"):
-		file = open("options")
-		option = cPickle.load(file)
-		file.close()
-		if not option.has_key(sys.argv[2]):
-			print random_answer(["It seems that", "Sorry, but", "Sir,"], "there's not such option.")
-		else:
-			print option[sys.argv[2]]
-	else:
-		print "There's no options file, sir!"
+    if os.path.exists("options"):
+        file = open("options")
+        option = cPickle.load(file)
+        file.close()
+        if not option.has_key(sys.argv[2]):
+            print random_answer(["It seems that", "Sorry, but", "Sir,"], "there's not such option.")
+        else:
+            print option[sys.argv[2]]
+    else:
+        print "There's no options file, sir!"
 elif len(sys.argv)>5 and sys.argv[1:3]==["set"] and sys.argv[4] == "to":
-	if os.path.exists("options"):
-		file = open("options")
-		option = cPickle.load(file)
-		file.close()               
-	else:
-		option = {}
-	option[sys.argv[3]] = eval(string.join(sys.argv[5:]))
-	file = open("options", "w")
-	option = cPickle.dump(option,file,1)
-	file.close()               
-	print "Done, sir!"
+    if os.path.exists("options"):
+        file = open("options")
+        option = cPickle.load(file)
+        file.close()               
+    else:
+        option = {}
+    option[sys.argv[3]] = eval(string.join(sys.argv[5:]))
+    file = open("options", "w")
+    option = cPickle.dump(option,file,1)
+    file.close()               
+    print "Done, sir!"
 
-# vim:ts=4:sw=4
+# vim:ts=4:sw=4:et

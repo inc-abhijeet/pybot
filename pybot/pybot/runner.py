@@ -21,10 +21,8 @@
 import sys
 import os
 
-# Check if we are inside the development environment
-abspath = os.path.basename(os.path.abspath(sys.path[0]))
-if os.path.basename(abspath) == "scripts":
-    sys.path[:] = [os.path.dirname(abspath)]+sys.path
+# Add upper directory to search path in case we are in development tree.
+sys.path[0] = os.path.dirname(sys.path[0])
 
 import pybot
 
@@ -62,4 +60,4 @@ def main():
 if __name__ == "__main__":
 	main()
 
-# vim:ts=4:sw=4
+# vim:ts=4:sw=4:et

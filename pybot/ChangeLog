@@ -1,3 +1,7 @@
+2001-12-03 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pybot.py, pybot/runner.py: New files with new startup system.
+	* run, scripts/pybot.py: Removed.
+
 2001-11-14 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/messages.py: Added help.
 	* modules/help.py: Reduced load level.

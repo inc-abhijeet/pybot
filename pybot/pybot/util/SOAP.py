@@ -3967,3 +3967,5 @@ class SOAPServer(SocketServer.ThreadingTCPServer):
     def registerKWFunction(self, function, namespace = '', funcName = None):
         self.registerFunction(MethodSig(function,keywords=1), namespace,
         funcName)
+
+# vim:ts=4:sw=4:et

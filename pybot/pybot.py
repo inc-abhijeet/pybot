@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/python
 #
 # Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
@@ -18,10 +18,22 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-while true
-do
-	./scripts/pybot.py
-	if [ $? != 0 ]; then
-		break
-	fi
-done
+import imp
+import sys
+import os
+
+def main():
+    try:
+        module = imp.find_module("pybot/runner")
+    except ImportError:
+        sys.exit("error: couldn't find module pybot.runner")
+    module[0].close()
+    while 1:
+        ret = os.system("python "+module[1])
+        if ret != 0:
+            break
+
+if __name__ == "__main__":
+    main()
+
+# vim:sw=4:ts=4:et

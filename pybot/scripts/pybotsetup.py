@@ -27,14 +27,14 @@ import cPickle
 import pybot
 
 if os.path.isfile("options"):
-	file = open("options")
-	option = cPickle.load(file)
-	file.close()               
+    file = open("options")
+    option = cPickle.load(file)
+    file.close()               
 else:
-	option = {}
+    option = {}
 
 try:
-	print """
+    print """
 This program does the basic setup for pybot. It will allow you to
 set the first nick, username and server you want pybot to connect,
 and also who you are (supposing you're the one who pybot will obey
@@ -47,47 +47,47 @@ to any servers. In this case, this program will overwrite your
 basic configuration (servers and masters), but will preserve
 everything else.
 """
-	raw_input("Press [ENTER] to continue...")
+    raw_input("Press [ENTER] to continue...")
 
-	print """
+    print """
 Enter the nick you're going to use while talking to pybot."""
-	nick = raw_input("Your nick: ")
+    nick = raw_input("Your nick: ")
 
-	print """Enter the username you're going to use while talking to pybot.
+    print """Enter the username you're going to use while talking to pybot.
 Please, note that you may have a '~' added to your username, depending on
 your host's configuration. If you want to be sure what your username is,
 issue a '/whois %s' while connected to your irc server. You may also
 use a wildcard, like *username, if you're not sure at all."""%nick
-	username = raw_input("Your username: ")
+    username = raw_input("Your username: ")
 
-	print """
+    print """
 Enter the hostname you're going to use while talking to pybot.
 If you're not sure, you should also look at the output of the command
 '/whois %s' while connected to your irc server. A wildcard like
 *.my.host also work here, but be careful!"""%nick
-	hostname = raw_input("Your host: ")
+    hostname = raw_input("Your host: ")
 
-	print """
+    print """
 Enter the server name:port where pybot will connect to. This is
 just to start it out. You may add and/or remove servers later talking
 with him."""
-	server = raw_input("Server: ")
+    server = raw_input("Server: ")
 
-	print """
+    print """
 Enter the pybot nick you want to use in this server. That's important
 because you'll be able to tell him to join a channel and/or connect
 to a server by talking with him, so make sure you remember the nick."""
-	pybotnick = raw_input("Pybot's nick: ")
+    pybotnick = raw_input("Pybot's nick: ")
 
-	print """
+    print """
 Enter the username pybot will use in this server."""
-	pybotusername = raw_input("Pybot's username: ")
+    pybotusername = raw_input("Pybot's username: ")
 
-	print """
+    print """
 Enter the real name pybot will use in this server."""
-	pybotrealname = raw_input("Pybot's real name: ")
+    pybotrealname = raw_input("Pybot's real name: ")
 except EOFError:
-	sys.exit("Interrupted!")
+    sys.exit("Interrupted!")
 
 option["Permission.gosh"] = [pybot.User(nick, username, hostname)]
 option["ServerControl.servers"] = {server:[pybotnick, pybotusername, "0", pybotrealname, []]}
@@ -98,4 +98,4 @@ file.close()
 
 print "Options saved!"
 
-# vim:ts=4:sw=4
+# vim:ts=4:sw=4:et

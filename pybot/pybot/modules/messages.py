@@ -81,4 +81,4 @@ def __unloadmodule__(bot):
     messages.unload()
     del messages
 
-# vim:ts=4:et:sw=4
+# vim:ts=4:sw=4:et

@@ -20,46 +20,46 @@ from pybot import mm, hooks
 import time
 
 class ThreadedExample:
-	def __init__(self, bot):
-		hooks.register("Message", self.threadedmessage, threaded=1)
-		hooks.register("Message", self.message)
-	
-	def unload(self):
-		hooks.unregister("Message", self.threadedmessage, threaded=1)
-		hooks.unregister("Message", self.message)
-		mm.unhooktimer(0, None, self.threadedtimer, None);
-	
-	def threadedmessage(self, msg):
-		var = []
-		if msg.match(var, 0, "%", "test", "threaded", "message", ["!", ".", None]):
-			if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "threadedexample"):
-				for i in range(10):
-					msg.answer("%:", "I'm in the thread...")
-					time.sleep(1)
+    def __init__(self, bot):
+        hooks.register("Message", self.threadedmessage, threaded=1)
+        hooks.register("Message", self.message)
+    
+    def unload(self):
+        hooks.unregister("Message", self.threadedmessage, threaded=1)
+        hooks.unregister("Message", self.message)
+        mm.unhooktimer(0, None, self.threadedtimer, None);
+    
+    def threadedmessage(self, msg):
+        var = []
+        if msg.match(var, 0, "%", "test", "threaded", "message", ["!", ".", None]):
+            if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "threadedexample"):
+                for i in range(10):
+                    msg.answer("%:", "I'm in the thread...")
+                    time.sleep(1)
 
-	def message(self, msg):
-		var = []
-		if msg.match(var, 0, "%", "test", "threaded", "timer", ["!", ".", None]):
-			if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "threadedexample"):
-				mm.hooktimer(0, 20, self.threadedtimer, (msg,), threaded=1);
-				return 0
-		elif msg.match(var, 0, "%", "stop", "threaded", "timer", ["!", ".", None]):
-			if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "threadedexample"):
-				mm.unhooktimer(0, 20, self.threadedtimer, None, threaded=1);
-				return 0
+    def message(self, msg):
+        var = []
+        if msg.match(var, 0, "%", "test", "threaded", "timer", ["!", ".", None]):
+            if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "threadedexample"):
+                mm.hooktimer(0, 20, self.threadedtimer, (msg,), threaded=1);
+                return 0
+        elif msg.match(var, 0, "%", "stop", "threaded", "timer", ["!", ".", None]):
+            if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "threadedexample"):
+                mm.unhooktimer(0, 20, self.threadedtimer, None, threaded=1);
+                return 0
 
-	def threadedtimer(self, msg):
-		msg.answer("%:", "Timer thread started!")
-		time.sleep(10)
-		msg.answer("%:", "Timer thread stopped!")
+    def threadedtimer(self, msg):
+        msg.answer("%:", "Timer thread started!")
+        time.sleep(10)
+        msg.answer("%:", "Timer thread stopped!")
 
 def __loadmodule__(bot):
-	global threadedexample
-	threadedexample = ThreadedExample(bot)
+    global threadedexample
+    threadedexample = ThreadedExample(bot)
 
 def __unloadmodule__(bot):
-	global threadedexample
-	threadedexample.unload()
-	del threadedexample
+    global threadedexample
+    threadedexample.unload()
+    del threadedexample
 
-# vim:ts=4:sw=4
+# vim:ts=4:sw=4:et

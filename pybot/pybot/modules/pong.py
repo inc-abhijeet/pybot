@@ -19,23 +19,23 @@
 from pybot import hooks
 
 class Pong:
-	def __init__(self, bot):
-		hooks.register("Command", self.pong, 0)
-	
-	def unload(self):
-		hooks.unregister("Command", self.pong, 0)
-		
-	def pong(self, cmd):
-		if cmd.cmd == "PING":
-			cmd.server.sendcmd("", "PONG", cmd.params, priority=10)
+    def __init__(self, bot):
+        hooks.register("Command", self.pong, 0)
+    
+    def unload(self):
+        hooks.unregister("Command", self.pong, 0)
+        
+    def pong(self, cmd):
+        if cmd.cmd == "PING":
+            cmd.server.sendcmd("", "PONG", cmd.params, priority=10)
 
 def __loadmodule__(bot):
-	global pong
-	pong = Pong(bot)
+    global pong
+    pong = Pong(bot)
 
 def __unloadmodule__(bot):
-	global pong
-	pong.unload()
-	del pong
+    global pong
+    pong.unload()
+    del pong
 
-# vim:ts=4:sw=4
+# vim:ts=4:sw=4:et

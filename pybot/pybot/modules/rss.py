@@ -39,8 +39,9 @@ channels will receive RSS news. Check "help rss" for
 more information.
 """
 
-# Fetching below 30 minutes is evil
-MININTERVAL = 30*60
+# Fetching below 30 minutes is evil, but some active services will
+# make pybot flood the channel with more than 10 minutes.
+MININTERVAL = 10*60
 
 # Maximum number of stored news from each feed
 CACHELIMIT = 50

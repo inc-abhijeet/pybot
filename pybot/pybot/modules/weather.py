@@ -75,7 +75,7 @@ class Weather:
                     l.append("windspeed of %.2fkm/h (%s)," %
                              (r.getWindSpeed(), r.getWindCompass()))
                     l.append("visibility of %.2fkm." % (r.getWindSpeed()))
-                    msg.answer("%", " ".join(l))
+                    msg.answer("%:", " ".join(l))
             else:
                 msg.answer("%:", ["You have no permission for that",
                                   "You are not allowed to do this",

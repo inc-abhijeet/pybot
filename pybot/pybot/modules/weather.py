@@ -69,7 +69,7 @@ class Weather:
                               r.getStationCountry(), station.upper(),
                               r.getISOTime()))
                     if r.getSkyConditions():
-                        l.append("%s," % r.getSkyConditions()[0].lower())
+                        l.append("%s," % r.getSkyConditions().lower())
                     l.append("temperature of %.2fC (%.2fF)," %
                              (r.getTemperatureCelsius(),
                               r.getTemperatureFahrenheit()))

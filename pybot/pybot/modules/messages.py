@@ -45,7 +45,7 @@ class Messages:
         hooks.unregister("Message", self.message)
         hooks.unregister("UserJoined", self.checkmsgs)
 
-        mm.unregister_help(HELP)
+        mm.unregister_help(0, HELP)
 
     def checkmsgs(self, server, target, user):
         lowernick = user.nick.lower()

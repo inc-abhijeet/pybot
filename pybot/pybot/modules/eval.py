@@ -22,6 +22,7 @@ import signal
 import time
 import math
 import os
+from types import StringType
 
 HELP = """
 The "eval <expr>" command allows you to evaluate expressions
@@ -165,8 +166,10 @@ class Eval:
                               "expression"], [".", "!"])
         elif len(answer) > MAXCHARS:
             msg.answer("%:", "Your answer is too long", [".", "!"])
-        else:
+        elif type(answer) is StringType:
             msg.answer("%:", answer.translate(TRANSTABLE))
+        else:
+            msg.answer("%:", answer)
 
     def message(self, msg):
         if not msg.forme:

@@ -18,17 +18,19 @@
 
 from pybot.locals import *
 from pybot.util import feedparser
+from pybot.misc import striphtml
 import thread
 import time
 
 HELP = """
 You can ask me to show RSS news from any site and for any user/channel
-and server with "[dont] show (rss|news) [from] <url> [with link[s]]
-[with desc[ription][s]] [with prefix "<prefix>"] [each <n>(m|h)]
-[(on|for) (user|channel) <target>] [(on|at) server <server>]". Notice
-that the given interval is the maximum interval. To check what is being
-shown and for which targets, you can send me "show rss". You need the
-"rss" permission to use these commands.
+and server with "[dont] show (rss|news) [from] <url> [[in] one line]
+[with link[s]] [with desc[ription][s]] [with prefix "<prefix>"]
+[each <n>(m|h)] [(on|for) (user|channel) <target>] [(on|at) server
+<server>]". Notice that the given interval is the maximum interval.
+""","""
+To check what is being shown and for which targets, you can send me
+"show rss". You need the "rss" permission to use these commands.
 """
 
 PERM_RSS = """
@@ -46,7 +48,7 @@ DEFINTERVAL = 30*60
 CACHELIMIT = 50
 
 # Maxium news to send from a single feed per minute
-ONETIMELIMIT = 1
+ONETIMELIMIT = 5
 
 class RSS:
     def __init__(self):
@@ -85,9 +87,10 @@ class RSS:
 
         mm.hooktimer(60, self.update, ())
 
-        # [dont] show (rss|news|rss news) [from] <url> [with link[s]] [with desc[ription][s]] [with prefix "<prefix>"] [each <n>(m|h)] [[on|at|in|for] (user|channel) <target>] [[on|at|in|for] server <server>]
+        # [dont] show (rss|news|rss news) [from] <url> [[in] one line] [with link[s]] [with desc[ription][s]] [with prefix "<prefix>"] [each <n>(m|h)] [[on|at|in|for] (user|channel) <target>] [[on|at|in|for] server <server>]
         self.re1 = regexp(refrag.dont(optional=1),
                           r"show (?:rss |news |rss news )(?:from )?(?P<url>(?:https?|ftp)\S+)"
+                          r"(?P<oneline> (?:in )?one line)?"
                           r"(?P<links> with links?)?"
                           r"(?P<descs> with desc(?:ription)?s?)?"
                           r"(?: with prefix \"(?P<prefix>.*?)\")?",
@@ -137,18 +140,30 @@ class RSS:
             if cursor.rowcount:
                 server = servers.get(target.servername)
                 lastid = None
+                if "1" in target.flags:
+                    oneline = 1
+                    fulltext = ""
+                else:
+                    oneline = 0
                 for item in cursor.fetchall():
-                    if target.prefix:
-                        text = "%s %s" % (target.prefix, item.title)
-                    else:
-                        text = item.title
+                    text = item.title
                     if "l" in target.flags and item.link:
                         text += " [%s]" % item.link
                     if "d" in target.flags and item["description"]:
                         # item.description() is a method
                         text += " - "+item["description"]
-                    server.sendmsg(target.target, None, text, notice=1)
+                    if oneline:
+                        if fulltext:
+                            fulltext = "%s; %s" % (fulltext, text)
+                        else:
+                            fulltext = text
+                    else:
+                        server.sendmsg(target.target, None,
+                                       target.prefix, text, notice=1)
                     lastid = item.id
+                if oneline:
+                    server.sendmsg(target.target, None,
+                                   target.prefix, fulltext, notice=1)
                 if lastid: # Should always be true
                     cursor.execute("update rsstarget set lastitemid=%s "
                                    "where id=%s", (lastid, target.id,))
@@ -163,9 +178,9 @@ class RSS:
             cursor = localdb.cursor()
             for item in items:
                 if "title" in item:
-                    title = item["title"].strip()
-                    link = item.get("link", "").strip()
-                    desc = item.get("description", "").strip()
+                    title = striphtml(item["title"].strip())
+                    link = striphtml(item.get("link", "").strip())
+                    desc = striphtml(item.get("description", "").strip())
                     cursor.execute("insert into rssitem values "
                                    "(NULL, %s, %s, %s, %s, %s)",
                                    (feed.id, now, title, link, desc))
@@ -192,6 +207,8 @@ class RSS:
                     flags += "l"
                 if m.group("descs"):
                     flags += "d"
+                if m.group("oneline"):
+                    flags += "1"
                 cursor = db.cursor()
                 if dont:
                     cursor.execute("delete from rsstarget where "
@@ -259,7 +276,9 @@ class RSS:
                     cursor.execute("select * from rsstarget where feedid=%s",
                                    (feed.id,))
                     for target in cursor.fetchall():
-                        links, descs, prefix = "", "", ""
+                        oneline, links, descs, prefix = ("",)*4
+                        if "1" in target.flags:
+                            oneline = "in one line"
                         if "l" in target.flags:
                             links = "with links"
                         if "d" in target.flags:
@@ -277,7 +296,7 @@ class RSS:
                             interval = "%d seconds" % target.interval
                         msg.answer("  for", target.target, "on",
                                    target.servername, "each", interval,
-                                   links, descs, prefix)
+                                   oneline, links, descs, prefix)
             else:
                 msg.answer("%:", ["You can't", "You're not allowed to",
                                   "You're not good enough to"],

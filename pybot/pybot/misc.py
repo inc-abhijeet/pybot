@@ -21,7 +21,7 @@ from random import randint
 from string import rfind
 import re
 
-__all__ = ["buildanswer", "breakline"]
+__all__ = ["buildanswer", "breakline", "regexp", "striphtml"]
 
 MAXLINESIZE = 400
 
@@ -108,5 +108,17 @@ def regexp(*args, **kwargs):
         else:
             expr += "\s*$"
     return re.compile(expr, re.I)
+
+STRIPHTML = re.compile("<.*?>")
+def striphtml(s):
+    s = STRIPHTML.sub("", s)
+    if '&' not in s:
+        return s
+    s = s.replace("&lt;", "<")
+    s = s.replace("&gt;", ">")
+    s = s.replace("&apos;", "'")
+    s = s.replace("&quot;", '"')
+    s = s.replace("&amp;", "&") # Must be last
+    return s
 
 # vim:ts=4:sw=4:et

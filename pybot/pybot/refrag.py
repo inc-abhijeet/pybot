@@ -75,8 +75,8 @@ interval = Interval()
 class Target(Fragment):
     def __init__(self):
         Fragment.__init__(self)
-        self._expr = r"(?:\s+(?:to|for|on|at|in)\s+(?:(?P<_thischannel>this\s+channel)|(?P<_me>me)|(?:user|channel)\s+(?P<_target>\S+))(?:\s+(?:for|on|at|in)\s+(?:(?P<_thisserver>this\s+server)|server\s+(?P<_server>\S+)))?)"
-        self._expr_onlyserverallowed = r"((?:\s+(?:to|for|on|at|in)\s+(?:(?P<_thischannel>this\s+channel)|(?P<_me>me)|(?:user|channel)\s+(?P<_target>\S+)))?(?:\s+(?:for|on|at|in)\s+(?:(?P<_thisserver>this\s+server)|server\s+(?P<_server>\S+)))?)"
+        self._expr = r"(?:\s+(?:to|for|on|at|in)?\s+(?:(?P<_thischannel>this\s+channel)|(?P<_me>me)|(?:user|channel)\s+(?P<_target>\S+))(?:\s+(?:for|on|at|in|of)?\s+(?:(?P<_thisserver>this\s+server)|server\s+(?P<_server>\S+)))?)"
+        self._expr_onlyserverallowed = r"((?:\s+(?:to|for|on|at|in)?\s+(?:(?P<_thischannel>this\s+channel)|(?P<_me>me)|(?:user|channel)\s+(?P<_target>\S+)))?(?:\s+(?:for|on|at|in|of)?\s+(?:(?P<_thisserver>this\s+server)|server\s+(?P<_server>\S+)))?)"
 
     def expr(self, optional=0, onlyserverallowed=0):
         if onlyserverallowed:

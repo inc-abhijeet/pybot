@@ -28,23 +28,6 @@ class Command:
 
     def setline(self, server=None, line=None):
         self.server = server
-        ## Maintaining temporarly for compatibility with old modules
-        tokens = split(line)
-        if len(tokens) == 0:
-            return
-        if tokens[0][0] == ":":
-            if len(tokens) == 1:
-                return
-            self.prefix = tokens[0][1:]
-            self.cmd = tokens[1]
-            self.params = tokens[2:]
-        else:
-            self.prefix = ""
-            self.cmd = tokens[0]
-            self.params = tokens[1:]
-        self.line = line
-        self._internalset()
-        ##
         m = self.re.match(line)
         if m:
             nick = self.server.user.nick
@@ -96,47 +79,6 @@ class Command:
             self._index = 2
             self.answered = 0
         
-    def _internalset(self):
-        self.user.setstring(self.prefix)
-        if self.params:
-            self.target = self.params[0]
-            nick = self.server.user.nick
-            if len(self.params) > 1:
-                self.msg = [self.params[1][1:]] + self.params[2:]
-                self.rawmsg = self.msg[:]
-                punct = ""
-                while self.msg and self.msg[-1] and self.msg[-1][-1] in [".","!","?"]:
-                    punct = self.msg[-1][-1] + punct
-                    self.msg[-1] = self.msg[-1][:-1]
-                    if not self.msg[-1]:
-                        del self.msg[-1]
-                if punct:
-                    self.msg.append(punct)
-                if re.compile("\W*%s\W*$"%nick).match(self.msg[0]):
-                    del self.msg[0]
-                    self.forme = 1
-                else:
-                    self.forme = 0
-            else:
-                self.msg = []
-                self.rawmsg = []
-                self.forme = 0
-            if self.target == nick:
-                self.forme = 1
-                self.direct = 1
-                self.answertarget = self.user.nick
-            else:
-                self.direct = 0
-                self.answertarget = self.target
-        else:
-            self.target = ""
-            self.answertarget = ""
-            self.msg = []
-            self.rawmsg = []
-            self.forme = 0
-            self.direct = 0
-            self.answered = 0
-
     def answer(self, *params, **kw):
         self.server.sendmsg(self.answertarget, self.user.nick, *params, **kw)
         self.answered = 1

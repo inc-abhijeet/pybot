@@ -2,6 +2,8 @@
         * modules/servercontrol.py: Implemented arbitrary setup of
 	  after-connection messages, allowing nick registration on
 	  nickserv and similars.
+	* pybot/command.py: Removed compatibility code from Command
+	  class.
 
 2003-08-21 Gustavo Niemeyer <niemeyer@conectiva.com>
         * modules/servercontrol.py: Allow setting the bot nick when

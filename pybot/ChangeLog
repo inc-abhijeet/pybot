@@ -1,11 +1,15 @@
 2003-08-27 Gustavo Niemeyer <niemeyer@conectiva.com>
-	* modules/permissions.py: Implemented permission
-	  parameters.
-	* modules/{remoteinfo.py,infopack.py}: Adapted to
-	  work with premission parameters.
+	* modules/permissions.py: Implemented permission parameters.
+	* modules/{remoteinfo.py,infopack.py}: Adapted to work with
+	  premission parameters.
 	* modules/infopack.py: Implemented infopack searching.
-	* data/infopacks/rfc.info,contrib/rfcindex2info.py:
-	  Created infopack with an RFC index.
+	* data/infopacks/rfc.info,contrib/rfcindex2info.py: Created
+	  infopack with an RFC index.
+	* data/infopacks/weather.info,contrib/icao2info.py: Created
+	  infopack with weather station codes.
+	* pybot/modules/weather.py: Implemented module using the
+	  pymetar.py module for consulting NOAA weather information
+	  from any station available there.
 
 2003-08-26 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* pybot/misc.py: Introduced striphtml().

@@ -182,7 +182,9 @@ class LogModule:
                                        ["allowed to know when was the "
                                         "last time I saw somebody",
                                         "that good", "allowed to do this"]),
-                                      "No", "Nope"], [".", "!"])
+                                     [".", "!"])
+                return 0
+
             m = self.re2.match(msg.line)
             if m:
                 if mm.hasperm(msg, "log"):

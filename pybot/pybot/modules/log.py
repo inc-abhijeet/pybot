@@ -107,7 +107,7 @@ class Log:
         l = []
         cursor = db.cursor()
         cursor.execute("select * from log where src != '' and dest != '' "
-                       "order by timestamp desc")
+                       "order by timestamp")
         row = cursor.fetchone()
         while row:
             if p.search(row.line):

@@ -1,0 +1,141 @@
+2001-11-01 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pybot was completely reestructured.
+
+2001-06-12 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pybot.py: Now breaking long lines. Other minor changes.
+	* modulecontrol.py: Removing module entry, even if the unload fails.
+
+2001-05-22 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/uptime.py: New module.
+
+2001-05-16 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* Implemented ModuleMethods. This is a class to handle plugable
+	  methods. Every module is now using it instead of assigning
+	  methods to the Pybot class.
+	* modules/{freshmeat,appwatch,messages,notes,userdata}.py:
+	  New modules.
+	* modules/timer.py: Changed delay system to use time.time() instead
+	  of decreasing the time to 0.
+	* modules/ignore.py: Fixed dontignore().
+	* modules/options.py: Fixed setting of empty ([] and {}) options.
+	* modules/social.py: A few new socializations.
+
+2001-05-15 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pybot.py:
+	  - Now using a re to check if a message is directed to the bot.
+	  - Implemented msg.answertarget.
+
+2001-04-29 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/*: Changed modules to use setdefault() when getting
+	  options from option hash.
+	* modules/*: Removed '_' prefix from data members of modules,
+	  since the module will never be called from outside explicitly.
+	* modules/{userdata,plock,messages}.py: Implemented new modules.
+
+2001-04-28 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/ctcp.py: Fixed rawmsg handling.
+	* modules/forward.py: Fixed miscelaneous bugs.
+	* modules/options.py: Fixed bug when setting a new option.
+	* modules/ping.py: Increased pong message priority.
+	* modules/servercontrol.py: Increased priority of server admin
+	  messages.
+	* modules/social.py: Avoid send hello messages for the same user
+	  twice in a short time.
+	* modules/timer.py: Implemented threaded timers.
+
+2001-04-25 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pybot.py: Implemented message priorities, timing, and
+	  threaded hooks.
+
+2001-01-21 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* Implemented hook for unhandled messages and some handling in
+	  social module.
+	* modules/timer.py, modules/repeat.py:  Changed timer system.
+	* basicsetup.py: Implemented basic basicsetup.py script.
+
+2001-01-18 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pybot.py: Implemented the Loop callback, called once for each
+	  loop, and increased the loop sleep time to 1 second.
+	* modules/timer.py: Implemented timer module.
+	* modules/repeat.py: Implemented repeated repeating. :-)
+
+2001-01-17 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/servercontrol.py: Added "reason" parameter to hook
+	  UserParted.
+	* pybot.py:
+	  - Now reloadmodule() just calls unloadmodule() and then
+	    loadmodule().
+	  - Renamed _answerwithcmd() to answer().
+	  - Implemented answernot() to answer with NOTICE command, and
+	    changed answermsg() behavior to answer with PRIVMSG command,
+	    no matter what command it was.
+	  - Message._internalset() was crashing when the received/sent
+	    command had less then 2 parameters.
+	  - There was a remaining reference for unloaded modules.
+	  - Now printing debug information when unloading fails.
+	  - callhook() must cross the hook list with a copy of it because
+	    new hooks may be added while traversing the hook list.
+	  - Implemented Message.rawmsg 
+	* modules/forward.py: Implemented NOTICE, JOIN, and PART forwarding.
+	* modules/repeat.py: Now repeating with /me (CTCP ACTION command)
+	  and /notice (NOTICE command).
+	* modules/ctcp.py:
+	  - Renamed bot__answerwithcmdctcp() to bot_answerctcp().
+	  - Implemented bot_answermsgctcp(), bot_answernotctcp().
+	  - Changed bot_sendctcp() to accept a parameter telling the command
+	    to be sent and removed replyctcp, since it's not needed anymore.
+	  - Implemented sending and replying of CTCP messages.
+	  - Implemented forwarding of CTCP ACTION messages.
+	  - Implemented module for basic CTCP handling.
+	* modules/ignore.py: Ported module to the new module loading system.
+
+2001-01-15 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/randnum.py: Implemented module to provide random numbers.
+	* modules/modulecontrol.py: Fixed little problem with new dynamic
+	  loading system.
+	* pybot.py: Now printing traceback information on exceptions loading
+	  modules.
+	* modules/modulecontrol.py, pybot.py, start.py: Now module
+	  loading/unloading is saved between sections.
+
+2001-01-14 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* start.py, pybot.py, modules/*:
+	  - Implemented priorities for hooks.
+	  - Changed module loading system.
+	  - Implemented dinamically loading and unloading of modules.
+
+2001-01-12 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/ignore.py,start.py: Implemented basic ignore.py module.
+	* modules/forward.py:
+	  - Added "don't forward ..." and "what are you forwarding".
+	  - Minor changes.
+	* modules/permission.py: Replaced the second msg.match if by elif,
+	  as expected.
+	* TODO: Added TODO file.
+	* pybot.py: - Now hooks are blockable returning -1.
+	  - Removed debugging information.
+	  - Now pybot works with Python 2.0.
+
+2001-01-10 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/*: Updated matching system. Now it's a lot faster.
+
+2001-01-09 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/social.py, modules/forward.py, pybot.py, start.py:
+	Started implementing forward module.
+
+2001-01-08 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pybot.py, start.py, modules/*:
+	Implemented social.py and repeat.py modules.
+
+2001-01-07 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pybot.py, start.py, modules/*: Implemented wildcard matching for
+	  permission system.
+
+2001-01-06 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/servercontrol.py, pybot.py:
+	  - Implemented punctuation handling.
+	  - Implemented matching many words.
+
+2001-01-04 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* First version in CVS.
+

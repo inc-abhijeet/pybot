@@ -1,0 +1,5181 @@
+# Infopack of port numbers for pybot.
+#
+# This file has been generated using infobot's database. You may find more
+# information about infobot at http://www.infobot.org.
+#
+T:what(?:'s|\s+is)\s+(?:the\s+)?port\s+(?:number\s+)?([0-9]+)(?:\s+for)\s*(?:!*\?[!?]*)?$
+T:port\s+(\d+)[!?.]*$
+M:This port is for %s.
+D:t:I haven't found anything about this port.
+D:t:I don't know what this port is for.
+K:0
+V:t:This is a reserved port.
+K:1
+V:tm:tcpmux - TCP Port Service Multiplexer 
+K:2
+V:tm:compressnet - Management Utility 
+K:3
+V:tm:compressnet - Compression Process 
+K:5
+V:tm:rje - Remote Job Entry 
+K:7
+V:tm:echo - Echo 
+K:9
+V:tm:discard - Discard 
+K:11
+V:tm:systat - Active Users 
+K:13
+V:tm:daytime - Daytime (RFC 867) 
+K:15
+V:tm:netstat - Was Netstat 
+K:17
+V:tm:qotd - Quote of the Day 
+K:18
+V:tm:msp - Message Send Protocol 
+K:19
+V:tm:chargen - Character Generator 
+K:20
+V:tm:ftp-data - File Transfer [Default Data] 
+K:21
+V:tm:ftp - File Transfer [Control] 
+K:22
+V:tm:ssh - SSH Remote Login Protocol 
+K:23
+V:tm:telnet - Telnet 
+K:24
+V:tm:- any private mail system 
+K:25
+V:tm:smtp - Simple Mail Transfer 
+K:27
+V:tm:nsw-fe - NSW User System FE 
+K:29
+V:tm:msg-icp - MSG ICP 
+K:31
+V:tm:msg-auth - MSG Authentication 
+K:33
+V:tm:dsp - Display Support Protocol 
+K:35
+V:tm:any private printer server 
+K:37
+V:tm:time - Time 
+K:38
+V:tm:rap - Route Access Protocol 
+K:39
+V:tm:rlp - Resource Location Protocol 
+K:41
+V:tm:graphics - Graphics 
+K:42
+V:tm:name - Host Name Server 
+K:42
+V:tm:nameserver - Host Name Server 
+K:43
+V:tm:nicname - Who Is 
+K:44
+V:tm:mpm-flags - MPM FLAGS Protocol 
+K:45
+V:tm:mpm - Message Processing Module [recv] 
+K:46
+V:tm:mpm-snd - MPM [default send] 
+K:47
+V:tm:ni-ftp - NI FTP 
+K:48
+V:tm:auditd - Digital Audit Daemon 
+K:49
+V:tm:tacacs - Login Host Protocol (TACACS) 
+K:50
+V:tm:re-mail-ck - Remote Mail Checking Protocol 
+K:51
+V:tm:la-maint - IMP Logical Address Maintenance 
+K:52
+V:tm:xns-time - XNS Time Protocol 
+K:53
+V:tm:domain - Domain Name Server 
+K:54
+V:tm:xns-ch - XNS Clearinghouse 
+K:55
+V:tm:isi-gl - ISI Graphics Language 
+K:56
+V:tm:xns-auth - XNS Authentication 
+K:57
+V:tm:any private terminal access 
+K:58
+V:tm:xns-mail - XNS Mail 
+K:59
+V:tm:any private file service 
+K:61
+V:tm:ni-mail - NI MAIL 
+K:62
+V:tm:acas - ACA Services 
+K:63
+V:tm:whois++ 
+K:64
+V:tm:covia - Communications Integrator (CI) 
+K:65
+V:tm:tacacs-ds - TACACS-Database Service 
+K:66
+V:tm:sql*net - Oracle SQL*NET 
+K:67
+V:tm:bootps - Bootstrap Protocol Server 
+K:68
+V:tm:bootpc - Bootstrap Protocol Client 
+K:69
+V:tm:tftp - Trivial File Transfer 
+K:70
+V:tm:gopher - Gopher 
+K:71
+V:tm:netrjs-1 - Remote Job Service 
+K:72
+V:tm:netrjs-2 - Remote Job Service 
+K:73
+V:tm:netrjs-3 - Remote Job Service 
+K:74
+V:tm:netrjs-4 - Remote Job Service 
+K:75
+V:tm:any private dial out service 
+K:76
+V:tm:deos - Distributed External Object Store 
+K:77
+V:tm:any private RJE service 
+K:78
+V:tm:vettcp 
+K:79
+V:tm:finger - Finger 
+K:80
+V:tm:http - World Wide Web HTTP 
+K:80
+V:tm:www - World Wide Web HTTP 
+K:80
+V:tm:www-http - World Wide Web HTTP 
+K:81
+V:tm:hosts2-ns - HOSTS2 Name Server 
+K:82
+V:tm:xfer - XFER Utility 
+K:83
+V:tm:mit-ml-dev - MIT ML Device 
+K:84
+V:tm:ctf - Common Trace Facility 
+K:85
+V:tm:mit-ml-dev - MIT ML Device 
+K:86
+V:tm:mfcobol - Micro Focus Cobol 
+K:87
+V:tm:any private terminal link 
+K:88
+V:tm:kerberos - Kerberos 
+K:89
+V:tm:su-mit-tg - SU/MIT Telnet Gateway 
+K:90
+V:tm:dnsix - DNSIX Securit Attribute Token Map (or Pointcast (UNOFFICIALLY)) 
+K:91
+V:tm:mit-dov - MIT Dover Spooler 
+K:92
+V:tm:npp - Network Printing Protocol 
+K:93
+V:tm:dcp - Device Control Protocol 
+K:94
+V:tm:objcall - Tivoli Object Dispatcher 
+K:95
+V:tm:supdup - SUPDUP 
+K:96
+V:tm:dixie - DIXIE Protocol Specification 
+K:97
+V:tm:swift-rvf - Swift Remote Virtural File Protocol 
+K:98
+V:tm:tacnews - TAC News 
+K:99
+V:tm:metagram - Metagram Relay 
+K:100
+V:tm:newacct - [unauthorized use] 
+K:101
+V:tm:hostname - NIC Host Name Server 
+K:102
+V:tm:iso-tsap - ISO-TSAP Class 0 
+K:103
+V:tm:gppitnp - Genesis Point-to-Point Trans Net 
+K:104
+V:tm:acr-nema - ACR-NEMA Digital Imag. & Comm. 300 
+K:105
+V:tm:cso - CCSO name server protocol 
+K:105
+V:tm:csnet-ns - Mailbox Name Nameserver 
+K:106
+V:tm:3com-tsmux - 3COM-TSMUX 
+K:107
+V:tm:rtelnet - Remote Telnet Service 
+K:108
+V:tm:snagas - SNA Gateway Access Server 
+K:109
+V:tm:pop2 - Post Office Protocol - Version 2 
+K:110
+V:tm:pop3 - Post Office Protocol - Version 3 
+K:111
+V:tm:sunrpc - SUN Remote Procedure Call 
+K:112
+V:tm:mcidas - McIDAS Data Transmission Protocol 
+K:113
+V:tm:ident - 113/tcp => auth - Authentication Service 
+K:114
+V:tm:audionews - Audio News Multicast 
+K:115
+V:tm:sftp - Simple File Transfer Protocol 
+K:116
+V:tm:ansanotify - ANSA REX Notify 
+K:117
+V:tm:uucp-path - UUCP Path Service 
+K:118
+V:tm:sqlserv - SQL Services 
+K:119
+V:tm:nntp - Network News Transfer Protocol 
+K:120
+V:tm:cfdptkt - CFDPTKT 
+K:121
+V:tm:erpc - Encore Expedited Remote Pro.Call 
+K:122
+V:tm:smakynet - SMAKYNET 
+K:123
+V:tm:ntp - Network Time Protocol 
+K:124
+V:tm:ansatrader - ANSA REX Trader 
+K:125
+V:tm:locus-map - Locus PC-Interface Net Map Ser 
+K:126
+V:tm:nxedit - NXEdit (previously assigned to unitary - Unisys Unitary Login) 
+K:127
+V:tm:locus-con - Locus PC-Interface Conn Server 
+K:128
+V:tm:gss-xlicen - GSS X License Verification 
+K:129
+V:tm:pwdgen - Password Generator Protocol 
+K:130
+V:tm:cisco-fna - cisco FNATIVE 
+K:131
+V:tm:cisco-tna - cisco TNATIVE 
+K:132
+V:tm:cisco-sys - cisco SYSMAINT 
+K:133
+V:tm:statsrv - Statistics Service 
+K:134
+V:tm:ingres-net - INGRES-NET Service 
+K:135
+V:tm:epmap - DCE endpoint resolution 
+K:136
+V:tm:profile - PROFILE Naming System 
+K:137
+V:tm:netbios-ns - NETBIOS Name Service 
+K:138
+V:tm:netbios-dgm - NETBIOS Datagram Service 
+K:139
+V:tm:netbios-ssn - NETBIOS Session Service 
+K:140
+V:tm:emfis-data - EMFIS Data Service 
+K:141
+V:tm:emfis-cntl - EMFIS Control Service 
+K:142
+V:tm:bl-idm - Britton-Lee IDM 
+K:143
+V:tm:imap - Internet Message Access Protocol 
+K:144
+V:tm:uma - Universal Management Architecture 
+K:145
+V:tm:uaac - UAAC Protocol 
+K:146
+V:tm:iso-tp0 - ISO-IP0 
+K:147
+V:tm:iso-ip - ISO-IP 
+K:148
+V:tm:jargon - Jargon 
+K:149
+V:tm:aed-512 - AED 512 Emulation Service 
+K:150
+V:tm:sql-net - SQL-NET 
+K:151
+V:tm:hems - HEMS  
+K:152
+V:tm:bftp - Background File Transfer Program  
+K:153
+V:tm:sgmp - SGMP 
+K:154
+V:tm:netsc-prod - NETSC 
+K:155
+V:tm:netsc-dev - NETSC 
+K:156
+V:tm:sqlsrv - SQL Service  
+K:157
+V:tm:knet-cmp - KNET/VM Command/Message Protocol 
+K:158
+V:tm:pcmail-srv - PCMail Server 
+K:159
+V:tm:nss-routing - NSS-Routing  
+K:160
+V:tm:sgmp-traps - SGMP-TRAPS 
+K:161
+V:tm:snmp - SNMP 
+K:162
+V:tm:snmptrap - SNMPTRAP 
+K:163
+V:tm:cmip-man - CMIP/TCP Manager  
+K:164
+V:tm:cmip-agent - CMIP/TCP Agent  
+K:165
+V:tm:xns-courier - Xerox 
+K:166
+V:tm:s-net - Sirius Systems 
+K:167
+V:tm:namp - NAMP 
+K:168
+V:tm:rsvd - RSVD  
+K:169
+V:tm:send - SEND  
+K:170
+V:tm:print-srv - Network PostScript 
+K:171
+V:tm:multiplex - Network Innovations Multiplex 
+K:172
+V:tm:cl/1 - Network Innovations CL/1  
+K:173
+V:tm:xyplex-mux - Xyplex 
+K:174
+V:tm:mailq - MAILQ 
+K:175
+V:tm:vmnet - VMNET 
+K:176
+V:tm:genrad-mux - GENRAD-MUX 
+K:177
+V:tm:xdmcp - X Display Manager Control Protocol 
+K:178
+V:tm:nextstep - NextStep Window Server  
+K:179
+V:tm:bgp - Border Gateway Protocol 
+K:180
+V:tm:ris - Intergraph 
+K:181
+V:tm:unify - Unify  
+K:182
+V:tm:audit - Unisys Audit SITP  
+K:183
+V:tm:ocbinder - OCBinder  
+K:184
+V:tm:ocserver - OCServer  
+K:185
+V:tm:remote-kis - Remote-KIS  
+K:186
+V:tm:kis - KIS Protocol 
+K:187
+V:tm:aci - Application Communication Interface 
+K:188
+V:tm:mumps - Plus Five's MUMPS  
+K:189
+V:tm:qft - Queued File Transport 
+K:190
+V:tm:gacp - Gateway Access Control Protocol 
+K:191
+V:tm:prospero - Prospero Directory Service 
+K:192
+V:tm:osu-nms - OSU Network Monitoring System  
+K:193
+V:tm:srmp - Spider Remote Monitoring Protocol  
+K:194
+V:tm:irc - Internet Relay Chat Protocol 
+K:195
+V:tm:dn6-nlm-aud - DNSIX Network Level Module Audit 
+K:196
+V:tm:dn6-smm-red - DNSIX Session Mgt Module Audit Redir 
+K:197
+V:tm:dls - Directory Location Service 
+K:198
+V:tm:dls-mon - Directory Location Service Monitor 
+K:199
+V:tm:smux - SMUX 
+K:200
+V:tm:src - IBM System Resource Controller 
+K:201
+V:tm:at-rtmp - AppleTalk Routing Maintenance  
+K:202
+V:tm:at-nbp - AppleTalk Name Binding 
+K:203
+V:tm:at-3 - AppleTalk Unused 
+K:204
+V:tm:at-echo - AppleTalk Echo 
+K:205
+V:tm:at-5 - AppleTalk Unused 
+K:206
+V:tm:at-zis - AppleTalk Zone Information 
+K:207
+V:tm:at-7 - AppleTalk Unused 
+K:208
+V:tm:at-8 - AppleTalk Unused 
+K:209
+V:tm:qmtp - The Quick Mail Transfer Protocol 
+K:210
+V:tm:z39.50 - ANSI Z39.50 
+K:211
+V:tm:914c/g - Texas Instruments 914C/G Terminal 
+K:212
+V:tm:anet - ATEXSSTR  
+K:213
+V:tm:ipx - IPX 	  
+K:214
+V:tm:vmpwscs - VM PWSCS 
+K:215
+V:tm:softpc - Insignia Solutions 
+K:216
+V:tm:CAIlic - Computer Associates Int'l License Server 
+K:217
+V:tm:dbase - dBASE Unix 
+K:218
+V:tm:mpp - Netix Message Posting Protocol 
+K:219
+V:tm:uarps - Unisys ARPs  
+K:220
+V:tm:imap3 - Interactive Mail Access Protocol v3 
+K:221
+V:tm:fln-spx - Berkeley rlogind with SPX auth  
+K:222
+V:tm:rsh-spx - Berkeley rshd with SPX auth (possible conflict with Masqdialer) 
+K:223
+V:tm:cdc - Certificate Distribution Center 
+K:224
+V:tm:masqdialer 
+K:225
+K:226
+K:227
+K:228
+K:229
+K:230
+K:231
+K:232
+K:233
+K:234
+K:235
+K:236
+K:237
+K:238
+K:239
+K:240
+K:241
+V:tm:This is a reserved port. 
+K:242
+V:tm:direct - Direct 
+K:243
+V:tm:sur-meas - Survey Measurement 
+K:244
+V:tm:dayna - Dayna 
+K:245
+V:tm:link - LINK 
+K:246
+V:tm:dsp3270 - Display Systems Protocol 
+K:247
+V:tm:subntbcst_tftp - SUBNTBCST_TFTP 
+K:248
+V:tm:bhfhs 
+K:249
+K:250
+K:251
+K:252
+K:253
+K:254
+K:255
+V:tm:This is a reserved port. 
+K:256
+V:tm:rap - RAP 
+K:257
+V:tm:set - Secure Electronic Transaction 
+K:258
+V:tm:yak-chat - Yak Winsock Personal Chat 
+K:259
+V:tm:esro-gen - Efficient Short Remote Operations 
+K:260
+V:tm:openport - Openport 
+K:261
+V:tm:nsiiops - IIOP Name Service over TLS/SSL 
+K:262
+V:tm:arcisdms - Arcisdms 
+K:263
+V:tm:hdap - HDAP 
+K:264
+V:tm:bgmp - BGMP 
+K:280
+V:tm:http-mgmt 
+K:281
+V:tm:personal-link - Personal Link 
+K:282
+V:tm:cableport-ax - Cable Port A/X 
+K:283
+V:tm:rescap 
+K:308
+V:tm:novastorbakcup - Novastor Backup 
+K:309
+V:tm:entrusttime - EntrustTime 
+K:310
+V:tm:bhmds 
+K:311
+V:tm:asip-webadmin - AppleShare IP WebAdmin 
+K:312
+V:tm:vslmp - VSLMP 
+K:313
+V:tm:magenta-logic - Magenta Logic 
+K:314
+V:tm:opalis-robot - Opalis Robot 
+K:315
+V:tm:dpsi - DPSI 
+K:316
+V:tm:decauth - decAuth 
+K:317
+V:tm:zannet - Zannet 
+K:318
+V:tm:pkix-timestamp - PKIX TimeStamp 
+K:319
+V:tm:ptp-event - PTP Event 
+K:320
+V:tm:ptp-general - PTP General 
+K:321
+V:tm:pip - PIP 
+K:322
+V:tm:rtsps - RTSPS 
+K:344
+V:tm:pdap - Prospero Data Access Protocol 
+K:345
+V:tm:pawserv - Perf Analysis Workbench 
+K:346
+V:tm:zserv - Zebra server 
+K:347
+V:tm:fatserv - Fatmen Server 
+K:348
+V:tm:csi-sgwp - Cabletron Management Protocol 
+K:349
+V:tm:mftp 
+K:350
+V:tm:matip-type-a - MATIP Type A 
+K:351
+V:tm:matip-type-b - MATIP Type B 
+K:351
+V:tm:bhoetty 
+K:352
+V:tm:dtag-ste-sb - DTAG 
+K:352
+V:tm:bhoedap4  
+K:353
+V:tm:ndsauth - NDSAUTH 
+K:354
+V:tm:bh611 
+K:355
+V:tm:datex-asn - DATEX-ASN 
+K:356
+V:tm:cloanto-net-1 - Cloanto Net 1 
+K:357
+V:tm:bhevent 
+K:358
+V:tm:shrinkwrap - Shrinkwrap 
+K:359
+V:tm:tenebris_nts - Tenebris Network Trace Service 
+K:360
+V:tm:scoi2odialog 
+K:361
+V:tm:semantix - Semantix 
+K:362
+V:tm:srssend - SRS Send 
+K:363
+V:tm:rsvp_tunnel - RSVP Tunnel 
+K:364
+V:tm:aurora-cmgr - Aurora CMGR 
+K:365
+V:tm:dtk - DTK 
+K:366
+V:tm:odmr - ODMR 
+K:367
+V:tm:mortgageware - MortgageWare 
+K:368
+V:tm:qbikgdp - QbikGDP 
+K:369
+V:tm:rpc2portmap  
+K:370
+V:tm:codaauth2 
+K:371
+V:tm:clearcase - Clearcase 
+K:372
+V:tm:ulistproc - ListProcessor 
+K:373
+V:tm:legent-1 - Legent Corporation 
+K:374
+V:tm:legent-2 - Legent Corporation 
+K:375
+V:tm:hassle - Hassle 
+K:376
+V:tm:nip - Amiga Envoy Network Inquiry Proto  
+K:377
+V:tm:tnETOS - NEC Corporation 
+K:378
+V:tm:dsETOS - NEC Corporation 
+K:379
+V:tm:is99c - TIA/EIA/IS-99 modem client 
+K:380
+V:tm:is99s - TIA/EIA/IS-99 modem server 
+K:381
+V:tm:hp-collector - hp performance data collector 
+K:382
+V:tm:hp-managed-node - hp performance data managed node 
+K:383
+V:tm:hp-alarm-mgr - hp performance data alarm manager 
+K:384
+V:tm:arns - A Remote Network Server System 
+K:385
+V:tm:ibm-app - IBM Application 
+K:386
+V:tm:asa - ASA Message Router Object Def. 
+K:387
+V:tm:aurp - Appletalk Update-Based Routing Pro. 
+K:388
+V:tm:unidata-ldm - Unidata LDM Version 4 
+K:389
+V:tm:ldap - Lightweight Directory Access Protocol 
+K:390
+V:tm:uis - UIS 
+K:391
+V:tm:synotics-relay - SynOptics SNMP Relay Port 
+K:392
+V:tm:synotics-broker - SynOptics Port Broker Port 
+K:393
+V:tm:dis - Data Interpretation System 
+K:394
+V:tm:embl-ndt - EMBL Nucleic Data Transfer 
+K:395
+V:tm:netcp - NETscout Control Protocol 
+K:396
+V:tm:netware-ip - Novell Netware over IP 
+K:397
+V:tm:mptn - Multi Protocol Trans. Net. 
+K:398
+V:tm:kryptolan - Kryptolan 
+K:399
+V:tm:iso-tsap-c2 - ISO Transport Class 2 Non-Control over TCP 
+K:400
+V:tm:work-sol - Workstation Solutions 
+K:401
+V:tm:ups - Uninterruptible Power Supply 
+K:402
+V:tm:genie - Genie Protocol 
+K:403
+V:tm:decap 
+K:404
+V:tm:nced 
+K:405
+V:tm:ncld 
+K:406
+V:tm:imsp - Interactive Mail Support Protocol 
+K:407
+V:tm:timbuktu - Timbuktu 
+K:408
+V:tm:prm-sm - Prospero Resource Manager Sys. Man. 
+K:409
+V:tm:prm-nm - Prospero Resource Manager Node Man. 
+K:410
+V:tm:decladebug - DECLadebug Remote Debug Protocol 
+K:411
+V:tm:rmt - Remote MT Protocol 
+K:412
+V:tm:synoptics-trap - Trap Convention Port 
+K:413
+V:tm:smsp - SMSP 
+K:414
+V:tm:infoseek - InfoSeek 
+K:415
+V:tm:bnet - BNet 
+K:416
+V:tm:silverplatter - Silverplatter 
+K:417
+V:tm:onmux - Onmux 
+K:418
+V:tm:hyper-g - Hyper-G 
+K:419
+V:tm:ariel1 - Ariel 
+K:420
+V:tm:smpte - SMPTE 
+K:421
+V:tm:ariel2 - Ariel 
+K:422
+V:tm:ariel3 - Ariel 
+K:423
+V:tm:opc-job-start - IBM Operations Planning and Control Start 
+K:424
+V:tm:opc-job-track - IBM Operations Planning and Control Track 
+K:425
+V:tm:icad-el - ICAD 
+K:426
+V:tm:smartsdp 
+K:427
+V:tm:svrloc - Server Location 
+K:428
+V:tm:ocs_cmu - OCS_CMU 
+K:429
+V:tm:ocs_amu - OCS_AMU 
+K:430
+V:tm:utmpsd - UTMPSD 
+K:431
+V:tm:utmpcd - UTMPCD 
+K:432
+V:tm:iasd - IASD 
+K:433
+V:tm:nnsp - NNSP 
+K:434
+V:tm:mobileip-agent - MobileIP-Agent 
+K:435
+V:tm:mobilip-mn - MobilIP-MN 
+K:436
+V:tm:dna-cml - DNA-CML  
+K:437
+V:tm:comscm 
+K:438
+V:tm:dsfgw 
+K:439
+V:tm:dasp 
+K:440
+V:tm:sgcp 
+K:441
+V:tm:decvms-sysmgt 
+K:442
+V:tm:cvc_hostd 
+K:443
+V:tm:https - http protocol over TLS/SSL 
+K:444
+V:tm:snpp - Simple Network Paging Protocol [RFC1568] 
+K:445
+V:tm:microsoft-ds - Microsoft-DS 
+K:446
+V:tm:ddm-rdb - DDM-RDB 
+K:447
+V:tm:ddm-dfm - DDM-RFM 
+K:448
+V:tm:ddm-ssl - DDM-SSL 
+K:449
+V:tm:as-servermap - AS Server Mapper 
+K:450
+V:tm:tserver - TServer 
+K:451
+V:tm:sfs-smp-net - Cray Network Semaphore server 
+K:452
+V:tm:sfs-config - Cray SFS config server 
+K:453
+V:tm:creativeserver - CreativeServer 
+K:454
+V:tm:contentserver - ContentServer 
+K:455
+V:tm:creativepartnr - CreativePartnr 
+K:456
+V:tm:macon-tcp 
+K:457
+V:tm:scohelp 
+K:458
+V:tm:appleqtc - apple quick time 
+K:459
+V:tm:ampr-rcmd 
+K:460
+V:tm:skronk 
+K:461
+V:tm:datasurfsrv - DataRampSrv 
+K:462
+V:tm:datasurfsrvsec - DataRampSrvSec 
+K:463
+V:tm:alpes 
+K:464
+V:tm:kpasswd 
+K:466
+V:tm:digital-vrc 
+K:467
+V:tm:mylex-mapd 
+K:468
+V:tm:photuris - proturis 
+K:469
+V:tm:rcp - Radio Control Protocol 
+K:470
+V:tm:scx-proxy 
+K:471
+V:tm:mondex - Mondex 
+K:472
+V:tm:ljk-login 
+K:473
+V:tm:hybrid-pop 
+K:474
+V:tm:tn-tl-w1 
+K:475
+V:tm:tcpnethaspsrv 
+K:476
+V:tm:tn-tl-fd1 
+K:477
+V:tm:ss7ns 
+K:478
+V:tm:spsc 
+K:479
+V:tm:iafserver 
+K:480
+V:tm:iafdbase 
+K:481
+V:tm:ph - Ph service 
+K:482
+V:tm:bgs-nsi 
+K:483
+V:tm:ulpnet 
+K:484
+V:tm:integra-sme - Integra Software Management Environment 
+K:485
+V:tm:powerburst - Air Soft Power Burst 
+K:486
+V:tm:avian 
+K:487
+V:tm:saft Simple Asynchronous File Transfer 
+K:488
+V:tm:gss-http 
+K:489
+V:tm:nest-protocol 
+K:490
+V:tm:micom-pfs 
+K:491
+V:tm:go-login 
+K:492
+V:tm:ticf-1 - Transport Independent Convergence for FNA 
+K:493
+V:tm:ticf-2 - Transport Independent Convergence for FNA 
+K:494
+V:tm:pov-ray - POV-Ray 
+K:495
+V:tm:intecourier 
+K:496
+V:tm:pim-rp-disc - PIM-RP-DISC 
+K:497
+V:tm:dantz 
+K:498
+V:tm:siam 
+K:499
+V:tm:iso-ill - ISO ILL Protocol 
+K:500
+V:tm:isakmp 
+K:501
+V:tm:stmf - STMF 
+K:502
+V:tm:asa-appl-proto 
+K:503
+V:tm:intrinsa - Intrinsa 
+K:504
+V:tm:citadel 
+K:505
+V:tm:mailbox-lm 
+K:506
+V:tm:ohimsrv 
+K:507
+V:tm:crs 
+K:508
+V:tm:xvttp 
+K:509
+V:tm:snare 
+K:510
+V:tm:fcp - FirstClass Protocol 
+K:511
+V:tm:passgo - PassGo 
+K:512
+V:tm:exec - remote process execution authentication performed using passwords and UNIX loppgin names 
+K:513
+V:tm:login - remote login a la telnet; automatic authentication performed based on priviledged port numbers and distributed data bases which identify "authentication domains" 
+K:514
+V:tm:shell - cmd like exec, but automatic authentication is performed as for login server 
+K:515
+V:tm:printer - spooler 
+K:516
+V:tm:videotex 
+K:517
+V:tm:talk - like tenex link, but across machine - unfortunately, doesn't use link protocol (this is actually just a rendezvous port from which a tcp connection is established) 
+K:518
+V:tm:ntalk 
+K:519
+V:tm:utime - unixtime 
+K:520
+V:tm:efs - extended file name server 
+K:521
+V:tm:ripng 
+K:522
+V:tm:ulp - ULP 
+K:523
+V:tm:ibm-db2 - IBM-DB2 
+K:524
+V:tm:ncp - NCP 
+K:525
+V:tm:timed - timeserver 
+K:526
+V:tm:tempo - newdate 
+K:527
+V:tm:stx - Stock IXChange 
+K:528
+V:tm:custix - Customer IXChange 
+K:529
+V:tm:irc-serv - IRC-SERV 
+K:530
+V:tm:courier - rpc 
+K:531
+V:tm:conference - chat 
+K:532
+V:tm:netnews - readnews 
+K:533
+V:tm:netwall - for emergency broadcasts 
+K:534
+V:tm:mm-admin - MegaMedia Admin 
+K:535
+V:tm:iiop 
+K:536
+V:tm:opalis-rdv 
+K:537
+V:tm:nmsp - Networked Media Streaming Protocol 
+K:538
+V:tm:gdomap 
+K:539
+V:tm:apertus-ldp - Apertus Technologies Load Determination 
+K:540
+V:tm:uucpd		 
+K:541
+V:tm:uucp-rlogin 
+K:542
+V:tm:commerce 
+K:543
+V:tm:klogin 
+K:544
+V:tm:kshell - krcmd 
+K:545
+V:tm:appleqtcsrvr 
+K:546
+V:tm:dhcpv6-client - DHCPv6 Client 
+K:547
+V:tm:dhcpv6-server - DHCPv6 Server 
+K:548
+V:tm:afpovertcp - AFP over TCP 
+K:549
+V:tm:idfp - IDFP 
+K:550
+V:tm:new-rwho - new-who 
+K:551
+V:tm:cybercash 
+K:552
+V:tm:deviceshare 
+K:553
+V:tm:pirp 
+K:554
+V:tm:rtsp - Real Time Stream Control Protocol 
+K:555
+V:tm:dsf (or Stealth Spy TROJAN) 
+K:556
+V:tm:remotefs - rfs server 
+K:557
+V:tm:openvms-sysipc 
+K:558
+V:tm:sdnskmp - SDNSKMP 
+K:559
+V:tm:teedtap - TEEDTAP 
+K:560
+V:tm:rmonitord 
+K:561
+V:tm:monitor 
+K:562
+V:tm:chshell - chcmd 
+K:563
+V:tm:nntps - nntp protocol over TLS/SSL (was snntp) 
+K:564
+V:tm:9pfs - plan 9 file service 
+K:565
+V:tm:whoami 
+K:566
+V:tm:streettalk 
+K:567
+V:tm:banyan-rpc 
+K:568
+V:tm:ms-shuttle - microsoft shuttle 
+K:569
+V:tm:ms-rome - microsoft rome 
+K:570
+V:tm:meter - demon 
+K:571
+V:tm:meter - udemon 
+K:572
+V:tm:sonar 
+K:573
+V:tm:banyan-vip 
+K:574
+V:tm:ftp-agent - FTP Software Agent System 
+K:575
+V:tm:vemmi - VEMMI 
+K:576
+V:tm:ipcd 
+K:577
+V:tm:vnas 
+K:578
+V:tm:ipdd 
+K:579
+V:tm:decbsrv 
+K:580
+V:tm:sntp-heartbeat - SNTP HEARTBEAT 
+K:581
+V:tm:bdp - Bundle Discovery Protocol 
+K:582
+V:tm:scc-security - SCC Security 
+K:583
+V:tm:philips-vc - Philips Video-Conferencing 
+K:584
+V:tm:keyserver - Key Server 
+K:585
+V:tm:imap4-ssl - IMAP4+SSL (use 993 instead) 
+K:586
+V:tm:password-chg - Password Change 
+K:587
+V:tm:submission - Submission 
+K:588
+V:tm:cal - CAL 
+K:589
+V:tm:eyelink - EyeLink 
+K:590
+V:tm:tns-cml - TNS CML 
+K:591
+V:tm:http-alt - FileMaker, Inc. - HTTP Alternate (see Port 80) 
+K:592
+V:tm:eudora-set - Eudora Set 
+K:593
+V:tm:http-rpc-epmap - HTTP RPC Ep Map 
+K:594
+V:tm:tpip - TPIP 
+K:595
+V:tm:cab-protocol - CAB Protocol 
+K:596
+V:tm:smsd - SMSD 
+K:597
+V:tm:ptcnameservice - PTC Name Service 
+K:598
+V:tm:sco-websrvrmg3 - SCO Web Server Manager 3 
+K:599
+V:tm:acp - Aeolon Core Protocol 
+K:600
+V:tm:ipcserver - Sun IPC server 
+K:606
+V:tm:urm - Cray Unified Resource Manager 
+K:607
+V:tm:nqs 
+K:608
+V:tm:sift-uft - Sender-Initiated/Unsolicited File Transfer  
+K:609
+V:tm:npmp-trap 
+K:610
+V:tm:npmp-local 
+K:611
+V:tm:npmp-gui 
+K:612
+V:tm:hmmp-ind - HMMP Indication 
+K:613
+V:tm:hmmp-op - HMMP Operation 
+K:614
+V:tm:sshell - SSLshell 
+K:615
+V:tm:sco-inetmgr - Internet Configuration Manager 
+K:616
+V:tm:sco-sysmgr - SCO System Administration Server 
+K:617
+V:tm:sco-dtmgr - SCO Desktop Administration Server 
+K:618
+V:tm:dei-icda - DEI-ICDA 
+K:619
+V:tm:digital-evm - Digital EVM 
+K:620
+V:tm:sco-websrvrmgr - SCO WebServer Manager 
+K:621
+V:tm:escp-ip - ESCP 
+K:622
+V:tm:collaborator - Collaborator 
+K:623
+V:tm:aux_bus_shunt - Aux Bus Shunt 
+K:624
+V:tm:cryptoadmin - Crypto Admin 
+K:625
+V:tm:dec_dlm - DEC DLM 
+K:626
+V:tm:asia - ASIA 
+K:627
+V:tm:passgo-tivoli - PassGo Tivoli 
+K:628
+V:tm:qmqp - QMQP 
+K:629
+V:tm:3com-amp3 - 3Com AMP3 
+K:630
+V:tm:rda - RDA 
+K:631
+V:tm:ipp - IPP (Internet Printing Protocol) 
+K:632
+V:tm:bmpp 
+K:633
+V:tm:servstat - Service Status update (Sterling Software) 
+K:634
+V:tm:ginad 
+K:635
+V:tm:rlzdbase - RLZ DBase 
+K:636
+V:tm:ldaps - ldap protocol over TLS/SSL (was sldap) 
+K:637
+V:tm:lanserver 
+K:638
+V:tm:mcns-sec 
+K:639
+V:tm:msdp - MSDP 
+K:640
+V:tm:entrust-sps 
+K:641
+V:tm:repcmd 
+K:642
+V:tm:esro-emsdp - ESRO-EMSDP V1.3 
+K:643
+V:tm:sanity - SANity 
+K:644
+V:tm:dwr 
+K:645
+V:tm:pssc - PSSC 
+K:646
+V:tm:ldp - LDP 
+K:647
+V:tm:dhcp-failover - DHCP Failover 
+K:648
+V:tm:rrp - Registry Registrar Protocol (RRP) 
+K:649
+V:tm:aminet - Aminet 
+K:650
+V:tm:obex - OBEX 
+K:651
+V:tm:ieee-mms - IEEE MMS 
+K:652
+V:tm:udlr-dtcp - UDLR_DTCP	 
+K:653
+V:tm:repscmd - RepCmd 
+K:654
+V:tm:aodv - AODV 
+K:655
+V:tm:tinc - TINC 
+K:656
+V:tm:spmp - SPMP 
+K:657
+V:tm:rmc - RMC 
+K:658
+V:tm:tenfold - TenFold 
+K:659
+V:tm:url-rendezvous - URL Rendezvous 
+K:660
+V:tm:mac-srvr-admin - MacOS Server Admin 
+K:661
+V:tm:hap - HAP 
+K:662
+V:tm:pftp - PFTP 
+K:663
+V:tm:purenoise - PureNoise 
+K:666
+V:tm:doom Id Software (or mdqs or FTP TROJAN) 
+K:667
+V:tm:disclose - campaign contribution disclosures - SDR Technologies 
+K:668
+V:tm:mecomm - MeComm 
+K:669
+V:tm:meregister - MeRegister 
+K:670
+V:tm:vacdsm-sws - VACDSM-SWS 
+K:671
+V:tm:vacdsm-app - VACDSM-APP 
+K:672
+V:tm:vpps-qua - VPPS-QUA 
+K:673
+V:tm:cimplex - CIMPLEX 
+K:674
+V:tm:acap - ACAP 
+K:675
+V:tm:dctp - DCTP 
+K:676
+V:tm:vpps-via - VPPS Via 
+K:677
+V:tm:vpp - Virtual Presence Protocol  
+K:678
+V:tm:ggf-ncp - GNU Gereration Foundation NCP 
+K:679
+V:tm:mrm - MRM 
+K:680
+V:tm:entrust-aaas  
+K:681
+V:tm:entrust-aams 
+K:682
+V:tm:xfr - XFR 
+K:683
+V:tm:corba-iiop - CORBA IIOP  
+K:684
+V:tm:corba-iiop-ssl - CORBA IIOP SSL 
+K:685
+V:tm:mdc-portmapper - MDC Port Mapper 
+K:686
+V:tm:hcp-wismar - Hardware Control Protocol Wismar 
+K:687
+V:tm:asipregistry 
+K:688
+V:tm:realm-rusd - REALM-RUSD 
+K:704
+V:tm:elcsd - errlog copy/server daemon 
+K:705
+V:tm:agentx - AgentX 
+K:707
+V:tm:borland-dsj - Borland DSJ 
+K:709
+V:tm:entrust-kmsh - Entrust Key Management Service Handler 
+K:710
+V:tm:entrust-ash - Entrust Administration Service Handler 
+K:711
+V:tm:cisco-tdp - Cisco TDP 
+K:729
+V:tm:netviewdm1 - IBM NetView DM/6000 Server/Client 
+K:730
+V:tm:netviewdm2 - IBM NetView DM/6000 send/tcp 
+K:731
+V:tm:netviewdm3 - IBM NetView DM/6000 receive/tcp 
+K:741
+V:tm:netgw - netGW 
+K:742
+V:tm:netrcs - Network based Rev. Cont. Sys. 
+K:744
+V:tm:flexlm - Flexible License Manager 
+K:747
+V:tm:fujitsu-dev - Fujitsu Device Control 
+K:748
+V:tm:ris-cm - Russell Info Sci Calendar Manager 
+K:749
+V:tm:kerberos-adm - kerberos administration 
+K:750
+V:tm:rfile 
+K:751
+V:tm:pump 
+K:752
+V:tm:qrh 
+K:753
+V:tm:rrh 
+K:754
+V:tm:tell - send 
+K:758
+V:tm:nlogin 
+K:759
+V:tm:con 
+K:760
+V:tm:ns 
+K:761
+V:tm:rxe 
+K:762
+V:tm:quotad 
+K:763
+V:tm:cycleserv 
+K:764
+V:tm:omserv 
+K:765
+V:tm:webster 
+K:767
+V:tm:phonebook - phone 
+K:769
+V:tm:vid 
+K:770
+V:tm:cadlock 
+K:771
+V:tm:rtip 
+K:772
+V:tm:cycleserv2 
+K:773
+V:tm:submit 
+K:774
+V:tm:rpasswd 
+K:775
+V:tm:entomb 
+K:776
+V:tm:wpages 
+K:777
+V:tm:multiling-http - Multiling HTTP 
+K:780
+V:tm:wpgs 
+K:786
+V:tm:concert - Concert 
+K:787
+V:tm:qsc - QSC 
+K:800
+V:tm:mdbs_daemon 
+K:801
+V:tm:device 
+K:810
+V:tm:fcp-udp - FCP 
+K:828
+V:tm:itm-mcell-s 
+K:829
+V:tm:pkix-3-ca-ra - PKIX-3 CA/RA 
+K:873
+V:tm:rsync 
+K:886
+V:tm:iclcnet-locate - ICL coNETion locate server 
+K:887
+V:tm:iclcnet_svinfo - ICL coNETion server info 
+K:888
+V:tm:accessbuilder - AccessBuilder (or cddbp - CD Database Protocol) 
+K:900
+V:tm:omginitialrefs - OMG Initial Refs 
+K:911
+V:tm:xact-backup 
+K:989
+V:tm:ftps-data - ftp protocol, data, over TLS/SSL 
+K:990
+V:tm:ftps - ftp protocol, control, over TLS/SSL 
+K:991
+V:tm:nas - Netnews Administration System 
+K:992
+V:tm:telnets - telnet protocol over TLS/SSL 
+K:993
+V:tm:imaps - imap4 protocol over TLS/SSL 
+K:994
+V:tm:ircs - irc protocol over TLS/SSL 
+K:995
+V:tm:pop3s - pop3 protocol over TLS/SSL (was spop3) 
+K:996
+V:tm:vsinet 
+K:997
+V:tm:maitrd 
+K:998
+V:tm:busboy 
+K:999
+V:tm:garcon 
+K:999
+V:tm:puprouter 
+K:1000
+V:tm:cadlock
+K:1008
+V:tm:This port is possibly used by Sun Solaris.
+K:1010
+V:tm:surf 
+K:1011
+K:1012
+K:1013
+K:1014
+K:1015
+K:1016
+K:1017
+K:1018
+K:1019
+K:1020
+K:1021
+K:1022
+K:1023
+K:1024
+V:tm:This is a reserved port.		 
+K:1025
+V:tm:blackjack - network blackjack 
+K:1027
+K:1029
+K:1032
+V:tm:icq - ICQ 
+K:1030
+V:tm:iad1 - BBN IAD 
+K:1031
+V:tm:iad2 - BBN IAD 
+K:1032
+V:tm:iad3 - BBN IAD 
+K:1047
+V:tm:neod1 - Sun's NEO Object Request Broker 
+K:1048
+V:tm:neod2 - Sun's NEO Object Request Broker 
+K:1058
+V:tm:nim 
+K:1059
+V:tm:nimreg 
+K:1067
+V:tm:instl_boots - Installation Bootstrap Proto. Serv.  
+K:1068
+V:tm:instl_bootc - Installation Bootstrap Proto. Cli. 
+K:1080
+V:tm:socks - Socks (or Wingate) 
+K:1083
+V:tm:ansoft-lm-1 - Anasoft License Manager 
+K:1084
+V:tm:ansoft-lm-2 - Anasoft License Manager 
+K:1085
+V:tm:webobjects - Web Objects 
+K:1097
+V:tm:sunclustermgr - Sun Cluster Manager 
+K:1098
+V:tm:rmiactivation - RMI Activation 
+K:1099
+V:tm:rmiregistry - RMI Registry 
+K:1110
+V:tm:nfsd-status - Cluster status info 
+K:1111
+V:tm:lmsocialserver - LM Social Server 
+K:1114
+V:tm:mini-sql - Mini SQL 
+K:1123
+V:tm:murray - Murray 
+K:1155
+V:tm:nfa - Network File Access 
+K:1161
+V:tm:health-polling - Health Polling 
+K:1162
+V:tm:health-trap - Health Trap 
+K:1180
+V:tm:mc-client - Millicent Client Proxy 
+K:1188
+V:tm:hp-webadmin - HP Web Admin 
+K:1202
+V:tm:caiccipc 
+K:1212
+V:tm:lupa 
+K:1222
+V:tm:nerv - SNI R&D network  
+K:1234
+V:tm:search-agent - Infoseek Search Agent 
+K:1239
+V:tm:nmsd - NMSD 
+K:1248
+V:tm:hermes 
+K:1300
+V:tm:h323hostcallsc - H323 Host Call Secure 
+K:1310
+V:tm:husky - Husky 
+K:1311
+V:tm:rxmon - RxMon 
+K:1312
+V:tm:sti-envision - STI Envision 
+K:1313
+V:tm:bmc_patroldb - BMC_PATROLDB 
+K:1314
+V:tm:pdps - Photoscript Distributed Printing System 
+K:1321
+V:tm:pip - PIP 
+K:1335
+V:tm:digital-notary - Digital Notary Protocol 
+K:1345
+V:tm:vpjp - VPJP 
+K:1346
+V:tm:alta-ana-lm - Alta Analytics License Manager  
+K:1347
+V:tm:bbn-mmc - multi media conferencing 
+K:1348
+V:tm:bbn-mmx - multi media conferencing 
+K:1349
+V:tm:sbook - Registration Network Protocol  
+K:1350
+V:tm:editbench - Registration Network Protocol  
+K:1351
+V:tm:equationbuilder - Digital Tool Works (MIT)  
+K:1352
+V:tm:lotusnote - Lotus Note 
+K:1353
+V:tm:relief - Relief Consulting 
+K:1354
+V:tm:rightbrain - RightBrain Software 
+K:1355
+V:tm:intuitive-edge - Intuitive Edge  
+K:1356
+V:tm:cuillamartin - CuillaMartin Company  
+K:1357
+V:tm:pegboard - Electronic PegBoard 
+K:1358
+V:tm:connlcli - CONNLCLI 
+K:1359
+V:tm:ftsrv - FTSRV 
+K:1360
+V:tm:mimer - MIMER 
+K:1361
+V:tm:linx - LinX  
+K:1362
+V:tm:timeflies - TimeFlies  
+K:1363
+V:tm:ndm-requester - Network DataMover Requester 
+K:1364
+V:tm:ndm-server - Network DataMover Server  
+K:1365
+V:tm:adapt-sna - Network Software Associates 
+K:1366
+V:tm:netware-csp - Novell NetWare Comm Service Platform 
+K:1367
+V:tm:dcs - DCS 
+K:1368
+V:tm:screencast - ScreenCast 
+K:1369
+V:tm:gv-us - GlobalView to Unix Shell 
+K:1370
+V:tm:us-gv - Unix Shell to GlobalView 
+K:1371
+V:tm:fc-cli - Fujitsu Config Protocol 
+K:1372
+V:tm:fc-ser - Fujitsu Config Protocol 
+K:1373
+V:tm:chromagrafx - Chromagrafx 
+K:1374
+V:tm:molly - EPI Software Systems 
+K:1375
+V:tm:bytex - Bytex 
+K:1376
+V:tm:ibm-pps - IBM Person to Person Software  
+K:1377
+V:tm:cichlid - Cichlid License Manager  
+K:1378
+V:tm:elan - Elan License Manager  
+K:1379
+V:tm:dbreporter - Integrity Solutions 
+K:1380
+V:tm:telesis-licman - Telesis Network License Manager  
+K:1381
+V:tm:apple-licman - Apple Network License Manager  
+K:1382
+V:tm:udt_os 
+K:1383
+V:tm:gwha - GW Hannaway Network License Manager 
+K:1384
+V:tm:os-licman - Objective Solutions License Manager  
+K:1385
+V:tm:atex_elmd - Atex Publishing License Manager 
+K:1386
+V:tm:checksum - CheckSum License Manager  
+K:1387
+V:tm:cadsi-lm - Computer Aided Design Software Inc LM  
+K:1388
+V:tm:objective-dbc - Objective Solutions DataBase Cache 
+K:1389
+V:tm:iclpv-dm - Document Manager 
+K:1390
+V:tm:iclpv-sc - Storage Controller  
+K:1391
+V:tm:iclpv-sas - Storage Access Server  
+K:1392
+V:tm:iclpv-pm - Print Manager 
+K:1393
+V:tm:iclpv-nls - Network Log Server  
+K:1394
+V:tm:iclpv-nlc - Network Log Client  
+K:1395
+V:tm:iclpv-wsm - PC Workstation Manager software  
+K:1396
+V:tm:dvl-activemail - DVL Active Mail  
+K:1397
+V:tm:audio-activmail - Audio Active Mail 
+K:1398
+V:tm:video-activmail - Video Active Mail 
+K:1399
+V:tm:cadkey-licman - Cadkey License Manager  
+K:1400
+V:tm:cadkey-tablet - Cadkey Tablet Daemon 
+K:1401
+V:tm:goldleaf-licman - Goldleaf License Manager 
+K:1402
+V:tm:prm-sm-np - Prospero Resource Manager 
+K:1403
+V:tm:prm-nm-np - Prospero Resource Manager 
+K:1404
+V:tm:igi-lm - Infinite Graphics License Manager 
+K:1405
+V:tm:ibm-res - IBM Remote Execution Starter 
+K:1406
+V:tm:netlabs-lm - NetLabs License Manager 
+K:1407
+V:tm:dbsa-lm - DBSA License Manager 
+K:1408
+V:tm:sophia-lm - Sophia License Manager 
+K:1409
+V:tm:here-lm - Here License Manager 
+K:1410
+V:tm:hiq - HiQ License Manager  
+K:1411
+V:tm:af - AudioFile  
+K:1412
+V:tm:innosys - InnoSys  
+K:1413
+V:tm:innosys-acl - Innosys-ACL 
+K:1414
+V:tm:ibm-mqseries - IBM MQSeries  
+K:1415
+V:tm:dbstar - DBStar 
+K:1416
+V:tm:novell-lu6.2 - Novell LU6.2  
+K:1417
+V:tm:timbuktu-srv1 - Timbuktu Service 1 Port  
+K:1418
+V:tm:timbuktu-srv2 - Timbuktu Service 2 Port  
+K:1419
+V:tm:timbuktu-srv3 - Timbuktu Service 3 Port  
+K:1420
+V:tm:timbuktu-srv4 - Timbuktu Service 4 Port  
+K:1421
+V:tm:gandalf-lm - Gandalf License Manager 
+K:1422
+V:tm:autodesk-lm - Autodesk License Manager  
+K:1423
+V:tm:essbase - Essbase Arbor Software  
+K:1424
+V:tm:hybrid - Hybrid Encryption Protocol 
+K:1425
+V:tm:zion-lm - Zion Software License Manager  
+K:1426
+V:tm:sais - Satellite-data Acquisition System 1 
+K:1427
+V:tm:mloadd monitoring tool  
+K:1428
+V:tm:informatik-lm - Informatik License Manager 
+K:1429
+V:tm:nms - Hypercom NMS 
+K:1430
+V:tm:tpdu - Hypercom TPDU  
+K:1431
+V:tm:rgtp - Reverse Gossip Transport 
+K:1432
+V:tm:blueberry-lm - Blueberry Software License Manager 
+K:1433
+V:tm:ms-sql-s - Microsoft-SQL-Server  
+K:1434
+V:tm:ms-sql-m - Microsoft-SQL-Monitor 
+K:1435
+V:tm:ibm-cics - IBM CICS 
+K:1436
+V:tm:saism - Satellite-data Acquisition System 2 
+K:1437
+V:tm:tabula - Tabula 
+K:1438
+V:tm:eicon-server - Eicon Security Agent/Server  
+K:1439
+V:tm:eicon-x25 - Eicon X25/SNA Gateway  
+K:1440
+V:tm:eicon-slp - Eicon Service Location Protocol  
+K:1441
+V:tm:cadis-1 - Cadis License Management  
+K:1442
+V:tm:cadis-2 - Cadis License Management  
+K:1443
+V:tm:ies-lm - Integrated Engineering Software  
+K:1444
+V:tm:marcam-lm - MarcamLicense Management 
+K:1445
+V:tm:proxima-lm - Proxima License Manager  
+K:1446
+V:tm:ora-lm - Optical Research Associates License Manager 
+K:1447
+V:tm:apri-lm - Applied Parallel Research LM 
+K:1448
+V:tm:oc-lm - OpenConnect License Manager 
+K:1449
+V:tm:peport - PEport 
+K:1450
+V:tm:dwf - Tandem Distributed Workbench Facility  
+K:1451
+V:tm:infoman - IBM Information Management 
+K:1452
+V:tm:gtegsc-lm - GTE Government Systems License Man  
+K:1453
+V:tm:genie-lm - Genie License Manager 
+K:1454
+V:tm:interhdl_elmd - interHDL License Manager 
+K:1455
+V:tm:esl-lm - ESL License Manager 
+K:1456
+V:tm:dca - DCA 
+K:1457
+V:tm:valisys-lm - Valisys License Manager 
+K:1458
+V:tm:nrcabq-lm - Nichols Research Corp. 
+K:1459
+V:tm:proshare1 - Proshare Notebook Application 
+K:1460
+V:tm:proshare2 - Proshare Notebook Application 
+K:1461
+V:tm:ibm_wrless_lan - IBM Wireless LAN  
+K:1462
+V:tm:world-lm - World License Manager 
+K:1463
+V:tm:nucleus - Nucleus 
+K:1464
+V:tm:msl_lmd - MSL License Manager 
+K:1465
+V:tm:pipes - Pipes Platform  
+K:1466
+V:tm:oceansoft-lm - Ocean Software License Manager 
+K:1467
+V:tm:csdmbase - CSDMBASE 
+K:1468
+V:tm:csdm - CSDM 
+K:1469
+V:tm:aal-lm - Active Analysis Limited License Manager 
+K:1470
+V:tm:uaiact - Universal Analytics 
+K:1471
+V:tm:csdmbase  
+K:1472
+V:tm:csdm  
+K:1473
+V:tm:openmath - OpenMath  
+K:1474
+V:tm:telefinder - Telefinder  
+K:1475
+V:tm:taligent-lm - Taligent License Manager 
+K:1476
+V:tm:clvm-cfg 
+K:1477
+V:tm:ms-sna-server 
+K:1478
+V:tm:ms-sna-base 
+K:1479
+V:tm:dberegister 
+K:1480
+V:tm:pacerforum - PacerForum 
+K:1481
+V:tm:airs - AIRS 
+K:1482
+V:tm:miteksys-lm - Miteksys License Manager 
+K:1483
+V:tm:afs - AFS License Manager  
+K:1484
+V:tm:confluent - Confluent License Manager  
+K:1485
+V:tm:lansource - LANSource  
+K:1486
+V:tm:nms_topo_serv 
+K:1487
+V:tm:localinfosrvr - LocalInfoSrvr 
+K:1488
+V:tm:docstor - DocStor 
+K:1489
+V:tm:dmdocbroker 
+K:1490
+V:tm:insitu-conf 
+K:1491
+V:tm:anynetgateway 
+K:1492
+V:tm:stone-design-1 
+K:1493
+V:tm:netmap_lm 
+K:1494
+V:tm:ica  
+K:1495
+V:tm:cvc 
+K:1496
+V:tm:liberty-lm 
+K:1497
+V:tm:rfx-lm 
+K:1498
+V:tm:sybase-sqlany - Sybase SQL Any 
+K:1499
+V:tm:fhc - Federico Heinz Consultora 
+K:1500
+V:tm:vlsi-lm - VLSI License Manager 
+K:1501
+V:tm:saiscm - Satellite-data Acquisition System 3  
+K:1502
+V:tm:shivadiscovery - Shiva 
+K:1503
+V:tm:imtc-mcs - Databeam 
+K:1504
+V:tm:evb-elm - EVB Software Engineering License Manager 
+K:1505
+V:tm:funkproxy - Funk Software, Inc. 
+K:1506
+V:tm:utcd - Universal Time daemon (utcd) 
+K:1507
+V:tm:symplex 
+K:1508
+V:tm:diagmond 
+K:1509
+V:tm:robcad-lm - Robcad, Ltd. License Manager 
+K:1510
+V:tm:mvx-lm - Midland Valley Exploration Ltd. Lic. Man. 
+K:1511
+V:tm:3l-l1 
+K:1512
+V:tm:wins - Microsoft's Windows Internet Name Service 
+K:1513
+V:tm:fujitsu-dtc - Fujitsu Systems Business of America, Inc 
+K:1514
+V:tm:fujitsu-dtcns - Fujitsu Systems Business of America, Inc 
+K:1515
+V:tm:ifor-protocol 
+K:1516
+V:tm:vpad - Virtual Places Audio data 
+K:1517
+V:tm:vpac - Virtual Places Audio control 
+K:1518
+V:tm:vpvd - Virtual Places Video data 
+K:1519
+V:tm:vpvc - Virtual Places Video control 
+K:1520
+V:tm:atm-zip-office - atm zip office 
+K:1521
+V:tm:ncube-lm - nCube License Manager 
+K:1522
+V:tm:ricardo-lm - Ricardo North America License Manager 
+K:1523
+V:tm:cichild-lm - cichild 
+K:1524
+V:tm:ingreslock - ingres 
+K:1525
+V:tm:orasrv - oracle 
+K:1525
+V:tm:prospero-np - Prospero Directory Service non-priv 
+K:1526
+V:tm:pdap-np - Prospero Data Access Prot non-priv  
+K:1527
+V:tm:tlisrv - oracle 
+K:1528
+V:tm:mciautoreg - micautoreg 
+K:1529
+V:tm:coauthor - oracle 
+K:1530
+V:tm:rap-service 
+K:1531
+V:tm:rap-listen 
+K:1532
+V:tm:miroconnect 
+K:1533
+V:tm:virtual-places - Virtual Places Software 
+K:1534
+V:tm:micromuse-lm 
+K:1535
+V:tm:ampr-info 
+K:1536
+V:tm:ampr-inter 
+K:1537
+V:tm:sdsc-lm - isi-lm 
+K:1538
+V:tm:3ds-lm 
+K:1539
+V:tm:intellistor-lm - Intellistor License Manager 
+K:1540
+V:tm:rds 
+K:1541
+V:tm:rds2 
+K:1542
+V:tm:gridgen-elmd 
+K:1543
+V:tm:simba-cs 
+K:1544
+V:tm:aspeclmd 
+K:1545
+V:tm:vistium-share 
+K:1546
+V:tm:abbaccuray 
+K:1547
+V:tm:laplink 
+K:1548
+V:tm:axon-lm - Axon License Manager 
+K:1549
+V:tm:shivahose - Shiva Hose 
+K:1550
+V:tm:3m-image-lm - Image Storage license manager 3M Company 
+K:1551
+V:tm:hecmtl-db - HECMTL-DB 
+K:1552
+V:tm:pciarray 
+K:1553
+V:tm:sna-cs 
+K:1554
+V:tm:caci-lm - CACI Products Company License Manager 
+K:1555
+V:tm:livelan 
+K:1556
+V:tm:ashwin - AshWin CI Tecnologies 
+K:1557
+V:tm:arbortext-lm - ArborText License Manager 
+K:1558
+V:tm:xingmpeg 
+K:1559
+V:tm:web2host 
+K:1560
+V:tm:asci-val 
+K:1561
+V:tm:facilityview 
+K:1562
+V:tm:pconnectmgr 
+K:1563
+V:tm:cadabra-lm - Cadabra License Manager 
+K:1564
+V:tm:pay-per-view - Pay-Per-View 
+K:1565
+V:tm:winddlb - WinDD 
+K:1566
+V:tm:corelvideo - CORELVIDEO 
+K:1567
+V:tm:jlicelmd 
+K:1568
+V:tm:tsspmap 
+K:1569
+V:tm:ets 
+K:1570
+V:tm:orbixd 
+K:1571
+V:tm:rdb-dbs-disp - Oracle Remote Data Base 
+K:1572
+V:tm:chip-lm - Chipcom License Manager 
+K:1573
+V:tm:itscomm-ns 
+K:1574
+V:tm:mvel-lm 
+K:1575
+V:tm:oraclenames 
+K:1576
+V:tm:moldflow-lm 
+K:1577
+V:tm:hypercube-lm 
+K:1578
+V:tm:jacobus-lm - Jacobus License Manager 
+K:1579
+V:tm:ioc-sea-lm 
+K:1580
+V:tm:tn-tl-r1 
+K:1581
+V:tm:mil-2045-47001 - MIL-2045-47001 
+K:1582
+V:tm:msims - MSIMS 
+K:1583
+V:tm:simbaexpress 
+K:1584
+V:tm:tn-tl-fd2 
+K:1585
+V:tm:intv 
+K:1586
+V:tm:ibm-abtact 
+K:1587
+V:tm:pra_elmd 
+K:1588
+V:tm:triquest-lm  
+K:1589
+V:tm:vqp - VQP 
+K:1590
+V:tm:gemini-lm 
+K:1591
+V:tm:ncpm-pm 
+K:1592
+V:tm:commonspace 
+K:1593
+V:tm:mainsoft-lm 
+K:1594
+V:tm:sixtrak 
+K:1595
+V:tm:radio 
+K:1596
+V:tm:radio-sm 
+K:1597
+V:tm:orbplus-iiop 
+K:1598
+V:tm:picknfs 
+K:1599
+V:tm:simbaservices 
+K:1600
+V:tm:issd - 1600/udp => issd - 1601/tcp => aas - aas 
+K:1602
+V:tm:inspect 
+K:1603
+V:tm:picodbc - pickodbc 
+K:1604
+V:tm:icabrowser 
+K:1605
+V:tm:slp - Salutation Manager (Salutation Protocol) 
+K:1606
+V:tm:slm-api - Salutation Manager (SLM-API) 
+K:1607
+V:tm:stt 
+K:1608
+V:tm:smart-lm - Smart Corp. License Manager 
+K:1609
+V:tm:isysg-lm 
+K:1610
+V:tm:taurus-wh 
+K:1611
+V:tm:ill - Inter Library Loan 
+K:1612
+V:tm:netbill-trans - NetBill Transaction Server 
+K:1613
+V:tm:netbill-keyrep - NetBill Key Repository 
+K:1614
+V:tm:netbill-cred - NetBill Credential Server 
+K:1615
+V:tm:netbill-auth - NetBill Authorization Server 
+K:1616
+V:tm:netbill-prod - NetBill Product Server 
+K:1617
+V:tm:nimrod-agent - Nimrod Inter-Agent Communication 
+K:1618
+V:tm:skytelnet 
+K:1619
+V:tm:xs-openstorage 
+K:1620
+V:tm:faxportwinport 
+K:1621
+V:tm:softdataphone 
+K:1622
+V:tm:ontime 
+K:1623
+V:tm:jaleosnd 
+K:1624
+V:tm:udp-sr-port 
+K:1625
+V:tm:svs-omagent 
+K:1626
+V:tm:shockwave - Shockwave 
+K:1627
+V:tm:t128-gateway - T.128 Gateway 
+K:1628
+V:tm:lontalk-norm - LonTalk normal 
+K:1629
+V:tm:lontalk-urgnt - LonTalk urgent 
+K:1630
+V:tm:oraclenet8cman - Oracle Net8 Cman 
+K:1631
+V:tm:visitview - Visit view 	 
+K:1632
+V:tm:pammratc - PAMMRATC 
+K:1633
+V:tm:pammrpc - PAMMRPC 
+K:1634
+V:tm:loaprobe - Log On America Probe 
+K:1635
+V:tm:edb-server1 - EDB Server 1 
+K:1636
+V:tm:cncp - CableNet Control Protocol 
+K:1637
+V:tm:cnap - CableNet Admin Protocol 
+K:1638
+V:tm:cnip - CableNet Info Protocol 
+K:1639
+V:tm:cert-initiator 
+K:1640
+V:tm:cert-responder 
+K:1641
+V:tm:invision - InVision 
+K:1642
+V:tm:isis-am 
+K:1643
+V:tm:isis-ambc 
+K:1644
+V:tm:saiseh - Satellite-data Acquisition System 4 
+K:1645
+V:tm:datametrics 
+K:1646
+V:tm:sa-msg-port 
+K:1647
+V:tm:rsap 
+K:1648
+V:tm:concurrent-lm 
+K:1649
+V:tm:kermit 
+K:1650
+V:tm:nkd 
+K:1651
+V:tm:shiva_confsrvr 
+K:1652
+V:tm:xnmp 
+K:1653
+V:tm:alphatech-lm 
+K:1654
+V:tm:stargatealerts 
+K:1655
+V:tm:dec-mbadmin 
+K:1656
+V:tm:dec-mbadmin-h 
+K:1657
+V:tm:fujitsu-mmpdc 
+K:1658
+V:tm:sixnetudr 
+K:1659
+V:tm:sg-lm - Silicon Grail License Manager 
+K:1660
+V:tm:skip-mc-gikreq 
+K:1661
+V:tm:netview-aix-1 
+K:1662
+V:tm:netview-aix-2 
+K:1663
+V:tm:netview-aix-3 
+K:1664
+V:tm:netview-aix-4 
+K:1665
+V:tm:netview-aix-5 
+K:1666
+V:tm:netview-aix-6 
+K:1667
+V:tm:netview-aix-7 
+K:1668
+V:tm:netview-aix-8 
+K:1669
+V:tm:netview-aix-9 
+K:1670
+V:tm:netview-aix-10 
+K:1671
+V:tm:netview-aix-11 
+K:1672
+V:tm:netview-aix-12 
+K:1673
+V:tm:proshare-mc-1 - Intel Proshare Multicast 
+K:1674
+V:tm:proshare-mc-2 - Intel Proshare Multicast 
+K:1675
+V:tm:pdp - Pacific Data Products 
+K:1676
+V:tm:netcomm1 
+K:1677
+V:tm:groupwise 
+K:1678
+V:tm:prolink 
+K:1679
+V:tm:darcorp-lm 
+K:1680
+V:tm:microcom-sbp	 
+K:1681
+V:tm:sd-elmd 
+K:1682
+V:tm:lanyon-lantern 
+K:1683
+V:tm:ncpm-hip 
+K:1684
+V:tm:snaresecure - SnareSecure 
+K:1685
+V:tm:n2nremote 
+K:1686
+V:tm:cvmon 
+K:1687
+V:tm:nsjtp-ctrl 
+K:1688
+V:tm:nsjtp-data 
+K:1689
+V:tm:firefox 
+K:1690
+V:tm:ng-umds 
+K:1691
+V:tm:empire-empuma 
+K:1692
+V:tm:sstsys-lm 
+K:1693
+V:tm:rrirtr 
+K:1694
+V:tm:rrimwm 
+K:1695
+V:tm:rrilwm 
+K:1696
+V:tm:rrifmm 
+K:1697
+V:tm:rrisat 
+K:1698
+V:tm:rsvp-encap-1 - RSVP-ENCAPSULATION-1 
+K:1699
+V:tm:rsvp-encap-2 - RSVP-ENCAPSULATION-2 
+K:1700
+V:tm:mps-raft 
+K:1701
+V:tm:l2f 
+K:1701
+V:tm:l2tp 
+K:1702
+V:tm:deskshare 
+K:1703
+V:tm:hb-engine 
+K:1704
+V:tm:bcs-broker 
+K:1705
+V:tm:slingshot 
+K:1706
+V:tm:jetform 
+K:1707
+V:tm:vdmplay 
+K:1708
+V:tm:gat-lmd 
+K:1709
+V:tm:centra 
+K:1710
+V:tm:impera 
+K:1711
+V:tm:pptconference 
+K:1712
+V:tm:registrar - resource monitoring service 
+K:1713
+V:tm:conferencetalk - ConferenceTalk 
+K:1714
+V:tm:sesi-lm 
+K:1715
+V:tm:houdini-lm 
+K:1716
+V:tm:xmsg 
+K:1717
+V:tm:fj-hdnet 
+K:1718
+V:tm:h323gatedisc 
+K:1719
+V:tm:h323gatestat  
+K:1720
+V:tm:h323hostcall 
+K:1721
+V:tm:caicci 
+K:1722
+V:tm:hks-lm - HKS License Manager 
+K:1723
+V:tm:pptp 
+K:1724
+V:tm:csbphonemaster 
+K:1725
+V:tm:iden-ralp 
+K:1726
+V:tm:iberiagames - IBERIAGAMES 
+K:1727
+V:tm:winddx 
+K:1728
+V:tm:telindus - TELINDUS 
+K:1729
+V:tm:citynl - CityNL License Management 
+K:1730
+V:tm:roketz 
+K:1731
+V:tm:msiccp - MSICCP 
+K:1732
+V:tm:proxim 
+K:1733
+V:tm:siipat - SIMS - SIIPAT Protocol for Alarm Transmission 
+K:1734
+V:tm:cambertx-lm - Camber Corporation License Management 
+K:1735
+V:tm:privatechat - PrivateChat 
+K:1736
+V:tm:street-stream 
+K:1737
+V:tm:ultimad 
+K:1738
+V:tm:gamegen1 - GameGen1 
+K:1739
+V:tm:webaccess 
+K:1740
+V:tm:encore 
+K:1741
+V:tm:cisco-net-mgmt 
+K:1742
+V:tm:3Com-nsd 
+K:1743
+V:tm:cinegrfx-lm - Cinema Graphics License Manager 
+K:1744
+V:tm:ncpm-ft 
+K:1745
+V:tm:remote-winsock 
+K:1746
+V:tm:ftrapid-1 
+K:1747
+V:tm:ftrapid-2 
+K:1748
+V:tm:oracle-em1 
+K:1749
+V:tm:aspen-services 
+K:1750
+V:tm:sslp - Simple Socket Library's PortMaster 
+K:1751
+V:tm:swiftnet - SwiftNet 
+K:1752
+V:tm:lofr-lm - Leap of Faith Research License Manager  
+K:1753
+V:tm:translogic-lm - Translogic License Manager 
+K:1754
+V:tm:oracle-em2 
+K:1755
+V:tm:ms-streaming 
+K:1756
+V:tm:capfast-lmd 
+K:1757
+V:tm:cnhrp 
+K:1758
+V:tm:tftp-mcast 
+K:1759
+V:tm:spss-lm - SPSS License Manager 
+K:1760
+V:tm:www-ldap-gw 
+K:1761
+V:tm:cft-0 
+K:1762
+V:tm:cft-1 
+K:1763
+V:tm:cft-2 
+K:1764
+V:tm:cft-3 
+K:1765
+V:tm:cft-4 
+K:1766
+V:tm:cft-5 
+K:1767
+V:tm:cft-6 
+K:1768
+V:tm:cft-7 
+K:1769
+V:tm:bmc-net-adm 
+K:1770
+V:tm:bmc-net-svc 
+K:1771
+V:tm:vaultbase 
+K:1772
+V:tm:essweb-gw - EssWeb Gateway 
+K:1773
+V:tm:kmscontrol - KMSControl 
+K:1774
+V:tm:global-dtserv 
+K:1776
+V:tm:femis - Federal Emergency Management Information System 
+K:1777
+V:tm:powerguardian 
+K:1778
+V:tm:prodigy-intrnet - prodigy-internet 
+K:1779
+V:tm:pharmasoft 
+K:1780
+V:tm:dpkeyserv 
+K:1781
+V:tm:answersoft-lm 
+K:1782
+V:tm:hp-hcip 
+K:1783
+V:tm:fjris - Fujitsu Remote Install Service 
+K:1784
+V:tm:finle-lm - Finle License Manager 
+K:1785
+V:tm:windlm - Wind River Systems License Manager 
+K:1786
+V:tm:funk-logger 
+K:1787
+V:tm:funk-license 
+K:1788
+V:tm:psmond 
+K:1789
+V:tm:hello 
+K:1790
+V:tm:nmsp - Narrative Media Streaming Protocol 
+K:1791
+V:tm:ea1 - EA1 
+K:1792
+V:tm:ibm-dt-2 
+K:1793
+V:tm:rsc-robot 
+K:1794
+V:tm:cera-bcm 
+K:1795
+V:tm:dpi-proxy 
+K:1796
+V:tm:vocaltec-admin - Vocaltec Server Administration 
+K:1797
+V:tm:uma - UMA  
+K:1798
+V:tm:etp - Event Transfer Protocol 
+K:1799
+V:tm:netrisk - NETRISK 
+K:1800
+V:tm:ansys-lm - ANSYS-License manager 
+K:1801
+V:tm:msmq - Microsoft Message Que 
+K:1802
+V:tm:concomp1 - ConComp1 
+K:1803
+V:tm:hp-hcip-gwy - HP-HCIP-GWY 
+K:1804
+V:tm:enl - ENL 
+K:1805
+V:tm:enl-name - ENL-Name 
+K:1806
+V:tm:musiconline - Musiconline 
+K:1807
+V:tm:fhsp - Fujitsu Hot Standby Protocol 
+K:1808
+V:tm:oracle-vp2 - Oracle-VP2 
+K:1809
+V:tm:oracle-vp1 - Oracle-VP1 
+K:1810
+V:tm:jerand-lm - Jerand License Manager 
+K:1811
+V:tm:scientia-sdb - Scientia-SDB 
+K:1812
+V:tm:radius - RADIUS 
+K:1813
+V:tm:radius-acct - RADIUS Accounting 
+K:1814
+V:tm:tdp-suite - TDP Suite 
+K:1815
+V:tm:mmpft - MMPFT 
+K:1816
+V:tm:harp - HARP 
+K:1817
+V:tm:rkb-oscs - RKB-OSCS 
+K:1818
+V:tm:etftp - Enhanced Trivial File Transfer Protocol 
+K:1819
+V:tm:plato-lm - Plato License Manager 
+K:1820
+V:tm:mcagent 
+K:1821
+V:tm:donnyworld 
+K:1822
+V:tm:es-elmd 
+K:1823
+V:tm:unisys-lm - Unisys Natural Language License Manager 
+K:1824
+V:tm:metrics-pas 
+K:1825
+V:tm:direcpc-video - DirecPC Video 
+K:1826
+V:tm:ardt - ARDT 
+K:1827
+V:tm:asi - ASI  
+K:1828
+V:tm:itm-mcell-u 
+K:1829
+V:tm:optika-emedia - Optika eMedia  
+K:1830
+V:tm:net8-cman - Oracle Net8 CMan Admin 
+K:1831
+V:tm:myrtle - Myrtle 
+K:1832
+V:tm:tht-treasure - ThoughtTreasure 
+K:1833
+V:tm:udpradio 
+K:1834
+V:tm:ardusuni - ARDUS Unicast 
+K:1835
+V:tm:ardusmul - ARDUS Multicast 
+K:1836
+V:tm:ste-smsc 
+K:1837
+V:tm:csoft1 
+K:1838
+V:tm:talnet - TALNET 
+K:1839
+V:tm:netopia-vo1 
+K:1840
+V:tm:netopia-vo2 
+K:1841
+V:tm:netopia-vo3 
+K:1842
+V:tm:netopia-vo4 
+K:1843
+V:tm:netopia-vo5 
+K:1844
+V:tm:direcpc-dll - DirecPC-DLL 
+K:1850
+V:tm:gsi - GSI 
+K:1851
+V:tm:ctcd 
+K:1860
+V:tm:sunscalar-svc - SunSCALAR Services 
+K:1861
+V:tm:lecroy-vicp - LeCroy VICP 
+K:1862
+V:tm:techra-server 
+K:1863
+V:tm:msnp - MSNP 
+K:1864
+V:tm:paradym-31port - Paradym 31 Port 
+K:1865
+V:tm:entp - ENTP 
+K:1870
+V:tm:sunscalar-dns - SunSCALAR DNS Service 
+K:1871
+V:tm:canocentral0 - Cano Central 0 
+K:1872
+V:tm:canocentral1 - Cano Central 1 
+K:1873
+V:tm:fjmpjps - Fjmpjps 
+K:1874
+V:tm:fjswapsnp - Fjswapsnp 
+K:1881
+V:tm:ibm-mqseries2 - IBM MQSeries 
+K:1895
+V:tm:vista-4gl - Vista 4GL 
+K:1899
+V:tm:mc2studios - MC2Studios 
+K:1901
+V:tm:fjicl-tep-a - Fujitsu ICL Terminal Emulator Program A 
+K:1902
+V:tm:fjicl-tep-b - Fujitsu ICL Terminal Emulator Program B 
+K:1903
+V:tm:linkname - Local Link Name Resolution 
+K:1904
+V:tm:fjicl-tep-c - Fujitsu ICL Terminal Emulator Program C 
+K:1905
+V:tm:sugp - Secure UP.Link Gateway Protocol 
+K:1906
+V:tm:tpmd - TPortMapperReq 
+K:1907
+V:tm:intrastar - IntraSTAR 
+K:1908
+V:tm:dawn - Dawn 
+K:1909
+V:tm:global-wlink - Global World Link 
+K:1910
+V:tm:ultrabac 
+K:1911
+V:tm:mtp - Starlight Networks Multimedia Transport Protocol 
+K:1912
+V:tm:rhp-iibp	 
+K:1913
+V:tm:armadp 
+K:1914
+V:tm:elm-momentum - Elm-Momentum 
+K:1915
+V:tm:facelink - FACELINK 
+K:1916
+V:tm:persona - Persoft Persona 
+K:1917
+V:tm:noagent - nOAgent 
+K:1918
+V:tm:can-nds - Candle Directory Service - NDS 
+K:1919
+V:tm:can-dch - Candle Directory Service - DCH 
+K:1920
+V:tm:can-ferret - Candle Directory Service - FERRET 
+K:1921
+V:tm:noadmin - NoAdmin 
+K:1922
+V:tm:tapestry - Tapestry	 
+K:1923
+V:tm:spice - SPICE 
+K:1924
+V:tm:xiip - XIIP 
+K:1944
+V:tm:close-combat 
+K:1945
+V:tm:dialogic-elmd 
+K:1946
+V:tm:tekpls 
+K:1947
+V:tm:hlserver 
+K:1948
+V:tm:eye2eye 
+K:1949
+V:tm:ismaeasdaqlive - ISMA Easdaq Live 
+K:1950
+V:tm:ismaeasdaqtest - ISMA Easdaq Test 
+K:1951
+V:tm:bcs-lmserver 
+K:1952
+V:tm:mpnjsc 
+K:1953
+V:tm:rapidbase - Rapid Base 
+K:1964
+V:tm:solid-e-engine - SOLID E ENGINE 
+K:1965
+V:tm:tivoli-npm - Tivoli NPM 
+K:1966
+V:tm:slush - Slush 
+K:1967
+V:tm:sns-quote - SNS Quote 
+K:1972
+V:tm:intersys-cache - Cache 
+K:1973
+V:tm:dlsrap - Data Link Switching Remote Access Protocol 
+K:1975
+V:tm:tcoflashagent - TCO Flash Agent 
+K:1976
+V:tm:tcoregagent - TCO Reg Agent  
+K:1977
+V:tm:tcoaddressbook - TCO Address Book 
+K:1981
+V:tm:shockrave - Shockrave TROJAN 
+K:1984
+V:tm:bb - BB 
+K:1985
+V:tm:hsrp - Hot Standby Router Protocol 
+K:1986
+V:tm:licensedaemon - cisco license management 
+K:1987
+V:tm:tr-rsrb-p1 - cisco RSRB Priority 1 port 
+K:1988
+V:tm:tr-rsrb-p2 - cisco RSRB Priority 2 port 
+K:1989
+V:tm:tr-rsrb-p3 - cisco RSRB Priority 3 port (or mshnet - MHSnet System) 
+K:1990
+V:tm:stun-p1 - cisco STUN Priority 1 port 
+K:1991
+V:tm:stun-p2 - cisco STUN Priority 2 port 
+K:1992
+V:tm:stun-p3 - cisco STUN Priority 3 port (or IPsendmsg) 
+K:1993
+V:tm:snmp-tcp-port - cisco SNMP TCP port 
+K:1994
+V:tm:stun-port - cisco serial tunnel port 
+K:1995
+V:tm:perf-port - cisco perf port 
+K:1996
+V:tm:tr-rsrb-port - cisco Remote SRB port 
+K:1997
+V:tm:gdp-port - cisco Gateway Discovery Protocol 
+K:1998
+V:tm:x25-svc-port - cisco X.25 service (XOT) 
+K:1999
+V:tm:tcp-id-port - cisco identification port 
+K:2000
+V:tm:callbook 
+K:2001
+V:tm:dc 
+K:2002
+V:tm:globe 
+K:2004
+V:tm:mailbox 
+K:2005
+V:tm:berknet 
+K:2006
+V:tm:invokator 
+K:2007
+V:tm:dectalk 
+K:2008
+V:tm:conf 
+K:2009
+V:tm:news 
+K:2010
+V:tm:search 
+K:2011
+V:tm:raid-cc - raid 
+K:2012
+V:tm:ttyinfo 
+K:2013
+V:tm:raid-am 
+K:2014
+V:tm:troff 
+K:2015
+V:tm:cypress 
+K:2016
+V:tm:bootserver 
+K:2017
+V:tm:cypress-stat 
+K:2018
+V:tm:terminaldb 
+K:2019
+V:tm:whosockami 
+K:2020
+V:tm:xinupageserver 
+K:2021
+V:tm:servexec 
+K:2022
+V:tm:down 
+K:2023
+V:tm:xinuexpansion3 
+K:2024
+V:tm:xinuexpansion4 
+K:2025
+V:tm:ellpack 
+K:2026
+V:tm:scrabble 
+K:2027
+V:tm:shadowserver 
+K:2028
+V:tm:submitserver 
+K:2030
+V:tm:device2 
+K:2032
+V:tm:blackboard 
+K:2033
+V:tm:glogger 
+K:2034
+V:tm:scoremgr 
+K:2035
+V:tm:imsldoc 
+K:2038
+V:tm:objectmanager 
+K:2040
+V:tm:lam 
+K:2041
+V:tm:interbase 
+K:2042
+V:tm:isis 
+K:2043
+V:tm:isis-bcast 
+K:2044
+V:tm:rimsl 
+K:2045
+V:tm:cdfunc 
+K:2046
+V:tm:sdfunc 
+K:2047
+V:tm:dls 
+K:2048
+V:tm:dls-monitor 
+K:2049
+V:tm:nfs - Network File System (or Sun Microsystems or shilp) 
+K:2065
+V:tm:dlsrpn - Data Link Switch Read Port Number 
+K:2067
+V:tm:dlswpn - Data Link Switch Write Port Number 
+K:2090
+V:tm:lrp - Load Report Protocol 
+K:2091
+V:tm:prp - PRP 
+K:2092
+V:tm:descent3 - Descent 3 
+K:2093
+V:tm:nbx-cc - NBX CC 
+K:2094
+V:tm:nbx-au - NBX AU 
+K:2095
+V:tm:nbx-ser - NBX SER 
+K:2096
+V:tm:nbx-dir - NBX DIR 
+K:2097
+V:tm:jetformpreview - Jet Form Preview 
+K:2098
+V:tm:dialog-port - Dialog Port 
+K:2099
+V:tm:h2250-annex-g - H.225.0 Annex G 
+K:2100
+V:tm:amiganetfs 
+K:2101
+V:tm:rtcm-sc104 
+K:2102
+V:tm:zephyr-srv - Zephyr server 
+K:2103
+V:tm:zephyr-clt - Zephyr serv-hm connection 
+K:2104
+V:tm:zephyr-hm - Zephyr hostmanager 
+K:2105
+V:tm:minipay - MiniPay 
+K:2106
+V:tm:mzap - MZAP 
+K:2107
+V:tm:bintec-admin - BinTec Admin  
+K:2108
+V:tm:comcam - Comcam 
+K:2109
+V:tm:ergolight - Ergolight 
+K:2180
+V:tm:mc-gt-srv - Millicent Vendor Gateway Server 
+K:2200
+V:tm:ici - ICI 
+K:2201
+V:tm:ats - Advanced Training System Program 
+K:2202
+V:tm:imtc-map - Int. Multimedia Teleconferencing Cosortium 
+K:2213
+V:tm:kali - Kali 
+K:2220
+V:tm:ganymede - Ganymede 
+K:2221
+V:tm:rockwell-csp1 - Rockwell CSP1 
+K:2222
+V:tm:rockwell-csp2 - Rockwell CSP2 
+K:2223
+V:tm:rockwell-csp3 - Rockwell CSP3 
+K:2232
+V:tm:ivs-video - IVS Video default 
+K:2233
+V:tm:infocrypt - INFOCRYPT 
+K:2234
+V:tm:directplay - DirectPlay 
+K:2235
+V:tm:sercomm-wlink - Sercomm-WLink 
+K:2236
+V:tm:nani - Nani 
+K:2237
+V:tm:optech-port1-lm - Optech Port1 License Manager 
+K:2238
+V:tm:aviva-sna - AVIVA SNA SERVER 
+K:2239
+V:tm:imagequery - Image Query	 
+K:2240
+V:tm:recipe - RECIPe 
+K:2241
+V:tm:ivsd - IVS Daemon 
+K:2242
+V:tm:foliocorp - Folio Remote Server 
+K:2243
+V:tm:magicom - Magicom Protocol 
+K:2244
+V:tm:nmsserver - NMS Server 
+K:2245
+V:tm:hao - HaO 
+K:2279
+V:tm:xmquery 
+K:2280
+V:tm:lnvpoller - LNVPOLLER 
+K:2281
+V:tm:lnvconsole - LNVCONSOLE 
+K:2282
+V:tm:lnvalarm - LNVALARM 
+K:2283
+V:tm:lnvstatus - LNVSTATUS 
+K:2284
+V:tm:lnvmaps - LNVMAPS 
+K:2285
+V:tm:lnvmailmon - LNVMAILMON 
+K:2286
+V:tm:nas-metering - NAS-Metering 
+K:2287
+V:tm:dna - DNA 
+K:2288
+V:tm:netml - NETML 
+K:2294
+V:tm:konshus-lm - Konshus License Manager (FLEX) 
+K:2295
+V:tm:advant-lm - Advant License Manager 
+K:2296
+V:tm:theta-lm - Theta License Manager (Rainbow) 
+K:2297
+V:tm:d2k-datamover1 - D2K DataMover 1 
+K:2298
+V:tm:d2k-datamover2 - D2K DataMover 2 
+K:2299
+V:tm:pc-telecommute - PC Telecommute 
+K:2300
+V:tm:cvmmon - CVMMON 
+K:2301
+V:tm:cpq-wbem - Compaq HTTP 
+K:2302
+V:tm:binderysupport - Bindery Support 
+K:2303
+V:tm:proxy-gateway - Proxy Gateway 
+K:2304
+V:tm:attachmate-uts - Attachmate UTS 
+K:2305
+V:tm:mt-scaleserver - MT ScaleServer 
+K:2306
+V:tm:tappi-boxnet - TAPPI BoxNet 
+K:2307
+V:tm:pehelp 
+K:2308
+V:tm:sdhelp 
+K:2309
+V:tm:sdserver - SD Server 
+K:2310
+V:tm:sdclient - SD Client 
+K:2311
+V:tm:messageservice - Message Service 
+K:2313
+V:tm:iapp - IAPP (Inter Access Point Protocol) 
+K:2314
+V:tm:cr-websystems - CR WebSystems 
+K:2315
+V:tm:precise-sft - Precise Sft. 
+K:2316
+V:tm:sent-lm - SENT License Manager 
+K:2317
+V:tm:attachmate-g32 - Attachmate G32 
+K:2318
+V:tm:cadencecontrol - Cadence Control 
+K:2319
+V:tm:infolibria - InfoLibria 
+K:2320
+V:tm:siebel-ns - Siebel NS 
+K:2321
+V:tm:rdlap - RDLAP over UDP 
+K:2322
+V:tm:ofsd 
+K:2323
+V:tm:3d-nfsd 
+K:2324
+V:tm:cosmocall - Cosmocall 
+K:2325
+V:tm:designspace-lm - Design Space License Management 
+K:2326
+V:tm:idcp - IDCP 
+K:2327
+V:tm:xingcsm 
+K:2328
+V:tm:netrix-sftm - Netrix SFTM 
+K:2329
+V:tm:nvd - NVD 
+K:2330
+V:tm:tscchat - TSCCHAT 
+K:2331
+V:tm:agentview - AGENTVIEW 
+K:2332
+V:tm:rcc-host - RCC Host  
+K:2333
+V:tm:snapp - SNAPP 
+K:2334
+V:tm:ace-client - ACE Client Auth 
+K:2335
+V:tm:ace-proxy - ACE Proxy 
+K:2336
+V:tm:appleugcontrol - Apple UG Control 
+K:2337
+V:tm:ideesrv 
+K:2338
+V:tm:norton-lambert - Norton Lambert 
+K:2339
+V:tm:3com-webview - 3Com WebView 
+K:2340
+V:tm:wrs_registry - WRS Registry 
+K:2341
+V:tm:xiostatus - XIO Status 
+K:2342
+V:tm:manage-exec - Seagate Manage Exec 
+K:2343
+V:tm:nati-logos - nati logos 
+K:2344
+V:tm:fcmsys 
+K:2345
+V:tm:dbm 
+K:2346
+V:tm:redstorm_join - Game Connection Port 
+K:2347
+V:tm:redstorm_find - Game Announcement and Location 
+K:2348
+V:tm:redstorm_info - Information to query for game status 
+K:2349
+V:tm:redstorm_diag - Diagnostics Port 
+K:2350
+V:tm:psbserver 
+K:2351
+V:tm:psrserver 
+K:2352
+V:tm:pslserver 
+K:2353
+V:tm:pspserver 
+K:2354
+V:tm:psprserver 
+K:2355
+V:tm:psdbserver 
+K:2356
+V:tm:gxtelmd - GXT License Managemant 
+K:2357
+V:tm:unihub-server - UniHub Server 
+K:2358
+V:tm:futrix - Futrix 
+K:2359
+V:tm:flukeserver - FlukeServer 
+K:2360
+V:tm:nexstorindltd - NexstorIndLtd 
+K:2361
+V:tm:tl1 - TL1 
+K:2381
+V:tm:compaq-https - Compaq HTTPS 
+K:2389
+V:tm:ovsessionmgr - OpenView Session Mgr 
+K:2390
+V:tm:rsmtp - RSMTP 
+K:2391
+V:tm:3com-net-mgmt - 3COM Net Management 
+K:2392
+V:tm:tacticalauth - Tactical Auth 
+K:2393
+V:tm:ms-olap1 - MS OLAP 1 
+K:2394
+V:tm:ms-olap2 - MS OLAP 2 
+K:2395
+V:tm:lan900_remote - LAN900 Remote 
+K:2396
+V:tm:wusage - Wusage 
+K:2397
+V:tm:ncl - NCL 
+K:2398
+V:tm:orbiter - Orbiter 
+K:2399
+V:tm:fmpro-fdal - FileMaker, Inc. - Data Access Layer 
+K:2400
+V:tm:opequus-server - OpEquus Server 
+K:2401
+V:tm:cvspserver 
+K:2402
+V:tm:taskmaster2000 - TaskMaster 2000 Server 
+K:2403
+V:tm:taskmaster2000 - TaskMaster 2000 Web 
+K:2404
+V:tm:iec870-5-104 - IEC870-5-104 
+K:2405
+V:tm:trc-netpoll - TRC Netpoll 
+K:2406
+V:tm:jediserver - JediServer 
+K:2407
+V:tm:orion - Orion 
+K:2408
+V:tm:optimanet - OptimaNet 
+K:2409
+V:tm:sns-protocol - SNS Protocol 
+K:2410
+V:tm:vrts-registry - VRTS Registry 
+K:2411
+V:tm:netwave-ap-mgmt - Netwave AP Management 
+K:2412
+V:tm:cdn - CDN 
+K:2413
+V:tm:orion-rmi-reg  
+K:2414
+V:tm:interlingua - Interlingua 
+K:2415
+V:tm:comtest - COMTEST 
+K:2416
+V:tm:rmtserver - RMT Server	 
+K:2417
+V:tm:composit-server - Composit Server 
+K:2418
+V:tm:cas 
+K:2419
+V:tm:attachmate-s2s - Attachmate S2S 
+K:2420
+V:tm:dslremote-mgmt - DSL Remote Management 
+K:2421
+V:tm:g-talk - G-Talk 
+K:2422
+V:tm:crmsbits - CRMSBITS 
+K:2423
+V:tm:rnrp - RNRP 
+K:2424
+V:tm:kofax-svr - KOFAX-SVR 
+K:2425
+V:tm:fjitsuappmgr - Fujitsu App Manager 
+K:2426
+V:tm:applianttcp - Appliant TCP 
+K:2427
+V:tm:stgcp - Simple telephony Gateway Control Protocol 
+K:2428
+V:tm:ott - One Way Trip Time 
+K:2429
+V:tm:ft-role - FT-ROLE 
+K:2430
+V:tm:venus 
+K:2431
+V:tm:venus-se 
+K:2432
+V:tm:codasrv 
+K:2433
+V:tm:codasrv-se 
+K:2434
+V:tm:pxc-epmap 
+K:2435
+V:tm:optilogic - OptiLogic 
+K:2436
+V:tm:topx - TOP/X 
+K:2437
+V:tm:unicontrol - UniControl 
+K:2438
+V:tm:msp - MSP 
+K:2439
+V:tm:sybasedbsynch - SybaseDBSynch 
+K:2440
+V:tm:spearway - Spearway Lockers 
+K:2441
+V:tm:pvsw-inet 
+K:2442
+V:tm:netangel - Netangel 
+K:2443
+V:tm:powerclientcsf - PowerClient Central Storage Facility 
+K:2444
+V:tm:btpp2sectrans - BT PP2 Sectrans 
+K:2445
+V:tm:dtn1 - DTN1 
+K:2446
+V:tm:bues_service 
+K:2447
+V:tm:ovwdb - OpenView NNM daemon 
+K:2448
+V:tm:hpppssvr - hpppsvr 
+K:2449
+V:tm:ratl - RATL 
+K:2450
+V:tm:netadmin 
+K:2451
+V:tm:netchat 
+K:2452
+V:tm:snifferclient - SnifferClient 
+K:2453
+V:tm:madge-om 
+K:2454
+V:tm:indx-dds - IndX-DDS 
+K:2455
+V:tm:wago-io-system - WAGO-IO-SYSTEM 
+K:2456
+V:tm:altav-remmgt 
+K:2457
+V:tm:rapido-ip - Rapido_IP 
+K:2458
+V:tm:griffin 
+K:2459
+V:tm:community - Community 
+K:2460
+V:tm:ms-theater 
+K:2461
+V:tm:qadmifoper 
+K:2462
+V:tm:qadmifevent 
+K:2463
+V:tm:symbios-raid - Symbios Raid 
+K:2464
+V:tm:direcpc-si - DirecPC SI 
+K:2465
+V:tm:lbm - Load Balance Management 
+K:2466
+V:tm:lbf - Load Balance Forwarding 
+K:2467
+V:tm:high-criteria - High Criteria 
+K:2468
+V:tm:qip_msgd 
+K:2469
+V:tm:mti-tcs-comm - MTI-TCS-COMM 
+K:2470
+V:tm:taskman_port - taskman port 
+K:2471
+V:tm:seaodbc - SeaODBC 
+K:2472
+V:tm:c3 - C3 
+K:2473
+V:tm:aker-cdp - Aker-cdp 
+K:2474
+V:tm:vitalanalysis - Vital Analysis 
+K:2475
+V:tm:ace-server - ACE Server 
+K:2476
+V:tm:ace-svr-prop - ACE Server Propagation 
+K:2477
+V:tm:ssm-cvs - SecurSight Certificate Valifation Service 
+K:2478
+V:tm:ssm-cssps - SecurSight Authentication Server (SLL) 
+K:2479
+V:tm:ssm-els - SecurSight Event Logging Server (SSL) 
+K:2480
+V:tm:lingwood - Lingwood's Detail 
+K:2481
+V:tm:giop - Oracle GIOP 
+K:2482
+V:tm:giop-ssl - Oracle GIOP SSL 
+K:2483
+V:tm:ttc - Oracle TTC 
+K:2484
+V:tm:ttc-ssl - Oracle TTC SSL 
+K:2485
+V:tm:netobjects1 - Net Objects1 
+K:2486
+V:tm:netobjects2 - Net Objects2 
+K:2487
+V:tm:pns - Policy Notice Service 
+K:2488
+V:tm:moy-corp - Moy Corporation 
+K:2489
+V:tm:tsilb - TSILB 
+K:2490
+V:tm:qip_qdhcp 
+K:2491
+V:tm:conclave-cpp - Conclave CPP 
+K:2492
+V:tm:groove - GROOVE 
+K:2493
+V:tm:talarian-mqs - Talarian MQS 
+K:2494
+V:tm:bmc-ar - BMC AR 
+K:2495
+V:tm:fast-rem-serv - Fast Remote Services 
+K:2496
+V:tm:dirgis - DIRGIS 
+K:2497
+V:tm:quaddb - Quad DB 
+K:2498
+V:tm:odn-castraq - ODN-CasTraq 
+K:2499
+V:tm:unicontrol - UniControl 
+K:2500
+V:tm:rtsserv - Resource Tracking system server 
+K:2501
+V:tm:rtsclient - Resource Tracking system client 
+K:2502
+V:tm:kentrox-prot - Kentrox Protocol 
+K:2503
+V:tm:nms-dpnss - NMS-DPNSS 
+K:2504
+V:tm:wlbs - WLBS  
+K:2505
+V:tm:torque-traffic 
+K:2506
+V:tm:jbroker 
+K:2507
+V:tm:spock 
+K:2508
+V:tm:datastore 
+K:2509
+V:tm:fjmpss 
+K:2510
+V:tm:fjappmgrbulk 
+K:2511
+V:tm:metastorm - Metastorm 
+K:2512
+V:tm:citrixima - Citrix IMA 
+K:2513
+V:tm:citrixadmin - Citrix ADMIN 
+K:2514
+V:tm:facsys-ntp - Facsys NTP 
+K:2515
+V:tm:facsys-router - Facsys Router 
+K:2516
+V:tm:maincontrol - Main Control  
+K:2517
+V:tm:call-sig-trans - H.323 Annex E call signaling transport 
+K:2518
+V:tm:willy - Willy 
+K:2519
+V:tm:globmsgsvc 
+K:2520
+V:tm:pvsw 
+K:2521
+V:tm:adaptecmgr - Adaptec Manager 
+K:2522
+V:tm:windb - WinDb 
+K:2523
+V:tm:qke-llc-v3 - Qke LLC V.3 
+K:2524
+V:tm:optiwave-lm - Optiwave License Management 
+K:2525
+V:tm:ms-v-worlds - MS V-Worlds  
+K:2526
+V:tm:ema-sent-lm - EMA License Manager 
+K:2527
+V:tm:iqserver - IQ Server 
+K:2528
+V:tm:ncr_ccl - NCR CCL 
+K:2529
+V:tm:utsftp - UTS FTP 
+K:2530
+V:tm:vrcommerce - VR Commerce 
+K:2531
+V:tm:ito-e-gui - ITO-E GUI 
+K:2532
+V:tm:ovtopmd - OVTOPMD 
+K:2533
+V:tm:snifferserver - SnifferServer 
+K:2534
+V:tm:combox-web-acc - Combox Web Access 
+K:2535
+V:tm:mdhcp - MDHCP 
+K:2536
+V:tm:btpp2audctr1 
+K:2537
+V:tm:upgrade - Upgrade Protocol 
+K:2538
+V:tm:vnwk-prapi 
+K:2539
+V:tm:vsiadmin - VSI Admin 
+K:2540
+V:tm:lonworks - LonWorks 
+K:2541
+V:tm:lonworks2 - LonWorks2 
+K:2542
+V:tm:davinci - daVinci 
+K:2543
+V:tm:reftek - REFTEK 
+K:2544
+V:tm:novell-zen - Novell ZEN 
+K:2545
+V:tm:sis-emt 
+K:2546
+V:tm:vytalvaultbrtp 
+K:2547
+V:tm:vytalvaultvsmp 
+K:2548
+V:tm:vytalvaultpipe 
+K:2549
+V:tm:ipass - IPASS 
+K:2550
+V:tm:ads - ADS 
+K:2551
+V:tm:isg-uda-server - ISG UDA Server 
+K:2552
+V:tm:call-logging - Call Logging 
+K:2553
+V:tm:efidiningport 
+K:2554
+V:tm:vcnet-link-v10 - VCnet-Link v10 
+K:2555
+V:tm:compaq-wcp - Compaq WCP 
+K:2556
+V:tm:nicetec-nmsvc 
+K:2557
+V:tm:nicetec-mgmt 
+K:2558
+V:tm:pclemultimedia - PCLE Multi Media 
+K:2559
+V:tm:lstp - LSTP 
+K:2560
+V:tm:labrat 
+K:2561
+V:tm:mosaixcc - MosaixCC 
+K:2562
+V:tm:delibo - Delibo 
+K:2563
+V:tm:cti-redwood - CTI Redwood 
+K:2564
+V:tm:hp-3000-telnet - HP 3000 NS/VT block mode telnet 
+K:2565
+V:tm:coord-svr - Coordinator Server 
+K:2566
+V:tm:pcs-pcw 
+K:2567
+V:tm:clp - Cisco Line Protocol 
+K:2568
+V:tm:spamtrap - SPAM TRAP 
+K:2569
+V:tm:sonuscallsig - Sonus Call Signal 
+K:2570
+V:tm:hs-port - HS Port 
+K:2571
+V:tm:cecsvc - CECSVC 
+K:2572
+V:tm:ibp - IBP 
+K:2573
+V:tm:trustestablish - Trust Establish 
+K:2574
+V:tm:blockade-bpsp - Blockade BPSP 
+K:2575
+V:tm:hl7 - HL7 
+K:2576
+V:tm:tclprodebugger - TCL Pro Debugger 
+K:2577
+V:tm:scipticslsrvr - Scriptics Lsrvr 
+K:2578
+V:tm:rvs-isdn-dcp - RVS ISDN DCP 
+K:2579
+V:tm:mpfoncl 
+K:2580
+V:tm:tributary - Tributary 
+K:2581
+V:tm:argis-te - ARGIS TE 
+K:2582
+V:tm:argis-ds - ARGIS DS 
+K:2583
+V:tm:mon - MON 
+K:2584
+V:tm:cyaserv 
+K:2585
+V:tm:netx-server - NETX Server 
+K:2586
+V:tm:netx-agent - NETX Agent 
+K:2587
+V:tm:masc - MASC 
+K:2588
+V:tm:privilege - Privilege 
+K:2589
+V:tm:quartus-tcl - quartus tcl 
+K:2590
+V:tm:idotdist 
+K:2591
+V:tm:maytagshuffle - Maytag Shuffle 
+K:2592
+V:tm:netrek 
+K:2593
+V:tm:mns-mail - MNS Mail Notice Service 
+K:2594
+V:tm:dts - Data Base Server 
+K:2595
+V:tm:worldfusion1 - World Fusion 1 
+K:2596
+V:tm:worldfusion2 - World Fusion 2 
+K:2597
+V:tm:homesteadglory - Homestead Glory 
+K:2598
+V:tm:citriximaclient - Citrix MA Client 
+K:2599
+V:tm:meridiandata - Meridian Data 
+K:2600
+V:tm:hpstgmgr - HPSTGMGR 
+K:2601
+V:tm:discp-client - discp client 
+K:2602
+V:tm:discp-server - discp server 
+K:2603
+V:tm:servicemeter - Service Meter 
+K:2604
+V:tm:nsc-ccs - NSC CCS	 
+K:2605
+V:tm:nsc-posa - NSC POSA 
+K:2606
+V:tm:netmon - Dell Netmon 
+K:2607
+V:tm:connection - Dell Connection 
+K:2608
+V:tm:wag-service - Wag Service 
+K:2609
+V:tm:system-monitor - System Monitor  
+K:2610
+V:tm:versa-tek - VersaTek 
+K:2611
+V:tm:lionhead - LIONHEAD 
+K:2612
+V:tm:qpasa-agent - Qpasa Agent 
+K:2613
+V:tm:smntubootstrap - SMNTUBootstrap 
+K:2614
+V:tm:neveroffline - Never Off Line 
+K:2615
+V:tm:firepower 
+K:2616
+V:tm:appswitch-emp 
+K:2617
+V:tm:cmadmin - Clinical Context Managers 
+K:2618
+V:tm:priority-e-com - Priority E-Com 
+K:2619
+V:tm:bruce 
+K:2620
+V:tm:lpsrecommender - LPSRecommender 
+K:2621
+V:tm:miles-apart - Miles Apart Jukebox Server 
+K:2622
+V:tm:metricadbc - MetricaDBC 
+K:2623
+V:tm:lmdp - LMDP 
+K:2624
+V:tm:aria - Aria 
+K:2625
+V:tm:blwnkl-port - Blwnkl Port 
+K:2626
+V:tm:gbjd816 
+K:2627
+V:tm:moshebeeri - Moshe Beeri 
+K:2628
+V:tm:dict - DICT 
+K:2629
+V:tm:sitaraserver - Sitara Server 
+K:2630
+V:tm:sitaramgmt - Sitara Management 
+K:2631
+V:tm:sitaradir - Sitara Dir 
+K:2632
+V:tm:irdg-post - IRdg Post 
+K:2633
+V:tm:interintelli - InterIntelli 
+K:2634
+V:tm:pk-electronics - PK Electronics 
+K:2635
+V:tm:backburner - Back Burner 
+K:2636
+V:tm:solve - Solve 
+K:2637
+V:tm:imdocsvc - Import Document Service 
+K:2638
+V:tm:sybaseanywhere - Sybase Anywhere 
+K:2639
+V:tm:aminet - AMInet 
+K:2640
+V:tm:sai_sentlm - Sabbagh Associates Licence Manager 
+K:2641
+V:tm:hdl-srv - HDL Server 
+K:2642
+V:tm:tragic - Tragic 
+K:2643
+V:tm:gte-samp - GTE-SAMP 
+K:2644
+V:tm:travsoft-ipx-t - Travsoft IPX Tunnel 
+K:2645
+V:tm:novell-ipx-cmd - Novell IPX CMD 
+K:2646
+V:tm:and-lm - AND Licence Manager 
+K:2647
+V:tm:syncserver - SyncServer 
+K:2648
+V:tm:upsnotifyprot - Upsnotifyprot 
+K:2649
+V:tm:vpsipport - VPSIPPORT 
+K:2650
+V:tm:eristwoguns 
+K:2651
+V:tm:ebinsite - EBInSite 
+K:2652
+V:tm:interpathpanel - InterPathPanel 
+K:2653
+V:tm:sonus - Sonus 
+K:2654
+V:tm:corel_vncadmin - Corel VNC Admin 
+K:2655
+V:tm:unglue - UNIX Nt Glue 
+K:2656
+V:tm:kana - Kana 
+K:2657
+V:tm:sns-dispatcher - SNS Dispatcher 
+K:2658
+V:tm:sns-admin - SNS Admin 
+K:2659
+V:tm:sns-query - SNS Query 
+K:2660
+V:tm:gcmonitor - GC Monitor 
+K:2661
+V:tm:olhost - OLHOST 
+K:2662
+V:tm:bintec-capi - BinTec-CAPI 
+K:2663
+V:tm:bintec-tapi - BinTec-TAPI 
+K:2664
+V:tm:command-mq-gm - Command MQ GM 
+K:2665
+V:tm:command-mq-pm - Command MQ PM 
+K:2666
+V:tm:extensis 
+K:2667
+V:tm:alarm-clock-s - Alarm Clock Server 
+K:2668
+V:tm:alarm-clock-c - Alarm Clock Client 
+K:2669
+V:tm:toad - TOAD 
+K:2670
+V:tm:tve-announce - TVE Announce 
+K:2671
+V:tm:newlixreg 
+K:2672
+V:tm:nhserver 
+K:2673
+V:tm:firstcall42 - First Call 42  
+K:2674
+V:tm:ewnn 
+K:2675
+V:tm:ttc-etap - TTC ETAP 
+K:2676
+V:tm:simslink - SIMSLink 
+K:2677
+V:tm:gadgetgate1way - Gadget Gate 1 Way 
+K:2678
+V:tm:gadgetgate2way - Gadget Gate 2 Way 
+K:2679
+V:tm:syncserverssl - Sync Server SSL 
+K:2680
+V:tm:pxc-sapxom 
+K:2681
+V:tm:mpnjsomb 
+K:2682
+V:tm:srsp - SRSP 
+K:2683
+V:tm:ncdloadbalance - NCDLoadBalance  
+K:2684
+V:tm:mpnjsosv 
+K:2685
+V:tm:mpnjsocl 
+K:2686
+V:tm:mpnjsomg 
+K:2687
+V:tm:pq-lic-mgmt 
+K:2688
+V:tm:md-cg-http - md-cf-http 
+K:2689
+V:tm:fastlynx - FastLynx 
+K:2690
+V:tm:hp-nnm-data - HP NNM Embedded Database 
+K:2691
+V:tm:itinternet - IT Internet 
+K:2692
+V:tm:admins-lms - Admins LMS 
+K:2693
+V:tm:belarc-http 
+K:2694
+V:tm:pwrsevent	 
+K:2695
+V:tm:vspread - VSPREAD 
+K:2696
+V:tm:unifyadmin - Unify Admin 
+K:2697
+V:tm:oce-snmp-trap - Oce SNMP Trap Port  
+K:2698
+V:tm:mck-ivpip - MCK-IVPIP 
+K:2699
+V:tm:csoft-plusclnt - Csoft Plus Client 
+K:2700
+V:tm:tqdata 
+K:2701
+V:tm:sms-rcinfo - SMS RCINFO 
+K:2702
+V:tm:sms-xfer - SMS XFER 
+K:2703
+V:tm:sms-chat - SMS CHAT 
+K:2704
+V:tm:sms-remctrl - SMS REMCTRL 
+K:2705
+V:tm:sds-admin - SDS Admin 
+K:2706
+V:tm:ncdmirroring - NCD Mirroring 
+K:2707
+V:tm:emcsymapiport - EMCSYMAPIPORT 
+K:2708
+V:tm:banyan-net - Banyan-Net 
+K:2709
+V:tm:supermon - Supermon 
+K:2710
+V:tm:sso-service - SSO Service 
+K:2711
+V:tm:sso-control - SSO Control 
+K:2712
+V:tm:aocp - Axapta Object Communication Protocol 
+K:2713
+V:tm:raven1 - Raven1 
+K:2714
+V:tm:raven2 - Raven2 
+K:2715
+V:tm:hpstgmgr2 - HPSTGMGR2 
+K:2716
+V:tm:inova-ip-disco - Inova IP Disco 
+K:2784
+V:tm:www-dev - world wide web - development 
+K:2785
+V:tm:aic-np 
+K:2786
+V:tm:aic-oncrpc - Destiny MCD database 
+K:2787
+V:tm:piccolo - Cornerstone Software 
+K:2788
+V:tm:fryeserv - NetWare Loadable Module - Seagate Software 
+K:2789
+V:tm:media-agent - Media Agent 
+K:2828
+V:tm:itm-lm - ITM License Manager  
+K:2908
+V:tm:mao 
+K:2909
+V:tm:funk-dialout - Funk Dialout 
+K:2910
+V:tm:tdaccess - TDAccess 
+K:2911
+V:tm:blockade - Blockade 
+K:2912
+V:tm:epicon - Epicon 
+K:2913
+V:tm:boosterware - Booster Ware 
+K:2914
+V:tm:gamelobby - Game Lobby 
+K:2915
+V:tm:tksocket - TK Socket 
+K:2916
+V:tm:elvin_server - Elvin Server 
+K:2917
+V:tm:elvin_client - Elvin Client 
+K:2918
+V:tm:kastenchasepad - Kasten Chase Pad 
+K:2971
+V:tm:netclip - Net Clip 
+K:2972
+V:tm:pmsm-webrctl - PMSM Webrctl 
+K:2973
+V:tm:svnetworks - SV Networks 
+K:2974
+V:tm:signal - Signal 
+K:2975
+V:tm:fjmpcm - Fujitsu Configuration Management Service 
+K:2976
+V:tm:cns-srv-port - CNS Server Port 
+K:2977
+V:tm:ttc-etap-ns - TTCs Enterprise Test Access Protocol - NS 
+K:2978
+V:tm:ttc-etap-ds - TTCs Enterprise Test Access Protocol - DS 
+K:2979
+V:tm:h263-video - H.263 Video Streaming  
+K:2980
+V:tm:wimd - Instant Messaging Service 
+K:2981
+V:tm:mylxamport - MYLXAMPORT 
+K:2989
+V:tm:rat - Rat TROJAN 
+K:2998
+V:tm:realsecure - Real Secure 
+K:3000
+V:tm:hbci - HBCI (or remoteware-cl - RemoteWare Client) 
+K:3001
+V:tm:redwood-broker - Redwood Broker 
+K:3002
+V:tm:remoteware-srv - RemoteWare Server (or EXLM Agent) 
+K:3003
+V:tm:cgms - CGMS 
+K:3004
+V:tm:csoftragent - Csoft Agent 
+K:3005
+V:tm:geniuslm - Genius License Manager 
+K:3006
+V:tm:ii-admin - Instant Internet Admin 
+K:3007
+V:tm:lotusmtap - Lotus Mail Tracking Agent Protocol 
+K:3008
+V:tm:midnight-tech - Midnight Technologies 
+K:3009
+V:tm:pxc-ntfy - PXC-NTFY 
+K:3010
+V:tm:gw - Telerate Workstation 
+K:3011
+V:tm:trusted-web - Trusted Web 
+K:3012
+V:tm:twsdss - Trusted Web Client 
+K:3013
+V:tm:gilatskysurfer - Gilat Sky Surfer 
+K:3014
+V:tm:broker_service - Broker Service 
+K:3015
+V:tm:nati-dstp - NATI DSTP 
+K:3016
+V:tm:notify_srvr - Notify Server 
+K:3017
+V:tm:event_listener - Event Listener 
+K:3018
+V:tm:srvc_registry - Service Registry 
+K:3019
+V:tm:resource_mgr - Resource Manager 
+K:3020
+V:tm:cifs - CIFS 
+K:3021
+V:tm:agriserver - AGRI Server 
+K:3022
+V:tm:csregagent - CSREGAGENT 
+K:3023
+V:tm:magicnotes 
+K:3024
+V:tm:nds_sso - NDS_SSO 
+K:3025
+V:tm:arepa-raft - Arepa Raft  
+K:3026
+V:tm:agri-gateway - AGRI Gateway 
+K:3027
+V:tm:LiebDevMgmt_C 
+K:3028
+V:tm:LiebDevMgmt_DM 
+K:3029
+V:tm:LiebDevMgmt_A 
+K:3030
+V:tm:arepa-cas - Arepa Cas 
+K:3031
+V:tm:agentvu - AgentVU  
+K:3032
+V:tm:redwood-chat - Redwood Chat 
+K:3033
+V:tm:pdb - PDB 
+K:3034
+V:tm:osmosis-aeea - Osmosis AEEA 
+K:3035
+V:tm:fjsv-gssagt - FJSV gssagt 
+K:3036
+V:tm:hagel-dump - Hagel DUMP 
+K:3037
+V:tm:hp-san-mgmt - HP SAN Mgmt 
+K:3038
+V:tm:santak-ups - Santak UPS 
+K:3039
+V:tm:cogitate - Cogitate, Inc. 
+K:3040
+V:tm:tomato-springs - Tomato Springs 
+K:3041
+V:tm:di-traceware 
+K:3042
+V:tm:journee 
+K:3043
+V:tm:brp - BRP 
+K:3044
+V:tm:msexch-routing 
+K:3045
+V:tm:responsenet - ResponseNet 
+K:3046
+V:tm:di-ase 
+K:3047
+V:tm:hlserver - Fast Security HL Server 
+K:3048
+V:tm:pctrader - Sierra Net PC Trader 
+K:3049
+V:tm:nsws - NSWS 
+K:3050
+V:tm:gds_db 
+K:3051
+V:tm:galaxy-server - Galaxy Server 
+K:3052
+V:tm:apcpcns - APCPCNS 
+K:3053
+V:tm:dsom-server 
+K:3054
+V:tm:amt-cnf-prot - AMT CNF PROT 
+K:3055
+V:tm:policyserver - Policy Server 
+K:3056
+V:tm:cdl-server - CDL Server 
+K:3057
+V:tm:goahead-fldup - GoAhead FldUp 
+K:3058
+V:tm:videobeans 
+K:3059
+V:tm:qsoft 
+K:3060
+V:tm:interserver 
+K:3061
+V:tm:cautcpd 
+K:3062
+V:tm:ncacn-ip-tcp 
+K:3063
+V:tm:ncadg-ip-udp 
+K:3080
+V:tm:stm_pproc 
+K:3105
+V:tm:cardbox - Cardbox 
+K:3106
+V:tm:cardbox-http - Cardbox HTTP 
+K:3130
+V:tm:icpv2 - ICPv2 
+K:3131
+V:tm:netbookmark - Net Book Mark 
+K:3141
+V:tm:vmodem - VMODEM 
+K:3142
+V:tm:rdc-wh-eos - RDC WH EOS 
+K:3143
+V:tm:seaview - Sea View 
+K:3144
+V:tm:tarantella - Tarantella 
+K:3145
+V:tm:csi-lfap - CSI-LFAP 
+K:3147
+V:tm:rfio - RFIO 
+K:3148
+V:tm:nm-game-admin - NetMike Game Administrator 
+K:3149
+V:tm:nm-game-server - NetMike Game Server 
+K:3150
+V:tm:nm-asses-admin - NetMike Assessor Administrator 
+K:3151
+V:tm:nm-assessor - NetMike Assessor 
+K:3180
+V:tm:mc-brk-srv - Millicent Broker Server 
+K:3181
+V:tm:bmcpatrolagent - BMC Patrol Agent 
+K:3182
+V:tm:bmcpatrolrnvu - BMC Patrol Rendezvous 
+K:3264
+V:tm:ccmail - cc:mail/lotus 
+K:3265
+V:tm:altav-tunnel - Altav Tunnel 
+K:3266
+V:tm:ns-cfg-server - NS CFG Server 
+K:3267
+V:tm:ibm-dial-out - IBM Dial Out 
+K:3268
+V:tm:msft-gc - Microsoft Global Catalog 
+K:3269
+V:tm:msft-gc-ssl - Microsoft Global Catalog with LDAP/SSL 
+K:3270
+V:tm:verismart - Verismart 
+K:3271
+V:tm:csoft-prev - CSoft Prev Port 
+K:3272
+V:tm:user-manager - Fujitsu User Manager 
+K:3273
+V:tm:sxmp - Simple Extensible Multiplexed Protocol 
+K:3274
+V:tm:ordinox-server - Ordinox Server 
+K:3275
+V:tm:samd - SAMD 
+K:3276
+V:tm:maxim-asics - Maxim ASICs 
+K:3277
+V:tm:awg-proxy - AWG Proxy 
+K:3278
+V:tm:lkcmserver - LKCM Server 
+K:3279
+V:tm:admind 
+K:3280
+V:tm:vs-server - VS Server 
+K:3281
+V:tm:sysopt - SYSOPT 
+K:3282
+V:tm:datusorb - Datusorb 
+K:3283
+V:tm:net-assistant - Net Assistant 
+K:3284
+V:tm:4talk - 4Talk 
+K:3285
+V:tm:plato - Plato 
+K:3286
+V:tm:e-net - E-Net 
+K:3287
+V:tm:directvdata - DIRECTVDATA 
+K:3288
+V:tm:cops - COPS 
+K:3289
+V:tm:enpc - ENPC 
+K:3290
+V:tm:caps-lm - CAPS LOGISTICS TOOLKIT - LM 
+K:3291
+V:tm:sah-lm - S A Holditch & Associates - LM 
+K:3292
+V:tm:cart-o-rama - Cart O Rama 
+K:3293
+V:tm:fg-fps 
+K:3294
+V:tm:fg-gip 
+K:3295
+V:tm:dyniplookup - Dynamic IP Lookup 
+K:3296
+V:tm:rib-slm - Rib License Manager 
+K:3297
+V:tm:cytel-lm - Cytel License Manager 
+K:3298
+V:tm:transview - Transview 
+K:3299
+V:tm:pdrncs 
+K:3300
+K:3301
+V:tm:sap r/3 - SAP R/3 (unauthorized use) 
+K:3302
+V:tm:mcs-fastmail - MCS Fastmail 
+K:3303
+V:tm:opsession-clnt - OP Session Client 
+K:3304
+V:tm:opsession-srvr - OP Session Server 
+K:3305
+V:tm:odette-ftp - ODETTE-FTP 
+K:3306
+V:tm:mysql - MySQL 
+K:3307
+V:tm:opsession-prxy - OP Session Proxy 
+K:3308
+V:tm:tns-server - TNS Server 
+K:3309
+V:tm:tns-adv - TNS ADV 
+K:3310
+V:tm:dyna-access - Dyna Access 
+K:3311
+V:tm:mcns-tel-ret - MCNS Tel Ret 
+K:3312
+V:tm:appman-server - Application Management Server 
+K:3313
+V:tm:uorb - Unify Object Broker 
+K:3314
+V:tm:uohost - Unify Object Host 
+K:3315
+V:tm:cdid - CDID 
+K:3316
+V:tm:aicc-cmi - AICC/CMI 
+K:3317
+V:tm:vsaiport - VSAI PORT 
+K:3318
+V:tm:ssrip - Swith to Swith Routing Information Protocol 
+K:3319
+V:tm:sdt-lmd - SDT License Manager 
+K:3320
+V:tm:officelink2000 - Office Link 2000 
+K:3321
+V:tm:vnsstr - VNSSTR 
+K:3322
+K:3323
+K:3324
+K:3325
+V:tm:active-net - Active Networks 
+K:3326
+V:tm:sftu - SFTU 
+K:3327
+V:tm:bbars - BBARS 
+K:3328
+V:tm:egptlm - Eaglepoint License Manager 
+K:3329
+V:tm:hp-device-disc - HP Device Disc 
+K:3330
+V:tm:mcs-calypsoicf - MCS Calypso ICF 
+K:3331
+V:tm:mcs-messaging - MCS Messaging 
+K:3332
+V:tm:mcs-mailsvr - MCS Mail Server 
+K:3333
+V:tm:dec-notes - DEC Notes 
+K:3334
+V:tm:directv-web - Direct TV Webcasting 
+K:3335
+V:tm:directv-soft - Direct TV Software Updates 
+K:3336
+V:tm:directv-tick - Direct TV Tickers 
+K:3337
+V:tm:directv-catlg - Direct TV Data Catalog 
+K:3338
+V:tm:anet-b - OMF data b 
+K:3339
+V:tm:anet-l - OMF data l 
+K:3340
+V:tm:anet-m - OMF data m 
+K:3341
+V:tm:anet-h - OMF data h 
+K:3342
+V:tm:webtie - WebTIE 
+K:3343
+V:tm:ms-cluster-net - MS Cluster Net 
+K:3344
+V:tm:bnt-manager - BNT Manager 
+K:3345
+V:tm:influence - Influence 
+K:3346
+V:tm:trnsprntproxy - Trnsprnt Proxy 
+K:3347
+V:tm:phoenix-rpc - Phoenix RPC 
+K:3348
+V:tm:pangolin-laser - Pangolin Laser 
+K:3349
+V:tm:chevinservices - Chevin Services 
+K:3350
+V:tm:findviatv - FINDVIATV 
+K:3351
+V:tm:btrieve - BTRIEVE 
+K:3352
+V:tm:ssql - SSQL 
+K:3353
+V:tm:fatpipe - FATPIPE 
+K:3354
+V:tm:suitjd - SUITJD 
+K:3355
+V:tm:ordinox-dbase - Ordinox Dbase 
+K:3356
+V:tm:upnotifyps - UPNOTIFYPS 
+K:3357
+V:tm:adtech-test - Adtech Test IP 
+K:3358
+V:tm:mpsysrmsvr - Mp Sys Rmsvr 
+K:3359
+V:tm:wg-netforce - WG NetForce 
+K:3360
+V:tm:kv-server - KV Server 
+K:3361
+V:tm:kv-agent - KV Agent  
+K:3362
+V:tm:dj-ilm - DJ ILM 
+K:3363
+V:tm:nati-vi-server - NATI Vi Server 
+K:3364
+V:tm:creativeserver - Creative Server 
+K:3365
+V:tm:contentserver - Content Server 
+K:3366
+V:tm:creativepartnr - Creative Partner 
+K:3371
+K:3372
+K:3373
+K:3374
+K:3375
+V:tm:satvid-datalnk - Satellite Video Data Link 
+K:3372
+V:tm:tip2 - TIP 2 
+K:3373
+V:tm:lavenir-lm - Lavenir License Manager 
+K:3374
+V:tm:cluster-disc - Cluster Disc 
+K:3375
+V:tm:vsnm-agent - VSNM Agent 
+K:3376
+V:tm:cdborker - CD Broker 
+K:3377
+V:tm:cogsys-lm - Cogsys Network License Manager 
+K:3378
+V:tm:wsicopy - WSICOPY 
+K:3379
+V:tm:socorfs - SOCORFS 
+K:3380
+V:tm:sns-channels - SNS Channels 
+K:3381
+V:tm:geneous - Geneous 
+K:3382
+V:tm:fujitsu-neat - Fujitsu Network Enhanced Antitheft function 
+K:3383
+V:tm:esp-lm - Enterprise Software Products License Manager 
+K:3384
+V:tm:hp-clic - Cluster Management Services 
+K:3385
+V:tm:qnxnetman 
+K:3386
+V:tm:gprs-data - GPRS Data 
+K:3387
+V:tm:backroomnet - Back Room Net 
+K:3388
+V:tm:cbserver - CB Server 
+K:3389
+V:tm:ms-wbt-server - MS WBT Server 
+K:3390
+V:tm:dsc - Distributed Service Coordinator 
+K:3391
+V:tm:savant - SAVANT 
+K:3392
+V:tm:efi-lm - EFI License Management 
+K:3393
+V:tm:d2k-tapestry1 - D2K Tapestry Client to Server 
+K:3394
+V:tm:d2k-tapestry2 - D2K Tapestry Server to Server 
+K:3395
+V:tm:dyna-lm - Dyna License Manager (Elam) 
+K:3396
+V:tm:printer_agent - Printer Agent 
+K:3397
+V:tm:cloanto-lm - Cloanto License Manager 
+K:3398
+V:tm:mercantile - Mercantile 
+K:3399
+V:tm:csms - CSMS 
+K:3400
+V:tm:csms2 - CSMS2 
+K:3401
+V:tm:filecast 
+K:3421
+V:tm:bmap - Bull Apprise portmapper 
+K:3454
+V:tm:mira - Apple Remote Access Protocol 
+K:3455
+V:tm:prsvp - RSVP Port 
+K:3456
+V:tm:vat - VAT default data 
+K:3457
+V:tm:vat-control - VAT default control 
+K:3458
+V:tm:d3winosfi - D3WinOsfi 
+K:3459
+V:tm:integral - Integral 
+K:3460
+V:tm:edm-manager - EDM Manger 
+K:3461
+V:tm:edm-stager - EDM Stager 
+K:3462
+V:tm:edm-std-notify - EDM STD Notify 
+K:3463
+V:tm:edm-adm-notify - EDM ADM Notify 
+K:3464
+V:tm:edm-mgr-sync - EDM MGR Sync 
+K:3465
+V:tm:edm-mgr-cntrl - EDM MGR Cntrl 
+K:3466
+V:tm:workflow - WORKFLOW 
+K:3467
+V:tm:rcst - RCST 
+K:3468
+V:tm:ttcmremotectrl - TTCM Remote Controll 
+K:3469
+V:tm:pluribus - Pluribus 
+K:3470
+V:tm:jt400 
+K:3471
+V:tm:jt400-ssl 
+K:3563
+V:tm:watcomdebug - Watcom Debug 
+K:3672
+V:tm:harlequinorb 
+K:3900
+V:tm:udt_os - Unidata UDT OS 
+K:3984
+V:tm:mapper-nodemgr - MAPPER network node manager 
+K:3985
+V:tm:mapper-mapethd - MAPPER TCP/IP server 
+K:3986
+V:tm:mapper-ws_ethd - MAPPER workstation server 
+K:3987
+V:tm:centerline - Centerline 
+K:4000
+V:tm:terabase - Terabase (or ICQ) 
+K:4001
+V:tm:newoak - NewOak 
+K:4002
+V:tm:pxc-spvr-ft 
+K:4003
+V:tm:pxc-splr-ft 
+K:4004
+V:tm:pxc-roid 
+K:4005
+V:tm:pxc-pin 
+K:4006
+V:tm:pxc-spvr 
+K:4007
+V:tm:pxc-splr 
+K:4008
+V:tm:netcheque - NetCheque accounting  
+K:4009
+V:tm:chimera-hwm - Chimera HWM 
+K:4010
+V:tm:samsung-unidex - Samsung Unidex 
+K:4011
+V:tm:altserviceboot - Alternate Service Boot 
+K:4012
+V:tm:pda-gate - PDA Gate 
+K:4013
+V:tm:acl-manager - ACL Manager 
+K:4014
+V:tm:taiclock - TAICLOCK 
+K:4015
+V:tm:talarian-mcast1 - Talarian Mcast 
+K:4016
+V:tm:talarian-mcast2 - Talarian Mcast 
+K:4017
+V:tm:talarian-mcast3 - Talarian Mcast 
+K:4018
+V:tm:talarian-mcast4 - Talarian Mcast 
+K:4019
+V:tm:talarian-mcast5 - Talarian Mcast 
+K:4096
+V:tm:bre - BRE (Bridge Relay Element) 
+K:4097
+V:tm:patrolview - Patrol View 
+K:4098
+V:tm:drmsfsd 
+K:4099
+V:tm:dpcp - DPCP 
+K:4132
+V:tm:nuts_dem - NUTS Daemon 
+K:4133
+V:tm:nuts_bootp - NUTS Bootp Server 
+K:4134
+V:tm:nifty-hmi - NIFTY-Serve HMI protocol 
+K:4141
+V:tm:oirtgsvc - Workflow Server 
+K:4142
+V:tm:oidocsvc - Document Server 
+K:4143
+V:tm:oidsr - Document Replication 
+K:4144
+V:tm:compuserve - Compuserve (UNOFFICIALLY) 
+K:4160
+V:tm:jini-discovery - Jini Discovery 
+K:4200
+K:4201
+K:4202
+K:4203
+K:4204
+K:4205
+K:4206
+K:4207
+K:4208
+K:4209
+K:4210
+K:4211
+K:4212
+K:4213
+K:4214
+K:4215
+K:4216
+K:4217
+K:4218
+K:4219
+K:4220
+K:4221
+K:4222
+K:4223
+K:4224
+K:4225
+K:4226
+K:4227
+K:4228
+K:4229
+K:4230
+K:4231
+K:4232
+K:4233
+K:4234
+K:4235
+K:4236
+K:4237
+K:4238
+K:4239
+K:4240
+K:4241
+K:4242
+K:4243
+K:4244
+K:4245
+K:4246
+K:4247
+K:4248
+K:4249
+K:4250
+K:4251
+K:4252
+K:4253
+K:4254
+K:4255
+K:4256
+K:4257
+K:4258
+K:4259
+K:4260
+K:4261
+K:4262
+K:4263
+K:4264
+K:4265
+K:4266
+K:4267
+K:4268
+K:4269
+K:4270
+K:4271
+K:4272
+K:4273
+K:4274
+K:4275
+K:4276
+K:4277
+K:4278
+K:4279
+K:4280
+K:4281
+K:4282
+K:4283
+K:4284
+K:4285
+K:4286
+K:4287
+K:4288
+K:4289
+K:4290
+K:4291
+K:4292
+K:4293
+K:4294
+K:4295
+K:4296
+K:4297
+K:4298
+K:4299
+V:tm:vrml-multi-use - VRML Multi User Systems 
+K:4300
+V:tm:corelccam - Corel CCam 
+K:4321
+V:tm:rwhois - Remote Who Is 
+K:4343
+V:tm:unicall - UNICALL 
+K:4344
+V:tm:vinainstall - VinaInstall 
+K:4345
+V:tm:m4-network-as - Macro 4 Network AS 
+K:4346
+V:tm:elanlm - ELAN LM 
+K:4347
+V:tm:lansurveyor - LAN Surveyor 
+K:4348
+V:tm:itose - ITOSE 
+K:4349
+V:tm:fsportmap - File System Port Map 
+K:4350
+V:tm:net-device - Net Device 
+K:4351
+V:tm:plcy-net-svcs - PLCY Net Services 
+K:4353
+V:tm:f5-iquery - F5 iQuery  
+K:4442
+V:tm:saris - Saris 
+K:4443
+V:tm:pharos - Pharos 
+K:4444
+V:tm:krb524 - KRB524 (or nv-video - NV Video default) 
+K:4445
+V:tm:upnotifyp - UPNOTIFYP 
+K:4446
+V:tm:n1-fwp - N1-FWP 
+K:4447
+V:tm:n1-rmgmt - N1-RMGMT 
+K:4448
+V:tm:asc-slmd - ASC Licence Manager 
+K:4449
+V:tm:privatewire - PrivateWire 
+K:4450
+V:tm:camp - Camp 
+K:4451
+V:tm:ctisystemmsg - CTI System Msg 
+K:4452
+V:tm:ctiprogramload - CTI Program Load 
+K:4453
+V:tm:nssalertmgr - NSS Alert Manager 
+K:4454
+V:tm:nssagentmgr - NSS Agent Manager 
+K:4455
+V:tm:prchat-user - PR Chat User 
+K:4456
+V:tm:prchat-server - PR Chat Server 
+K:4457
+V:tm:prRegister - PR Register 
+K:4500
+V:tm:sae-urn 
+K:4501
+V:tm:urn-x-cdchoice 
+K:4545
+V:tm:worldscores - WorldScores 
+K:4546
+V:tm:sf-lm - SF License Manager (Sentinel) 
+K:4547
+V:tm:lanner-lm - Lanner License Manager 
+K:4600
+V:tm:piranha1 - Piranha1 
+K:4601
+V:tm:piranha2 - Piranha2 
+K:4672
+V:tm:rfa - remote file access server 
+K:4800
+V:tm:iims - Icona Instant Messenging System 
+K:4801
+V:tm:iwec - Icona Web Embedded Chat 
+K:4802
+V:tm:ilss - Icona License System Server 
+K:4827
+V:tm:htcp - HTCP 
+K:4868
+V:tm:phrelay - Photon Relay 
+K:4869
+V:tm:phrelaydbg - Photon Relay Debug 
+K:4885
+V:tm:abbs - ABBS 
+K:5000
+V:tm:commplex-main (or Sokets de Trois 1 TROJAN) 
+K:5001
+V:tm:commplex-link (or Sokets de Trois 1 TROJAN) 
+K:5002
+V:tm:rfe - radio free ethernet 
+K:5003
+V:tm:fmpro-internal - FileMaker, Inc. - Proprietary transport 
+K:5004
+V:tm:avt-profile-1 
+K:5005
+V:tm:avt-profile-2 
+K:5010
+V:tm:telelpathstart - TelepathStart 
+K:5011
+V:tm:telelpathattack - TelepathAttack 
+K:5020
+V:tm:zenginkyo-1 
+K:5021
+V:tm:zenginkyo-2 
+K:5042
+V:tm:asnaacceler8db 
+K:5050
+V:tm:mmcc - multimedia conference control tool 
+K:5051
+V:tm:ita-agent - ITA Agent 
+K:5052
+V:tm:ita-manager - ITA Manager 
+K:5060
+V:tm:sip - SIP 
+K:5069
+V:tm:i-net-2000-npr - I/Net 2000-NPR 
+K:5145
+V:tm:rmonitor_secure 
+K:5150
+V:tm:atmp - Ascend Tunnel Management Protocol 
+K:5151
+V:tm:esri_sde - ESRI SDE Instance 
+K:5152
+V:tm:sde-discovery - ESRI SDE Instance Discovery 
+K:5165
+V:tm:ife_icorp - ife_1corp 
+K:5190
+V:tm:aol - America-Online 
+K:5191
+V:tm:aol-1 - AmericaOnline1 
+K:5192
+V:tm:aol-2 - AmericaOnline2 
+K:5193
+V:tm:aol-3 - AmericaOnline3 
+K:5200
+V:tm:targus-aib1 - Targus AIB 1  
+K:5201
+V:tm:targus-aib2 - Targus AIB 2  
+K:5202
+V:tm:targus-tnts1 - Targus TNTS 1 
+K:5203
+V:tm:targus-tnts2 - Targus TNTS 2 
+K:5236
+V:tm:padl2sim 
+K:5272
+V:tm:pk - PK 
+K:5300
+V:tm:hacl-hb - HA cluster heartbeat 
+K:5301
+V:tm:hacl-gs - HA cluster general services 
+K:5302
+V:tm:hacl-cfg - HA cluster configuration 
+K:5303
+V:tm:hacl-probe - HA cluster probing 
+K:5304
+V:tm:hacl-local - HA Cluster Commands 
+K:5305
+V:tm:hacl-test - HA Cluster Test 
+K:5306
+V:tm:sun-mc-grp - Sun MC Group 
+K:5307
+V:tm:sco-aip - SCO AIP 
+K:5308
+V:tm:cfengine - CFengine 
+K:5309
+V:tm:jprinter - J Printer 
+K:5310
+V:tm:outlaws - Outlaws 
+K:5311
+V:tm:tmlogin - TM Login 
+K:5400
+V:tm:excerpt - Excerpt Search 
+K:5401
+V:tm:excerpts - Excerpt Search Secure 
+K:5402
+V:tm:mftp - MFTP 
+K:5403
+V:tm:hpoms-ci-lstn - HPOMS-CI-LSTN 
+K:5404
+V:tm:hpoms-dps-lstn - HPOMS-DPS-LSTN 
+K:5405
+V:tm:netsupport - NetSupport 
+K:5406
+V:tm:systemics-sox - Systemics Sox 
+K:5407
+V:tm:foresyte-clear - Foresyte-Clear 
+K:5408
+V:tm:foresyte-sec - Foresyte-Sec 
+K:5409
+V:tm:salient-dtasrv - Salient Data Server 
+K:5410
+V:tm:salient-usrmgr - Salient User Manager 
+K:5411
+V:tm:actnet - ActNet 
+K:5412
+V:tm:continuus - Continuus 
+K:5413
+V:tm:wwiotalk - WWIOTALK 
+K:5414
+V:tm:statusd - StatusD 
+K:5415
+V:tm:ns-server - NS Server 
+K:5416
+V:tm:sns-gateway - SNS Gateway 
+K:5417
+V:tm:sns-agent - SNS Agent 
+K:5418
+V:tm:mcntp - MCNTP 
+K:5419
+V:tm:dj-ice - DJ-ICE 
+K:5420
+V:tm:cylink-c - Cylink-C 
+K:5454
+V:tm:apc-tcp-udp-4 
+K:5455
+V:tm:apc-tcp-udp-5 
+K:5456
+V:tm:apc-tcp-udp-6 
+K:5500
+V:tm:fcp-addr-srvr1 
+K:5501
+V:tm:fcp-addr-srvr2 
+K:5502
+V:tm:fcp-srvr-inst1 
+K:5503
+V:tm:fcp-srvr-inst2 
+K:5504
+V:tm:fcp-cics-gw1 
+K:5555
+V:tm:personal-agent - Personal Agent (or HP Omniback) 
+K:5599
+V:tm:esinstall - Enterprise Security Remote Install 
+K:5600
+V:tm:esmmanager - Enterprise Security Manager 
+K:5601
+V:tm:esmagent - Enterprise Security Agent 
+K:5602
+V:tm:a1-msc - A1-MSC 
+K:5603
+V:tm:a1-bs - A1-BS 
+K:5604
+V:tm:a3-sdunode - A3-SDUNode 
+K:5605
+V:tm:a4-sdunode - A4-SDUNode 
+K:5631
+V:tm:pcanywheredata - pcANYWHEREdata 
+K:5632
+V:tm:pcanywherestat - pcANYWHEREstat 
+K:5678
+V:tm:rrac - Remote Replication Agent Connection 
+K:5679
+V:tm:dccm - Direct Cable Connect Manager 
+K:5713
+V:tm:proshareaudio - proshare conf audio 
+K:5714
+V:tm:prosharevideo - proshare conf video 
+K:5715
+V:tm:prosharedata - proshare conf data  
+K:5716
+V:tm:prosharerequest - proshare conf request 
+K:5717
+V:tm:prosharenotify - proshare conf notify  
+K:5729
+V:tm:openmail - Openmail User Agent Layer 
+K:5741
+V:tm:ida-discover1 - IDA Discover Port 1 
+K:5742
+V:tm:ida-discover2 - IDA Discover Port 2 
+K:5745
+V:tm:fcopy-server 
+K:5746
+V:tm:fcopys-server 
+K:5755
+V:tm:openmailg - OpenMail Desk Gateway server 
+K:5757
+V:tm:x500ms - OpenMail X.500 Directory Server 
+K:5766
+V:tm:openmailns - OpenMail NewMail Server 
+K:5767
+V:tm:s-openmail - OpenMail Suer Agent Layer (Secure) 
+K:5768
+V:tm:openmailpxy - OpenMail CMTS Server 
+K:5968
+V:tm:mppolicy-v5 
+K:5969
+V:tm:mppolicy-mgr 
+K:6000
+K:6001
+K:6002
+K:6003
+K:6004
+K:6005
+K:6006
+K:6007
+K:6008
+K:6009
+K:6010
+V:tm:x11 - X Windows System 
+K:6110
+V:tm:softcm - HP SoftBench CM 
+K:6111
+V:tm:spc - HP SoftBench Sub-Process Control 
+K:6112
+V:tm:dtspcd 
+K:6123
+V:tm:backup-express - Backup Express 
+K:6141
+V:tm:meta-corp - Meta Corporation License Manager 
+K:6142
+V:tm:aspentec-lm - Aspen Technology License Manager 
+K:6143
+V:tm:watershed-lm - Watershed License Manager 
+K:6144
+V:tm:statsci1-lm - StatSci License Manager - 1 
+K:6145
+V:tm:statsci2-lm - StatSci License Manager - 2 
+K:6146
+V:tm:lonewolf-lm - Lone Wolf Systems License Manager 
+K:6147
+V:tm:montage-lm - Montage License Manager 
+K:6148
+V:tm:ricardo-lm - Ricardo North America License Manager 
+K:6149
+V:tm:tal-pod  
+K:6253
+V:tm:crip - CRIP 
+K:6389
+V:tm:clariion-evr01 
+K:6455
+V:tm:skip-cert-recv - SKIP Certificate Receive 
+K:6471
+V:tm:lvision-lm - LVision License Manager 
+K:6500
+V:tm:boks - BoKS Master 
+K:6501
+V:tm:boks_servc - BoKS Servc 
+K:6502
+V:tm:boks_servm - BoKS Servm 
+K:6503
+V:tm:boks_clntd - BoKS Clntd 
+K:6505
+V:tm:badm_priv - BoKS Admin Private Port 
+K:6506
+V:tm:badm_pub - BoKS Admin Public Port 
+K:6507
+V:tm:bdir_priv - BoKS Dir Server, Private Port 
+K:6508
+V:tm:bdir_pub - BoKS Dir Server, Public Port 
+K:6547
+V:tm:apc-tcp-udp-1 
+K:6548
+V:tm:apc-tcp-udp-2 
+K:6549
+V:tm:apc-tcp-udp-3 
+K:6550
+V:tm:fg-sysupdate 
+K:6558
+V:tm:xdsxdm 
+K:6665
+K:6666
+K:6667
+K:6668
+K:6669
+V:tm:ircu - IRCU (IRCD/IRC/Internet Relay Chat) 
+K:6670
+V:tm:vocaltec-gold - Vocaltec Global Online Directory 
+K:6672
+V:tm:vision_server 
+K:6673
+V:tm:vision_elmd 
+K:6701
+V:tm:kti-icad-srvr - KTI/ICAD Nameserver 
+K:6790
+V:tm:hnmp - HNMP 
+K:6831
+V:tm:ambit-lm 
+K:6841
+V:tm:netmo-default - Netmo Default 
+K:6842
+V:tm:netmo-http - Netmo HTTP 
+K:6961
+V:tm:jmact3 - JMACT3 
+K:6962
+V:tm:jmevt2 
+K:6963
+V:tm:swismgr1 
+K:6964
+V:tm:swismgr2 
+K:6965
+V:tm:swistrap 
+K:6966
+V:tm:swispol 
+K:6969
+V:tm:acmsoda 
+K:6998
+V:tm:iatp-highpri - IATP-highPri 
+K:6999
+V:tm:iatp-normalpri - IATP-normalPri 
+K:7000
+V:tm:afs3-fileserver - file server itself 
+K:7001
+V:tm:afs3-callback - callbacks to cache managers 
+K:7002
+V:tm:afs3-prserver - users & groups database 
+K:7003
+V:tm:afs3-vlserver - volume location database 
+K:7004
+V:tm:afs3-kaserver - AFS/Kerberos authentication service 
+K:7005
+V:tm:afs3-volser - volume managment server 
+K:7006
+V:tm:afs3-errors - error interpretation service 
+K:7007
+V:tm:afs3-bos - basic overseer process 
+K:7008
+V:tm:afs3-update - server-to-server updater 
+K:7009
+V:tm:afs3-rmtsys - remote cache manager service 
+K:7010
+V:tm:ups-onlinet - onlinet uninterruptable power supplies 
+K:7011
+V:tm:talon-disc - Talon Discovery Port 
+K:7012
+V:tm:talon-engine - Talon Engine 
+K:7020
+V:tm:dpserve - DP Serve 
+K:7021
+V:tm:dpserveadmin - DP Serve Admin 
+K:7070
+V:tm:arcp - ARCP 
+K:7099
+V:tm:lazy-ptop 
+K:7100
+V:tm:font-service - X Font Service 
+K:7121
+V:tm:virprot-lm - Virtual Prototypes License Manager 
+K:7174
+V:tm:clutild - Clutild 
+K:7200
+V:tm:fodms - FODMS FLIP 
+K:7201
+V:tm:dlip - DLIP 
+K:7300
+V:tm:netmon - Net Monitor TROJAN (or swx - The Swiss Exchange) 
+K:7301
+V:tm:netmon - Net Monitor TROJAN (or swx - The Swiss Exchange) 
+K:7300
+K:7301
+K:7302
+K:7303
+K:7304
+K:7305
+K:7306
+K:7307
+K:7308
+K:7309
+K:7310
+K:7311
+K:7312
+K:7313
+K:7314
+K:7315
+K:7316
+K:7317
+K:7318
+K:7319
+K:7320
+K:7321
+K:7322
+K:7323
+K:7324
+K:7325
+K:7326
+K:7327
+K:7328
+K:7329
+K:7330
+K:7340
+K:7399
+V:tm:swx - The Swiss Exchange 
+K:7395
+V:tm:winqedit 
+K:7426
+V:tm:pmdmgr - OpenView DM Postmaster Manager 
+K:7427
+V:tm:oveadmgr - OpenView DM Event Agent Manager 
+K:7428
+V:tm:ovladmgr - OpenView DM Log Agent Manager 
+K:7429
+V:tm:opi-sock - OpenView DM rqt communication 
+K:7430
+V:tm:xmpv7 - OpenView DM xmpv7 api pipe 
+K:7431
+V:tm:pmd - OpenView DM ovc/xmpv3 api pipe 
+K:7437
+V:tm:faximum - Faximum 
+K:7491
+V:tm:telops-lmd 
+K:7511
+V:tm:pafec-lm 
+K:7544
+V:tm:nta-ds - FlowAnalyzer DisplayServer 
+K:7545
+V:tm:nta-us - FlowAnalyzer UtilityServer 
+K:7566
+V:tm:vsi-omega - VSI Omega	 
+K:7570
+V:tm:aries-kfinder - Aries Kfinder 
+K:7588
+V:tm:sun-lm - Sun License Manager 
+K:7633
+V:tm:pmdfmgt - PMDF Management 
+K:7777
+V:tm:cbt 
+K:7781
+V:tm:accu-lmgr 
+K:7932
+V:tm:t2-drm - Tier 2 Data Resource Manager 
+K:7933
+V:tm:t2-brm - Tier 2 Business Rules Manager 
+K:7967
+V:tm:supercell - Supercell 
+K:7980
+V:tm:quest-vista - Quest Vista 
+K:7999
+V:tm:irdmi2 - iRDMI2 
+K:8000
+V:tm:irdmi - iRDMI 
+K:8001
+V:tm:vcom-tunnel - VCOM Tunnel 
+K:8008
+V:tm:http-alt - HTTP Alternate 
+K:8032
+V:tm:pro-ed - ProEd 
+K:8033
+V:tm:mindprint - MindPrint 
+K:8080
+V:tm:http-alt - HTTP Alternate (see port 80) 
+K:8160
+V:tm:patrol - Patrol 
+K:8161
+V:tm:patrol-snmp - Patrol SNMP 
+K:8200
+V:tm:trivnet1 - TRIVNET 
+K:8201
+V:tm:trivnet2 - TRIVNET 
+K:8204
+V:tm:lm-perfworks - LM Perfworks 
+K:8205
+V:tm:lm-instmgr - LM Instmgr 
+K:8206
+V:tm:lm-dta - LM Dta 
+K:8207
+V:tm:lm-sserver - LM SServer 
+K:8351
+V:tm:server-find - Server Find 
+K:8376
+V:tm:cruise-enum - Cruise ENUM 
+K:8377
+V:tm:cruise-swroute - Cruise SWROUTE 
+K:8378
+V:tm:cruise-config - Cruise CONFIG 
+K:8379
+V:tm:cruise-diags - Cruise DIAGS 
+K:8380
+V:tm:cruise-update - Cruise UPDATE 
+K:8400
+V:tm:cvd 
+K:8401
+V:tm:sabarsd 
+K:8402
+V:tm:abarsd 
+K:8403
+V:tm:admind 
+K:8450
+V:tm:npmp 
+K:8473
+V:tm:vp2p - Virtual Point to Point 
+K:8554
+V:tm:rtsp-alt - RTSP Alternate (see port 554) 
+K:8733
+V:tm:ibus - iBus 
+K:8765
+V:tm:ultraseek-http - Ultraseek HTTP 
+K:8880
+V:tm:cddbp-alt - CDDBP 
+K:8888
+V:tm:ddi-tcp-1 - NewsEDGE server TCP (TCP 1) 
+K:8889
+V:tm:ddi-tcp-2 - Desktop Data TCP 1 
+K:8890
+V:tm:ddi-tcp-3 - Desktop Data TCP 2 
+K:8891
+V:tm:ddi-tcp-4 - Desktop Data TCP 3: NESS application 
+K:8892
+V:tm:ddi-tcp-5 - Desktop Data TCP 4: FARM product 
+K:8893
+V:tm:ddi-tcp-6 - Desktop Data TCP 5: NewsEDGE/Web application 
+K:8894
+V:tm:ddi-tcp-7 - Desktop Data TCP 6: COAL application 
+K:8900
+V:tm:jmb-cds1 - JMB-CDS 1 
+K:8901
+V:tm:jmb-cds2 - JMB-CDS 2 
+K:9000
+V:tm:cslistener - CSlistener 
+K:9006
+V:tm:sctp - SCTP 
+K:9090
+V:tm:websm - WebSM 
+K:9160
+V:tm:netlock1 - NetLOCK1 
+K:9161
+V:tm:netlock2 - NetLOCK2 
+K:9162
+V:tm:netlock3 - NetLOCK3 
+K:9163
+V:tm:netlock4 - NetLOCK4 
+K:9164
+V:tm:netlock5 - NetLOCK5 
+K:9200
+V:tm:wap-wsp - WAP connectionless session service 
+K:9201
+V:tm:wap-wsp-wtp - WAP session service 
+K:9202
+V:tm:wap-wsp-s - WAP secure connectionless session service 
+K:9203
+V:tm:wap-wsp-wtp-s - WAP secure session service 
+K:9204
+V:tm:wap-vcard - WAP vCard 
+K:9205
+V:tm:wap-vcal - WAP vCal 
+K:9206
+V:tm:wap-vcard-s - WAP vCard Secure 
+K:9207
+V:tm:wap-vcal-s - WAP vCal Secure 
+K:9321
+V:tm:guibase 
+K:9343
+V:tm:mpidcmgr - MpIdcMgr 
+K:9374
+V:tm:fjdmimgr 
+K:9396
+V:tm:fjinvmgr 
+K:9397
+V:tm:mpidcagt - MpIdcAgt 
+K:9500
+V:tm:ismserver 
+K:9535
+V:tm:man 
+K:9594
+V:tm:msgsys - Message System 
+K:9595
+V:tm:pds - Ping Discovery Service 
+K:9876
+V:tm:sd - Session Director 
+K:9888
+V:tm:cyborg-systems - CYBORG Systems 
+K:9898
+V:tm:monkeycom - MonkeyCom 
+K:9992
+K:9993
+K:9994
+K:9995
+K:9996
+K:9997
+V:tm:palace - Palace 
+K:9998
+V:tm:distinct32 - Distinct32 
+K:9999
+V:tm:distinct 
+K:10000
+V:tm:ndmp - Network Data Management Protocol 
+K:10007
+V:tm:mvs-capacity - MVS Capacity 
+K:10080
+V:tm:amanda - Amanda  
+K:10288
+V:tm:blocks - Blocks  
+K:11000
+V:tm:irisa - IRISA 
+K:11001
+V:tm:metasys - Metasys 
+K:11111
+V:tm:vce - Viral Computing Environment (VCE) 
+K:11367
+V:tm:atm-uhas - ATM UHAS 
+K:12000
+V:tm:entextxid - IBM Enterprise Extender SNA XID Exchange 
+K:12001
+V:tm:entextnetwk - IBM Enterprise Extender SNA COS Network Priority 
+K:12002
+V:tm:entexthigh - IBM Enterprise Extender SNA COS High Priority 
+K:12003
+V:tm:entextmed - IBM Enterprise Extender SNA COS Medium Priority 
+K:12004
+V:tm:entextlow - IBM Enterprise Extender SNA COS Low Priority 
+K:12076
+V:tm:gjamer - GJamer TROJAN 
+K:12345
+V:tm:netbus - Netbus TROJAN 
+K:12346
+V:tm:netbus - Netbus TROJAN 
+K:12753
+V:tm:tsaf port  
+K:13160
+V:tm:i-zipqd - I-ZIPQD 
+K:13720
+V:tm:bprd - BPRD Protocol (VERITAS NetBackup) 
+K:13721
+V:tm:bpbrm - BPBRM Protocol (VERITAS NetBackup) 
+K:13722
+V:tm:bpjava-msvc - BP Java MSVC Protocol 
+K:13782
+V:tm:bpcd - VERITAS NetBackup 
+K:13783
+V:tm:vopied - VOPIED Protocol 
+K:13818
+V:tm:dsmcc-config - DSMCC Config 
+K:13819
+V:tm:dsmcc-session - DSMCC Session Messages 
+K:13820
+V:tm:dsmcc-passthru - DSMCC Pass-Thru Messages 
+K:13821
+V:tm:dsmcc-download - DSMCC Download Protocol 
+K:13822
+V:tm:dsmcc-ccp - DSMCC Channel Change Protocol 
+K:14001
+V:tm:itu-sccp-ss7 - ITU SCCP (SS7) 
+K:16360
+V:tm:netserialext1 
+K:16361
+V:tm:netserialext2 
+K:16367
+V:tm:netserialext3 
+K:16368
+V:tm:netserialext4 
+K:17007
+V:tm:isode-dua 
+K:17219
+V:tm:chipper - Chipper 
+K:18000
+V:tm:biimenu - Beckman Instruments, Inc. 
+K:19410
+V:tm:hp-sco  
+K:19411
+V:tm:hp-sca 
+K:19541
+V:tm:jcp - JCP Client 
+K:20000
+V:tm:dnp - DNP (or Millennium TROJAN) 
+K:20670
+V:tm:track - Track 
+K:21554
+V:tm:girlfriend - Girlfriend TROJAN 
+K:21845
+V:tm:webphone 
+K:21846
+V:tm:netspeak-is - NetSpeak Corp. Directory Services 
+K:21847
+V:tm:netspeak-cs - NetSpeak Corp. Connection Services 
+K:21848
+V:tm:netspeak-acd - NetSpeak Corp. Automatic Call Distribution 
+K:21849
+V:tm:netspeak-cps - NetSpeak Corp. Credit Processing System 
+K:22000
+V:tm:snapenetio - SNAPenetIO 
+K:22001
+V:tm:optocontrol - OptoControl 
+K:22273
+V:tm:wnn6 
+K:22555
+V:tm:vocaltec-wconf - Vocaltec Web Conference 
+K:22800
+V:tm:aws-brf - Telerate Information Platform LAN 
+K:22951
+V:tm:brf-gw - Telerate Information Platform WAN 
+K:24000
+V:tm:med-ltp 
+K:24001
+V:tm:med-fsp-rx 
+K:24002
+V:tm:med-fsp-tx 
+K:24003
+V:tm:med-supp 
+K:24004
+V:tm:med-ovw 
+K:24005
+V:tm:med-ci 
+K:24006
+V:tm:med-net-svc 
+K:24386
+V:tm:intel_rci - Intel RCI  
+K:25000
+V:tm:icl-twobase1 
+K:25001
+V:tm:icl-twobase2 
+K:25002
+V:tm:icl-twobase3 
+K:25003
+V:tm:icl-twobase4 
+K:25004
+V:tm:icl-twobase5 
+K:25005
+V:tm:icl-twobase6 
+K:25006
+V:tm:icl-twobase7 
+K:25007
+V:tm:icl-twobase8 
+K:25008
+V:tm:icl-twobase9 
+K:25009
+V:tm:icl-twobase10 
+K:25793
+V:tm:vocaltec-hos - Vocaltec Address Server 
+K:26000
+V:tm:quake 
+K:26208
+V:tm:wnn6-ds 
+K:27000
+K:27001
+K:27002
+K:27003
+K:27004
+K:27005
+K:27006
+K:27007
+K:27008
+K:27009
+V:tm:flex-lm - FLEX LM (1-10) 
+K:27999
+V:tm:tw-auth-key - TW Authentication/Key Distribution and  
+K:31337
+V:tm:bo - Back Orifice TROJAN (or Netpatch TROJAN) 
+K:31338
+V:tm:deepbo - Deep Back Orifice TROJAN 
+K:32768
+V:tm:filenet-tms - Filenet TMS 
+K:32769
+V:tm:filenet-rpc - Filenet RPC 
+K:32770
+V:tm:filenet-nch - Filenet NCH 
+K:33434
+V:tm:traceroute use 
+K:36865
+V:tm:kastenxpipe - KastenX Pipe 
+K:40421
+K:40422
+K:40423
+K:40424
+K:40425
+V:tm:mp - Master's Paradise (hacked) TROJAN 
+K:43188
+V:tm:reachout 
+K:44818
+V:tm:rockwell-encap - Rockwell Encapsulation 
+K:45678
+V:tm:eba - EBA PRISE 
+K:47557
+V:tm:dbbrowse - Databeam Corporation 
+K:47624
+V:tm:directplaysrvr - Direct Play Server 
+K:47806
+V:tm:ap - ALC Protocol 
+K:47808
+V:tm:bacnet - Building Automation and Control Networks 
+K:48000
+V:tm:nimcontroller - Nimbus Controller 
+K:48001
+V:tm:nimspooler - Nimbus Spooler 
+K:48002
+V:tm:nimhub - Nimbus Hub 
+K:48003
+V:tm:nimgtw - Nimbus Gateway 
+K:50505
+V:tm:sokets - Sokets de Trois 2 TROJAN 
+K:54320
+K:54321
+V:tm:bo2k - Back Orifice 2000 TROJAN 
+K:65000
+V:tm:devil - Devil TROJAN 

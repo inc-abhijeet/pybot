@@ -45,8 +45,8 @@ class Permission:
         mm.register("unsetperm", self.mm_unsetperm)
         hooks.register("Message", self.message)
 
-        # Matches '(give|take) perm[ission] <perm> [to|from] [user <user>] [on|at] [this channel|channel <channel>] [on|at|to] [this server|server <server>]'
-        self.re1 = re.compile("(?P<command>give|take)\s+(?:(?P<perm1>\w+)\s+perm(?:ission)?|perm(?:ission)?\s+(?P<perm2>\w+))(?:\s+to|\s+from)?(?:\s+user\s+(?P<user>\S+))?(?:\s+on|\s+at)?(?:\s+(?P<thischannel>this\s+channel)|\s+channel\s+(?P<channel>\S+))?(?:\s+on|\s+at|\s+to)?(?:\s+(?P<thisserver>this\s+server)|\s+server\s+(?P<server>\S+))?\s*[!.]*$", re.I)
+        # Matches '(give|remove|del|delete|take) perm[ission] <perm> [to|from] [user <user>] [on|at] [this channel|channel <channel>] [on|at|to] [this server|server <server>]'
+        self.re1 = re.compile("(?P<command>give|remove|del|delete|take)\s+(?:(?P<perm1>\w+)\s+perm(?:ission)?|perm(?:ission)?\s+(?P<perm2>\w+))(?:\s+to|\s+from)?(?:\s+user\s+(?P<user>\S+))?(?:\s+on|\s+at)?(?:\s+(?P<thischannel>this\s+channel)|\s+channel\s+(?P<channel>\S+))?(?:\s+on|\s+at|\s+to)?(?:\s+(?P<thisserver>this\s+server)|\s+server\s+(?P<server>\S+))?\s*[!.]*$", re.I)
 
         # Matches '(show|list) perm[ission][s] [<perm>]'
         self.re2 = re.compile("(?:show|list)\s+perm(?:ission)?s?(?:\s+(?P<perm>\w+))?\s*[!.]*$", re.I)

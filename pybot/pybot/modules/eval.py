@@ -25,15 +25,13 @@ import os
 
 HELP = """
 The "eval <expr>" command allows you to evaluate expressions
-using the python evaluation mechanism. The following functions are
-currently available: map, zip, len, min, max, chr, ord, abs, hex, int,
-oct, list, long, float, round, tuple, reduce, filter, coerce, plus all
-methods in the 'math' method. For more information on these functions,
-consult the Python manual.
+using the python evaluation mechanism. Use the command "show
+eval keywords" to check which 'keywords' are available in
+the evaluation context.
 ""","""
-This command depends on the "eval" permission. Notice that a malicious
-user is able to hang me using this command, so no untrusted users should
-have this permission.
+This command depends on the "eval" permission. Notice that a
+malicious user is able to hang me using this command, so no
+untrusted users should have this permission.
 """
 
 PERM_EVAL = """
@@ -88,8 +86,11 @@ class Eval:
         self.dict["xrange"] = range
         self.dict["zip"] = zip
 
-        # Match 'eval <expr>'
+        # eval <expr>
         self.re1 = regexp(r"eval (?P<expr>.*?)")
+
+        # show eval keywords
+        self.re2 = regexp(r"show eval keywords?")
 
         # eval[uate|uation]
         mm.register_help("eval(?:uate|uation)?", HELP, "eval")
@@ -172,8 +173,26 @@ class Eval:
             if mm.hasperm(msg, "eval"):
                 thread.start_new_thread(self.eval, (msg, m.group("expr")))
             else:
-                msg.answer("%:", ["Sorry...", "Oops!"],
-                                 "You don't have this power", [".", "!"])
+                msg.answer("%:", ["Nope", "Oops"], [".", "!"],
+                                 ["You don't have this power",
+                                  "You can't do this",
+                                  "You're not allowed to do this"],
+                                 [".", "!"])
+            return 0
+
+        m = self.re2.match(msg.line)
+        if m:
+            if mm.hasperm(msg, "eval"):
+                keywords = self.dict.keys()
+                keywords.sort()
+                msg.answer("%:", "The following keywords are available:",
+                           ", ".join(keywords))
+            else:
+                msg.answer("%:", ["Nope", "Oops"], [".", "!"],
+                                 ["You don't have this power",
+                                  "You can't do this",
+                                  "You're not allowed to do this"],
+                                 [".", "!"])
             return 0
 
 def __loadmodule__():

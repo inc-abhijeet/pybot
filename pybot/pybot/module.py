@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -21,10 +21,13 @@ import sys
 
 class Modules:
     def __init__(self):
-        self.__modules = {}
+        self._modules = {}
     
     def isloaded(self, name):
-        return self.__modules.has_key(name)
+        return self._modules.has_key(name)
+
+    def getlist(self):
+        return self._modules.keys()
     
     def loadlist(self, names):
         """Load list of given modules considering level attribute."""
@@ -54,11 +57,11 @@ class Modules:
         ret = []
         for name, module, func, level in modulelist:
             try:
-                func(self)
+                func()
             except:
                 traceback.print_exc()
             else:
-                self.__modules[name] = module
+                self._modules[name] = module
                 ret.append(name)
         return ret
         
@@ -68,29 +71,38 @@ class Modules:
             module = getattr(module, "modules")
             module = getattr(module, name)
             reload(module)
-            getattr(module, "__loadmodule__")(self)
-            self.__modules[name] = module
+            getattr(module, "__loadmodule__")()
+            self._modules[name] = module
             return 1
         except:
             traceback.print_exc()
     
     def unload(self, name):
-        module = self.__modules.get(name)
+        module = self._modules.get(name)
         if module:
             try:
-                getattr(module, "__unloadmodule__")(self)
-                del self.__modules[name]
+                getattr(module, "__unloadmodule__")()
+                del self._modules[name]
                 del sys.modules["pybot.modules."+name]
                 return 1
             except:
                 traceback.print_exc()
     
     def reload(self, name):
-        module = self.__modules.get(name)
+        module = self._modules.get(name)
         if module:
             if self.unload(name):
                 return self.load(name)
     
+
+class ModuleMethod:
+    def __init__(self, method):
+        self._method = method
+
+    def __call__(self, *args, **kwargs):
+        if "defret" in kwargs:
+            del kwargs["defret"]
+        return self._method(*args, **kwargs)
 
 class ModuleMethods:
     """Intermodule communication class.
@@ -100,37 +112,37 @@ class ModuleMethods:
     the first parameter provided will be returned.
     """
     def __init__(self):
-        self.__methods = {}
+        self._methods = {}
     
-    def __return_defret(self, defret, *other):
-        """Return the first parameter provided.
-
-        This is the dummy method used when a named method that nobody is
-        registered for is called.
-        """
-        return defret
+    def _return_defret(self, *args, **kwargs):
+        try:
+            return kwargs["defret"]
+        except KeyError:
+            return None
 
     def __getattr__(self, name):
-        return self.__methods.get(name) or self.__return_defret
+        return self._methods.get(name) or self._return_defret
 
     def register(self, name, method):
-        self.__methods[name] = method
+        self._methods[name] = ModuleMethod(method)
     
     def unregister(self, name):
-        if self.__methods.has_key(name):
-            del self.__methods[name]
+        try:
+            del self._methods[name]
+        except KeyError:
+            pass
 
 class RemoteMethods:
     def __init__(self):
-        self.__func = {}
+        self._func = {}
     
     def register(self, funcname, func):
-        self.__func[funcname] = func
+        self._func[funcname] = func
     
     def unregister(self, funcname):
-        del self.__func[funcname]
+        del self._func[funcname]
 
     def get_methods(self):
-        return self.__func
+        return self._func
 
 # vim:ts=4:sw=4:et

@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -16,23 +16,25 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options, config
+from pybot import mm, hooks, config, db
 import time
 import sys
 import os
 import re
 
-HELP = [
-("""\
-You may (un)plock packages using "[force] [un]plock <package> [,<package>]". \
-It's also possible to consult your plocks using "my plocks", or from \
-somebody else using "plocks of <nick|email>".\
-""",),
-("""\
-Note that to be able to work with plocks, you must first register yourself \
-with me, and then register an email with "set email your@email". For more \
-information use "help register".\
-""",)]
+HELP = """
+You may (un)plock packages using "[force] [un]plock <package> [,<package>]".
+It's also possible to consult your plocks using "my plocks", or from
+somebody else using "plocks of <nick|email>". Note that to be able to work
+with plocks, you must first register yourself with me, and then register an
+email with "set email your@email" (for more information use "help
+register"). You'll also need the "plock" permission for that.
+"""
+
+PERM_PLOCK = """
+You need the "plock" permission to work with plocks. Use "help plock" for
+more information.
+"""
 
 class PLockFile:
     def __init__(self, dir, name):
@@ -63,7 +65,7 @@ class PLockFile:
         return time.localtime(os.stat(self.file)[8])
 
 class PLock:
-    def __init__(self, bot):
+    def __init__(self):
         self.pdir = config.get("plock", "dirpath")
         hooks.register("Message", self.message)
         
@@ -83,28 +85,33 @@ class PLock:
         self.re5 = re.compile(r"plock\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*(?:!*\?[?!]*)$")
 
         # [un]plock[ing] | <package|pkg> lock[ing]
-        mm.register_help(0, "(?:un)?plock(?:ing)?|(?:package|pkg)\s+lock(?:ing)?",
+        mm.register_help("(?:un)?plock(?:ing)?|(?:package|pkg)\s+lock(?:ing)?",
                          HELP, "plock")
+
+        mm.register_perm("plock", PERM_PLOCK)
 
     def unload(self):
         hooks.unregister("Message", self.message)
-        mm.unregister_help(0, HELP)
+        mm.unregister_help(HELP)
+        mm.unregister_perm("plock")
     
     def getnick(self, servername, email):
-        data = options.gethard("UserData.data", {})
-        for pair in data:
-            if pair[0] == servername:
-                if data[pair].get("email") == email:
-                    return nick
+        cursor = db.cursor()
+        cursor.execute("select nick from userdata where "
+                       "servername=%s and type='email' and value=%s",
+                       servername, email)
+        if cursor.rowcount:
+            return cursor.fetchone().nick
         return None
 
     def message(self, msg):
-        var = []
         if msg.forme:
             m = self.re1.match(msg.line)
             if m:
-                if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "plock"):
-                    email = mm.getuserdata(0, msg.server, msg.user.nick, "email")
+                if mm.hasperm(msg, "plock"):
+                    email = mm.getuserdata(msg.server.servername,
+                                           msg.user.nick, "email",
+                                           single=1)
                     if not email:
                         msg.answer("%:", ["Hummm...", "Nope!", "Sorry!"], "You must register an email (with 'register email <email>')", ["!", "."])
                     else:
@@ -122,7 +129,7 @@ class PLock:
                                     target = msg.user.nick
                                 else:
                                     target = msg.target
-                                mm.shownotes(None, msg.server, target, msg.user.nick, package)
+                                mm.shownotes(msg.server, target, msg.user.nick, package)
                                 try:
                                     file.set(email)
                                 except:
@@ -136,8 +143,10 @@ class PLock:
             
             m = self.re2.match(msg.line)
             if m:
-                if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "plock"):
-                    email = mm.getuserdata(0, msg.server, msg.user.nick, "email")
+                if mm.hasperm(msg, "plock"):
+                    email = mm.getuserdata(msg.server.servername,
+                                           msg.user.nick, "email",
+                                           single=1)
                     if not email:
                         msg.answer("%:", ["Hummm...", "Nope!", "Sorry!"], "You must register an email", ["!", "."])
                     else:
@@ -158,7 +167,7 @@ class PLock:
                                     target = msg.user.nick
                                 else:
                                     target = msg.target
-                                mm.shownotes(None, msg.server, target, msg.user.nick, package)
+                                mm.shownotes(msg.server, target, msg.user.nick, package)
                                 try:
                                     file.remove()
                                 except:
@@ -172,15 +181,18 @@ class PLock:
 
         m = self.re3.match(msg.line)
         if m:
-            if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "plock"):
+            if mm.hasperm(msg, "plock"):
                 my = m.group("my") != None
                 user = m.group("user")
                 if my:
-                    email = mm.getuserdata(0, msg.server, msg.user.nick, "email")
+                    email = mm.getuserdata(msg.server.servername,
+                                           msg.user.nick, "email",
+                                           single=1)
                     if not email:
                         msg.answer("%:", ["Hummm...", "Nope!", "Sorry!"], "You must register an email", ["!", "."])
                 elif "@" not in user:
-                    email = mm.getuserdata(0, msg.server, user, "email")
+                    email = mm.getuserdata(msg.server.servername,
+                                           user, "email", single=1)
                     if not email:
                         msg.answer("%:", ["Hummm...", "Nope!", "Sorry!"], "No email registered for this nick", ["!", "."])
                 else:
@@ -210,7 +222,7 @@ class PLock:
 
         m = self.re4.match(msg.line) or self.re5.match(msg.line)
         if m:
-            if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "plock"):
+            if mm.hasperm(msg, "plock"):
                 split_re = re.compile("(?:\s*,?\s*and\s+|[, ]+)")
                 packages = split_re.split(m.group("package"))
                 for package in packages:
@@ -223,7 +235,9 @@ class PLock:
                         else:
                             fstr = " on %Y/%m/%d at %H:%M."
                         when = time.strftime(fstr, ptime)
-                        email = mm.getuserdata(0, msg.server, msg.user.nick, "email")
+                        email = mm.getuserdata(msg.server.servername,
+                                               msg.user.nick, "email",
+                                               single=1)
                         if locker == email:
                             msg.answer("%:", "You have plocked "+package+when)
                         else:
@@ -241,13 +255,13 @@ class PLock:
         if timetuple[:3] == ptimetuple[:3]:
             return 1
 
-def __loadmodule__(bot):
-    global plock
-    plock = PLock(bot)
+def __loadmodule__():
+    global mod
+    mod = PLock()
 
-def __unloadmodule__(bot):
-    global plock
-    plock.unload()
-    del plock
+def __unloadmodule__():
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -19,11 +19,14 @@
 from string import split
 
 class User:
-    def __init__(self, nick="", username="", host=""):
-        self.nick = nick
-        self.username = username
-        self.host = host
-        self.string = nick+"!"+username+"@"+host
+    def __init__(self, nick="", username="", host="", string=None):
+        if string:
+            self.setstring(string)
+        else:
+            self.nick = nick
+            self.username = username
+            self.host = host
+            self.string = nick+"!"+username+"@"+host
 
     def setstring(self, str):
         tokens = split(str, "!")
@@ -59,5 +62,8 @@ class User:
             if len(tokens) == 2:
                 username, host = tokens
                 return self.match(nick, username, host)
+
+    def matchuser(self, user):
+        return self.match(user.nick, user.username, user.host)
 
 # vim:ts=4:sw=4:et

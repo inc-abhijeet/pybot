@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -34,8 +34,8 @@ class Servers:
     def __init__(self):
         self.servers = []
 
-    def add(self, servername):
-        self.servers.append(Server(servername))
+    def add(self, host, servername=None):
+        self.servers.append(Server(host, servername))
     
     def add_console(self):
         self.servers.append(ConsoleServer())
@@ -54,8 +54,12 @@ class Servers:
         return self.servers
 
 class BaseServer:
-    def __init__(self, servername):
-        self.servername = servername
+    def __init__(self, host, servername=None):
+        if not servername:
+            self.servername = host
+        else:
+            self.servername = servername
+        self.host = host
         self.killed = 0
         self._inlines = []
         self.user = User()
@@ -63,7 +67,7 @@ class BaseServer:
     def interaction(self):
         pass
 
-    def changeserver(self, servername):
+    def changeserver(self, host, servername):
         pass
 
     def kill(self):
@@ -91,10 +95,10 @@ class BaseServer:
         return line
 
 class Server(BaseServer):
-    def __init__(self, servername):
-        BaseServer.__init__(self, servername)
+    def __init__(self, host, servername=None):
+        BaseServer.__init__(self, host, servername)
 
-        self.changeserver(servername)
+        self.changeserver(host, servername)
         self._inbuffer = ""
         self._outlines = []
         self._outlines_lock = allocate_lock()
@@ -179,9 +183,11 @@ class Server(BaseServer):
                 self._reconnect = 0
                 self._disconnect()
 
-    def changeserver(self, servername):
-        self.servername = servername
-        tokens = split(servername,":")
+    def changeserver(self, host, servername=None):
+        if not servername:
+            self.servername = host
+        self.host = host
+        tokens = split(host,":")
         self._host = tokens[0]
         if len(tokens) == 2:
             self._port = int(tokens[1])
@@ -302,7 +308,7 @@ class ConsoleServer(BaseServer, Cmd):
         self.show_lines()
 
     def emptyline(self):
-        pass
+        self.show_lines()
 
     def postloop(self):
         pybot.main.quit = 1

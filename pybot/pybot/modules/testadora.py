@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -21,17 +21,21 @@ from string import join
 import re
 import os
 
-HELP_COMPILETIME = [
-("""\
-You can verify the compile time for a given package in testadora \
-using "[show] (compiletime|compile time) [for] <package>".\
-""",)]
+HELP_COMPILETIME = """
+You can verify the compile time for a given package in testadora
+using "[show] (compiletime|compile time) [for] <package>". You need
+the "compiletime" permission for that.
+"""
 
-HELP_TESTADORA = [
-("""\
-For now, only the "compile time" command is available. Use "help compile \
-time" for more information on this command.\
-""",)]
+HELP_TESTADORA = """
+For now, only the "compile time" command is available. Use "help compile
+time" for more information on this command.
+"""
+
+PERM_COMPILETIME = """
+The "compiletime" permission allows users to ask for compile times from
+testadora. Check "help compile time" for more information.
+"""
 
 class Testadora:
     def __init__(self):
@@ -42,17 +46,19 @@ class Testadora:
         # [show] (compiletime|compile time) [for] <package>
         self.re1 = re.compile(r"(?:show\s+)?compile\s*time\s+(?:for\s+)?(?P<package>\S+)$")
 
-        # (compiletime|compile time)
-        mm.register_help(0, "compile\s*time", HELP_COMPILETIME)
-
         # testadora
-        mm.register_help(0, "testadora", HELP_TESTADORA, "testadora")
+        mm.register_help("testadora", HELP_TESTADORA, "testadora")
+
+        # (compiletime|compile time)
+        mm.register_help("compile\s*time", HELP_COMPILETIME)
+
+        mm.register_perm("compiletime", PERM_COMPILETIME)
 
     def unload(self):
         hooks.unregister("Message", self.message)
-
-        mm.unregister_help(0, HELP_COMPILETIME)
-        mm.unregister_help(0, HELP_TESTADORA)
+        mm.unregister_help(HELP_TESTADORA)
+        mm.unregister_help(HELP_COMPILETIME)
+        mm.unregister_perm(PERM_COMPILETIME)
 
     def get_compiletime(self, package):
         file = open(os.path.join(self.mondir, "timelog.txt"))
@@ -86,28 +92,38 @@ class Testadora:
         return str
 
     def message(self, msg):
-        if msg.forme:
-            m = self.re1.match(msg.line)
-            if m:
-                if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "compiletime"):
-                    try:
-                        seconds = self.get_compiletime(m.group("package"))
-                    except IOError:
-                        msg.answer("%", "Couldn't open data file.")
-                    if not seconds:
-                        msg.answer("%", "No time information for that package.")
-                    else:
-                        str = self.delta_string(seconds)
-                        msg.answer("%", ["The %s package compiles in" % m.group("package"), "This package compiles in", "The compile time for that package is"], str, [".", "!"])
-                else:
-                    msg.answer("%", ["Sorry, but you", "No! You"], ["can't verify compile times", "are not able to check compile times", "will have to check this by yourself"], [".", "!"])
-                return 0
+        if not msg.forme:
+            return None
 
-def __loadmodule__(bot):
+        m = self.re1.match(msg.line)
+        if m:
+            if mm.hasperm(msg, "compiletime"):
+                try:
+                    seconds = self.get_compiletime(m.group("package"))
+                except IOError:
+                    msg.answer("%", "Couldn't open data file.")
+                if not seconds:
+                    msg.answer("%", "No time information for that package.")
+                else:
+                    str = self.delta_string(seconds)
+                    msg.answer("%", ["The %s package compiles in" %
+                                     m.group("package"),
+                                     "This package compiles in",
+                                     "The compile time for that package is"],
+                                    str, [".", "!"])
+            else:
+                msg.answer("%", ["Sorry, but you", "No! You"],
+                                ["can't verify compile times",
+                                 "are not able to check compile times",
+                                 "will have to check this by yourself"],
+                                 [".", "!"])
+            return 0
+
+def __loadmodule__():
     global mod
     mod = Testadora()
 
-def __unloadmodule__(bot):
+def __unloadmodule__():
     global mod
     mod.unload()
     del mod

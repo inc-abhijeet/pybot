@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -21,28 +21,29 @@ import calendar
 import time
 import re
 
-HELP = [
-("""\
-The "uptime" command shows you for how much time I'm online.\
-""",)]
+HELP = """
+I can tell you for how much time I'm online with "[show] uptime". You can
+also reset the timer with "reset uptime", but you'll need to be an admin
+for that.
+"""
 
 class Uptime:
-    def __init__(self, bot):
-        self.uptime = options.getsoft("Uptime.uptime", int(time.time()))
+    def __init__(self):
+        self.uptime = options.get("Uptime.uptime", int(time.time()))
         hooks.register("Message", self.message)
 
-        # [show|display] uptime [!|.|?]
+        # [show|display] uptime
         self.re1 = re.compile(r"(?:(?:show|display)\s+)?uptime\s*[!.?]*$")
 
-        # reset uptime [!|.]
+        # reset uptime
         self.re2 = re.compile(r"reset\s+uptime\s*[!.]*$")
 
         # uptime
-        mm.register_help(0, "uptime", HELP, "uptime")
+        mm.register_help("uptime", HELP, "uptime")
     
     def unload(self):
         hooks.unregister("Message", self.message)
-        mm.unregister_help(0, HELP)
+        mm.unregister_help(HELP)
     
     def days_in_last_month(self, tuple):
         year = tuple[0]
@@ -95,21 +96,23 @@ class Uptime:
                 msg.answer("%:", "I'm up for", uptimestr, ".")
                 return 0
             elif self.re2.match(msg.line):
-                if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "resetuptime"):
+                if mm.hasperm(msg, "admin"):
                     self.uptime = int(time.time())
-                    options.setsoft("Uptime.uptime", self.uptime, 0)
-                    msg.answer("%:", ["No problems", "Sure", "Done", "Ok"], [".", "!"])
+                    options.set("Uptime.uptime", self.uptime)
+                    msg.answer("%:", ["No problems", "Sure", "Done", "Ok"],
+                                     [".", "!"])
                 else:
-                    msg.answer("%:", ["Heh!", "Sorry!"], "You can't do this", [".", "!"])
+                    msg.answer("%:", ["Heh!", "Sorry!"], "You can't do this",
+                                     [".", "!"])
                 return 0
 
-def __loadmodule__(bot):
-    global uptime
-    uptime = Uptime(bot)
+def __loadmodule__():
+    global mod
+    mod = Uptime()
 
-def __unloadmodule__(bot):
-    global uptime
-    uptime.unload()
-    del uptime
+def __unloadmodule__():
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2002 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -16,25 +16,35 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import config, options, hooks, mm, servers, db
+from pybot import config, hooks, mm, servers, db
 from pybot.user import User
 import time
 import re
 import os
 
-HELP_SEEN = [
-("""\
-You may check when was the last time I've seen somebody with \
-"[have you] seen <nick>". I'll also let you know what was the \
-last message the user wrote.\
-""",)]
+HELP_SEEN = """
+You may check when was the last time I've seen somebody with
+"[have you] seen <nick>". The "seen" or the "log" permission is
+needed for this. I'll also let you know what was the last message
+the user wrote, if you have the "log" permission.
+"""
 
-HELP_SEARCH = [
-("""\
-You may search the log files with "[show|search] (log[s]|message[s]) \
-[with] /<regexp>/'. You must have the "logsearch" permission for \
-this to work.\
-""",)]
+HELP_SEARCH = """
+You may search the log files with "[show|search] (log[s]|message[s])
+[with] /<regexp>/'. You must have the "log" permission for this to
+work.
+"""
+
+PERM_LOG = """
+The "log" permission allows users to search log messages and to ask
+me what was the last time I saw somebody (like the "seen" permission).
+Check "help log" and "help seen" for more information.
+"""
+
+PERM_SEEN = """
+The "seen" permission allows users to ask me what was the last time I
+saw somebody. Check "help seen" for more information.
+"""
 
 class LogMsg:
     def __init__(self, data):
@@ -69,16 +79,7 @@ STRIPNICK = re.compile(r"^[\W_]*([^\W_]+)[\W_]*$")
 
 class Log:
     def __init__(self):
-        self.create_database()
-
-    def create_database(self):
-        cursor = db.cursor()
-        try:
-            cursor.execute("create table log "
-                           "(timestamp, servername, type,"
-                           " nick, src, dest, line)")
-        except db.error:
-            pass
+        db.table("log", "timestamp,servername,type,nick,src,dest,line")
 
     def xformnick(self, nick):
         return STRIPNICK.sub(r"\1", nick.lower())
@@ -137,11 +138,14 @@ class LogModule:
         self.re2 = re.compile("(?:show\s+|search\s+)?(?:log|message)s?\s+(?:with\s+|search\s+)?/(?P<regexp>.*)/\s*[.!?]*$", re.I)
 
         # seen
-        mm.register_help(0, "seen", HELP_SEEN, "seen")
+        mm.register_help("seen", HELP_SEEN, "seen")
 
         # log|(search|show) (log[s]|message[s])
-        mm.register_help(0, "log|(?:search|show)\s+(?:log|message)s?",
+        mm.register_help("log|(?:search|show)\s+(?:log|message)s?",
                          HELP_SEARCH, "log")
+
+        mm.register_perm("seen", PERM_SEEN)
+        mm.register_perm("log", PERM_LOG)
         
     def unload(self):
         hooks.unregister("Message", self.message)
@@ -149,25 +153,39 @@ class LogModule:
         hooks.unregister("CTCP", self.log_ctcp, 150)
         hooks.unregister("OutMessage", self.log_outmessage, 150)
         hooks.unregister("OutCTCP", self.log_outctcp, 150)
-
-        mm.unregister_help(0, HELP_SEEN)
-        mm.unregister_help(0, HELP_SEARCH)
+        mm.unregister_help(HELP_SEEN)
+        mm.unregister_help(HELP_SEARCH)
+        mm.unregister_perm("seen")
+        mm.unregister_perm("log")
     
     def message(self, msg):
         if msg.forme:
             m = self.re1.match(msg.line)
             if m:
-                nick = m.group("nick")
-                logmsg = self.log.seen(nick)
-                if not logmsg:
-                    msg.answer("%:", "Sorry, I haven't seen %s for a while..." % nick)
+                if mm.hasperm(msg, "seen") or \
+                   mm.hasperm(msg, "log"):
+                    nick = m.group("nick")
+                    logmsg = self.log.seen(nick)
+                    if not logmsg:
+                        msg.answer("%:", "Sorry, I haven't seen %s for a while..." % nick)
+                    elif mm.hasperm(msg, "log"):
+                        msg.answer("%:", "I have seen %s %s, with the "
+                                         "following message:" %
+                                         (nick, logmsg.timestr()))
+                        msg.answer(str(logmsg))
+                    else:
+                        msg.answer("%:", "I have seen %s %s." %
+                                         (nick, logmsg.timestr()))
+                    return 0
                 else:
-                    msg.answer("%:", "I have seen %s %s, with the following message:" % (nick, logmsg.timestr()))
-                    msg.answer(str(logmsg))
-                return 0
+                    msg.answer("%:", [("You're not",
+                                       ["allowed to know when was the "
+                                        "last time I saw somebody",
+                                        "that good", "allowed to do this"]),
+                                      "No", "Nope"], [".", "!"])
             m = self.re2.match(msg.line)
             if m:
-                if mm.hasperm(1, msg.server.servername, msg.target, msg.user, "logsearch"):
+                if mm.hasperm(msg, "log"):
                     max = 5
                     logmsgs = self.log.search(m.group("regexp"), max,
                                               msg.rawline)
@@ -186,9 +204,17 @@ class LogModule:
                         for logmsg in logmsgs:
                             msg.answer(str(logmsg))
                     else:
-                        msg.answer("%:", ["Sorry!", "Oops!"], ["No messages found", "Can't find any message", "No entries found"], [".", "!"])
+                        msg.answer("%:", ["Sorry!", "Oops!"],
+                                         ["No messages found",
+                                          "Can't find any message",
+                                          "No entries found"], [".", "!"])
                 else:
-                    msg.answer("%:", [("You're not", ["allowed to search logs.", "that good...", "allowed to do this..."]), "No, sir!", "Nope."])
+                    msg.answer("%:", [("You're not",
+                                       ["allowed to search logs",
+                                        "that good",
+                                        "allowed to do this"]),
+                                      "No", "Nope"],
+                                     [".", "!"])
                 return 0
     
     def log_message(self, msg):
@@ -217,11 +243,11 @@ class LogModule:
             self.log.append(msg.server.servername, "ACTION", "", "",
                             msg.target, msg.rawline)
 
-def __loadmodule__(bot):
+def __loadmodule__():
     global mod
     mod = LogModule()
 
-def __unloadmodule__(bot):
+def __unloadmodule__():
     global mod
     mod.unload()
     del mod

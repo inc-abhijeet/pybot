@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -20,6 +20,18 @@ from pybot import mm, hooks, servers
 from string import join
 import re
 
+HELP = """
+You can ask me to repeat or stop repeating something with the message
+"[don't] repeat [each <n>(s|m|h)] (to|at|on) [channel|user] <target>
+[[on|at] server <server>] [/me|/notice] <message>". You need the "repeat"
+permission for this.
+"""
+
+PERM_REPEAT = """
+The "repeat" permission allows users to ask me to repeat messages. Check
+"help repeat" for more information.
+"""
+
 class RepeatDef:
     def __init__(self, notice=0, action=0, server=None, target=None, phrase=""):
         self.notice = notice
@@ -38,15 +50,23 @@ class RepeatDef:
                    self.phrase == repdef.phrase
 
 class Repeat:
-    def __init__(self, bot):
+    def __init__(self):
         hooks.register("Message", self.message)
 
-        # [don[']t|do not] repeat [each <n> seconds] (to|at|on) [channel|user] <target> [[on|at] server <server>] [/me|/notice] ...
+        # [don[']t|do not] repeat [each <n>[ ](s[econds]|m[inutes]|h[ours])] (to|at|on) [channel|user] <target> [[on|at] server <server>] [/me|/notice] ...
         self.re1 = re.compile(r"(?:(?P<dont>don'?t|do\s+not)\s+)?repeat(?:\s+each\s+(?P<interval>[0-9]+)\s*(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?:\s+(?:to|at|on)(?:\s+(?:channel|user))?\s+(?P<target>\S+))?(?:\s+(?:on|at)?\s+server\s+(?P<server>\S+))?\s+(?P<action>/me\s)?(?P<notice>/notice\s)?(?P<phrase>.*)$")
+
+        # repeat
+        mm.register_help(r"repeat", HELP, "repeat")
+
+        mm.register_perm("repeat", PERM_REPEAT)
 
     def unload(self):
         hooks.unregister("Message", self.message)
-        mm.unhooktimer(0, None, self.do_repeat, None)
+        mm.unhooktimer(None, self.do_repeat, None)
+
+        mm.unregister_help(HELP)
+        mm.unregister_perm("repeat")
     
     def do_repeat(self, repdef):
         server = servers.get(repdef.server)
@@ -58,7 +78,7 @@ class Repeat:
         if msg.forme:
             m = self.re1.match(msg.line)
             if m:
-                if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "repeat"):
+                if mm.hasperm(msg, "repeat"):
                     repdef = RepeatDef()
                     repdef.notice = m.group("notice") != None
                     repdef.action = m.group("action") != None
@@ -79,24 +99,28 @@ class Repeat:
                             msg.answer("%:", ["Hummm...", "Oops!", "Heh..."], ["This interval is not valid", "There's something wrong with the interval you provided"], ["!", "."])
                             return 0
                         if dont:
-                            mm.unhooktimer(0, interval, self.do_repeat, (repdef,))
+                            mm.unhooktimer(interval, self.do_repeat, (repdef,))
                         else:
-                            mm.hooktimer(0, interval, self.do_repeat, (repdef,))
+                            mm.hooktimer(interval, self.do_repeat, (repdef,))
                     else:    
                         self.do_repeat(repdef)
                     if m.group("server") or m.group("target") or m.group("interval"):
                         msg.answer("%:", ["Done", "No problems", "At your order"], ["!", "."])
                 else:
-                    msg.answer("%", ["Sorry, but you", "Sir, you", "No! You"], ["can't tell me what to repeat.", "are not able to make me repeat.", "will have to repeat by yourself."])
+                    msg.answer("%", ["Sorry, but you", "You", "No! You"],
+                                    ["can't tell me what to repeat",
+                                     "are not able to make me repeat",
+                                     "will have to repeat by yourself"],
+                                    [".", "!"])
                 return 0
 
-def __loadmodule__(bot):
-    global repeat
-    repeat = Repeat(bot)
+def __loadmodule__():
+    global mod
+    mod = Repeat()
 
-def __unloadmodule__(bot):
-    global repeat
-    repeat.unload()
-    del repeat
+def __unloadmodule__():
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

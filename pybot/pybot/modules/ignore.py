@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -16,96 +16,145 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options
-from pybot.user import User
+from pybot import mm, hooks, db
+import re
+
+HELP = """
+You can make me ignore and unignore people sending me the message
+"[don't] ignore [user <user>] [on|at] [this channel|channel <channel>]
+[on|at] [this server|server <server>]. To do that, you must have the
+"ignore" permission. You may also give the "neverignore" permission
+to the people that should never be ignored, even if matching some
+ignore pattern.
+"""
+
+PERM_IGNORE = """
+This permission allow users to change the ignore settings. For more
+information use "help ignore".
+"""
+
+PERM_NEVERIGNORE = """
+People with the "neverignore" permission will never be ignored by
+me, even when they match some active ignore pattern.
+"""
 
 class Ignore:
-    def __init__(self, bot):
-        self.ignoredata = options.gethard("Ignore.ignore", [])
+    def __init__(self):
+        db.table("ignore", "servername,target,userstr")
+        
         hooks.register("Message", self.message_ignore, 200)
         hooks.register("Message", self.message)
+
+        # [do not|don't] ignore [user <user>] [on|at] [this channel|channel <channel>] [on|at] [this server|server <server>]
+        self.re1 = re.compile(r"(?P<dont>do\s+not\s+|don't\s+)?ignore\s+(?:user\s+(?P<user>\S+?))?(?:(?:on\s+|at\s+)?(?:(?P<thischannel>this\s+channel)|channel\s+(?P<channel>\S+)))?(?:(?:on\s+|at\s+)?(?:(?P<thisserver>this\s+server)|server\s+(?P<server>\S+?)))?\s*$", re.I)
+
+        # [un]ignore
+        mm.register_help(r"(?:un)?ignore", HELP, "ignore")
+
+        mm.register_perm("ignore", PERM_IGNORE)
+        mm.register_perm("neverignore", PERM_NEVERIGNORE)
     
     def unload(self):
         hooks.unregister("Message", self.message_ignore, 200)
         hooks.unregister("Message", self.message)
+        mm.unregister_help(HELP)
+        mm.unregister_perm("ignore")
+        mm.unregister_perm("neverignore")
 
     def message_ignore(self, msg):
         if self.isignored(msg.server.servername, msg.target, msg.user) and \
-           not mm.hasperm(0, msg.server.servername, msg.target, msg.user, None):
+           not mm.hasperm(msg, "neverignore"):
             return -1
 
     def message(self, msg):
-        var = []
-        if msg.match(var, 5, "%", "ignore", [("user", 0, "~"), None], [(["on", "at", None], [(1, "~this", "channel"), ("channel", 2, "^[#&+!][^,^G]+$")]), None], [(["on", "at", None], [(3, "~this", "server"), ("server", 4, "~")]), None], ["!", ".", None]):
-            if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "ignore"):
-                if var[0] or var[1] or var[2] or var[3] or var[4]:
-                    if var[1]:
-                        channel = msg.target
-                        server = msg.server.servername
+        if not msg.forme:
+            return None
+
+        m = self.re1.match(msg.line)
+        if m:
+            if mm.hasperm(msg, "ignore"):
+                userstr = m.group("user")
+                if not filter(bool, m.groups()):
+                    return
+                if m.group("thischannel"):
+                    target = msg.target
+                    servername = msg.server.servername
+                else:
+                    target = m.group("channel")
+                    if m.group("thisserver"):
+                        servername = msg.server.servername
                     else:
-                        channel = var[2]
-                        if var[3]:
-                            server = msg.server.servername
-                        else:
-                            server = var[4]
-                    if var[0]:
-                        user = User()
-                        user.setstring(var[0])
+                        servername = m.group("server")
+                if not m.group("dont"):
+                    if self.ignore(servername, target, userstr):
+                        msg.answer("%:", ["Done", "Ignored",
+                                          "No problems", "Ok"], [".", "!"])
                     else:
-                        user = None
-                    self.ignore(server,channel,user)
-                    msg.answer("%:", ["Done!", "Ignored!", "No problems, sir!", "Ok, sir!"])
+                        msg.answer("%:", "I was already ignoring it",
+                                         [".", "!"])
+                else:
+                    if self.dontignore(servername, target, userstr):
+                        msg.answer("%:", ["Done", "No problems",
+                                          "Ok", "Right now"], [".", "!"])
+                    else:
+                        msg.answer("%:", "I'm not ignoring it", [".", "!"])
             else:
-                msg.answer("%:", ["Sorry, you", "Sir, you", "You"], ["can't ignore.", "don't have this power."])
-            return 0
-        if msg.match(var, 5, "%", "don't", "ignore", [("user", 0, "~"), None], [(["on", "at", None], [(1, "~this", "channel"), ("channel", 2, "^[#&+!][^,^G]+$")]), None], [(["on", "at", None], [(3, "~this", "server"), ("server", 4, "~")]), None], ["!", ".", None]):
-            if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "ignore"):
-                if var[0] or var[1] or var[2] or var[3] or var[4]:
-                    if var[1]:
-                        channel = msg.target
-                        server = msg.server.servername
-                    else:
-                        channel = var[2]
-                        if var[3]:
-                            server = msg.server.servername
-                        else:
-                            server = var[4]
-                    if var[0]:
-                        user = User()
-                        user.setstring(var[0])
-                    else:
-                        user = None
-                    self.dontignore(server,channel,user)
-                    msg.answer("%:", ["Done, sir!", "No problems!", "Ok!", "Right now!", "Right now, sir!"])
-            else:
-                msg.answer("%:", ["Sorry, you", "Sir, you", "You"], "don't have this power.")
+                msg.answer("%:", ["Sorry, you", "Oops, you", "You"],
+                                 ["can't do this", "don't have this power"],
+                                 [".", "!"])
             return 0
 
-    def ignore(self, server, channel, user):
-        self.ignoredata.append((server,channel,user))
+    def ignore(self, servername, target, userstr):
+        cursor = db.cursor()
+        existed = self.dontignore(servername, target, userstr, check=1)
+        if existed:
+            return 0
+        cursor.execute("insert into ignore values (%s,%s,%s)",
+                       servername, target, userstr)
+        return 1
     
-    def dontignore(self, server, channel, user):
-        for tup in self.ignoredata:
-            if (tup[0] == None or tup[0] == server) and \
-               (tup[1] == None or tup[1] == channel) and \
-               (tup[2] == None or user.match(tup[2].nick, tup[2].username, tup[2].host)):
-                   self.ignoredata.remove(tup)
-                   return 1
+    def dontignore(self, servername, target, userstr, check=0):
+        where = []
+        wargs = []
+        if servername:
+            where.append("servername=%s")
+            wargs.append(servername)
+        else:
+            where.append("servername isnull")
+        if target:
+            where.append("target=%s")
+            wargs.append(target)
+        else:
+            where.append("target isnull")
+        if userstr:
+            where.append("userstr=%s")
+            wargs.append(userstr)
+        else:
+            where.append("userstr isnull")
+        wstr = " and ".join(where)
+        cursor = db.cursor()
+        if not check:
+            cursor.execute("delete from ignore where "+wstr, *wargs)
+        else:
+            cursor.execute("select * from ignore where "+wstr, *wargs)
+        return bool(cursor.rowcount)
     
-    def isignored(self, server, channel, user):
-        for tup in self.ignoredata:
-            if (tup[0] == None or tup[0] == server) and \
-               (tup[1] == None or tup[1] == channel) and \
-               (tup[2] == None or user.match(tup[2].nick, tup[2].username, tup[2].host)):
+    def isignored(self, servername, target, user):
+        cursor = db.cursor()
+        cursor.execute("select * from ignore")
+        for row in cursor.fetchall():
+            if (not row.servername or row.servername == servername) and \
+               (not row.target or row.target == target) and \
+               (not row.userstr or user.matchstr(row.userstr)):
                    return 1
 
-def __loadmodule__(bot):
-    global ignore
-    ignore = Ignore(bot)
+def __loadmodule__():
+    global mod
+    mod = Ignore()
 
-def __unloadmodule__(bot):
-    global ignore
-    ignore.unload()
-    del ignore
+def __unloadmodule__():
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

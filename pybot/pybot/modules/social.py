@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -21,7 +21,7 @@ from time import time
 import re
 
 class Social:
-    def __init__(self, bot):
+    def __init__(self):
         self.hello = {}
         hooks.register("Message", self.message)
         hooks.register("UnhandledMessage", self.unhandled_message)
@@ -76,12 +76,17 @@ class Social:
 
         m = self.re3.match(msg.line)
         if m and (msg.forme or m.group("nick") == usernick):
-            msg.answer("%:", ["No problems", "You're welcome", "I'm glad to help you", "I'm here for things like this", "Not at all"], ["!", "."])
+            msg.answer("%:", ["No problems",
+                              "You're welcome",
+                              "I'm glad to help you",
+                              "I'm here for things like this",
+                              "Not at all"], ["!", "."])
             return 0
         
         if msg.forme:
             if self.re4.match(msg.line):
-                msg.answer("%:", ["I'm", "Everything is"], ["ok", "fine"], ["!", ", thanks!"])
+                msg.answer("%:", ["I'm", "Everything is"],
+                                 ["ok", "fine"], ["!", ", thanks!"])
                 return 0
         
             if self.re5.match(msg.line):
@@ -93,11 +98,16 @@ class Social:
                 return 0
 
             if self.re7.match(msg.line):
-                msg.answer("%:", ["No problems", "Hey! I'm here for this"], [".", "!", "..."])
+                msg.answer("%:", ["No problems",
+                                  "Hey! I'm here for this"],
+                                  [".", "!", "..."])
                 return 0
 
             if self.re8.match(msg.line):
-                msg.answer("%:", ["Be polite while talking to me!", "I should talk to your mother!", "Hey! What's this?", "I'll pretend to be blind."])
+                msg.answer("%:", ["Be polite while talking to me!",
+                                  "I should talk to your mother!",
+                                  "Hey! What's this?",
+                                  "I'll pretend to be blind."])
                 return 0
             
             if self.re9.match(msg.line):
@@ -107,13 +117,13 @@ class Social:
     def unhandled_message(self, msg):
         msg.answer("%:", ["What are you talking about", "What do you mean", "Can I help you", "Huh", "Sorry", "Pardon"], ["?", "!?", "!?!?"])
 
-def __loadmodule__(bot):
-    global social
-    social = Social(bot)
+def __loadmodule__():
+    global mod
+    mod = Social()
 
-def __unloadmodule__(bot):
-    global social
-    social.unload()
-    del social
+def __unloadmodule__():
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

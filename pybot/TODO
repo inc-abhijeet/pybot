@@ -3,24 +3,11 @@ This are some of the features to be implemented in the future:
 
 - A better website for pybot.
 
-- Include every module in the online help system.
-
 - Adapt distutils classes to install every necessary file in their respective
   directories.
 
-- Finish the conversion of msg.match to re.match and remove msg.match from
-  the code.
-
 - Develop a README explaining how to do the basic setup of pybot.
 
-- Remove the parameter from __loadmodule() and __unloadmodule__(), and convert
-  them to use a general "mod" name for the instance.
+- Cross identification between servers (is this useful?).
 
-- Cross identification between servers.
-
-- Include help topics when registering a help entry.
-
-- Include help for permissions.
-
-- Perhaps move all option system to sqlite.
-
+- Setup pybot nick when connecting.

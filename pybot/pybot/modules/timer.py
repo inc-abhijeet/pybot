@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -21,8 +21,8 @@ from time import time
 from thread import start_new_thread
 
 class Timer:
-    def __init__(self, bot):
-        self._timer = options.getsoft("Timer.data", [])
+    def __init__(self):
+        self.timer = options.get("Timer.data", [])
         mm.register("hooktimer", self.mm_hooktimer)
         mm.register("unhooktimer", self.mm_unhooktimer)
         hooks.register("Loop", self.loop)
@@ -33,7 +33,7 @@ class Timer:
         hooks.unregister("Loop", self.loop)
     
     def loop(self):
-        for list in self._timer:
+        for list in self.timer:
             curtime = int(time())
             if list[0] <= curtime:
                 list[0] = curtime+list[1]
@@ -42,37 +42,37 @@ class Timer:
                 else:
                     apply(list[2], list[3])
 
-    def mm_hooktimer(self, defret, sec, func, params, threaded=0):
-        self._timer.append([int(time())+sec, sec, func, params, threaded])
+    def mm_hooktimer(self, sec, func, params, threaded=0):
+        self.timer.append([int(time())+sec, sec, func, params, threaded])
 
-    def mm_unhooktimer(self, defret, sec, func, params, threaded=None):
+    def mm_unhooktimer(self, sec, func, params, threaded=None):
         ret = 0
         i = 0
-        l = len(self._timer)
+        l = len(self.timer)
         r = []
         while i < l:
-            list = self._timer[i]
-            if (sec == None or list[1] == sec) and \
-               (func == None or list[2] == func) and \
-               (params == None or list[3] == params) and \
-               (threaded == None or list[4] == threaded):
+            list = self.timer[i]
+            if (sec is None or list[1] == sec) and \
+               (func is None or list[2] == func) and \
+               (params is None or list[3] == params) and \
+               (threaded is None or list[4] == threaded):
                 r.append(i)
                 ret = 1
             i = i + 1
         for i in r:
-            del self._timer[i]
+            del self.timer[i]
         return ret
 
 # Load first to let hooktimer() available to other modules.
 __loadlevel__ = 90
 
-def __loadmodule__(bot):
-    global timer
-    timer = Timer(bot)
+def __loadmodule__():
+    global mod
+    mod = Timer()
 
-def __unloadmodule__(bot):
-    global timer
-    timer.unload()
-    del timer
+def __unloadmodule__():
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -20,8 +20,26 @@ from pybot import hooks, main, mm
 import math
 import re
 
+HELP = """
+The "eval <expr>" command allows you to evaluate expressions
+using the python evaluation mechanism. The following functions are
+currently available: map, zip, len, min, max, chr, ord, abs, hex, int,
+oct, list, long, float, round, tuple, reduce, filter, coerce, plus all
+methods in the 'math' method. For more information on these functions,
+consult the Python manual.
+""","""
+This command depends on the "eval" permission. Notice that a malicious
+user is able to hang me using this command, so no untrusted users should
+have this permission.
+"""
+
+PERM_EVAL = """
+This permission allows users to use the "eval" command. For more
+information send me "help eval".
+"""
+
 class Eval:
-    def __init__(self, bot):
+    def __init__(self):
         hooks.register("Message", self.message)
         self.dict = {}
         self.dict["__builtins__"] = {}
@@ -51,36 +69,47 @@ class Eval:
 
         # Match 'eval <expr>[!|.]'
         self.re1 = re.compile(r"eval\s+(?P<expr>.*?)[!.]*$")
+
+        # eval[uate|uation]
+        mm.register_help("eval(?:uate|uation)?", HELP, "eval")
+
+        mm.register_perm("eval", PERM_EVAL)
     
     def unload(self):
         hooks.unregister("Message", self.message)
+        mm.unregister_help(HELP)
+        mm.unregister_perm("eval")
     
     def message(self, msg):
-        var = []
-        if msg.forme:
-            m = self.re1.match(msg.line)
-            if m:
-                if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "eval"):
-                    try:
-                        answer = str(eval(m.group("expr"), self.dict))
-                    except:
-                        msg.answer("%:", ["Can't evaluate this", "There's something wrong with this expression"], [".", "!"])
-                    else:
-                        if len(answer) > 255:
-                            msg.answer("%:", "Sorry, your answer is too long...")
-                        else:
-                            msg.answer("%:", str(answer))
+        if not msg.forme:
+            return None
+
+        m = self.re1.match(msg.line)
+        if m:
+            if mm.hasperm(msg, "eval"):
+                try:
+                    answer = str(eval(m.group("expr"), self.dict))
+                except:
+                    msg.answer("%:", ["Can't evaluate this",
+                                      "There's something wrong with this "
+                                      "expression"], [".", "!"])
                 else:
-                    msg.answer("%:", ["Sorry...", "Oops!", "Heh!"], "You don't have this power", [".", "!"])
-                return 0
+                    if len(answer) > 255:
+                        msg.answer("%:", "Sorry, your answer is too long...")
+                    else:
+                        msg.answer("%:", str(answer))
+            else:
+                msg.answer("%:", ["Sorry...", "Oops!"],
+                                 "You don't have this power", [".", "!"])
+            return 0
 
-def __loadmodule__(bot):
-    global _eval
-    _eval = Eval(bot)
+def __loadmodule__():
+    global mod
+    mod = Eval()
 
-def __unloadmodule__(bot):
-    global _eval
-    _eval.unload()
-    del _eval
+def __unloadmodule__():
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2002 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -16,90 +16,140 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options, modls
+from pybot import mm, hooks, modls, db
 import re
 
-HELP = [
-("""\
-You can load, unload, and reload modules with "[re|un]load module <module>". \
-I can also show you which modules are loaded at the moment with "show \
-[loaded] modules".\
-""",)]
+HELP = """
+You can load, unload, and reload modules with "[re|un]load module <module>".
+I can also show you which modules are loaded at the moment with "show
+modules". Only admins are allowed to do that.
+"""
 
 class ModuleControl:
-    def __init__(self, bot):
-        self.modules = options.gethard("ModuleControl.modules", [])
+    def __init__(self):
+        db.table("module", "name")
         hooks.register("Message", self.message)
-        modls.loadlist(self.modules)
+
+        modls.loadlist(self.get_modules())
         
         # [re|un]load [the] [module] <module>
-        self.re1 = re.compile("(?P<command>(?:re|un)?load)(?:\s+the)?(?:\s+module)?\s+(?P<module>[\w_-]+)\s*[.!]*$", re.I)
+        self.re1 = re.compile(r"(?P<command>(?:re|un)?load)(?:\s+the)?(?:\s+module)?\s+(?P<module>[\w_-]+)\s*[.!]*$", re.I)
 
-        # (show|list) [loaded] modules
-        self.re2 = re.compile("(?:show|list)(?:\s+loaded)\s+modules\s*[.!]*$", re.I)
+        # show modules
+        self.re2 = re.compile(r"show\s+modules\s*[.!]*$", re.I)
 
         # [[un|re]load] module[s]
-        mm.register_help(0, "(?:(?:un|re)?load\s+)?modules?", HELP, "modules")
+        mm.register_help(r"(?:(?:un|re)?load\s+)?modules?", HELP, "modules")
+
+    def get_modules(self):
+        cursor = db.cursor()
+        cursor.execute("select * from module order by name")
+        return [x.name for x in cursor.fetchall()]
+
+    def add_module(self, name):
+        cursor = db.cursor()
+        cursor.execute("select * from module where name=%s", name)
+        if not cursor.rowcount:
+            cursor.execute("insert into module values (%s)", name)
+
+    def del_module(self, name):
+        cursor = db.cursor()
+        cursor.execute("delete from module where name=%s", name)
 
     def unload(self):
         hooks.unregister("Message", self.message)
+        mm.unregister_help(HELP)
     
     def message(self, msg):
-        var = []
-        if msg.forme:
-            m = self.re1.match(msg.line)
-            if m:
-                if mm.hasperm(1, msg.server.servername, msg.target, msg.user, None):
-                    command, module = m.group("command", "module")
-                    isloaded = modls.isloaded(module)
-                    if command == "load" and isloaded:
-                        msg.answer("%:", ["Sorry sir, but", "Sir,", "Oops, I think that"], "this module is already loaded.")
-                    elif command == "load":
-                        if modls.load(module):
-                            self.modules.append(module)
-                            msg.answer("%:", ["Loaded", "Done", "Ready"], ["!", "."])
-                        else:
-                            msg.answer("%:", ["Something wrong happened while", "Something bad happened while", "There was a problem"],  "loading the module", ["!", "."])
-                    elif not isloaded:
-                        msg.answer("%:", ["Sorry sir, but", "Sir,", "Oops, I think that"], "this module is not loaded.")
-                    elif command == "reload":
-                        if modls.reload(module):
-                            msg.answer("%:", ["Reloaded", "Done", "Ready"], ["!", ", sir!"])
-                        else:
-                            if not modls.isloaded(module):
-                                self.modules.remove(module)
-                            msg.answer("%:", ["Something wrong happened while", "Something bad happened while", "There was a problem"],  "reloading the module", ["!", "."])
+        if not msg.forme:
+            return None
+            
+        m = self.re1.match(msg.line)
+        if m:
+            if mm.hasperm(msg, "admin"):
+                command, module = m.group("command", "module")
+                isloaded = modls.isloaded(module)
+                modules = self.get_modules()
+                if command == "load" and isloaded:
+                    msg.answer("%:", ["Sorry, but",
+                                      "Oops, I think that"],
+                                     "this module is already loaded",
+                                     [".", "!"])
+                elif command == "load":
+                    if modls.load(module):
+                        self.add_module(module)
+                        msg.answer("%:", ["Loaded", "Done", "Ready"],
+                                         [".", "!"])
                     else:
-                        if module in self.modules:
-                            self.modules.remove(module)
-                            if modls.unload(module):
-                                msg.answer("%:", ["Unloaded", "Done", "Ready"], ["!", "."])
-                            else:
-                                msg.answer("%:", ["Something wrong happened while", "Something bad happened while", "There was a problem"],  "unloading the module", ["!", "."])
-                        else:
-                            msg.answer("%:", ["Sorry, but", "Oops, I think that"], "this module can't be unloaded.")
-                else:
-                    msg.answer("%:", ["You're not that good", "You are not able to work with modules", "No, you can't do this"], [".", "!",". I'm sorry!"])
-                return 0
-
-            m = self.re2.match(msg.line)
-            if m:
-                if mm.hasperm(1, msg.server.servername, msg.target, msg.user, None):
-                    if not self.modules:
-                        msg.answer("%:", ["There are no", "No"], "loaded modules", [".", "!"])
+                        msg.answer("%:", ["Something wrong happened while",
+                                          "Something bad happened while",
+                                          "There was a problem"],
+                                         "loading the module",
+                                         ["!", "."])
+                elif not isloaded:
+                    msg.answer("%:", ["Sorry, but", "Oops, I think that"],
+                                     "this module is not loaded",
+                                     [".", "!"])
+                elif command == "reload":
+                    if modls.reload(module):
+                        msg.answer("%:", ["Reloaded", "Done", "Ready"],
+                                         [".", "!"])
                     else:
-                        msg.answer("%:", ["These are the loaded modules:", "The following modules are loaded:"], ", ".join(self.modules))
+                        if not modls.isloaded(module):
+                            self.del_module(module)
+                        msg.answer("%:", ["Something wrong happened while",
+                                          "Something bad happened while",
+                                          "There was a problem"],
+                                         "reloading the module", ["!", "."])
                 else:
-                    msg.answer("%:", ["You're not that good", "You are not able to work with modules", "No, you can't do this"], [".", "!",". I'm sorry!"])
-                return 0
+                    if module in modules:
+                        self.del_module(module)
+                        if modls.unload(module):
+                            msg.answer("%:", ["Unloaded", "Done", "Ready"],
+                                             ["!", "."])
+                        else:
+                            msg.answer("%:",
+                                       ["Something wrong happened while",
+                                        "Something bad happened while",
+                                        "There was a problem"],
+                                       "unloading the module", ["!", "."])
+                    else:
+                        msg.answer("%:", ["Sorry, but",
+                                          "Oops, I think that"],
+                                         "this module can't be unloaded.")
+            else:
+                msg.answer("%:", ["You're not that good",
+                                  "You are not able to work with modules",
+                                  "No, you can't do this"],
+                                 [".", "!",". I'm sorry!"])
+            return 0
 
-def __loadmodule__(bot):
-    global modulecontrol
-    modulecontrol = ModuleControl(bot)
+        m = self.re2.match(msg.line)
+        if m:
+            if mm.hasperm(msg, "admin"):
+                modules = modls.getlist()
+                if not modules:
+                    msg.answer("%:", ["There are no", "No"],
+                                     "loaded modules", [".", "!"])
+                else:
+                    modules.sort()
+                    msg.answer("%:", ["These are the loaded modules:",
+                                      "The following modules are loaded:"],
+                                     ", ".join(modules))
+            else:
+                msg.answer("%:", ["You're not that good",
+                                  "You are not able to work with modules",
+                                  "No, you can't do this"],
+                                  [".", "!",". I'm sorry!"])
+            return 0
 
-def __unloadmodule__(bot):
-    global modulecontrol
-    modulecontrol.unload()
-    del modulecontrol
+def __loadmodule__():
+    global mod
+    mod = ModuleControl()
+
+def __unloadmodule__():
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

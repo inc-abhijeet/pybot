@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -19,13 +19,13 @@
 from pybot import hooks, mm, servers
 
 class Pong:
-    def __init__(self, bot):
+    def __init__(self):
         hooks.register("Command", self.pong, 0)
-        mm.hooktimer(0, 60, self.ping, ())
+        mm.hooktimer(60, self.ping, ())
     
     def unload(self):
         hooks.unregister("Command", self.pong, 0)
-        mm.unhooktimer(0, 60, self.ping, ())
+        mm.unhooktimer(60, self.ping, ())
         
     def pong(self, cmd):
         if cmd.cmd == "PING":
@@ -36,13 +36,13 @@ class Pong:
             if server.servername != "console":
                 server.sendcmd("", "PING", server.user.nick)
 
-def __loadmodule__(bot):
-    global pong
-    pong = Pong(bot)
+def __loadmodule__():
+    global mod
+    mod = Pong()
 
-def __unloadmodule__(bot):
-    global pong
-    pong.unload()
-    del pong
+def __unloadmodule__():
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -83,8 +83,10 @@ def main():
         pybot.hooks.register("Connected", print_connected)
         pybot.hooks.register("ConnectionError", print_connection_error)
         pybot.hooks.register("ConnectingError", print_connecting_error)
-    pybot.modls.load("options")
-    pybot.modls.load("modulecontrol")
+
+    # Load modules which are part of the basic infrastructure
+    pybot.modls.loadlist(["help", "options", "timer", "modulecontrol",
+                          "permission", "pong", "servercontrol"])
     ret = pybot.main.loop()
     sys.exit(ret)
 

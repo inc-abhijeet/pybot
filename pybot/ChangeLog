@@ -1,3 +1,23 @@
+2003-05-12 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* *: Major work on pybot!!
+	* modules/*: All modules moved to the new re matching system.
+	* command.py: Removed old matching system.
+	* modules/*: Pickling replaced by sqlite in all places were
+	  persistence was needed.
+	* modules/*: All modules have inline help.
+	* modules/*: All modules have permission help.
+	* modules/infopack.py: Infopacks have help now.
+	* *: Many method names changed to a better alternative.
+	* options.py: Removed soft/hard relation. Now there's a single
+	  dict that might resist to reboots, if necessary. Notice that
+	  no standard module uses it for persistent options, since they
+	  use sqlite.
+	* modules/example.py: Introduced basic sample module.
+	* modules/soap.py: Obsoleted. Use xmlrpc instead.
+	* scripts/pybotmsg.py: Added a basic xmlrpc client.
+	* runner.py: Included other modules in the "default load" ones.
+	* *: Other changes I probably forgot.
+
 2003-05-09 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/userdata.py,modules/permission.py: A much better userdata
 	  registry and permission system was developed.

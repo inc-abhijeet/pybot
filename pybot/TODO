@@ -1,12 +1,11 @@
 
 This are some of the features to be implemented in the future:
 
-- A website for pybot.
+- A better website for pybot.
 
 - Documentation!! Please, write documentation. :-)
 
-- Create a script to run pybot from outside the build environment. It must
-  detect somehow where pybot is installed and call it.
+- Include every module in the online help system.
 
 - Adapt distutils classes to install every necessary file in their respective
   directories.
@@ -16,6 +15,6 @@ This are some of the features to be implemented in the future:
 
 - Give users a chance to identify themselves to pybot when they are in
   other servers than their registered ones. Must discover some way to
-  detect when the user has left and auto-logout him.
+  detect when the user has left and auto-logout him
 
 - Develop a README explaining how to do the basic setup of pybot.

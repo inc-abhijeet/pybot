@@ -25,7 +25,8 @@ HELP = """
 You may leave a message to another user with "[priv[ate]] message (to|for)
 <nick>: <message>". I'll let <nick> know about your message when he joins
 or speaks something in one of the channels I'm in. You need the
-"messages" permission for that.
+"messages" permission for that. You may also ask explicitely if there are
+messages for you with "[any] message[s]?".
 """
 
 PERM_MESSAGES = """
@@ -45,6 +46,9 @@ class Messages:
         # [priv[ate]] message (to|for) <nick>: <message>
         self.re1 = re.compile(r"(?P<private>priv(?:ate)?\s+)?message\s+(?:to|for)\s+(?P<nick>\S+?)\s*:\s+(?P<message>.*)$", re.I)
 
+        # [any] message[s]?
+        self.re2 = re.compile(r"(?:any\s+)?messages?\s*\?$", re.I)
+
         # [leav(e|ing)] message[s]
         mm.register_help("(?:leav(?:e|ing)\s+)?messages?", HELP, "messages")
 
@@ -56,7 +60,7 @@ class Messages:
         mm.unregister_help(HELP)
         mm.register_perm("messages")
 
-    def checkmsgs(self, server, target, user):
+    def checkmsgs(self, server, target, user, asked):
         # XXX: Must check if user is registered and logged!
         nick = STRIPNICK.sub(r"\1", user.nick.lower())
         cursor = db.cursor()
@@ -68,6 +72,10 @@ class Messages:
                 trgt = nick
             else:
                 trgt = target
+            if asked:
+                server.sendmsg(target, user.nick, "%:",
+                               ["Yes!", "Yep!", "I think so!"])
+                asked = 0
             server.sendmsg(trgt, user.nick,
                            "%:", "Message from %s:" % row.nickfrom,
                            row.message)
@@ -75,12 +83,23 @@ class Messages:
             cursor.execute("delete from message where "
                            "servername=%s and nickto=%s",
                            server.servername, nick)
+        if asked:
+            server.sendmsg(target, user.nick, "%:",
+                           ["No.", "Nope.", "None.", "I don't think so."])
  
     def message(self, msg):
-        self.checkmsgs(msg.server, msg.target, msg.user)
+        if msg.forme and self.re2.match(msg.line):
+            asked = 1
+        else:
+            asked = 0
+
+        self.checkmsgs(msg.server, msg.answertarget, msg.user, asked=asked)
 
         if not msg.forme:
             return None
+
+        if asked:
+            return 0
 
         m = self.re1.match(msg.line)
         if m:

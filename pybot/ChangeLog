@@ -3,6 +3,8 @@
 	  defines which channels/servers are allowed to "see" some
 	  remoteinfo.
 	* modules/messages.py: Prevent messages to the bot itself.
+	  Fixed sending of messages when user talks directly to the
+	  bot. Introduced command to ask for messages.
 
 2003-08-19 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/servercontrol.py: Minor typos fixed.

@@ -23,7 +23,7 @@ import re
 
 class Uptime:
 	def __init__(self, bot):
-		self.uptime = options.getsoft("Uptime.uptime", int(time.time()), 0)
+		self.uptime = options.getsoft("Uptime.uptime", int(time.time()))
 		hooks.register("Message", self.message)
 
 		# Match '[show|display] uptime [!|.|?]'

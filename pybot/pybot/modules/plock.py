@@ -22,6 +22,17 @@ import sys
 import os
 import re
 
+HELP = [
+("""\
+You may (un)plock packages using "[force] [un]plock <package> [,<package>]". \
+It's also possible to consult your plocks using "my plocks", or from \
+somebody else using "plocks of <nick|email>".\
+""",),
+("""\
+Note that to be able to work with plocks, you must first register an \
+email with "register email your@email".\
+""",)]
+
 class PLockFile:
 	def __init__(self, dir, name):
 		self.name = name
@@ -71,8 +82,11 @@ class PLock:
 		# Match 'plock <package> [,<package>] ?'
 		self.re5 = re.compile(r"plock\s+(?P<package>[\w_-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_-]+)*)\s*(?:!*\?[?!]*)$")
 
+		mm.register_help(0, ["plock", "unplock"], HELP)
+
 	def unload(self):
 		hooks.unregister("Message", self.message)
+		mm.unregister_help(0, ["plock", "unplock"])
 	
 	def getnick(self, server, email):
 		emails = mm.getuserdataall({}, server, "email")

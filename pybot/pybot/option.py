@@ -45,19 +45,24 @@ class Options:
 		self.__hard = dict
 
 	def getsoft(self, name, default, keepalive=None):
+		"""Return temporary option.
+		You may define for how long the option will be considered
+		valid trough the keepalive argument (in seconds). If keepalive
+		is None (default), option will stay valid while pybot is up, or
+		at least until you change the keepalive to something else."""
 		opt = self.__soft.get(name)
 		if opt:
-			if time() < opt[0]:
-				if keepalive == 0:
-					opt[0] = 0
+			if opt[0] is None or time() < opt[0]:
+				if keepalive is None:
+					opt[0] = None
 				elif keepalive:
 					opt[0] = time()+keepalive
 				return opt[1]
 			else:
 				del self.__soft[name]
-		if keepalive == 0:
-			self.__soft[name] = 0
-		elif keepalive:
+		if keepalive is None:
+			self.__soft[name] = [None, default]
+		else:
 			self.__soft[name] = [time()+keepalive, default]
 		return default
 

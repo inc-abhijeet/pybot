@@ -9,7 +9,9 @@
 	  parameter to table() that accepts random sql commands
 	  on table creation. Changed SQLiteDB constructor to
 	  accept the path as a parameter, so that sqlitedb doesn't
-	  import pybot anymore.
+	  import pybot anymore. Introduced support for triggers,
+	  constraints, beforecreate, and aftercreate in
+	  SQLiteDB.table().
 
 2003-08-23 Gustavo Niemeyer <niemeyer@conectiva.com>
         * pybot/__init__.py,modules/{remoteinfo.py,freshmeat.py}:

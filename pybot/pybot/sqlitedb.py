@@ -39,22 +39,33 @@ class SQLiteDB:
     def autocommit(self, enable):
         self._conn.autocommit = enable
 
-    def table(self, name, fields, oncreate=[]):
+    def table(self, name, fields, constraints="",
+              triggers=[], beforecreate=[], aftercreate=[]):
         """\
         Besides creating tables when they don't exist, this function
         will ensure that the given table has the given fields in the
         given order, and change the table if not.
         """
         cursor = self.cursor()
-        # Check that the table exist.
+        # First, drop old triggers, if existent
+        cursor.execute("select name from sqlite_master where "
+                       "type='trigger' and tbl_name=%s",
+                       (name,))
+        for row in cursor.fetchall():
+            cursor.execute("drop trigger %s" % row.name)
+        # Now check that the table exist.
         cursor.execute("select * from sqlite_master "
                        "where type='table' and name=%s", name)
         row = cursor.fetchone()
+        if constraints:
+            constraints = ","+constraints
         if not row:
             # No, it doesn't exist yet.
-            cursor.execute("create table %s (%s)" % (name, fields))
-            for sql in oncreate: cursor.execute(sql)
-        elif getxform(fields) != getfields(name, row.sql):
+            for sql in beforecreate: cursor.execute(sql)
+            cursor.execute("create table %s (%s%s)" %
+                           (name, fields, constraints))
+            for sql in aftercreate: cursor.execute(sql)
+        elif getxform(fields+constraints) != getfields(name, row.sql):
             # It exist, but is invalid. We'll have to fix it.
             self.autocommit(0)
             cursor.execute("create temporary table temp_table (%s)" % fields)
@@ -67,13 +78,20 @@ class SQLiteDB:
             cursor.execute("insert into temp_table (%s) select %s from %s"
                            % (copyfields, copyfields, name))
             cursor.execute("drop table %s" % name)
-            cursor.execute("create table %s (%s)" % (name, fields))
+            for sql in beforecreate: cursor.execute(sql)
+            createargs = fields
+            if constraints:
+                createargs += constraints
+            cursor.execute("create table %s (%s)" % (name, createargs))
             cursor.execute("insert into %s select %s from temp_table"
                            % (name, ",".join(newfieldnames)))
             cursor.execute("drop table temp_table")
-            for sql in oncreate: cursor.execute(sql)
+            for sql in aftercreate: cursor.execute(sql)
             self.commit()
             self.autocommit(1)
+        # Rebuild the triggers
+        for sql in triggers:
+            cursor.execute(sql)
 
     def __getitem__(self, name):
         cursor = self.cursor()

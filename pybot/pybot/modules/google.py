@@ -76,7 +76,10 @@ class Google:
                 url = e.URL
                 title = re.sub("<.*?>", "", e.title)
                 snippet = re.sub("<.*?>", "", e.snippet)
-                msg.answer("%:", "%s <%s> - %s" % (title, url, snippet))
+                if snippet:
+                    msg.answer("%:", "%s <%s> - %s" % (title, url, snippet))
+                else:
+                    msg.answer("%:", "%s <%s>" % (title, url))
         except SOAPpy.Errors.Error:
             import traceback
             traceback.print_exc()

@@ -58,7 +58,7 @@ class Messages:
         hooks.unregister("Message", self.message)
         hooks.unregister("UserJoined", self.checkmsgs)
         mm.unregister_help(HELP)
-        mm.register_perm("messages")
+        mm.unregister_perm("messages")
 
     def checkmsgs(self, server, target, user, asked):
         # XXX: Must check if user is registered and logged!

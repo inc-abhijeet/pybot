@@ -54,14 +54,14 @@ class ModuleControl:
                     isloaded = modls.isloaded(module)
                     if command == "load" and isloaded:
                         msg.answer("%:", ["Sorry sir, but", "Sir,", "Oops, I think that"], "this module is already loaded.")
-                    elif not isloaded:
-                        msg.answer("%:", ["Sorry sir, but", "Sir,", "Oops, I think that"], "this module is not loaded.")
                     elif command == "load":
                         if modls.load(module):
                             self.modules.append(module)
                             msg.answer("%:", ["Loaded", "Done", "Ready"], ["!", "."])
                         else:
                             msg.answer("%:", ["Something wrong happened while", "Something bad happened while", "There was a problem"],  "loading the module", ["!", "."])
+                    elif not isloaded:
+                        msg.answer("%:", ["Sorry sir, but", "Sir,", "Oops, I think that"], "this module is not loaded.")
                     elif command == "reload":
                         if modls.reload(module):
                             msg.answer("%:", ["Reloaded", "Done", "Ready"], ["!", ", sir!"])

@@ -42,7 +42,7 @@ class Freshmeat:
         self.newstargets_lock = thread.allocate_lock()
         self.fetch_lock = thread.allocate_lock()
         hooks.register("Message", self.message)
-        mm.hooktimer(0, FETCHINTERVAL*60, self.checknews, ())
+        mm.hooktimer(0, self.interval*60, self.checknews, ())
         
         # Match '[don[']t|do not] show freshmeat news [(to|on|at|for) [channel|user] <target> [[on|at] server <server>]] [!|.]'
         self.re1 = re.compile(r"(?P<dont>don'?t\s+|do\s+not\s+)?show\s+freshmeat\s+news(?:\s+(?:to|on|at|for)(?:\s+channel|\s+user)?\s+(?P<target>\S+)(?:(?:\s+on|\s+at)?\s+server\s+(?P<server>\S+?))?)?\s*[!.]*$", re.I)

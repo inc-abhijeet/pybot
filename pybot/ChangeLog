@@ -1,3 +1,8 @@
+2003-05-09 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/userdata.py,modules/permission.py: A much better userdata
+	  registry and permission system was developed.
+	* misc.py: Increased maximum line size to 400 characters.
+
 2003-05-08 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/xmlrpc.py: New xmlrpc module.
 	* modules/testadora.py: New testadora module, supporting

@@ -38,7 +38,7 @@ this to work.\
 
 class LogMsg:
     def __init__(self, data):
-        self.time = int(data.time)
+        self.time = int(data.timestamp)
         self.servername = data.servername
         self.type = data.type
         self.src = data.src
@@ -103,7 +103,6 @@ class Log:
 
     def search(self, regexp, max, searchline):
         p = re.compile(regexp, re.I)
-        file = open(self.logname)
         l = []
         cursor = db.cursor()
         cursor.execute("select * from log where src != '' and dest != '' "

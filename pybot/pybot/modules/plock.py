@@ -29,8 +29,9 @@ It's also possible to consult your plocks using "my plocks", or from \
 somebody else using "plocks of <nick|email>".\
 """,),
 ("""\
-Note that to be able to work with plocks, you must first register an \
-email with "register email your@email".\
+Note that to be able to work with plocks, you must first register yourself \
+with me, and then register an email with "set email your@email". For more \
+information use "help register".\
 """,)]
 
 class PLockFile:
@@ -65,7 +66,6 @@ class PLock:
     def __init__(self, bot):
         self.pdir = config.get("plock", "dirpath")
         hooks.register("Message", self.message)
-        options.gethard("UserData.type", {}).setdefault("email", "~")
         
         # Match '[force] plock <package> [,<package>] [!|.]'
         self.re1 = re.compile(r"(?P<force>force\s+)?plock\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*[!.]*$")
@@ -89,11 +89,13 @@ class PLock:
         hooks.unregister("Message", self.message)
         mm.unregister_help(0, HELP)
     
-    def getnick(self, server, email):
-        emails = mm.getuserdataall({}, server, "email")
-        for _nick, _email in emails.items():
-            if _email == email:
-                return _nick
+    def getnick(self, servername, email):
+        data = options.gethard("UserData.data", {})
+        for pair in data:
+            if pair[0] == servername:
+                if data[pair].get("email") == email:
+                    return nick
+        return None
 
     def message(self, msg):
         var = []
@@ -101,7 +103,7 @@ class PLock:
             m = self.re1.match(msg.line)
             if m:
                 if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "plock"):
-                    email = mm.getuserdata(None, msg.server, msg.user.nick, "email")
+                    email = mm.getuserdata(0, msg.server, msg.user.nick, "email")
                     if not email:
                         msg.answer("%:", ["Hummm...", "Nope!", "Sorry!"], "You must register an email (with 'register email <email>')", ["!", "."])
                     else:
@@ -134,7 +136,7 @@ class PLock:
             m = self.re2.match(msg.line)
             if m:
                 if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "plock"):
-                    email = mm.getuserdata(None, msg.server, msg.user.nick, "email")
+                    email = mm.getuserdata(0, msg.server, msg.user.nick, "email")
                     if not email:
                         msg.answer("%:", ["Hummm...", "Nope!", "Sorry!"], "You must register an email", ["!", "."])
                     else:
@@ -173,11 +175,11 @@ class PLock:
                 my = m.group("my") != None
                 user = m.group("user")
                 if my:
-                    email = mm.getuserdata(None, msg.server, msg.user.nick, "email")
+                    email = mm.getuserdata(0, msg.server, msg.user.nick, "email")
                     if not email:
                         msg.answer("%:", ["Hummm...", "Nope!", "Sorry!"], "You must register an email", ["!", "."])
                 elif "@" not in user:
-                    email = mm.getuserdata(None, msg.server, user, "email")
+                    email = mm.getuserdata(0, msg.server, user, "email")
                     if not email:
                         msg.answer("%:", ["Hummm...", "Nope!", "Sorry!"], "No email registered for this nick", ["!", "."])
                 else:
@@ -220,11 +222,11 @@ class PLock:
                         else:
                             fstr = " on %Y/%m/%d at %H:%M."
                         when = time.strftime(fstr, ptime)
-                        email = mm.getuserdata(None, msg.server, msg.user.nick, "email")
+                        email = mm.getuserdata(0, msg.server, msg.user.nick, "email")
                         if locker == email:
                             msg.answer("%:", "You have plocked "+package+when)
                         else:
-                            nick = self.getnick(msg.server, locker)
+                            nick = self.getnick(msg.server.servername, locker)
                             if nick: locker = nick
                             msg.answer("%:", locker+" has plocked "+package+when)
                     else:

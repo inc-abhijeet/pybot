@@ -22,7 +22,7 @@ from string import rfind
 
 __all__ = ["buildanswer", "breakline"]
 
-MAXLINESIZE = 250
+MAXLINESIZE = 400
 
 def buildanswer(pattern, target=None, nick=None):
     ret = []

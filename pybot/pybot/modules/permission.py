@@ -16,8 +16,9 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options
+from pybot import mm, hooks, options, config
 from pybot.user import User
+from types import StringType
 import re
 
 HELP = [
@@ -25,8 +26,10 @@ HELP = [
 I'm able to control what features are available to what users \
 trough a permission system. Only administrators can give or take \
 permissions. If you're one of them, you can do it with "(give|take) \
-perm[ission] <perm> [to|from] [user <user>] [on|at] [this \
-channel|channel <channel>] [on|at|to] [this server|server <server>].\
+perm[ission] <perm> [to|from] [user <user>|nick <nick>] [on|at] [this \
+channel|channel <channel>] [on|at|to] [this server|server <server>]". \
+When using <nick>, it must be registered and logged to have the \
+permission.\
 """,),
 ("""\
 If you're an administrator, you may also view which permissions are \
@@ -37,21 +40,28 @@ you'll receive a list of users with this permission enabled.\
 
 
 class Permission:
-    def __init__(self, bot):
+    def __init__(self):
         self.perm = options.gethard("Permission.perm", {})
-        self.gosh = options.gethard("Permission.gosh", [])
         mm.register("hasperm", self.mm_hasperm)
         mm.register("setperm", self.mm_setperm)
         mm.register("unsetperm", self.mm_unsetperm)
         hooks.register("Message", self.message)
 
-        # Matches '(give|remove|del|delete|take) perm[ission] <perm> [to|from] [user <user>] [on|at] [this channel|channel <channel>] [on|at|to] [this server|server <server>]'
-        self.re1 = re.compile("(?P<command>give|remove|del|delete|take)\s+(?:(?P<perm1>\w+)\s+perm(?:ission)?|perm(?:ission)?\s+(?P<perm2>\w+))(?:\s+to|\s+from)?(?:\s+user\s+(?P<user>\S+))?(?:\s+on|\s+at)?(?:\s+(?P<thischannel>this\s+channel)|\s+channel\s+(?P<channel>\S+))?(?:\s+on|\s+at|\s+to)?(?:\s+(?P<thisserver>this\s+server)|\s+server\s+(?P<server>\S+))?\s*[!.]*$", re.I)
+        self.staticadmins = []
+        if config.has_option("permission", "admins"):
+            for userhost in config.get("permission", "admins").split():
+                pair = userhost.split("@")
+                if len(pair) == 2:
+                    pair.reverse()
+                    self.staticadmins.append(tuple(pair))
 
-        # Matches '(show|list) perm[ission][s] [<perm>]'
+        # (give|remove|del|delete|take) perm[ission] <perm> [to|from] [user <user>|nick <nick>] [on|at] [this channel|channel <channel>] [on|at|to] [this server|server <server>]
+        self.re1 = re.compile("(?P<command>give|remove|del|delete|take)\s+(?:(?P<perm1>\w+)\s+perm(?:ission)?|perm(?:ission)?\s+(?P<perm2>\w+))(?:\s+to|\s+from)?(?:\s+user\s+(?P<user>\S+)|\s+nick\s+(?P<nick>\S+))?(?:\s+on|\s+at)?(?:\s+(?P<thischannel>this\s+channel)|\s+channel\s+(?P<channel>\S+))?(?:\s+on|\s+at|\s+to)?(?:\s+(?P<thisserver>this\s+server)|\s+server\s+(?P<server>\S+))?\s*[!.]*$", re.I)
+
+        # (show|list) perm[ission][s] [<perm>]
         self.re2 = re.compile("(?:show|list)\s+perm(?:ission)?s?(?:\s+(?P<perm>\w+))?\s*[!.]*$", re.I)
 
-        # Match 'perm[ission][s] [system]'
+        # perm[ission][s] [system]
         mm.register_help(0, "perm(?:ission)?s?(?:\s+system)?", HELP)
 
     def unload(self):
@@ -65,7 +75,7 @@ class Permission:
         if msg.forme:
             m = self.re1.match(msg.line)
             if m:
-                if self.mm_hasperm(0, msg.server.servername, msg.target, msg.user, None):
+                if self.mm_msg_hasperm(0, msg, None):
                     if m.group("thischannel"):
                         found = 1
                         channel = msg.target
@@ -91,7 +101,7 @@ class Permission:
                         user = User()
                         user.setstring(userstr)
                     else:
-                        user = None
+                        user = m.group("nick")
                     perm = m.group("perm1") or m.group("perm2")
                     if m.group("command").lower() == "give":
                         self.mm_setperm(0, server, channel, user, perm)
@@ -107,10 +117,11 @@ class Permission:
 
             m = self.re2.match(msg.line)
             if m:
-                if self.mm_hasperm(0, msg.server.servername, msg.target, msg.user, None):
+                if self.mm_msg_hasperm(0, msg, None):
                     perm = m.group("perm")
                     if perm:
-                        if not (self.perm.has_key(perm) and self.perm[perm]):
+                        perms = self.perm.get(perm)
+                        if not perms:
                             msg.answer("%:", "Nobody has this permission", [".", "!"])
                         else:
                             perms = self.perm[perm]
@@ -119,7 +130,10 @@ class Permission:
                             for i in range(permlen):
                                 tup = perms[i]
                                 if tup[2] is not None:
-                                    s += tup[2].string
+                                    if type(tup[2]) is StringType:
+                                        s += tup[2]
+                                    else:
+                                        s += tup[2].string
                                 if tup[1] is not None:
                                     join = ""
                                     if s:
@@ -146,18 +160,31 @@ class Permission:
                     msg.answer("%:", ["Sorry, you", "Sir, you", "You"], ["can't work with permissions.", "don't have this power."])
                 return 0
                     
-    def mm_hasperm(self, defret, server, channel, user, perm):
+    def mm_hasperm(self, defret, servername, channel, user, perm):
+        if (servername, mm.loggednick(0, servername, user)) in \
+           self.staticadmins:
+            return 1
         if self.perm.has_key(perm):
             for tup in self.perm[perm]:
-                if (tup[0] is None or tup[0] == server) and \
+                isnick = type(tup[2]) is StringType
+                if (tup[0] is None or tup[0] == servername) and \
                    (tup[1] is None or tup[1] == channel) and \
-                   (tup[2] is None or user.match(tup[2].nick, tup[2].username, tup[2].host)):
+                   (tup[2] is None or
+                    (isnick and (tup[2] == mm.loggednick(0, servername, user)) or
+                    (not isnick and user.match(tup[2].nick,
+                                               tup[2].username,
+                                               tup[2].host)))):
                        return 1
         if perm != "admin":
-            if not (self.perm.has_key("admin") and self.perm["admin"]):
-                return 1
-            return self.mm_hasperm(defret, server, channel, user, "admin")
+            return self.mm_hasperm(defret, servername, channel, user, "admin")
         return 0
+
+    def mm_msg_hasperm(self, defret, msg, perm):
+        return self.mm_hasperm(defret,
+                               msg.server.servername,
+                               msg.target,
+                               msg.user,
+                               perm)
 
     def mm_setperm(self, defret, server, channel, user, perm):
         if not self.perm.has_key(perm):
@@ -170,9 +197,14 @@ class Permission:
         if self.perm.has_key(perm):
             _perm = self.perm[perm]
             for tup in _perm:
+                isnick = type(tup[2]) is StringType
                 if (tup[0] is None or tup[0] == server) and \
                    (tup[1] is None or tup[1] == channel) and \
-                   (tup[2] is None or user.match(tup[2].nick, tup[2].username, tup[2].host)):
+                   (tup[2] is None or
+                    (isnick and (tup[2] == mm.loggednick(0, servername, user)) or
+                    (not isnick and user.match(tup[2].nick,
+                                               tup[2].username,
+                                               tup[2].host)))):
                     _perm.remove(tup)
                     if len(_perm) == 0:
                         del self.perm[perm]
@@ -181,12 +213,12 @@ class Permission:
 
 
 def __loadmodule__(bot):
-    global permission
-    permission = Permission(bot)
+    global mod
+    mod = Permission()
 
 def __unloadmodule__(bot):
-    global permission
-    permission.unload()
-    del permission
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

@@ -62,7 +62,7 @@ class LogMsg:
         if msg[:3] == now[:3]:
             s = "today at %d:%d" % msg[3:5]
         else:
-            s = "%d-%d-%d at %d:%d" % msg[:5]
+            s = "on %d-%d-%d at %d:%d" % msg[:5]
         return s
  
 

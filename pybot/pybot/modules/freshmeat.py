@@ -37,11 +37,11 @@ more information.
 
 class Freshmeat:
     def __init__(self):
-        self.url = config.get("freshmeat", "url")
-        if config.has_option("freshmeat", "proxy"):
-            self.proxy = config.get("freshmeat", "proxy")
+        if config.has_option("global", "http_proxy"):
+            self.proxy = config.get("global", "http_proxy")
         else:
             self.proxy = None
+        self.url = config.get("freshmeat", "url")
         self.interval = config.getint("freshmeat", "interval")
 
         db.table("freshmeat", "servername,target")

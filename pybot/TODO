@@ -18,8 +18,6 @@ This are some of the features to be implemented in the future:
 
 - Add timed messages in the messages.py module.
 
-- Perhaps a google module (including a random link fetcher)?
-
 - Perhaps a "karma" module, implementing word++ and word--?
 
 - Check ideas from http://olut.ton.tut.fi/~karhu/ and http://supybot.sf.net.

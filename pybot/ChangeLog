@@ -1,3 +1,8 @@
+2003-05-29 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/google.py: Introduced basic google module using the
+	  google SOAP api.
+	* pybot/util/SOAPpy: Added SOAPpy 0.10.1 to the source tree.
+
 2003-05-16 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* contrib/vera2info.py: Updated to add multiple values in the
 	  same key, when the keys are the same.

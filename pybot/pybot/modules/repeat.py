@@ -53,7 +53,7 @@ class Repeat:
         hooks.register("Message", self.message)
 
         # [don[']t|do not] repeat [each <n>[ ](s[econds]|m[inutes]|h[ours])] (to|at|on) [channel|user] <target> [[on|at] server <server>]: [/me|/notice] ...
-        self.re1 = regexp(r"(?:(?P<dont>don'?t|do not) )?repeat(?: each (?P<interval>[0-9]+)\s*(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?: (?:to|at|on)(?: (?:channel|user))? (?P<target>\S+))?(?: (?:on|at)? server (?P<server>\S+))?\s*: (?P<action>/me\s)?(?P<notice>/notice\s)?(?P<phrase>.*)")
+        self.re1 = regexp(r"(?:(?P<dont>don'?t|do not) )?repeat(?: each (?P<interval>[0-9]+) *(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?: (?:to|at|on)(?: (?:channel|user))? (?P<target>\S+))?(?: (?:on|at)? server (?P<server>\S+))? *: (?P<action>/me\s)?(?P<notice>/notice\s)?(?P<phrase>.*)")
 
         # repeat
         mm.register_help(r"repeat", HELP, "repeat")

@@ -43,13 +43,13 @@ class Testadora:
         hooks.register("Message", self.message)
         
         # [show] (compiletime|compile time) [for] <package>
-        self.re1 = regexp(r"(?:show )?compile\s*time (?:for )?(?P<package>\S+)")
+        self.re1 = regexp(r"(?:show )?compile *time (?:for )?(?P<package>\S+)")
 
         # testadora
         mm.register_help("testadora", HELP_TESTADORA, "testadora")
 
         # (compiletime|compile time)
-        mm.register_help("compile\s*time", HELP_COMPILETIME)
+        mm.register_help("compile *time", HELP_COMPILETIME)
 
         mm.register_perm("compiletime", PERM_COMPILETIME)
 

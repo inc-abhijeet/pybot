@@ -48,10 +48,10 @@ class Notes:
         mm.register("getnotetopics", self.mm_getnotetopics)
 
         # [add|new|create|include] note [about] <topic>: <note>
-        self.re1 = regexp(r"(?:add |new |create |include )?note(?: about)? (?P<topic>[^:]+):\s*(?P<note>.+)")
+        self.re1 = regexp(r"(?:add |new |create |include )?note(?: about)? (?P<topic>[^:]+): *(?P<note>.+)")
     
         # [del|delete|remove] note[s] [about] <topic> [: <num> [, ...]]
-        self.re2 = regexp(r"(?:del|delete|remove) notes?(?: about)? (?P<topic>[^:]+)(?:\s*:\s*(?P<nums>.+))?")
+        self.re2 = regexp(r"(?:del|delete|remove) notes?(?: about)? (?P<topic>[^:]+)(?: *: *(?P<nums>.+))?")
         
         # [show] note[s] [[about] <topic> [?]]
         self.re3 = regexp(r"(?:show )?notes?(?:(?: about)? (?P<topic>[^?]+))?")

@@ -44,7 +44,7 @@ class Messages:
         db.table("message", "servername,nickfrom,nickto,timestamp,flags,message")
 
         # [priv[ate]] message (to|for) <nick>: <message>
-        self.re1 = regexp(r"(?P<private>priv(?:ate)? )?message (?:to|for) (?P<nick>\S+?)\s*: (?P<message>.*)")
+        self.re1 = regexp(r"(?P<private>priv(?:ate)? )?message (?:to|for) (?P<nick>\S+?) *: (?P<message>.*)")
 
         # [any] message[s]?
         self.re2 = regexp(r"(?:any )?messages?", question=1, needpunct=1)

@@ -45,7 +45,7 @@ class Google:
         hooks.register("Message", self.message)
 
         # [search] google [<n>]: <search>
-        self.re1 = regexp(r"(?:search )?google(?: (?P<n>\d+))?:\s*(?P<search>.+)")
+        self.re1 = regexp(r"(?:search )?google(?: (?P<n>\d+))?: *(?P<search>.+)")
         
         mm.register_help("(?:search )?google(?: search)?", HELP,
                          "google")

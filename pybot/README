@@ -62,6 +62,10 @@ Standard modules
         access exported functions from this module to verify if
         users have given privilege.
 
+- userdata (*)
+        Provides some general user data storage, and exports some
+        functions providing this information for other modules.
+
 - help (*)
         Provides online help system.
 
@@ -122,10 +126,6 @@ Standard modules
 
 - randnum
         Simple random number generator.
-
-- userdata
-        Provides some general user data storage, and exports some
-        functions providing this information for other modules.
 
 - xmlrpc
         Provides an API to easily export functions from any module through

@@ -254,6 +254,7 @@ class Permission:
         cursor = db.cursor()
         cursor.execute("insert into permission values (%s,%s,%s,%s,%s)",
                        perm, servername, target, userstr, nick)
+        return bool(cursor.rowcount)
 
     def mm_unsetperm(self, servername, target, userstr, nick, perm, check=0):
         where = ["permission=%s"]

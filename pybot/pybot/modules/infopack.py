@@ -31,9 +31,12 @@ file), and use the command "[load|reload|unload] infopack <name>
 After you load some infopack, you must say explicitly which
 users/channels and servers will be able to obtain information from
 it. To do that give the permission "infopack(<name>)" for these you
-want to allow. To show which infopacks are loaded, send me
-"show infopacks". You can also ask for help about some specific
-infopack with "help infopack <name>".
+want to allow.
+""","""
+To show which infopacks are loaded send me "show infopacks"; to
+search for information inside an infopack send me "search infopack
+<name> for /<regexp>/", and to ask for help about some specific
+infopack use "help infopack <name>".
 """
 
 PERM_INFOPACKADMIN = """

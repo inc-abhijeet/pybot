@@ -24,7 +24,8 @@ import re
 HELP = """
 You may ask for google search results using "[search] google [<n>]:
 <search>". Unless the parameter n is used, the default is to show the
-first result found (with n=0).
+first result found (with n=0). You'll need the "google" permission to
+use that feature.
 """
 
 PERM_GOOGLE = """

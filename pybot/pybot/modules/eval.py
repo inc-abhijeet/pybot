@@ -84,11 +84,11 @@ class Eval:
         self.dict["reduce"] = reduce
         self.dict["repr"] = repr
         self.dict["round"] = round
-        self.dict["str"] = round
+        self.dict["str"] = str
         self.dict["tuple"] = tuple
         self.dict["unichr"] = unichr
         self.dict["unicode"] = unicode
-        self.dict["xrange"] = range
+        self.dict["xrange"] = xrange
         self.dict["zip"] = zip
 
         # eval <expr>

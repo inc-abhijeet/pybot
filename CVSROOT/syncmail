@@ -77,7 +77,6 @@ DIFF_TRUNCATE_IF_LARGER = 1000
 
 PROGRAM = sys.argv[0]
 
-
 
 def usage(code, msg=''):
     print __doc__ % globals()

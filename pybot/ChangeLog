@@ -1,3 +1,8 @@
+2003-08-19 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/servercontrol.py: Minor typos fixed.
+	* modules/log.py: Only allow log searching inside
+	  the channel that the message has been typed.
+
 2003-06-02 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/remoteinfo.py: New module!
 

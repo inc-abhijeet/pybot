@@ -390,10 +390,10 @@ class ServerControl:
                         else:
                             l.append("%s (hosts: %s)" %
                                      (servername, ", ".join(hosts)))
-                    msg.answer("%:", "You're connected to the following "
+                    msg.answer("%:", "I'm connected to the following "
                                      "servers:", ", ".join(l))
                 else:
-                    msg.answer("%:", "You're not connected to any servers",
+                    msg.answer("%:", "I'm not connected to any servers",
                                      [".", "!"])
             else:
                 msg.answer("%:", [("You're not", ["allowed to show channels",

@@ -102,12 +102,12 @@ class Log:
             return LogMsg(row)
         return None
 
-    def search(self, regexp, max, searchline):
+    def search(self, regexp, max, target, searchline):
         p = re.compile(regexp, re.I)
         l = []
         cursor = db.cursor()
-        cursor.execute("select * from log where src != '' and dest != '' "
-                       "order by timestamp")
+        cursor.execute("select * from log where src != '' and dest == %s "
+                       "order by timestamp", (target,))
         row = cursor.fetchone()
         while row:
             if p.search(row.line):
@@ -168,7 +168,7 @@ class LogModule:
                     logmsg = self.log.seen(nick)
                     if not logmsg:
                         msg.answer("%:", "Sorry, I haven't seen %s for a while..." % nick)
-                    elif mm.hasperm(msg, "log"):
+                    elif mm.hasperm(msg, "log") and msg.target == logmsg.dest:
                         msg.answer("%:", "I have seen %s %s, with the "
                                          "following message:" %
                                          (nick, logmsg.timestr()))
@@ -190,7 +190,7 @@ class LogModule:
                 if mm.hasperm(msg, "log"):
                     max = 5
                     logmsgs = self.log.search(m.group("regexp"), max,
-                                              msg.rawline)
+                                              msg.target, msg.rawline)
                     if logmsgs:
                         llen = len(logmsgs)
                         if llen == 1:

@@ -7,10 +7,10 @@ T:(?:show\s+)?versions\s+(?:of\s+)?(\S+)
 D:t:No information about that package.
 D:t:I have never seen that package.
 D:t:Sorry, I don't know anything about that package.
-M:This package has been released in the following distributions: %s
-M:The following distributions contain that package: %s
-M:You'll find that package in the following distributions: %s
-M:It was included in the following distributions: %s
+M:Package %(key)s has been released in the following distributions: %(value)s
+M:The following distributions contain package %(key)s: %(value)s
+M:You'll find package %(key)s in the following distributions: %(value)s
+M:%(key)s was included in the following distributions: %(value)s
 K:0verkill
 V:tm:CL6-CD2: 0.13-1cl; CL9-CD3: 0.16-23753cl
 K:3270-common

@@ -27,18 +27,13 @@ You can ask me to load information from remote URLs using
 "load remote info [from] <url> [each <n>(s|m|h)] [[with] regex <regex>]"
 and to unload or reload using "(re|un)load remote info [from] <url>". To
 check what is being remotely loaded, use "show remote[ ]info[s]". To
-load and unload remote infos you'll need the "remoteinfo" permission,
-and to show and reload you need either the "remoteinfo" or the
-"remoteinforeload" permission. 
+load and unload remote infos you must be an admin, and to show and reload
+you need the "remoteinfoadmin" permission. 
 ""","""
 After you setup some URL for remote loading, you must say explicitly
 which users/channels and servers will be able to obtain information from
-it. To do that use the command "[don't] allow remote info [from] <url>
-[(for|on|at) (user|channel) <target>] [(for|on|at) server <server>]".
-Notice that you may omit user/channel and/or server to give wider
-permissions.
-""","""
-The default reload interval is 10 minutes. To understand
+it. To do that give the permission "remoteinfo(<url>)" for these you
+want to allow. The default reload interval is 10 minutes. To understand
 how to build the regex for the remote info command or how to build the
 remote information check "help remote info syntax".
 """
@@ -66,14 +61,14 @@ trigger case sensitive.
 """
 
 PERM_REMOTEINFO = """
-Users with the "remoteinfo" permission can work with remote
-information settings. Check "help remoteinfo" for more information.
+Users with the "remoteinfo(<url>)" permission will be able to use
+knowledge acquired from the given url. Check "help remoteinfo" for
+more information.
 """
 
-PERM_RELOADREMOTEINFO = """
-Users with the "reloadremoteinfo" permission can ask me to reload
-information from remote URLs. Notice that the "remoteinfo" permission
-allows that as well. Check "help remoteinfo" for more information.
+PERM_REMOTEINFOADMIN = """
+Users with the "remoteinfoadmin" permission can ask me to reload
+information from remote URLs, and to show which URLs are being loaded.
 """
 
 DEFAULTREGEX = "\s*(?:<(?P<flags>[^>]*)>\s*)?(?P<trigger>.*?)\s*=>\s*(?P<msg>.*)"
@@ -90,15 +85,7 @@ class Info:
 class RemoteInfo:
     def __init__(self):
         db.table("remoteinfo", "id integer primary key, url, regex, interval",
-                 constraints="unique (url)",
-                 triggers=[
-                   "create trigger remoteinfo1 after delete on remoteinfo "
-                   "begin"
-                   " delete from remoteinfoallow where infoid=old.id;"
-                   "end"
-                 ])
-        db.table("remoteinfoallow", "infoid, servername, target",
-                 constraints="unique (infoid, servername, target)")
+                 constraints="unique (url)")
         self.info = options.get("RemoteInfo.info", {})
         self.info_lock = options.get("RemoteInfo.info_lock", {})
         self.lock = thread.allocate_lock()
@@ -112,11 +99,8 @@ class RemoteInfo:
         # (un|re)load remote[ ]info [from] <url>
         self.re2 = regexp(r"(?P<cmd>un|re)load remote *info (?:from )?(?P<url>\S+)")
 
-        # [(don[']t|do not)] allow remote[ ]info [from] <url> [(to|for|on|at|in) (user|channel) <target>] [(to|for|on|at|in) server <server>]
-        self.re3 = regexp(r"(?P<dont>don'?t |do not )?allow remote *info (?:from )?(?P<url>\S+)(?: (?:to|for|on|at|in) (?:user|channel) (?P<target>\S+))?(?: (?:to|for|on|at|in) server (?P<server>\S+))?")
-
         # show remote[ ]info[s]
-        self.re4 = regexp(r"show remote *infos?")
+        self.re3 = regexp(r"show remote *infos?")
 
         # remote[ ]info
         mm.register_help("remote *info?", HELP, "remoteinfo")
@@ -124,7 +108,7 @@ class RemoteInfo:
                          "remoteinfo syntax")
 
         mm.register_perm("remoteinfo", PERM_REMOTEINFO)
-        mm.register_perm("reloadremoteinfo", PERM_RELOADREMOTEINFO)
+        mm.register_perm("remoteinfoadmin", PERM_REMOTEINFOADMIN)
 
         mm.hooktimer(30, self.reload_all, ())
 
@@ -139,7 +123,7 @@ class RemoteInfo:
         mm.unregister_help(HELP)
         mm.unregister_help(HELP_SYNTAX)
         mm.unregister_perm("remoteinfo")
-        mm.unregister_perm("reloadremoteinfo")
+        mm.unregister_perm("remoteinfoadmin")
 
     def lock_url(self, url):
         self.lock.acquire()
@@ -232,9 +216,12 @@ class RemoteInfo:
     
     def message_remoteinfo(self, msg):
         ret = None
-        allowed = self.get_allowed_urls(msg.server.servername,
-                                        msg.answertarget)
+        #allowed = self.get_allowed_urls(msg.server.servername,
+        #                                msg.answertarget)
+        allowed = mm.permparams(msg, "remoteinfo")
         for url, info in self.info.items():
+            #if not mm.hasperm(msg, "remoteinfo", url):
+            #    continue
             if url not in allowed:
                 continue
             for p in info.patterns:
@@ -273,7 +260,7 @@ class RemoteInfo:
 
         m = self.re1.match(msg.line)
         if m:
-            if mm.hasperm(msg, "remoteinfo"):
+            if mm.hasperm(msg, "admin"):
                 url = m.group("url")
                 regex = (m.group("regex") or DEFAULTREGEX).strip()
                 interval = m.group("interval")
@@ -333,64 +320,9 @@ class RemoteInfo:
         
         m = self.re2.match(msg.line)
         if m:
-            cmd = m.group("cmd")
-            url = m.group("url")
-            cursor = db.cursor()
-            cursor.execute("select * from remoteinfo where url=%s",
-                           (url,))
-            if not cursor.rowcount:
-                msg.answer("%:", ["I can't do that.", "Nope.", None],
-                                 ["I'm not loading that url",
-                                  "This url is not in my database"],
-                                 [".", "!"])
-            elif cmd == "un":
-                if mm.hasperm(msg, "remoteinfo"):
-                    if not self.lock_url(url):
-                        msg.answer("%:", "Can't do that now. URL is "
-                                         "being loaded in this exact "
-                                         "moment. Try again in a few "
-                                         "seconds.")
-                    else:
-                        if url in self.info:
-                            del self.info[url]
-                        if url in self.info_lock:
-                            del self.info_lock[url]
-                        # Unlocking is not really necessary, but
-                        # politically right. ;-)
-                        self.unlock_url(url)
-                        cursor.execute("delete from remoteinfo where url=%s",
-                                       (url,))
-                        msg.answer("%:", ["Done", "Of course", "Ready"],
-                                         [".", "!"])
-                else:
-                    msg.answer("%:", [("You're not",
-                                       ["allowed to change "
-                                        "remote info options",
-                                        "that good",
-                                        "allowed to do this"]),
-                                      "Nope"], [".", "!"])
-            else:
-                if mm.hasperm(msg, "remoteinfo") or \
-                   mm.hasperm(msg, "reloadremoteinfo"):
-                    msg.answer("%:", ["Will do that",
-                                      "In a moment",
-                                      "Will be ready in a moment",
-                                      "Starting right now"], [".", "!"])
-                    self.reload(url)
-                else:
-                    msg.answer("%:", [("You're not",
-                                       ["allowed to reload remote infos",
-                                        "that good",
-                                        "allowed to do this"]),
-                                      "Nope"], [".", "!"])
-            return 0
-
-        m = self.re3.match(msg.line)
-        if m:
-            if mm.hasperm(msg, "remoteinfo"):
+            if mm.hasperm(msg, "remoteinfoadmin"):
+                cmd = m.group("cmd")
                 url = m.group("url")
-                target = m.group("target") or ""
-                server = m.group("server") or ""
                 cursor = db.cursor()
                 cursor.execute("select * from remoteinfo where url=%s",
                                (url,))
@@ -399,44 +331,39 @@ class RemoteInfo:
                                      ["I'm not loading that url",
                                       "This url is not in my database"],
                                      [".", "!"])
-                    return 0
-                if m.group("dont"):
-                    cursor.execute("delete from remoteinfoallow where "
-                            "infoid=(select id from remoteinfo where url=%s) "
-                            "and servername=%s and target=%s",
-                            (url, server, target))
-                    if cursor.rowcount:
-                        msg.answer("%:", ["Sure", "Done", "Removed", "Ok"],
-                                         [".", "!"])
-                    else:
-                        msg.answer("%:", ["I can't do that.", "Nope.", None],
-                                         ["This target doesn't exist",
-                                          "I'm not allowing this target",
-                                          "This target is not in my database"],
-                                         [".", "!"])
+                elif cmd == "un":
+                        if not self.lock_url(url):
+                            msg.answer("%:", "Can't do that now. URL is "
+                                             "being loaded in this exact "
+                                             "moment. Try again in a few "
+                                             "seconds.")
+                        else:
+                            if url in self.info:
+                                del self.info[url]
+                            if url in self.info_lock:
+                                del self.info_lock[url]
+                            # Unlocking is not really necessary, but
+                            # politically right. ;-)
+                            self.unlock_url(url)
+                            cursor.execute("delete from remoteinfo where url=%s",
+                                           (url,))
+                            msg.answer("%:", ["Done", "Of course", "Ready"],
+                                             [".", "!"])
                 else:
-                    try:
-                        cursor.execute("insert into remoteinfoallow values "
-                               "((select id from remoteinfo where url=%s),"
-                               " %s,%s)", (url, server, target))
-                    except db.error:
-                        msg.answer("%:", ["I can't do that.", "Nope.", None],
-                                         ["This target is already allowed",
-                                          "I'm already allowing this target",
-                                          "This target is already in my database"],
-                                         [".", "!"])
-                    else:
-                        msg.answer("%:", ["Sure", "Done", "Added", "Ok"],
-                                         [".", "!"])
+                    msg.answer("%:", ["Will do that",
+                                      "In a moment",
+                                      "Will be ready in a moment",
+                                      "Starting right now"], [".", "!"])
+                    self.reload(url)
             else:
                 msg.answer("%:", [("You're not",
-                                   ["allowed to change remote info options",
+                                   ["allowed to touch remote infos",
                                     "that good",
                                     "allowed to do this"]),
                                   "Nope"], [".", "!"])
             return 0
-        
-        m = self.re4.match(msg.line)
+
+        m = self.re3.match(msg.line)
         if m:
             if mm.hasperm(msg, "remoteinfo") or \
                mm.hasperm(msg, "reloadremoteinfo"):

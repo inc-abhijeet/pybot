@@ -42,16 +42,21 @@ even those restricted by other permissions. This is equivalent to
 include the user in the 'admins' option in the configuration file.
 """
 
-VALIDUSER = re.compile(".+!.+@.+")
+VALIDUSER = re.compile(r".+!.+@.+")
+
+PARAM = re.compile(r"(?P<perm>\S+)\((?P<param>.*)\)$")
 
 class Permission:
     def __init__(self):
-        db.table("permission", "permission,servername,target,userstr,nick")
+        db.table("permission", "permission, param default '', "
+                               "servername, target, userstr, nick")
         self.help = options.get("Help.perm", {})
         mm.register("hasperm", self.mm_hasperm)
         mm.register("hasperm_raw", self.mm_hasperm_raw)
         mm.register("setperm", self.mm_setperm)
         mm.register("unsetperm", self.mm_unsetperm)
+        mm.register("permparams", self.mm_permparams)
+        mm.register("permparams_raw", self.mm_permparams_raw)
         hooks.register("Message", self.message)
 
         self.staticadmins = []
@@ -63,7 +68,7 @@ class Permission:
                     self.staticadmins.append(tuple(pair))
 
         # (give|remove|del|delete|take) perm[ission] <perm> [to|from] [everyone | [user <user>] [[and] nick <nick>] [on|at] [this channel|channel <channel>] [on|at|to] [this server|server <server>]]
-        self.re1 = regexp("(?P<cmd>give|remove|del|delete|take) (?:perm(?:ission)? (?P<perm1>\S+)|(?P<perm2>\S+) perm(?:ission)?)(?: to| from)?(?:(?P<everyone> everyone)|(?: user (?P<user>\S+))?(?:(?: and)? nick (?P<nick>\S+))?(?: on| at)?(?: (?P<thischannel>this channel)| channel (?P<channel>\S+))?(?: on| at| to)?(?: (?P<thisserver>this server)| server (?P<server>\S+))?)?")
+        self.re1 = regexp("(?P<cmd>give|remove|del|delete|take) (?:perm(?:ission)? (?P<perm1>\S+)|(?P<perm2>\S+) perm(?:ission)?)(?: to| from| for)?(?:(?P<everyone> everyone)|(?: user (?P<user>\S+))?(?:(?: and)? nick (?P<nick>\S+))?(?: on| at| to| in| for)?(?: (?P<thischannel>this channel)| channel (?P<channel>\S+))?(?: on| at| to| in| for)?(?: (?P<thisserver>this server)| server (?P<server>\S+))?)?")
 
         # (show|list) perm[ission][s] [<perm>]
         self.re2 = regexp("(?:show|list) perm(?:ission)?s?(?: (?P<perm>\w+))?")
@@ -123,17 +128,24 @@ class Permission:
                         return 0
                 nick = m.group("nick")
                 perm = m.group("perm1") or m.group("perm2")
+                _m = PARAM.match(perm)
+                if _m:
+                    perm, param = _m.group("perm", "param")
+                else:
+                    param = ""
                 # Everyone is handled transparently, since all
                 # items will be None
                 if m.group("cmd").lower() == "give":
-                    if not mm.setperm(servername, target, userstr, nick, perm):
+                    if not mm.setperm(servername, target,
+                                      userstr, nick, perm, param):
                         msg.answer("%:", ["I already have this permission",
                                           "This permission was given before",
                                           "Not necessary"],
                                          [".", "!"])
                         return 0
                 else:
-                    if not mm.unsetperm(servername, target, userstr, nick, perm):
+                    if not mm.unsetperm(servername, target,
+                                        userstr, nick, perm, param):
                         msg.answer("%:", "No entries like this were found",
                                          [".", "!"])
                         return 0
@@ -190,6 +202,8 @@ class Permission:
                                 first = 0
                             if first:
                                 s += "everyone"
+                            if row.param:
+                                s += " (%s)" % row.param
                             if i == numrows-1:
                                 s += "."
                             elif i == numrows-2:
@@ -226,7 +240,7 @@ class Permission:
                                   "don't have this power"], [".", "!"])
             return 0
 
-    def mm_hasperm_raw(self, servername, target, user, perm):
+    def mm_hasperm_raw(self, servername, target, user, perm, param=""):
         if servername == "console":
             return 1
         loggednick = mm.loggednick(servername, user)
@@ -234,7 +248,8 @@ class Permission:
             return 1
         cursor = db.cursor()
         cursor.execute("select * from permission where "
-                       "permission='admin' or permission=%s", perm)
+                       "permission='admin' or "
+                       "(permission=%s and param=%s)", (perm, param))
         for row in cursor.fetchall():
             if (not row.servername or row.servername == servername) and \
                (not row.target or row.target == target) and \
@@ -243,22 +258,23 @@ class Permission:
                     return 1
         return 0
 
-    def mm_hasperm(self, msg, perm):
+    def mm_hasperm(self, msg, perm, param=""):
         return self.mm_hasperm_raw(msg.server.servername,
-                                   msg.target, msg.user, perm)
+                                   msg.target, msg.user, perm, param)
 
-    def mm_setperm(self, servername, target, userstr, nick, perm):
+    def mm_setperm(self, servername, target, userstr, nick, perm, param=""):
         if self.mm_unsetperm(servername, target, userstr, nick,
-                             perm, check=1):
+                             perm, param, check=1):
             return 0
         cursor = db.cursor()
-        cursor.execute("insert into permission values (%s,%s,%s,%s,%s)",
-                       perm, servername, target, userstr, nick)
+        cursor.execute("insert into permission values (%s,%s,%s,%s,%s,%s)",
+                       (perm, param, servername, target, userstr, nick))
         return bool(cursor.rowcount)
 
-    def mm_unsetperm(self, servername, target, userstr, nick, perm, check=0):
-        where = ["permission=%s"]
-        wargs = [perm]
+    def mm_unsetperm(self, servername, target, userstr, nick,
+                     perm, param="", check=0):
+        where = ["permission=%s", "param=%s"]
+        wargs = [perm, param]
         if servername:
             where.append("servername=%s")
             wargs.append(servername)
@@ -286,6 +302,24 @@ class Permission:
         else:
             cursor.execute("select * from permission where "+wstr, *wargs)
         return bool(cursor.rowcount)
+
+    def mm_permparams_raw(self, servername, target, user, perm):
+        loggednick = mm.loggednick(servername, user)
+        cursor = db.cursor()
+        cursor.execute("select * from permission where "
+                       "permission=%s", (perm,))
+        params = {}
+        for row in cursor.fetchall():
+            if (not row.servername or row.servername == servername) and \
+               (not row.target or row.target == target) and \
+               (not row.userstr or user.matchstr(row.userstr)) and \
+               (not row.nick or row.nick == loggednick):
+                    params[row.param] = 1
+        return params.keys()
+
+    def mm_permparams(self, msg, perm):
+        return self.mm_permparams_raw(msg.server.servername,
+                                      msg.target, msg.user, perm)
 
 def __loadmodule__():
     global mod

@@ -7,3610 +7,3610 @@ h:airports:airports?
 H:The airport infopack provides a database of airport locations around the world. You can ask for an airport location using "airport <code>".
 T:(?:what|where)(?:'s|\s+is)\s+(?:the\s+)?airport\s+(?:code\s+)?([a-z]{3})\s*(?:!*\?[!?]*)?$
 T:airport\s+([a-zA-Z]{3})\s*(?:!*\?[!?]*)?$
-M:That's the airport code for %s.
-M:That's the code for the airport in %s.
+M:Airport code %(key)s is from %(value)s.
+M:Code %(key)s is from the airport at %(value)s.
 D:t:I don't know any airport with this code.
 D:t:I'm not sure this is the code of an airport.
 D:t:Sorry, I don't know anything about this code.
-K:aae
+K:AAE
 V:tm:Annaba, Algeria
-K:aal
+K:AAL
 V:tm:Alborg, Denmark
-K:aar
+K:AAR
 V:tm:Aarhus, Denmark
-K:aax
+K:AAX
 V:tm:Araxa, MG, Brazil
-K:abd
+K:ABD
 V:tm:Abadan, Iran
-K:abe
+K:ABE
 V:tm:Allentown, PA, USA
-K:abi
+K:ABI
 V:tm:Abilene, TX, USA
-K:abj
+K:ABJ
 V:tm:Abidjan, Ivory Coast
-K:abm
+K:ABM
 V:tm:Bamaga, Australia
-K:abq
+K:ABQ
 V:tm:Albuquerque, NM, USA
-K:abr
+K:ABR
 V:tm:Aberdeen, SD, USA
-K:abs
+K:ABS
 V:tm:Abu Simbel, Egypt
-K:abx
+K:ABX
 V:tm:Albury, Australia
-K:aby
+K:ABY
 V:tm:Albany, GA, USA
-K:abz
+K:ABZ
 V:tm:Aberdeen, Great Britan
-K:aca
+K:ACA
 V:tm:Acapulco, Mexico
-K:acc
+K:ACC
 V:tm:Accra, Ghana
-K:ace
+K:ACE
 V:tm:Arrecife/Lanzarote, Spain
-K:ach
+K:ACH
 V:tm:Altenrhein, Switzerland
-K:ack
+K:ACK
 V:tm:Nantucket, MA, USA
-K:act
+K:ACT
 V:tm:Waco, TX, USA
-K:acv
+K:ACV
 V:tm:Eureka/Arcata, CA, USA
-K:acy
+K:ACY
 V:tm:Atlantic City, NJ, USA
-K:ada
+K:ADA
 V:tm:Adana, Turkey
-K:adb
+K:ADB
 V:tm:Izmir, Turkey
-K:add
+K:ADD
 V:tm:Addis Abeba, Ethiopia
-K:ade
+K:ADE
 V:tm:Aden, Yemen
-K:adl
+K:ADL
 V:tm:Adelaide, Australia
-K:adq
+K:ADQ
 V:tm:Kodiak, AK, USA
-K:adx
+K:ADX
 V:tm:Aktyubinsk, Kasachstan
-K:ady
+K:ADY
 V:tm:Alldays, South Africa
-K:adz
+K:ADZ
 V:tm:San Andres, Colombia
-K:aeh
+K:AEH
 V:tm:Abeche, Chad
-K:aep
+K:AEP
 V:tm:Buenos Aires - Jorge Newbery, Argentinia
-K:aer
+K:AER
 V:tm:Sotschi/Adler, Russia
-K:aes
+K:AES
 V:tm:Alesund, Norway
-K:aga
+K:AGA
 V:tm:Agadir, Morocco
-K:agb
+K:AGB
 V:tm:Augsburg, Germany
-K:agp
+K:AGP
 V:tm:Malaga, Spain
-K:ags
+K:AGS
 V:tm:Augusta, GA, USA
-K:agu
+K:AGU
 V:tm:Aguascalientes, Mexico
-K:agz
+K:AGZ
 V:tm:Aggeneys, South Africa
-K:ahb
+K:AHB
 V:tm:Kham, Mushayat, Saudi Arabia
-K:ahn
+K:AHN
 V:tm:Athens, GA, USA
-K:aho
+K:AHO
 V:tm:Alhegro Sassari, Italy
-K:ahu
+K:AHU
 V:tm:Al Hoceima, Morocco
-K:aja
+K:AJA
 V:tm:Ajaccio, France
-K:ajn
+K:AJN
 V:tm:Anjouan, Comores
-K:aju
+K:AJU
 V:tm:Aracaju, SE, Brazil
-K:ajy
+K:AJY
 V:tm:Agades, Niger
-K:akl
+K:AKL
 V:tm:Auckland, New Zealand
-K:akn
+K:AKN
 V:tm:King Salomon, AK, USA
-K:ala
+K:ALA
 V:tm:Alma Ata, Kasachstan
-K:alb
+K:ALB
 V:tm:Albany/Schenectady/Troy, NY, USA
-K:alc
+K:ALC
 V:tm:Alicante, Spain
-K:alf
+K:ALF
 V:tm:Alta, Norway
-K:alg
+K:ALG
 V:tm:Algier, Algeria
-K:alh
+K:ALH
 V:tm:Albany, Australia
-K:alj
+K:ALJ
 V:tm:Alexander Bay, South Africa
-K:alo
+K:ALO
 V:tm:Waterloo, IA, USA
-K:alp
+K:ALP
 V:tm:Alpeppo, Syria
-K:alq
+K:ALQ
 V:tm:Alegrete, RS, Brazil
-K:alw
+K:ALW
 V:tm:Walla Walla, WA, USA
-K:aly
+K:ALY
 V:tm:Alexandria, Egypt
-K:ama
+K:AMA
 V:tm:Amarillo, TX, USA
-K:amd
+K:AMD
 V:tm:Ahmedaba, India
-K:amm
+K:AMM
 V:tm:Amman, Jordan
-K:ams
+K:AMS
 V:tm:Amsterdam, The Netherlands
-K:anb
+K:ANB
 V:tm:Annton, AL, USA
-K:anc
+K:ANC
 V:tm:Anchorage, AK, USA
-K:ank
+K:ANK
 V:tm:Ankara, Turkey
-K:anr
+K:ANR
 V:tm:Antwerpen, The Netherlands
-K:anu
+K:ANU
 V:tm:Antigua, West Indian Isles
-K:aoi
+K:AOI
 V:tm:Ancona, Italy
-K:aok
+K:AOK
 V:tm:Karpathos, Greece
-K:aoo
+K:AOO
 V:tm:Altoona, PA, USA
-K:apf
+K:APF
 V:tm:Naples, FL, USA
-K:aps
+K:APS
 V:tm:Anapoils, Brazil
-K:apu
+K:APU
 V:tm:Apucarana, PR, Brazil
-K:apw
+K:APW
 V:tm:Apia, West Samoa
-K:aqj
+K:AQJ
 V:tm:Akaba (Aqaba), Jordan
-K:arn
+K:ARN
 V:tm:Stockholm - Arlanda, Sweden
-K:art
+K:ART
 V:tm:Oslo - Gardermoen, Norway
-K:ase
+K:ASE
 V:tm:Aspen/Snowmass, CO, USA
-K:asj
+K:ASJ
 V:tm:Amami, Japan
-K:ask
+K:ASK
 V:tm:Yamoussoukro, Ivory Coast
-K:asp
+K:ASP
 V:tm:Alice Springs, Australia
-K:asu
+K:ASU
 V:tm:Asuncion, Paraguay
-K:asw
+K:ASW
 V:tm:Assuan, Egypt
-K:ath
+K:ATH
 V:tm:Athen, Greece
-K:atl
+K:ATL
 V:tm:Atlanta, GA, USA
-K:atq
+K:ATQ
 V:tm:Amritsar, India
-K:atw
+K:ATW
 V:tm:Appelton/Neenah/Menasha, WI, USA
-K:aty
+K:ATY
 V:tm:Watertown, SD, USA
-K:aua
+K:AUA
 V:tm:Aruba, West Indian Isles
-K:aug
+K:AUG
 V:tm:Augusta, ME, USA
-K:auh
+K:AUH
 V:tm:Abu Dhabi, UAE
-K:aur
+K:AUR
 V:tm: Aurillac, France
-K:aus
+K:AUS
 V:tm:Austin, TX, USA
-K:aux
+K:AUX
 V:tm:Araguaina, TO, Brazil
-K:avl
+K:AVL
 V:tm:Asheville, NC, USA
-K:avp
+K:AVP
 V:tm:Wilkes Barre/Scranton, PA, USA
-K:axa
+K:AXA
 V:tm:Anguilla, West Indian Isles
-K:axs
+K:AXS
 V:tm:Armenia, Colombia
-K:ayq
+K:AYQ
 V:tm:Ayers Rock, Australia
-K:ayr
+K:AYR
 V:tm:Ayr, Australia
-K:ayt
+K:AYT
 V:tm:Antalya, Turkey
-K:azo
+K:AZO
 V:tm:Kalamazoo/Battle Creek, MI, USA
-K:bah
+K:BAH
 V:tm:Bahrain, Bahrain
-K:baq
+K:BAQ
 V:tm:Barranquilla, Colombia
-K:bau
+K:BAU
 V:tm:Bauru, SP, Brazil
-K:bbi
+K:BBI
 V:tm:Bhubaneshwar, India
-K:bbt
+K:BBT
 V:tm:Berberati, Central Africa
-K:bby
+K:BBY
 V:tm:Bambari, Central Africa
-K:bcn
+K:BCN
 V:tm:Barcelona, Spain
-K:bct
+K:BCT
 V:tm:Boca Raton, USA
-K:bda
+K:BDA
 V:tm:Bermuda, Bermuda
-K:bdb
+K:BDB
 V:tm:Bundaberg, Australia
-K:bdl
+K:BDL
 V:tm:Hartford, CT/Springfield, MA, USA
-K:bdq
+K:BDQ
 V:tm:Baronda, India
-K:bdr
+K:BDR
 V:tm:Bridgeport, CT, USA
-K:bds
+K:BDS
 V:tm:Brindisi, Italy
-K:bdu
+K:BDU
 V:tm:Bardufoss, Norway
-K:beb
+K:BEB
 V:tm:Benbecula, Great Britan
-K:beg
+K:BEG
 V:tm:Belgrad (Beograd), Yugoslavia (Serbia)
-K:beh
+K:BEH
 V:tm:Benton Harbour, MI, USA
-K:bel
+K:BEL
 V:tm:Belem, PA, Brazil
-K:ben
+K:BEN
 V:tm:Bengasi, Libya
-K:beo
+K:BEO
 V:tm:Newcastle, Australia
-K:ber
+K:BER
 V:tm:Berlin, Germany
-K:bes
+K:BES
 V:tm:Brest, France
-K:bet
+K:BET
 V:tm:Bethel, AK, USA
-K:bew
+K:BEW
 V:tm:Beira, Mozambique
-K:bey
+K:BEY
 V:tm:Beirut, Lebanon
-K:bfd
+K:BFD
 V:tm:Bradford/Warren, PA/Olean, NY, USA
-K:bfl
+K:BFL
 V:tm:Bakersfield, CA, USA
-K:bfn
+K:BFN
 V:tm:Bloemfontein, South Africa
-K:bfo
+K:BFO
 V:tm:Buffalo Range, Zimbabwe
-K:bfs
+K:BFS
 V:tm:Belfast - International, Great Britan
-K:bga
+K:BGA
 V:tm:Bucaramanga, Colombia
-K:bgf
+K:BGF
 V:tm:Bangui  Central, Africa
-K:bgi
+K:BGI
 V:tm:Bridgetown, Barbados
-K:bgm
+K:BGM
 V:tm:Binghampton/Endicott/Johnson City, NY, USA
-K:bgo
+K:BGO
 V:tm:Bergen, Norway
-K:bgr
+K:BGR
 V:tm:Bangor, ME, USA
-K:bgu
+K:BGU
 V:tm:Bangassou, Central Africa
-K:bgv
+K:BGV
 V:tm:Bento Goncalves, RS, Brazil
-K:bgw
+K:BGW
 V:tm:Bagdad, Iraq
-K:bgx
+K:BGX
 V:tm:Bage, RS, Brazil
-K:bgy
+K:BGY
 V:tm:Bergamo, Italy
-K:bhc
+K:BHC
 V:tm:Bullhead City, AZ/Laughlin, NV, USA
-K:bhd
+K:BHD
 V:tm:Belfast - Harbour Airport, Great Britan
-K:bhe
+K:BHE
 V:tm:Blenheim, New Zealand
-K:bhm
+K:BHM
 V:tm:Birmingham, AL, USA
-K:bho
+K:BHO
 V:tm:Bhopal, India
-K:bhq
+K:BHQ
 V:tm:Broken Hill, Australia
-K:bhv
+K:BHV
 V:tm:Bahawalpur, Pakistan
-K:bhx
+K:BHX
 V:tm:Birmingham, Great Britan
-K:bhz
+K:BHZ
 V:tm:Belo Horizonte, MG, Brazil
-K:bia
+K:BIA
 V:tm:Bastia, France
-K:bil
+K:BIL
 V:tm:Billings, MT, USA
-K:bio
+K:BIO
 V:tm:Bilbao, Spain
-K:biq
+K:BIQ
 V:tm:Biarritz, France
-K:bis
+K:BIS
 V:tm:Bismarck/Mandan, ND, USA
-K:biv
+K:BIV
 V:tm:Bria, Central Africa
-K:bji
+K:BJI
 V:tm:Bemidji, MN, USA
-K:bjl
+K:BJL
 V:tm:Banjul, Gambia
-K:bjm
+K:BJM
 V:tm:Bujumbura, Burundi
-K:bjs
+K:BJS
 V:tm:Beijing, China
-K:bjx
+K:BJX
 V:tm:Leon, Mexico
-K:bjz
+K:BJZ
 V:tm:Badajoz, Spain
-K:bki
+K:BKI
 V:tm:Kota Kinabalu, Malaysia
-K:bkk
+K:BKK
 V:tm:Bangkok, Thailand
-K:bkl
+K:BKL
 V:tm:Cleveland - Burke Lakefront, OH, USA
-K:bko
+K:BKO
 V:tm:Bamako, Mali
-K:bkw
+K:BKW
 V:tm:Beckley, WV, USA
-K:bkx
+K:BKX
 V:tm:Brookings, SD, USA
-K:bla
+K:BLA
 V:tm:Barcelona, Venezuela
-K:blf
+K:BLF
 V:tm:Bluefield, WV, USA
-K:bli
+K:BLI
 V:tm:Bellingham, WA, USA
-K:bll
+K:BLL
 V:tm:Billund, Denmark
-K:blq
+K:BLQ
 V:tm:Bologna, Italy
-K:blr
+K:BLR
 V:tm:Bangalore, India
-K:blt
+K:BLT
 V:tm:Blackwater, Australia
-K:blz
+K:BLZ
 V:tm:Blantyre, Malawi
-K:bma
+K:BMA
 V:tm:Stockholm - Bromma, Sweden
-K:bme
+K:BME
 V:tm:Broome, Australia
-K:bmg
+K:BMG
 V:tm:Bloomington, IN, USA
-K:bmi
+K:BMI
 V:tm:Bloomington, IL, USA
-K:bmp
+K:BMP
 V:tm:Brampton island, Australia
-K:bna
+K:BNA
 V:tm:Nashville, TN, USA
-K:bne
+K:BNE
 V:tm:Brisbane, Australia
-K:bnk
+K:BNK
 V:tm:Ballina, Australia
-K:bnn
+K:BNN
 V:tm:Broennoeysund, Norway
-K:bnp
+K:BNP
 V:tm:Bannu, Pakistan
-K:bnu
+K:BNU
 V:tm:Blumenau, SC, Brazil
-K:bob
+K:BOB
 V:tm:Bora Bora, French Society islands (Pacific)
-K:bod
+K:BOD
 V:tm:Bordeaux, France
-K:bog
+K:BOG
 V:tm:Bogota, Colombia
-K:boi
+K:BOI
 V:tm:Boise, ID, USA
-K:boj
+K:BOJ
 V:tm:Burgas, Romania
-K:bom
+K:BOM
 V:tm:Bombay, India
-K:bon
+K:BON
 V:tm:Bonaire, West Indian
-K:boo
+K:BOO
 V:tm:Bodo, Norway
-K:bos
+K:BOS
 V:tm:Boston, MA, USA
-K:boy
+K:BOY
 V:tm:Bobo/Dioulasso, Burkina Faso
-K:bpn
+K:BPN
 V:tm:Balikpapan, Indonesia
-K:bps
+K:BPS
 V:tm:Porto Seguro, BA, Brazil
-K:bpt
+K:BPT
 V:tm:Beaumont/Pt. Arthur, TX, USA
-K:bqk
+K:BQK
 V:tm:Brunswick/Sea Iceland, GA, USA
-K:bqn
+K:BQN
 V:tm:Agudilla, Puerto Rico
-K:brc
+K:BRC
 V:tm:San Claros de Bariloche, Argentinia
-K:brd
+K:BRD
 V:tm:Brainerd, MN, USA
-K:bre
+K:BRE
 V:tm:Bremen, Germany
-K:bri
+K:BRI
 V:tm:Bari, Italy
-K:brl
+K:BRL
 V:tm:Burlington, IA, USA
-K:brn
+K:BRN
 V:tm:Bern, Switzerland
-K:brs
+K:BRS
 V:tm:Bristol, Great Britan
-K:bru
+K:BRU
 V:tm:Brussels, Belgium
-K:bsb
+K:BSB
 V:tm:Brasilia, DF, Brazil
-K:bsl
+K:BSL
 V:tm:Basel, Switzerland
-K:btm
+K:BTM
 V:tm:Butte, MT, USA
-K:btr
+K:BTR
 V:tm:Baton Rouge, LA, USA
-K:bts
+K:BTS
 V:tm:Bratislava, CSFR
-K:btu
+K:BTU
 V:tm:Bintulu, Malaysia
-K:btv
+K:BTV
 V:tm:Burlington, VT, USA
-K:bud
+K:BUD
 V:tm:Budapest - Ferihegy, Hungary
-K:bue
+K:BUE
 V:tm:Buenos Aires, Argentinia
-K:buf
+K:BUF
 V:tm:Buffalo/Niagara Falls, NY, USA
-K:bug
+K:BUG
 V:tm:Bengueka, Angola
-K:buh
+K:BUH
 V:tm:Bukarest, Romania
-K:buq
+K:BUQ
 V:tm:Bulawayo, Zimbabwe
-K:bur
+K:BUR
 V:tm:Burbank, CA, USA
-K:bvb
+K:BVB
 V:tm:Boa Vista, RR, Brazil
-K:bwi
+K:BWI
 V:tm:Baltimore, MD, USA
-K:bwn
+K:BWN
 V:tm:Banar Seri Begwan, Brunei
-K:bwt
+K:BWT
 V:tm:Burnie (Wynyard), Australia
-K:bxo
+K:BXO
 V:tm:Bissau, Guinea Bissau
-K:bxs
+K:BXS
 V:tm:Borrego Springs, CA, USA
-K:byk
+K:BYK
 V:tm:Bouake, Ivory Coast
-K:byu
+K:BYU
 V:tm:Bayreuth, Germany
-K:bze
+K:BZE
 V:tm:Belize City, Belize
-K:bzn
+K:BZN
 V:tm:Bozeman  MT,, USA
-K:bzv
+K:BZV
 V:tm:Brazzaville, Congo
-K:cab
+K:CAB
 V:tm:Cabinda, Angola
-K:cac
+K:CAC
 V:tm:Cascavel, PR, Brazil
-K:cae
+K:CAE
 V:tm:Columbia, SC, USA
-K:cag
+K:CAG
 V:tm:Cagliari, Italy
-K:cai
+K:CAI
 V:tm:Cairo, Egypt
-K:cak
+K:CAK
 V:tm:Akron/Canton, OH, USA
-K:can
+K:CAN
 V:tm:Guangzhou (Kanton), China
-K:cas
+K:CAS
 V:tm:Casablanca, Morocco
-K:caw
+K:CAW
 V:tm:Campos, RJ, Brazil
-K:cay
+K:CAY
 V:tm:Cayenne, French Guayana
-K:cbb
+K:CBB
 V:tm:Cochabamba, Bolivia
-K:cbg
+K:CBG
 V:tm:Cambrigde, Great Britan
-K:cbr
+K:CBR
 V:tm:Canberra, Australia
-K:ccj
+K:CCJ
 V:tm:Calicut, India
-K:ccm
+K:CCM
 V:tm:Circiuma, SC, Brazil
-K:ccr
+K:CCR
 V:tm:Concord, CA, USA
-K:ccs
+K:CCS
 V:tm:Caracas, Venezuela
-K:ccu
+K:CCU
 V:tm:Calcutta, India
-K:cdc
+K:CDC
 V:tm:Cedar City, UT, USA
-K:cdg
+K:CDG
 V:tm:Paris - Charles de Gaulle, France
-K:cdv
+K:CDV
 V:tm:Cordova, AK, USA
-K:cec
+K:CEC
 V:tm:Crescent City, CA, USA
-K:ced
+K:CED
 V:tm:Ceduna, Australia
-K:cen
+K:CEN
 V:tm:Ciudad Obregon, Mexico
-K:ces
+K:CES
 V:tm:Cessnock, Australia
-K:cfe
+K:CFE
 V:tm:Clermont Ferrand, France
-K:cfg
+K:CFG
 V:tm:Cienfuegos, Canada
-K:cfs
+K:CFS
 V:tm:Coffs Harbour, Australia
-K:cfu
+K:CFU
 V:tm:Corfu, Greece
-K:cga
+K:CGA
 V:tm:Craig, AK, USA
-K:cgb
+K:CGB
 V:tm:Cuiaba, MT, Brazil
-K:cgh
+K:CGH
 V:tm:Sao Paulo - Congonhas, Brazil
-K:cgk
+K:CGK
 V:tm:Jakarta - Sukarno Hatta, Indonesia
-K:cgn
+K:CGN
 V:tm:Cologne (Koeln)/Bonn, Germany
-K:cgp
+K:CGP
 V:tm:Chittagong, Bangla Desh
-K:cgr
+K:CGR
 V:tm:Campo Grande, MS, Brazil
-K:cha
+K:CHA
 V:tm:Chattanooga, TN, USA
-K:chc
+K:CHC
 V:tm:Christchurch, New Zealand
-K:chi
+K:CHI
 V:tm:Chicago, IL, USA
-K:cho
+K:CHO
 V:tm:Charlottesville, VA, USA
-K:chq
+K:CHQ
 V:tm:Chania, Greece
-K:chs
+K:CHS
 V:tm:Charleston, SC, USA
-K:cht
+K:CHT
 V:tm:Chita (Tschita), Russia
-K:cia
+K:CIA
 V:tm:Rome - Ciampino, Italy
-K:cic
+K:CIC
 V:tm:Chico, CA, USA
-K:cid
+K:CID
 V:tm:Cedar Rapids, IA, USA
-K:cip
+K:CIP
 V:tm:Chipata, Zambia
-K:cjb
+K:CJB
 V:tm:Coimbatore, India
-K:cjl
+K:CJL
 V:tm:Chitral, Pakistan
-K:cjs
+K:CJS
 V:tm:Ciudad Juarez, Mexico
-K:ckb
+K:CKB
 V:tm:Clarksburg, WV, USA
-K:cks
+K:CKS
 V:tm:Carajas, PA, Brazil
-K:cky
+K:CKY
 V:tm:Conakry, Guinea
-K:cld
+K:CLD
 V:tm:Carlsbad, CA, USA
-K:cle
+K:CLE
 V:tm:Cleveland - Hopkins International, OH, USA
-K:cll
+K:CLL
 V:tm:College Station/Bryan, TX, USA
-K:clm
+K:CLM
 V:tm:Port Angeles, WA, USA
-K:clo
+K:CLO
 V:tm:Cali, Colombia
-K:clq
+K:CLQ
 V:tm:Colima, Mexico
-K:clt
+K:CLT
 V:tm:Charlotte, NC, USA
-K:cly
+K:CLY
 V:tm:Calvi, France
-K:cmb
+K:CMB
 V:tm:Colombo, Sri Lanka
-K:cme
+K:CME
 V:tm:Ciudad Del Carmen, Mexico
-K:cmf
+K:CMF
 V:tm:Chambery, France
-K:cmh
+K:CMH
 V:tm:Columbus, OH, USA
-K:cmi
+K:CMI
 V:tm:Champaign, IL, USA
-K:cmn
+K:CMN
 V:tm:Casablanca - Mohamed, Morocco
-K:cmq
+K:CMQ
 V:tm:Clermont, Australia
-K:cmx
+K:CMX
 V:tm:Hancock  MI, USA
-K:cnd
+K:CND
 V:tm:Constanza, Romania
-K:cns
+K:CNS
 V:tm:Cairns, Australia
-K:cnx
+K:CNX
 V:tm:Chiang Mai, Thailand
-K:cod
+K:COD
 V:tm:Cody/Powell/Yellowstone, WY, USA
-K:cok
+K:COK
 V:tm:Cochin, India
-K:coo
+K:COO
 V:tm:Cotonou, Benin
-K:cor
+K:COR
 V:tm:Cordoba, Argentinia
-K:cos
+K:COS
 V:tm:Colorado Springs, CO, USA
-K:cpd
+K:CPD
 V:tm:Coober Pedy, Australia
-K:cph
+K:CPH
 V:tm:Copenhagen, Denmark
-K:cpq
+K:CPQ
 V:tm:Campinas, SP, Brazil
-K:cpr
+K:CPR
 V:tm:Casper, WY, USA
-K:cpt
+K:CPT
 V:tm:Cape Town, South Africa
-K:cpv
+K:CPV
 V:tm:Campina Grande, PB, Brazil
-K:crf
+K:CRF
 V:tm:Carnot, Central Africa
-K:crp
+K:CRP
 V:tm:Corpus Christi, TX, USA
-K:crw
+K:CRW
 V:tm:Charleston, WV, USA
-K:csg
+K:CSG
 V:tm:Columbus, GA, USA
-K:csi
+K:CSI
 V:tm:Casino, Australia
-K:cta
+K:CTA
 V:tm:Catania, Italy
-K:ctg
+K:CTG
 V:tm:Catagena, Colombia
-K:ctn
+K:CTN
 V:tm:Cooktown, Australia
-K:cts
+K:CTS
 V:tm:Chitose, Japan
-K:cul
+K:CUL
 V:tm:Culiacan, Mexico
-K:cun
+K:CUN
 V:tm:Cancun, Mexico
-K:cur
+K:CUR
 V:tm:Curacao, West Indian Isles
-K:cvg
+K:CVG
 V:tm:Cincinnati, OH, USA
-K:cvm
+K:CVM
 V:tm:Ciudad Victoria, Mexico
-K:cvq
+K:CVQ
 V:tm:Carnarvon, Australia
-K:cwa
+K:CWA
 V:tm:Wausau/Stevens Point, WI, USA
-K:cwb
+K:CWB
 V:tm:Curitiba, PR, Brazil
-K:cwl
+K:CWL
 V:tm:Cardiff, Great Britan
-K:cxi
+K:CXI
 V:tm:Christmas, Line island
-K:cxj
+K:CXJ
 V:tm:Caixas do Sul, Brazil
-K:cxt
+K:CXT
 V:tm:Charters Towers, Australia
-K:cza
+K:CZA
 V:tm:Chichen Itza, Mexico
-K:czb
+K:CZB
 V:tm:Cruz Alta, RS, Brazil
-K:czl
+K:CZL
 V:tm:Constantine, Algeria
-K:czm
+K:CZM
 V:tm:Cozmel, Mexico
-K:czs
+K:CZS
 V:tm:Cruzeiro do Sul, AC, Brazil
-K:dab
+K:DAB
 V:tm:Daytona Beach, FL, USA
-K:dac
+K:DAC
 V:tm:Dhaka, Bangla Desh
-K:dal
+K:DAL
 V:tm:Dallas - Love Field, TX, USA
-K:dam
+K:DAM
 V:tm:Damaskus, Syria
-K:dan
+K:DAN
 V:tm:Danville, VA, USA
-K:dar
+K:DAR
 V:tm:Dar es Salam (Daressalam), Tanzania
-K:day
+K:DAY
 V:tm:Dayton, OH, USA
-K:dbo
+K:DBO
 V:tm:Dubbo, Australia
-K:dbq
+K:DBQ
 V:tm:Dubuque, IA, USA
-K:dbv
+K:DBV
 V:tm:Dubrovnik, Croatia (Yugoslavia)
-K:dby
+K:DBY
 V:tm:Dalby, Australia
-K:dca
+K:DCA
 V:tm:Washington - National, DC, USA
-K:ddi
+K:DDI
 V:tm:Daydream island, Australia
-K:dec
+K:DEC
 V:tm:Decatur, IL, USA
-K:del
+K:DEL
 V:tm:Delhi, India
-K:den
+K:DEN
 V:tm:Denver, CO, USA
-K:det
+K:DET
 V:tm:Detroit - City Airport, MI, USA
-K:dfw
+K:DFW
 V:tm:Dallas/Ft. Worth, TX, USA
-K:dha
+K:DHA
 V:tm:Dhahran, Saudi Arabia
-K:dhn
+K:DHN
 V:tm:Dothan, AL, USA
-K:dje
+K:DJE
 V:tm:Djerba, Tunisia
-K:djo
+K:DJO
 V:tm:Daloa, Ivory Coast
-K:dki
+K:DKI
 V:tm:Dunk Iceland, Australia
-K:dkr
+K:DKR
 V:tm:Dakar, Senegal
-K:dla
+K:DLA
 V:tm:Douala, Cameroon
-K:dlg
+K:DLG
 V:tm:Dillingham, AK, USA
-K:dlh
+K:DLH
 V:tm:Duluth, MN/Superior, WI, USA
-K:dlm
+K:DLM
 V:tm:Dalaman, Turkey
-K:dnr
+K:DNR
 V:tm:Dinard, France
-K:doh
+K:DOH
 V:tm:Doha, Qatar
-K:dpo
+K:DPO
 V:tm:Devonport, Australia
-K:dps
+K:DPS
 V:tm:Denpasar/Bali, Indonesia
-K:drb
+K:DRB
 V:tm:Derby, Australia
-K:dro
+K:DRO
 V:tm:Durango/Purgatory, CO, USA
-K:drs
+K:DRS
 V:tm:Dresden, Germany
-K:drw
+K:DRW
 V:tm:Darwin, Australia
-K:dsk
+K:DSK
 V:tm:Dera ismail Khan, Pakistan
-K:dsm
+K:DSM
 V:tm:Des Moines, IA, USA
-K:dtm
+K:DTM
 V:tm:Dortmund, Germany
-K:dtt
+K:DTT
 V:tm:Detroit, MI, USA
-K:dtw
+K:DTW
 V:tm:Detroit - Metropolitan (Metro), MI, USA
-K:dub
+K:DUB
 V:tm:Dublin, Ireland
-K:dud
+K:DUD
 V:tm:Dunedin, New Zealand
-K:duj
+K:DUJ
 V:tm:Dubois, PA, USA
-K:dur
+K:DUR
 V:tm:Durban, South Africa
-K:dus
+K:DUS
 V:tm:Duesseldorf, Germany
-K:dut
+K:DUT
 V:tm:Dutch Harbor, AK, USA
-K:dvl
+K:DVL
 V:tm:Devils Lake, ND, USA
-K:dxb
+K:DXB
 V:tm:Dubai, United Arab Emirates (UAE)
-K:dya
+K:DYA
 V:tm:Dysart, Australia
-K:dyu
+K:DYU
 V:tm:Dushanbe (Duschanbe), Tadschikistan
-K:dza
+K:DZA
 V:tm:Dzaoudzi, Mayotte
-K:eap
+K:EAP
 V:tm:Basel/Mulhouse, Switzerland/France
-K:eas
+K:EAS
 V:tm:San Sebastian, Spain
-K:eat
+K:EAT
 V:tm:Wenatchee, WA, USA
-K:eau
+K:EAU
 V:tm:Eau Clarie, WI, USA
-K:ebb
+K:EBB
 V:tm:Entebbe, Uganda
-K:ebj
+K:EBJ
 V:tm:Esbjerg, Denmark
-K:ebu
+K:EBU
 V:tm:St. Etienne, France
-K:edi
+K:EDI
 V:tm:Edinburgh, Great Britan
-K:edr
+K:EDR
 V:tm:Emerald, Australia
-K:ege
+K:EGE
 V:tm:Vail, CO, USA
-K:egs
+K:EGS
 V:tm:Egilsstadir, Iceland
-K:ein
+K:EIN
 V:tm:Eindhoven, The Netherlands
-K:eis
+K:EIS
 V:tm:Beef Island, Beef Island
-K:eis
+K:EIS
 V:tm:Tortola, Virgin Islands
-K:eki
+K:EKI
 V:tm:Elkhart, IN, USA
-K:eko
+K:EKO
 V:tm:Elko, NV, USA
-K:elh
+K:ELH
 V:tm:North Eleuthera, Bahamas
-K:ell
+K:ELL
 V:tm:Ellisras, South Africa
-K:elm
+K:ELM
 V:tm:Elmira/Corning, NY, USA
-K:elp
+K:ELP
 V:tm:El Paso, TX, USA
-K:els
+K:ELS
 V:tm:East London, South Africa
-K:ely
+K:ELY
 V:tm:Ely, NV, USA
-K:ema
+K:EMA
 V:tm:Derby (East Midlands), Great Britan
-K:emd
+K:EMD
 V:tm:Emerald, Australia
-K:ena
+K:ENA
 V:tm:Kenai, AK, USA
-K:enc
+K:ENC
 V:tm:Nancy, France
-K:enf
+K:ENF
 V:tm:Enontekioe, Finland
-K:epr
+K:EPR
 V:tm:Esperance, Australia
-K:erf
+K:ERF
 V:tm:Erfurt, Germany
-K:eri
+K:ERI
 V:tm:Erie, PA, USA
-K:erm
+K:ERM
 V:tm:Erechim, RS, Brazil
-K:ers
+K:ERS
 V:tm:Windhoek - Eros, Namibia
-K:esb
+K:ESB
 V:tm:Ankara - Esenboga, Turkey
-K:esc
+K:ESC
 V:tm:Escabana, MI, USA
-K:esf
+K:ESF
 V:tm:Alexandria, LA, USA
-K:eth
+K:ETH
 V:tm:Elat - Elat, Israel
-K:eug
+K:EUG
 V:tm:Eugene, OR, USA
-K:eve
+K:EVE
 V:tm:Evenes, Norway
-K:evn
+K:EVN
 V:tm:Eriwan (Erevan, Jerevan), Armenia
-K:evv
+K:EVV
 V:tm:Evansville, IN, USA
-K:ewn
+K:EWN
 V:tm:New Bern, NC, USA
-K:ewr
+K:EWR
 V:tm:New York - Newark, NJ, USA
-K:eyw
+K:EYW
 V:tm:Key West, FL, USA
-K:eze
+K:EZE
 V:tm:Buenos Aires - Ezeiza/Ministro Pistarini, Argentinia
-K:fae
+K:FAE
 V:tm:Faroer, Denmark
-K:fai
+K:FAI
 V:tm:Fairbanks, AK, USA
-K:fao
+K:FAO
 V:tm:Faro, Portugal
-K:far
+K:FAR
 V:tm:Fargo, ND/Moorhead, MN, USA
-K:fat
+K:FAT
 V:tm:Fresno, CA, USA
-K:fay
+K:FAY
 V:tm:Fayetteville/Ft. Bragg, NC, USA
-K:fbe
+K:FBE
 V:tm:Francisco Beltrao, PR, Brazil
-K:fbm
+K:FBM
 V:tm:Lumbumbashi, Zaire
-K:fbu
+K:FBU
 V:tm:Oslo - Fornebu, Norway
-K:fca
+K:FCA
 V:tm:Kalispell, MT, USA
-K:fco
+K:FCO
 V:tm:Rome - Leonardo da Vinci/Fuimicino, Italy
-K:fdf
+K:FDF
 V:tm:Fort de France Martinique
-K:fdh
+K:FDH
 V:tm:Friedrichshafen, Germany
-K:fez
+K:FEZ
 V:tm:Fes, Morocco
-K:fhu
+K:FHU
 V:tm:Fort Huachuca/Sierra Vista, AZ, USA
-K:fih
+K:FIH
 V:tm:Kinshasa, Zaire
-K:fjr
+K:FJR
 V:tm:Alfujairah (Fujairah), UAE
-K:fki
+K:FKI
 V:tm:Kisangani, Zaire
-K:fkl
+K:FKL
 V:tm:Franklin/Oil City, PA, USA
-K:flg
+K:FLG
 V:tm:Flagstaff, AZ, USA
-K:fll
+K:FLL
 V:tm:Fort Lauderdale/Hollywood, FL, USA
-K:fln
+K:FLN
 V:tm:Florianopolis, SC, Brazil
-K:flo
+K:FLO
 V:tm:Florence, SC, USA
-K:flr
+K:FLR
 V:tm:Florence, Italy
-K:fmn
+K:FMN
 V:tm:Farmington, NM, USA
-K:fmo
+K:FMO
 V:tm:Muenster/Osnabrueck, Germany
-K:fmy
+K:FMY
 V:tm:Fort Myers, FL, USA
-K:fna
+K:FNA
 V:tm:Freetown, Sierra Leone
-K:fnc
+K:FNC
 V:tm:Funchal, Portugal
-K:fni
+K:FNI
 V:tm:Nimes, France
-K:fnj
+K:FNJ
 V:tm:Pyongyang, North Korea
-K:fnt
+K:FNT
 V:tm:Flint, MI, USA
-K:fod
+K:FOD
 V:tm:Fort Dodge, IA, USA
-K:for
+K:FOR
 V:tm:Fortaleza, CE, Brazil
-K:fpo
+K:FPO
 V:tm:Freeport, Bahamas
-K:fra
+K:FRA
 V:tm:Frankfurt/Main, Germany
-K:frc
+K:FRC
 V:tm:Franca, SP, Brazil
-K:frj
+K:FRJ
 V:tm:Frejus, France
-K:fro
+K:FRO
 V:tm:Floro, Norway
-K:frw
+K:FRW
 V:tm:Francistown, Zimbabwe
-K:fsc
+K:FSC
 V:tm:Figari, France
-K:fsd
+K:FSD
 V:tm:Sioux Falls, SD USA
-K:fsm
+K:FSM
 V:tm:Fort Smith, AR USA
-K:fsp
+K:FSP
 V:tm:St. Pierre, NF Canada
-K:fue
+K:FUE
 V:tm:Fuerteventura, Spain
-K:fuk
+K:FUK
 V:tm:Fukuoka, Japan
-K:fut
+K:FUT
 V:tm:Futuna, France (Pacific)
-K:fwa
+K:FWA
 V:tm:Fort Wayne, IN, USA
-K:fyv
+K:FYV
 V:tm:Fayetteville, AR, USA
-K:gad
+K:GAD
 V:tm:Gadsden, AL, USA
-K:gau
+K:GAU
 V:tm:Guwahati, India
-K:gbe
+K:GBE
 V:tm:Gaborone, Botswana
-K:gcc
+K:GCC
 V:tm:Gilette, WY, USA
-K:gci
+K:GCI
 V:tm:Guernsey, Great Britan
-K:gcm
+K:GCM
 V:tm:Grand Cayman, West Indian Isles
-K:gcn
+K:GCN
 V:tm:Grand Canyon, AZ, USA
-K:gdl
+K:GDL
 V:tm:Guadalajara, Mexico
-K:gdn
+K:GDN
 V:tm:Gdansk, Poland
-K:gdv
+K:GDV
 V:tm:Glendive, MT, USA
-K:geg
+K:GEG
 V:tm:Spokane, WA, USA
-K:gel
+K:GEL
 V:tm:Santo Angelo, RS, Brazil
-K:gen
+K:GEN
 V:tm:Oslo - Gardermoen, Norway
-K:geo
+K:GEO
 V:tm:Georgetown, Guyana
-K:get
+K:GET
 V:tm:Geraldton, Australia
-K:gex
+K:GEX
 V:tm:Geelong, Australia
-K:gff
+K:GFF
 V:tm:Griffith, Australia
-K:gfk
+K:GFK
 V:tm:Grand Forks, ND, USA
-K:ggg
+K:GGG
 V:tm:Longview/Kilgore, TX, USA
-K:ggw
+K:GGW
 V:tm:Glasgow, MT, USA
-K:ghb
+K:GHB
 V:tm:Govenors Harbour, Bahamas
-K:gib
+K:GIB
 V:tm:Gibraltar, Gibraltar
-K:gig
+K:GIG
 V:tm:Rio de Janeiro - Galeao, RJ, Brazil
-K:gil
+K:GIL
 V:tm:Gilgit, Pakistan
-K:gjm
+K:GJM
 V:tm:Guajaru Mirim, RO, Brazil
-K:gjn
+K:GJN
 V:tm:Jounieh, Lebanon
-K:gjt
+K:GJT
 V:tm:Grand Junction, CO, USA
-K:gkl
+K:GKL
 V:tm:Great Keppel Island, Australia
-K:gla
+K:GLA
 V:tm:Glasgow, Great Britan
-K:glh
+K:GLH
 V:tm:Greenville, MS, USA
-K:glt
+K:GLT
 V:tm:Gladstone, Australia
-K:gnb
+K:GNB
 V:tm:Grenoble, France
-K:gnd
+K:GND
 V:tm:Grenada, Grenada
-K:gnv
+K:GNV
 V:tm:Gainesville, FL, USA
-K:goa
+K:GOA
 V:tm:Genua, Italy
-K:goi
+K:GOI
 V:tm:Goa, India
-K:gon
+K:GON
 V:tm:Groton/New London, CT, USA
-K:goo
+K:GOO
 V:tm:Goondiwindi, Australia
-K:got
+K:GOT
 V:tm:Goteborg, Sweden
-K:gou
+K:GOU
 V:tm:Garoua, Cameroon
-K:gov
+K:GOV
 V:tm:Gove (Nhulunbuy), Australia
-K:goz
+K:GOZ
 V:tm:Gorna, Bulgaria
-K:gpa
+K:GPA
 V:tm:Araxos, Greece
-K:gpb
+K:GPB
 V:tm:Guarapuava, PR, Brazil
-K:gpt
+K:GPT
 V:tm:Gulfport/Biloxi, MS, USA
-K:gpz
+K:GPZ
 V:tm:Grand Rapids, MN, USA
-K:grb
+K:GRB
 V:tm:Green Bay, WI, USA
-K:grj
+K:GRJ
 V:tm:George, South Africa
-K:gro
+K:GRO
 V:tm:Gerona, Spain
-K:grp
+K:GRP
 V:tm:Gurupi, GO, Brazil
-K:grr
+K:GRR
 V:tm:Grand Rapids, MI, USA
-K:gru
+K:GRU
 V:tm:Sao Paulo - Guarulhos Brazil
-K:grx
+K:GRX
 V:tm:Granada, Spain
-K:grz
+K:GRZ
 V:tm:Graz, Austria
-K:gso
+K:GSO
 V:tm:Greensboro/High Point/Winston Salem, NC, USA
-K:gsp
+K:GSP
 V:tm:Greenville/Spartanburg, SC, USA
-K:gte
+K:GTE
 V:tm:Groote Eyeland, Australia
-K:gtf
+K:GTF
 V:tm:Great Falls, MT, USA
-K:gti
+K:GTI
 V:tm:Groote Eylandt, Australia
-K:gtn
+K:GTN
 V:tm:Mount Cook, New Zealand
-K:gtr
+K:GTR
 V:tm:Columbus/Starkville/West Point, MS, USA
-K:gua
+K:GUA
 V:tm:Guatemala City, Guatemala
-K:guc
+K:GUC
 V:tm:Gunnison/Crested Butte, CO, USA
-K:gum
+K:GUM
 V:tm:Guam, Pacific
-K:gva
+K:GVA
 V:tm:Geneva, Switzerland
-K:gwd
+K:GWD
 V:tm:Gwadar, Pakistan
-K:gwe
+K:GWE
 V:tm:Gweru, Zimbabwe
-K:gwt
+K:GWT
 V:tm:Westerland, Germany
-K:gwy
+K:GWY
 V:tm:Galway, Ireland
-K:gye
+K:GYE
 V:tm:Guayaquil, Ecuador
-K:gyn
+K:GYN
 V:tm:Goiania, GO, Brazil
-K:gyp
+K:GYP
 V:tm:Gympie, Australia
-K:hac
+K:HAC
 V:tm:Hachijo Jima, Japan
-K:hah
+K:HAH
 V:tm:Moroni, Comores
-K:haj
+K:HAJ
 V:tm:Hannover, Germany
-K:ham
+K:HAM
 V:tm:Hamburg, Germany
-K:han
+K:HAN
 V:tm:Hanoi, Vietnam
-K:hap
+K:HAP
 V:tm:Whitsunday Resort (Long island) Australia
-K:har
+K:HAR
 V:tm:Harrisburg, PA, USA
-K:hau
+K:HAU
 V:tm:Haugesund, Norway
-K:hav
+K:HAV
 V:tm:Havanna, Cuba
-K:hba
+K:HBA
 V:tm:Hobart, Australia
-K:hdd
+K:HDD
 V:tm:Hyderabad,  Pakistan
-K:hdn
+K:HDN
 V:tm:Steamboat Springs, CO, USA
-K:hdy
+K:HDY
 V:tm:Hatyai (Hat Yai), Thailand
-K:hel
+K:HEL
 V:tm:Helsinki, Finland
-K:her
+K:HER
 V:tm:Heraklion, Greece
-K:hfa
+K:HFA
 V:tm:Haifa, isreal
-K:hft
+K:HFT
 V:tm:Hammerfest, Norway
-K:hgh
+K:HGH
 V:tm:Hangchow, China
-K:hgo
+K:HGO
 V:tm:Korhogo, Ivory Coast
-K:hgr
+K:HGR
 V:tm:Hagerstown, MD/Martinsburg, WV, USA
-K:hhh
+K:HHH
 V:tm:Hilton Head island, SC, USA
-K:hib
+K:HIB
 V:tm:Hibbing, MN, USA
-K:hir
+K:HIR
 V:tm:Honiara, Australia
-K:his
+K:HIS
 V:tm:Hayman island, Australia
-K:hkd
+K:HKD
 V:tm:Hakodate, Japan
-K:hkg
+K:HKG
 V:tm:Hong Kong, Hong Kong
-K:hkt
+K:HKT
 V:tm:Phuket, Thailand
-K:hky
+K:HKY
 V:tm:Hickory, NC, USA
-K:hla
+K:HLA
 V:tm:Lanseria, South Africa
-K:hln
+K:HLN
 V:tm:Helena, MT, USA
-K:hlp
+K:HLP
 V:tm:Jakarta - Halim Perdanakusma, Indonesia
-K:hlt
+K:HLT
 V:tm:Hamilton, Australia
-K:hma
+K:HMA
 V:tm:Malmo - Hovercraft Terminal, Sweden
-K:hmh
+K:HMH
 V:tm:Home Hill, Australia
-K:hmo
+K:HMO
 V:tm:Hermosillo, Mexico
-K:hnd
+K:HND
 V:tm:Tokyo - Haneda, Japan
-K:hnh
+K:HNH
 V:tm:Hoonah, AK, USA
-K:hnk
+K:HNK
 V:tm:Hinchinbrook isalnd, Australia
-K:hnl
+K:HNL
 V:tm:Honolulu, HI, USA
-K:hns
+K:HNS
 V:tm:Haines, AK, USA
-K:hog
+K:HOG
 V:tm:Holguin, Cuba
-K:hom
+K:HOM
 V:tm:Homer, AK, USA
-K:hon
+K:HON
 V:tm:Huron, SD, USA
-K:hoq
+K:HOQ
 V:tm:Hof, Germany
-K:hor
+K:HOR
 V:tm:Horta, Portugal
-K:hou
+K:HOU
 V:tm:Houston - Hobby, TX, USA
-K:hpn
+K:HPN
 V:tm:White Plains, NY, USA
-K:hrb
+K:HRB
 V:tm:Harbin, China
-K:hre
+K:HRE
 V:tm:Harare, Zimbabwe
-K:hrg
+K:HRG
 V:tm:Hurghada, Egypt
-K:hrl
+K:HRL
 V:tm:Harlington/South Padre island, TX, USA
-K:hsv
+K:HSV
 V:tm:Huntsville/Decatur, AL, USA
-K:hti
+K:HTI
 V:tm:Hamilton island, Australia
-K:hts
+K:HTS
 V:tm:Huntington, WV/Ashland, KY/Ironton, OH, USA
-K:huf
+K:HUF
 V:tm:Terre Haute, IN, USA
-K:huh
+K:HUH
 V:tm:Huahine, French Society islands (Pacific)
-K:hux
+K:HUX
 V:tm:Huatulco, Mexico
-K:huy
+K:HUY
 V:tm:Humberside, Great Britan
-K:hvb
+K:HVB
 V:tm:Hervey Bay, Australia
-K:hvn
+K:HVN
 V:tm:New Haven, CT, USA
-K:hvr
+K:HVR
 V:tm:Havre, MT, USA
-K:hwn
+K:HWN
 V:tm:Hwange National Park, Zimbabwe
-K:hya
+K:HYA
 V:tm:Hyannis, MA, USA
-K:hyd
+K:HYD
 V:tm:Hyderabad, India
-K:hyg
+K:HYG
 V:tm:Hydaburg, AK, USA
-K:iad
+K:IAD
 V:tm:Washington - Dulles International, DC, USA
-K:iah
+K:IAH
 V:tm:Houston - Intercontinental, TX, USA
-K:ibz
+K:IBZ
 V:tm:Ibiza, Spain
-K:ict
+K:ICT
 V:tm:Wichita, KS, USA
-K:ida
+K:IDA
 V:tm:Idaho Falls, ID, USA
-K:iev
+K:IEV
 V:tm:Kiev - Zhulyany, Ucrainia
-K:ifl
+K:IFL
 V:tm:Innisfail, Australia
-K:igh
+K:IGH
 V:tm:Ingham, Australia
-K:igl
+K:IGL
 V:tm:Izmir, Turkey
-K:igu
+K:IGU
 V:tm:Foz de Iguacu, PR, Brazil
-K:iju
+K:IJU
 V:tm:Ijui, RS, Brazil
-K:ikt
+K:IKT
 V:tm:Irkutsk, Russia
-K:ile
+K:ILE
 V:tm:Killeem, TX, USA
-K:ili
+K:ILI
 V:tm:Iliamna, AK, USA
-K:ilm
+K:ILM
 V:tm:Wilmington, NC, USA
-K:ilp
+K:ILP
 V:tm:Ile des Pins, France, New Caledonia
-K:imp
+K:IMP
 V:tm:Imperatriz, MA, Brazil
-K:ind
+K:IND
 V:tm:Indianapolis, IN, USA
-K:ini
+K:INI
 V:tm:Nisis, Yugoslavia
-K:inl
+K:INL
 V:tm:International Falls, MN, USA
-K:inn
+K:INN
 V:tm:Innsbruck, Austria
-K:int
+K:INT
 V:tm:Greensboro/High Point/Winston Salem, NC, USA
-K:inv
+K:INV
 V:tm:Inverness, Great Britan
-K:iom
+K:IOM
 V:tm:isle of Man, Great Britan
-K:ios
+K:IOS
 V:tm:Ilheus, BA, Brazil
-K:iou
+K:IOU
 V:tm:Ile Ouen, France, New Caledonia
-K:ipc
+K:IPC
 V:tm:Easter island, Chile
-K:ipl
+K:IPL
 V:tm:Imperial, CA, USA
-K:ipt
+K:IPT
 V:tm:Williamsport, PA, USA
-K:iqt
+K:IQT
 V:tm:Iquitos, Peru
-K:irg
+K:IRG
 V:tm:Lockhart River, Australia
-K:iro
+K:IRO
 V:tm:Biraro, Central Africa
-K:isa
+K:ISA
 V:tm:Mt. isa, Australia
-K:isb
+K:ISB
 V:tm:islamabad/Rawalpindi, Pakistan
-K:isl
+K:ISL
 V:tm:Williston, ND, USA
-K:iso
+K:ISO
 V:tm:Kingston, NC, USA
-K:isp
+K:ISP
 V:tm:Long island/Mac Arthur/islip, NY, USA
-K:ist
+K:IST
 V:tm:istanbul, Turkey
-K:ith
+K:ITH
 V:tm:Ithaca/Cortland, NY, USA
-K:itj
+K:ITJ
 V:tm:Itajai, SC, Brazil
-K:itn
+K:ITN
 V:tm:Itabuna, BA, Brazil
-K:ito
+K:ITO
 V:tm:Hilo, HI, USA
-K:ivc
+K:IVC
 V:tm:Incercargill, New Zealand
-K:ivl
+K:IVL
 V:tm:Ivalo, Finland
-K:ivr
+K:IVR
 V:tm:Invercargill, New Zealand
-K:ixg
+K:IXG
 V:tm:Belgaum, India
-K:ixr
+K:IXR
 V:tm:Ranchi, India
-K:ixu
+K:IXU
 V:tm:Chandigarh, India
-K:ixw
+K:IXW
 V:tm:Jamshedpur, India
-K:iyk
+K:IYK
 V:tm:Inykern, CA, USA
-K:izm
+K:IZM
 V:tm:Izmir, Turkey
-K:jac
+K:JAC
 V:tm:Jackson Hole, WY, USA
-K:jag
+K:JAG
 V:tm:Jacobabad, Pakistan
-K:jai
+K:JAI
 V:tm:Jaipur, India
-K:jan
+K:JAN
 V:tm:Jackson, MS, USA
-K:jax
+K:JAX
 V:tm:Jacksonville, FL, USA
-K:jcb
+K:JCB
 V:tm:Joao Pesso, PB, Brazil
-K:jdf
+K:JDF
 V:tm:Juiz do Fora, MG, Brazil
-K:jdo
+K:JDO
 V:tm:Juazeiro do Norte, CE, Brazil
-K:jed
+K:JED
 V:tm:Jeddah, Saudi Arabia
-K:jer
+K:JER
 V:tm:Jersey, Great Britan
-K:jfk
+K:JFK
 V:tm:New York - John F. Kennedy, NY, USA
-K:jhb
+K:JHB
 V:tm:Johore Bahru, Malaysia
-K:jhe
+K:JHE
 V:tm:Helsingborg, Sweden
-K:jhm
+K:JHM
 V:tm:Kapalua West, HI, USA
-K:jhq
+K:JHQ
 V:tm:Shute Harbour, Australia
-K:jhw
+K:JHW
 V:tm:Jamestown, NY, USA
-K:jib
+K:JIB
 V:tm:Djibouti, Djibouti
-K:jiw
+K:JIW
 V:tm:Jiwani, Pakistan
-K:jkg
+K:JKG
 V:tm:Joenkoeping, Sweden
-K:jkh
+K:JKH
 V:tm:Chios, Greece
-K:jkt
+K:JKT
 V:tm:Jakarta - Kemayoran, Indonesia
-K:jln
+K:JLN
 V:tm:Joplin, MO, USA
-K:jlr
+K:JLR
 V:tm:Jalandhar, India
-K:jmk
+K:JMK
 V:tm:Mykonos, Greece
-K:jms
+K:JMS
 V:tm:Jamestown, ND, USA
-K:jnb
+K:JNB
 V:tm:Johannesburg, South Africa
-K:jnu
+K:JNU
 V:tm:Juneau, AK, USA
-K:joe
+K:JOE
 V:tm:Joensuu, Finland
-K:joi
+K:JOI
 V:tm:Joinville, SC, Brazil
-K:jpa
+K:JPA
 V:tm:Joao Pessoa, Brazil
-K:jpr
+K:JPR
 V:tm:Ji Parana, RO, Brazil
-K:jro
+K:JRO
 V:tm:Kilimadjaro, Tanzania
-K:jrs
+K:JRS
 V:tm:Jerusalem, israel
-K:jsi
+K:JSI
 V:tm:Skiathos, Greece
-K:jst
+K:JST
 V:tm:Johnstown, PA, USA
-K:jtr
+K:JTR
 V:tm:Thira, Greece
-K:jxn
+K:JXN
 V:tm:Jackson, MI, USA
-K:jyv
+K:JYV
 V:tm:Jyvaeskylae, Finland
-K:kaj
+K:KAJ
 V:tm:Kajaani, Finland
-K:kan
+K:KAN
 V:tm:Kano, Nigeria
-K:kao
+K:KAO
 V:tm:Kuusamo, Finland
-K:kbl
+K:KBL
 V:tm:Kabul, Afghanistan
-K:kbp
+K:KBP
 V:tm:Kiev - Borispol, Ucrainia
-K:kby
+K:KBY
 V:tm:Streaky Bay, Australia
-K:kcc
+K:KCC
 V:tm:Coffmann Cove, AK, USA
-K:kce
+K:KCE
 V:tm:Collinsville, Australia
-K:kch
+K:KCH
 V:tm:Kuching, Malaysia
-K:kcz
+K:KCZ
 V:tm:Kochi, Japan
-K:kdd
+K:KDD
 V:tm:Khuzdar, Pakistan
-K:kdu
+K:KDU
 V:tm:Skardu, Pakistan
-K:kef
+K:KEF
 V:tm:Keflavik, Iceland
-K:kel
+K:KEL
 V:tm:Kiel, Germany
-K:kem
+K:KEM
 V:tm:Kemi/Tornio, Finland
-K:kgc
+K:KGC
 V:tm:Kingscote, Australia
-K:kgi
+K:KGI
 V:tm:Kalgoorlie, Australia
-K:kgl
+K:KGL
 V:tm:Kigali, Rwanda
-K:kgs
+K:KGS
 V:tm:Kos, Greece
-K:khh
+K:KHH
 V:tm:Kaohsiung, Taiwan
-K:khi
+K:KHI
 V:tm:Karachi, Pakistan
-K:khj
+K:KHJ
 V:tm:Kauhajoki, Finland
-K:khv
+K:KHV
 V:tm:Chabarovsk, Russia
-K:kid
+K:KID
 V:tm:Kristianstad, Sweden
-K:kij
+K:KIJ
 V:tm:Niigata, Japan
-K:kim
+K:KIM
 V:tm:Kimberley, South Africa
-K:kin
+K:KIN
 V:tm:Kingston, Jamaica
-K:kir
+K:KIR
 V:tm:Kerry County, Ireland
-K:kiw
+K:KIW
 V:tm:Kitwe, Zambia
-K:kkn
+K:KKN
 V:tm:Kirkenes, Norway
-K:klr
+K:KLR
 V:tm:Kalmar, Sweden
-K:klu
+K:KLU
 V:tm:Klagenfurt, Austria
-K:klw
+K:KLW
 V:tm:Klawock, AK, USA
-K:klx
+K:KLX
 V:tm:Kalamata, Greece
-K:klz
+K:KLZ
 V:tm:Kleinsee, South Africa
-K:kmj
+K:KMJ
 V:tm:Kumamoto, Japan
-K:kmp
+K:KMP
 V:tm:Keetmanshoop, Namibia
-K:kns
+K:KNS
 V:tm:King island, King Island
-K:knx
+K:KNX
 V:tm:Kununurra, Australia
-K:koa
+K:KOA
 V:tm:Kona, HI, USA
-K:koi
+K:KOI
 V:tm:Orkney, Great Britan
-K:koj
+K:KOJ
 V:tm:Kagoshima, Japan
-K:kok
+K:KOK
 V:tm:Kokkola/Pietarsaari, Finland
-K:krb
+K:KRB
 V:tm:Karumba, Australia
-K:krk
+K:KRK
 V:tm:Krakau, Poland
-K:krn
+K:KRN
 V:tm:Kiruna, Sweden
-K:krp
+K:KRP
 V:tm:Karup, Denmark
-K:krs
+K:KRS
 V:tm:Kristiansand, Norway
-K:krt
+K:KRT
 V:tm:Khartoum, Sudan
-K:ksd
+K:KSD
 V:tm:Karlstad, Sweden
-K:ksu
+K:KSU
 V:tm:Kristiansund, Norway
-K:kta
+K:KTA
 V:tm:Karratha, Australia
-K:ktb
+K:KTB
 V:tm:Thorne Bay, AK, USA
-K:ktm
+K:KTM
 V:tm:Kathmandu, Nepal
-K:ktn
+K:KTN
 V:tm:Ketchikan, AK, USA
-K:ktr
+K:KTR
 V:tm:Katherine, Australia
-K:ktt
+K:KTT
 V:tm:Kittilae, Sweden
-K:kua
+K:KUA
 V:tm:Kuantan, Malaysia
-K:kub
+K:KUB
 V:tm:Kuala Belait, Brunei
-K:kuh
+K:KUH
 V:tm:Kushiro, Japan
-K:kul
+K:KUL
 V:tm:Kuala Lumpur, Malaysia
-K:kuo
+K:KUO
 V:tm:Kuopio, Finland
-K:kva
+K:KVA
 V:tm:Kavalla, Greece
-K:kwi
+K:KWI
 V:tm:Kuwait, Kuwait
-K:kwm
+K:KWM
 V:tm:Kowanyama, Australia
-K:kzn
+K:KZN
 V:tm:Kasan, Russia
-K:lad
+K:LAD
 V:tm:Luanda, Angola
-K:lae
+K:LAE
 V:tm:Lae, Papua New Guinea
-K:laf
+K:LAF
 V:tm:Lafayette, IN   USA
-K:lai
+K:LAI
 V:tm:Lannion, France
-K:laj
+K:LAJ
 V:tm:Lages, SC, Brazil
-K:lan
+K:LAN
 V:tm:Lansing, MI, USA
-K:lap
+K:LAP
 V:tm:La Paz, Mexico
-K:lar
+K:LAR
 V:tm:Laramie, WY, USA
-K:las
+K:LAS
 V:tm:Las Vegas, NV, USA
-K:law
+K:LAW
 V:tm:Lawton, OK, USA
-K:lax
+K:LAX
 V:tm:Los Angeles, CA, USA
-K:lay
+K:LAY
 V:tm:Ldaysmith, South Africa
-K:lba
+K:LBA
 V:tm:Leeds/Bradford, Great Britan
-K:lbb
+K:LBB
 V:tm:Lubbock, TX, USA
-K:lbe
+K:LBE
 V:tm:Latrobe, PA, USA
-K:lbg
+K:LBG
 V:tm:Paris - Le Bourget, France
-K:lbi
+K:LBI
 V:tm:Albi, France
-K:lbq
+K:LBQ
 V:tm:Lambarene, Gabon
-K:lbu
+K:LBU
 V:tm:Labuan, Malaysia
-K:lbv
+K:LBV
 V:tm:Libreville, Gabon
-K:lca
+K:LCA
 V:tm:Larnaca, Cyprus
-K:lcg
+K:LCG
 V:tm:La Coruna, Spain
-K:lch
+K:LCH
 V:tm:Lake Charles, LA, USA
-K:lcy
+K:LCY
 V:tm:London - City Airport, Great Britan
-K:ldb
+K:LDB
 V:tm:Londrina, PR, Brazil
-K:ldc
+K:LDC
 V:tm:Lindeman island, Australia
-K:lde
+K:LDE
 V:tm:Loudres/Tarbes, France
-K:ldk
+K:LDK
 V:tm:Lidkoeping, Sweden
-K:ldy
+K:LDY
 V:tm:Derry (Londonderry), Great Britan
-K:lea
+K:LEA
 V:tm:Learmouth (Exmouth), Australia
-K:leb
+K:LEB
 V:tm:Lebanon, NH, USA
-K:led
+K:LED
 V:tm:St. Petersburg (Leningrad), Russia
-K:lei
+K:LEI
 V:tm:Almeria, Spain
-K:lej
+K:LEJ
 V:tm:Leipzig, Germany
-K:lek
+K:LEK
 V:tm:Labe, Guinea
-K:ler
+K:LER
 V:tm:Leinster, Australia
-K:lex
+K:LEX
 V:tm:Lexington, KY, USA
-K:lft
+K:LFT
 V:tm:Lafayette, LA, USA
-K:lfw
+K:LFW
 V:tm:Lome, Togo
-K:lga
+K:LGA
 V:tm:New York - La Guardia, NY, USA
-K:lgb
+K:LGB
 V:tm:Long Beach, CA, USA
-K:lgg
+K:LGG
 V:tm:Liege, Belgium
-K:lgk
+K:LGK
 V:tm:Langkawi, Malaysia
-K:lgw
+K:LGW
 V:tm:London - Gatwick, Great Britan
-K:lhe
+K:LHE
 V:tm:Lahore, Pakistan
-K:lhr
+K:LHR
 V:tm:London - Heathrow, Great Britan
-K:lhu
+K:LHU
 V:tm:Lake Havasu City, AZ, USA
-K:lif
+K:LIF
 V:tm:Lifou   Loyaute, Pazifik
-K:lig
+K:LIG
 V:tm:Limoges, France
-K:lih
+K:LIH
 V:tm:Lihue, HI, USA
-K:lij
+K:LIJ
 V:tm:Long island, AK, USA
-K:lil
+K:LIL
 V:tm:Lille, France
-K:lim
+K:LIM
 V:tm:Lima, Peru
-K:lin
+K:LIN
 V:tm:Milan - Linate, Italy
-K:lis
+K:LIS
 V:tm:Lissabon, Portugal
-K:lit
+K:LIT
 V:tm:Little Rock, AR USA
-K:lju
+K:LJU
 V:tm:Ljubljana, Slovenia
-K:lkl
+K:LKL
 V:tm:Lakselv, Norway
-K:lko
+K:LKO
 V:tm:Lucknow, India
-K:lla
+K:LLA
 V:tm:Lulea, Sweden
-K:llw
+K:LLW
 V:tm:Lilongwe, Malawi
-K:lmm
+K:LMM
 V:tm:Los Mochis, Mexico
-K:lmp
+K:LMP
 V:tm:Lampedusa, Italy
-K:lmt
+K:LMT
 V:tm:Klamath Fall, OR, USA
-K:lnk
+K:LNK
 V:tm:Lincoln, NE, USA
-K:lno
+K:LNO
 V:tm:Leonora Australia
-K:lns
+K:LNS
 V:tm:Lancaster, PA, USA
-K:lny
+K:LNY
 V:tm:Lanai City, HI, USA
-K:lnz
+K:LNZ
 V:tm:Linz, Austria
-K:lon
+K:LON
 V:tm:London, Great Britan
-K:los
+K:LOS
 V:tm:Lagos, Nigeria
-K:lpa
+K:LPA
 V:tm:Las Palmas, Spain
-K:lpb
+K:LPB
 V:tm:La Paz, Bolivia
-K:lpl
+K:LPL
 V:tm:Liverpool, Great Britan
-K:lpp
+K:LPP
 V:tm:Lappeenranta, Finland
-K:lrd
+K:LRD
 V:tm:Laredo, TX, USA
-K:lre
+K:LRE
 V:tm:Longreach, Australia
-K:lrh
+K:LRH
 V:tm:La Rochelle, France
-K:lrm
+K:LRM
 V:tm:Casa de Campo/La Romana, Dominican Republic
-K:lrt
+K:LRT
 V:tm:Lorient, France
-K:lse
+K:LSE
 V:tm:La Crosse, WI, USA
-K:lsg
+K:LSG
 V:tm:ishigaki, Japan
-K:lsi
+K:LSI
 V:tm:Sumburgh (Shetland), Great Britan
-K:lst
+K:LST
 V:tm:Launceston, Australia
-K:lsy
+K:LSY
 V:tm:Lismore, Australia
-K:lsz
+K:LSZ
 V:tm:Losinj, Yugoslavia
-K:ltn
+K:LTN
 V:tm:Luton, Great Britan
-K:lto
+K:LTO
 V:tm:Loreto, Mexico
-K:lud
+K:LUD
 V:tm:Luederitz, Namibia
-K:lug
+K:LUG
 V:tm:Lugano, Switzerland
-K:luj
+K:LUJ
 V:tm:Lusisiki, South Africa
-K:lun
+K:LUN
 V:tm:Lusaka, Zambia
-K:lux
+K:LUX
 V:tm:Luxemburg, Luxemburg
-K:lvb
+K:LVB
 V:tm:Santana do Livramento, RS, Brazil
-K:lvo
+K:LVO
 V:tm:Laverton, Australia
-K:lwb
+K:LWB
 V:tm:Greenbrier/Lewisburg, WV, USA
-K:lwo
+K:LWO
 V:tm:Lvov (Lwow, Lemberg), Ucrainia
-K:lws
+K:LWS
 V:tm:Lewiston, ID, USA
-K:lwt
+K:LWT
 V:tm:Lewistown, MT, USA
-K:lxr
+K:LXR
 V:tm:Luxor, Egypt
-K:lyh
+K:LYH
 V:tm:Lynchburg, VA, USA
-K:lyp
+K:LYP
 V:tm:Faisalabad, Pakistan
-K:lyr
+K:LYR
 V:tm:Longyearbyen (Svalbard), Spitzbergen, Norway
-K:lys
+K:LYS
 V:tm:Lyon, France
-K:lzc
+K:LZC
 V:tm:Lazaro Cardenas, Mexico
-K:lzr
+K:LZR
 V:tm:Lizard island, Australia
-K:maa
+K:MAA
 V:tm:Madras, India
-K:mab
+K:MAB
 V:tm:Maraba, PA, Brazil
-K:mad
+K:MAD
 V:tm:Madrid, Spain
-K:maf
+K:MAF
 V:tm:Midland/Odessa, TX, USA
-K:mah
+K:MAH
 V:tm:Mahon, Spain
-K:man
+K:MAN
 V:tm:Manchester, Great Britan
-K:mao
+K:MAO
 V:tm:Manaus, AM, Brazil
-K:mar
+K:MAR
 V:tm:Maracaibo, Venezuela
-K:mau
+K:MAU
 V:tm:Maupiti Society islands
-K:maz
+K:MAZ
 V:tm:Mayaguez, Puerto Rico
-K:mba
+K:MBA
 V:tm:Mombassa, Kenya
-K:mbh
+K:MBH
 V:tm:Maryborough, Australia
-K:mbj
+K:MBJ
 V:tm:Montenego Bay, Jamaica
-K:mbm
+K:MBM
 V:tm:Mkambati, South Africa
-K:mbs
+K:MBS
 V:tm:Saginaw/Bay City/Midland, MI, USA
-K:mbx
+K:MBX
 V:tm:Maribor, Yugoslavia
-K:mce
+K:MCE
 V:tm:Merced, CA, USA
-K:mci
+K:MCI
 V:tm:Kansas City, MO, USA
-K:mcl
+K:MCL
 V:tm:Mt. McKinley, AK, USA
-K:mcn
+K:MCN
 V:tm:Macon, GA, USA
-K:mco
+K:MCO
 V:tm:Orlando, FL, USA
-K:mcp
+K:MCP
 V:tm:Macapa, RJ, Brazil
-K:mct
+K:MCT
 V:tm:Muscat, Oman
-K:mcw
+K:MCW
 V:tm:Mason City, IA, USA
-K:mcy
+K:MCY
 V:tm:Sunshine Coast, Australia
-K:mcz
+K:MCZ
 V:tm:Maceio, AL, Brazil
-K:mde
+K:MDE
 V:tm:Medellin, Colombia
-K:mdq
+K:MDQ
 V:tm:Mar del Plata, Argentinia
-K:mdt
+K:MDT
 V:tm:Harrisburg, PA, USA
-K:mdw
+K:MDW
 V:tm:Chicago - Midway, IL, USA
-K:mdz
+K:MDZ
 V:tm:Mendoza, Argentinia
-K:mea
+K:MEA
 V:tm:Macae, RJ, Brazil
-K:med
+K:MED
 V:tm:Medina, Saudi Arabia
-K:mee
+K:MEE
 V:tm:Mare, France, New Caledonia
-K:mei
+K:MEI
 V:tm:Meridian, MS, USA
-K:mel
+K:MEL
 V:tm:Melbourne, Australia
-K:mem
+K:MEM
 V:tm:Memphis, TN, USA
-K:mes
+K:MES
 V:tm:Medan, Indonesia
-K:mex
+K:MEX
 V:tm:Mexico City, Mexico
-K:mez
+K:MEZ
 V:tm:Messina, South Africa
-K:mfe
+K:MFE
 V:tm:McAllen, TX, USA
-K:mff
+K:MFF
 V:tm:Moanda, Gabon
-K:mfg
+K:MFG
 V:tm:Muzaffarabad, Pakistan
-K:mfn
+K:MFN
 V:tm:Milford Sound, New Zealand
-K:mfq
+K:MFQ
 V:tm:Maradi, Niger
-K:mfr
+K:MFR
 V:tm:Medford, OR, USA
-K:mfu
+K:MFU
 V:tm:Mfuwe, Zambia
-K:mga
+K:MGA
 V:tm:Managua, Nicaragua
-K:mgb
+K:MGB
 V:tm:Mount Gambier, Australia
-K:mgf
+K:MGF
 V:tm:Maringa, PR, Brazil
-K:mgh
+K:MGH
 V:tm:Margate, South Africa
-K:mgm
+K:MGM
 V:tm:Montgomery, AL, USA
-K:mgq
+K:MGQ
 V:tm:Mogadischu, Somalia
-K:mgw
+K:MGW
 V:tm:Morgantown, WV, USA
-K:mhe
+K:MHE
 V:tm:Mitchell, SD, USA
-K:mhh
+K:MHH
 V:tm:Marsh Harbour, Bahamas
-K:mhq
+K:MHQ
 V:tm:Mariehamn (Maarianhamina), Finland
-K:mht
+K:MHT
 V:tm:Manchester, NH, USA
-K:mia
+K:MIA
 V:tm:Miami, FL, USA
-K:mid
+K:MID
 V:tm:Merida, Mexico
-K:mik
+K:MIK
 V:tm:Mikkeli, Finland
-K:mil
+K:MIL
 V:tm:Mailand, Italy
-K:mim
+K:MIM
 V:tm:Merimbula, Australia
-K:mir
+K:MIR
 V:tm:Monastir, Tunisia
-K:mjc
+K:MJC
 V:tm:Man, Ivory Coast
-K:mjd
+K:MJD
 V:tm:Moenjodaro, Pakistan
-K:mjl
+K:MJL
 V:tm:Mouila, Gabon
-K:mjn
+K:MJN
 V:tm:Majunga, Madagascar
-K:mjt
+K:MJT
 V:tm:Mytilene (Lesbos), Greece
-K:mjv
+K:MJV
 V:tm:Murcia, Spain
-K:mke
+K:MKE
 V:tm:Milwaukee, WI, USA
-K:mkg
+K:MKG
 V:tm:Muskegon, MI, USA
-K:mkk
+K:MKK
 V:tm:Kaunakakai, HI, USA
-K:mkl
+K:MKL
 V:tm:Jackson, TN, USA
-K:mkr
+K:MKR
 V:tm:Meekatharra, Australia
-K:mky
+K:MKY
 V:tm:Mackay, Australia
-K:mla
+K:MLA
 V:tm:Valetta, Malta
-K:mlb
+K:MLB
 V:tm:Melbourne, FL, USA
-K:mle
+K:MLE
 V:tm:Male, Maledives
-K:mlh
+K:MLH
 V:tm:Mulhouse, France
-K:mli
+K:MLI
 V:tm:Moline/Quad Cities, IL, USA
-K:mlm
+K:MLM
 V:tm:Morelia, Mexico
-K:mls
+K:MLS
 V:tm:Miles City, MT, USA
-K:mlu
+K:MLU
 V:tm:Monroe, LA, USA
-K:mlw
+K:MLW
 V:tm:Monrovia, Liberia
-K:mma
+K:MMA
 V:tm:Malmoe, Sweden
-K:mme
+K:MME
 V:tm:Tees Side, Great Britan
-K:mmg
+K:MMG
 V:tm:Mount Magnet, Australia
-K:mmk
+K:MMK
 V:tm:Murmansk, Russia
-K:mmm
+K:MMM
 V:tm:Middlemount, Australia
-K:mmx
+K:MMX
 V:tm:Malmoe - Sturup, Sweden
-K:mmy
+K:MMY
 V:tm:Miyako (Ryuku islands), Japan
-K:mnl
+K:MNL
 V:tm:Manila, Philippines
-K:mob
+K:MOB
 V:tm:Mobile, AL/Pascagoula, MS, USA
-K:moc
+K:MOC
 V:tm:Montes Claros, MG, Brazil
-K:mod
+K:MOD
 V:tm:Modesto, CA, USA
-K:mot
+K:MOT
 V:tm:Minot, ND, USA
-K:mov
+K:MOV
 V:tm:Moranbah, Australia
-K:mow
+K:MOW
 V:tm:Moscow - Sheremetyevo 2, Russia
-K:moz
+K:MOZ
 V:tm:Moorea, Society islands
-K:mpa
+K:MPA
 V:tm:Katima Mulilo/Mpacha, Namibia
-K:mpd
+K:MPD
 V:tm:Sindhri, Pakistan
-K:mpl
+K:MPL
 V:tm:Montpellier, France
-K:mpm
+K:MPM
 V:tm:Maputo, Mozambique
-K:mql
+K:MQL
 V:tm:Mildura, Australia
-K:mqq
+K:MQQ
 V:tm:Moundou, Chad
-K:mqt
+K:MQT
 V:tm:Marquette, MI, USA
-K:mrs
+K:MRS
 V:tm:Marseille, France
-K:mru
+K:MRU
 V:tm:Mauritius, Mauritius
-K:mrv
+K:MRV
 V:tm:Mineralniye Vody, Cis
-K:mry
+K:MRY
 V:tm:Monterey, CA, USA
-K:mrz
+K:MRZ
 V:tm:Moree, Australia
-K:msl
+K:MSL
 V:tm:Muscle Shoals, AL, USA
-K:msn
+K:MSN
 V:tm:Madison, WI, USA
-K:mso
+K:MSO
 V:tm:Missula, MT, USA
-K:msp
+K:MSP
 V:tm:Minneapolis/St. Paul, MN, USA
-K:msq
+K:MSQ
 V:tm:Minsk, White Russia
-K:msr
+K:MSR
 V:tm:Muenster/Osnabrueck, Germany
-K:mst
+K:MST
 V:tm:Maastricht, The Netherlands
-K:msu
+K:MSU
 V:tm:Maseru, Lesotho
-K:msy
+K:MSY
 V:tm:New Orelans, LA, USA
-K:mte
+K:MTE
 V:tm:Monte Alegre, PA, Brazil
-K:mth
+K:MTH
 V:tm:Marathon, FL, USA
-K:mtj
+K:MTJ
 V:tm:Montrose/Tellruide, CO, USA
-K:mtl
+K:MTL
 V:tm:Maitland, Australia
-K:mtm
+K:MTM
 V:tm:Metlakatla, AK, USA
-K:mto
+K:MTO
 V:tm:Mattoon, IL, USA
-K:mts
+K:MTS
 V:tm:Manzini, Swaziland
-K:mtt
+K:MTT
 V:tm:Minatitlan, Mexico
-K:mty
+K:MTY
 V:tm:Monterrey, Mexico
-K:mub
+K:MUB
 V:tm:Maun, Botswana
-K:muc
+K:MUC
 V:tm:Muenchen (Munich), Germany
-K:muh
+K:MUH
 V:tm:Marsa Matrah, Egypt
-K:mux
+K:MUX
 V:tm:Multan, Pakistan
-K:mvb
+K:MVB
 V:tm:Mvengue, Gabon
-K:mvd
+K:MVD
 V:tm:Montevideo, Uruguay
-K:mvr
+K:MVR
 V:tm:Maroua, Cameroon
-K:mvy
+K:MVY
 V:tm:Martha's Vineyard, MA, USA
-K:mvz
+K:MVZ
 V:tm:Masvingo, Zimbabwe
-K:mwd
+K:MWD
 V:tm:Mianwali, Pakistan
-K:mwh
+K:MWH
 V:tm:Moses Lake, WA, USA
-K:mxl
+K:MXL
 V:tm:Mexicali, Mexico
-K:mxp
+K:MXP
 V:tm:Mailand - Malpensa, Italy
-K:myd
+K:MYD
 V:tm:Malindi, Kenya
-K:myj
+K:MYJ
 V:tm:Matsuyama, Japan
-K:myr
+K:MYR
 V:tm:Myrtle Beach, SC, USA
-K:myy
+K:MYY
 V:tm:Miri, Malaysia
-K:mzf
+K:MZF
 V:tm:Mzamba, South Africa
-K:mzg
+K:MZG
 V:tm:Makung, Taiwan
-K:mzm
+K:MZM
 V:tm:Metz, France
-K:mzt
+K:MZT
 V:tm:Mazatlan, Mexico
-K:mzz
+K:MZZ
 V:tm:Manzini, Swaziland
-K:naa
+K:NAA
 V:tm:Narrabri, Australia
-K:nag
+K:NAG
 V:tm:Nagpur, India
-K:nan
+K:NAN
 V:tm:Nandi, Fiji
-K:nap
+K:NAP
 V:tm:Neapel, Italy
-K:nas
+K:NAS
 V:tm:Nassau, Bahamas
-K:nat
+K:NAT
 V:tm:Natal, RN, Brazil
-K:nbo
+K:NBO
 V:tm:Nairobi, Kenya
-K:nce
+K:NCE
 V:tm:Nizza, France
-K:ncl
+K:NCL
 V:tm:Newcastle, Great Britan
-K:ncs
+K:NCS
 V:tm:Newcastle, South Africa
-K:ncy
+K:NCY
 V:tm:Annecy, France
-K:ndb
+K:NDB
 V:tm:Nouadhibou, Mauritania
-K:ndj
+K:NDJ
 V:tm:N'Djamena, Chad
-K:ndu
+K:NDU
 V:tm:Rundu, Namibia
-K:nev
+K:NEV
 V:tm:Nevis, Nevis
-K:nge
+K:NGE
 V:tm:N'Gaoundere, Cameroon
-K:ngo
+K:NGO
 V:tm:Nagoya, Japan
-K:ngs
+K:NGS
 V:tm:Nagasaki, Japan
-K:nic
+K:NIC
 V:tm:Nicosia, Cyprus
-K:nim
+K:NIM
 V:tm:Niamey, Niger
-K:nkc
+K:NKC
 V:tm:Nouakchott, Mauritania
-K:nla
+K:NLA
 V:tm:N'Dola, Zambia
-K:nld
+K:NLD
 V:tm:Nuevo Laredo, Mexico
-K:nlk
+K:NLK
 V:tm:Norfolk island, Australia
-K:nlp
+K:NLP
 V:tm:Nelspruit, South Africa
-K:nng
+K:NNG
 V:tm:Nanning, China
-K:noc
+K:NOC
 V:tm:Knock, Ireland
-K:nop
+K:NOP
 V:tm:Lapu Lapu, Philippines
-K:nou
+K:NOU
 V:tm:Noumea  France, New Caledonia
-K:nra
+K:NRA
 V:tm:Narrandera, Australia
-K:nrk
+K:NRK
 V:tm:Norrkoeping, Sweden
-K:nrt
+K:NRT
 V:tm:Tokyo - Narita, Japan
-K:nsa
+K:NSA
 V:tm:Noosa, Australia
-K:nsn
+K:NSN
 V:tm:Nelson, New Zealand
-K:nso
+K:NSO
 V:tm:Scone, Australia
-K:nte
+K:NTE
 V:tm:Nantes, France
-K:ntl
+K:NTL
 V:tm:Newcastle, Australia
-K:nty
+K:NTY
 V:tm:Pilanesberg/Sun City, South Africa
-K:nue
+K:NUE
 V:tm:Nuernberg (Nuremburg), Germany
-K:nvt
+K:NVT
 V:tm:Navegantes, Brazil
-K:nyc
+K:NYC
 V:tm:New York, NY, USA
-K:oag
+K:OAG
 V:tm:Orange, Australia
-K:oaj
+K:OAJ
 V:tm:Jacksonville, NC, USA
-K:oak
+K:OAK
 V:tm:Oakland, CA, USA
-K:oax
+K:OAX
 V:tm:Oaxaca, Mexico
-K:obi
+K:OBI
 V:tm:Obidos, PA, Brazil
-K:oda
+K:ODA
 V:tm:Ouadda, Central African Republic
-K:odb
+K:ODB
 V:tm:Cordoba, Spain
-K:ode
+K:ODE
 V:tm:Odense, Denmark
-K:ods
+K:ODS
 V:tm:Odessa, Russia
-K:ogg
+K:OGG
 V:tm:Kahului, HI, USA
-K:ohd
+K:OHD
 V:tm:Ohrid, Yugoslavia
-K:oht
+K:OHT
 V:tm:Kohat, Pakistan
-K:oit
+K:OIT
 V:tm:Oita, Japan
-K:oka
+K:OKA
 V:tm:Okinawa, Ryukyo island, Japan
-K:okc
+K:OKC
 V:tm:Oklahoma City, OK, USA
-K:oku
+K:OKU
 V:tm:Mokuti, Namibia
-K:olb
+K:OLB
 V:tm:Olbia, Italy
-K:olf
+K:OLF
 V:tm:Wolf Point, MT, USA
-K:olp
+K:OLP
 V:tm:Olympic Dam, Australia
-K:oma
+K:OMA
 V:tm:Omaha, NE, USA
-K:omd
+K:OMD
 V:tm:Oranjemund, Namibia
-K:ome
+K:OME
 V:tm:Nome, AK, USA
-K:omo
+K:OMO
 V:tm:Mostar, Yugoslavia
-K:ond
+K:OND
 V:tm:Ondangwa, Namibia
-K:ont
+K:ONT
 V:tm:Ontario, CA, USA
-K:ool
+K:OOL
 V:tm:Gold Coast (Coolangatta/Surfers Paradise), Australia
-K:oom
+K:OOM
 V:tm:Cooma, Australia
-K:opo
+K:OPO
 V:tm:Porto, Portugal
-K:ops
+K:OPS
 V:tm:Sinop, MT, Brazil
-K:orb
+K:ORB
 V:tm:Oerebro, Sweden
-K:ord
+K:ORD
 V:tm:Chicago - O'Hare, IL, USA
-K:orf
+K:ORF
 V:tm:Norfolk/Virginia Beach/Williamsburg, VA, USA
-K:orh
+K:ORH
 V:tm:Worcester, MA, USA
-K:ork
+K:ORK
 V:tm:Cork, Ireland
-K:orl
+K:ORL
 V:tm:Orlando, FL, USA
-K:orn
+K:ORN
 V:tm:Oran (Ouahran), Algeria
-K:ors
+K:ORS
 V:tm:Orpheus Island, Australia
-K:ory
+K:ORY
 V:tm:Paris - Orly, France
-K:osa
+K:OSA
 V:tm:Osaka, Japan
-K:osh
+K:OSH
 V:tm:Oshkosh, WI, USA
-K:osi
+K:OSI
 V:tm:Osijek, Yugoslavia
-K:osl
+K:OSL
 V:tm:Oslo, Norway
-K:osr
+K:OSR
 V:tm:Ostrau, Czecho-Slovak Federal Republic (CSFR)
-K:oth
+K:OTH
 V:tm:North Bend, OR, USA
-K:otp
+K:OTP
 V:tm:Bukarest - Otopeni, Romania
-K:otz
+K:OTZ
 V:tm:Kotzbue, AK, USA
-K:oua
+K:OUA
 V:tm:Ougadougou, Burkina Faso
-K:oud
+K:OUD
 V:tm:Oujda, Morocco
-K:ouh
+K:OUH
 V:tm:Oudtshoorn, South Africa
-K:oul
+K:OUL
 V:tm:Oulu, Finland
-K:ouz
+K:OUZ
 V:tm:Zouerate, Mauritania
-K:ovb
+K:OVB
 V:tm:Novosibirsk, Russia
-K:ovd
+K:OVD
 V:tm:Oviedo, Spain
-K:owb
+K:OWB
 V:tm:Owensboro, KY, USA
-K:oxr
+K:OXR
 V:tm:Oxnard, CA, USA
-K:ozz
+K:OZZ
 V:tm:Ouarzazate, Morocco
-K:pad
+K:PAD
 V:tm:Paderborn/Lippstadt, Germany
-K:pah
+K:PAH
 V:tm:Paducah, KY, USA
-K:pap
+K:PAP
 V:tm:Port au Prince, Haiti
-K:par
+K:PAR
 V:tm:Paris, France
-K:pat
+K:PAT
 V:tm:Patna, India
-K:pav
+K:PAV
 V:tm:Paulo Afonso, BA, Brazil
-K:pbc
+K:PBC
 V:tm:Puebla, Mexico
-K:pbi
+K:PBI
 V:tm:West Palm Beach, FL, USA
-K:pbm
+K:PBM
 V:tm:Paramaribo, Suriname
-K:pbo
+K:PBO
 V:tm:Paraburdoo, Australia
-K:pbz
+K:PBZ
 V:tm:Plettenberg Bay, South Africa
-K:pdl
+K:PDL
 V:tm:Ponta Delgada, Portugal
-K:pdt
+K:PDT
 V:tm:Pendelton, OR, USA
-K:pdx
+K:PDX
 V:tm:Portland, OR, USA
-K:peg
+K:PEG
 V:tm:Perugia, Italy
-K:pei
+K:PEI
 V:tm:Pereira, Colombia
-K:pek
+K:PEK
 V:tm:Beijing, China
-K:pen
+K:PEN
 V:tm:Penang - International, Malaysia
-K:per
+K:PER
 V:tm:Perth, Australia
-K:pet
+K:PET
 V:tm:Pelotas, PS, Brazil
-K:pew
+K:PEW
 V:tm:Peshawar, Pakistan
-K:pfb
+K:PFB
 V:tm:Passo Fundo, RS, Brazil
-K:pfn
+K:PFN
 V:tm:Panama City, FL, USA
-K:pfo
+K:PFO
 V:tm:Paphos, Cyprus
-K:pga
+K:PGA
 V:tm:Page/Lake Powell, AZ, USA
-K:pgf
+K:PGF
 V:tm:Perpignan, France
-K:pgv
+K:PGV
 V:tm:Greenville, NC, USA
-K:pgz
+K:PGZ
 V:tm:Ponta Grossa, PR, Brazil
-K:phc
+K:PHC
 V:tm:Port Harcourt, Nigeria
-K:phe
+K:PHE
 V:tm:Port Hedland, Australia
-K:phf
+K:PHF
 V:tm:Newport News/Williamsburg, VA, USA
-K:phl
+K:PHL
 V:tm:Philadelphia, PA, USA
-K:phw
+K:PHW
 V:tm:Phalaborwa, South Africa
-K:phx
+K:PHX
 V:tm:Phoenix, AZ, USA
-K:pia
+K:PIA
 V:tm:Peoria/Bloomington, IL, USA
-K:pib
+K:PIB
 V:tm:Laurel/Hattisburg, MS, USA
-K:pih
+K:PIH
 V:tm:Pocatello, ID, USA
-K:pik
+K:PIK
 V:tm:Glasgow - Prestwick, Great Britan
-K:pir
+K:PIR
 V:tm:Pierre, SD, USA
-K:pit
+K:PIT
 V:tm:Pittsburgh, PA, USA
-K:pjg
+K:PJG
 V:tm:Panjgur, Pakistan
-K:pkb
+K:PKB
 V:tm:Pakersburg. WV/Marietta, OH, USA
-K:pkw
+K:PKW
 V:tm:Selibi Phikwe, Botswana
-K:plb
+K:PLB
 V:tm:Plattsburgh, NY, USA
-K:pln
+K:PLN
 V:tm:Pellston, MI, USA
-K:plo
+K:PLO
 V:tm:Port Lincoln, Australia
-K:plz
+K:PLZ
 V:tm:Port Elizabeth, South Africa
-K:pmd
+K:PMD
 V:tm:Palmdale/Lancaster, CA, USA
-K:pmi
+K:PMI
 V:tm:Palma de Mallorca, Spain
-K:pmo
+K:PMO
 V:tm:Palermo, Italy
-K:pmr
+K:PMR
 V:tm:Palmerston North, New Zealand
-K:pmv
+K:PMV
 V:tm:Margerita, Venezuela
-K:png
+K:PNG
 V:tm:Paranagua, PR, Brazil
-K:pnh
+K:PNH
 V:tm:Phnom Penh, Cambodia
-K:pnl
+K:PNL
 V:tm:Pantelleria, Italy
-K:pnq
+K:PNQ
 V:tm:Pune, India
-K:pnr
+K:PNR
 V:tm:Pointe Noire, Congo
-K:pns
+K:PNS
 V:tm:Pensacola, FL, USA
-K:pnz
+K:PNZ
 V:tm:Petrolina, PE, Brazil
-K:poa
+K:POA
 V:tm:Porto Alegre, RS, Brazil
-K:pog
+K:POG
 V:tm:Port Gentil, Gabon
-K:pom
+K:POM
 V:tm:Port Moresby, Papua New Guinea
-K:pop
+K:POP
 V:tm:Puerto Plata, Dominican Republic
-K:por
+K:POR
 V:tm:Pori, Finland
-K:pos
+K:POS
 V:tm:Port of Spain, Trinidad & Tobago
-K:pou
+K:POU
 V:tm:Poughkeepsie, NY , SA
-K:ppg
+K:PPG
 V:tm:Pago Pago, Amer. Samoa
-K:ppp
+K:PPP
 V:tm:Prosperpine, Australia
-K:ppt
+K:PPT
 V:tm:Papeete, Tahiti
-K:pqi
+K:PQI
 V:tm:Presque island, ME, USA
-K:pqq
+K:PQQ
 V:tm:Port Macquarie, Australia
-K:prg
+K:PRG
 V:tm:Prague, Czecho-Slovak Federal Republic (CSFR)
-K:prn
+K:PRN
 V:tm:Pristina, Yugoslavia
-K:pry
+K:PRY
 V:tm:Pretoria, South Africa
-K:psa
+K:PSA
 V:tm:Pisa, Italy
-K:psc
+K:PSC
 V:tm:Pasco, WA, USA
-K:pse
+K:PSE
 V:tm:Ponce, Puerto Rico
-K:psg
+K:PSG
 V:tm:Petersburg, AK, USA
-K:psi
+K:PSI
 V:tm:Pasni, Pakistan
-K:psp
+K:PSP
 V:tm:Palm Springs, CA, USA
-K:psr
+K:PSR
 V:tm:Pescara, Italy
-K:ptg
+K:PTG
 V:tm:Pietersburg, South Africa
-K:ptj
+K:PTJ
 V:tm:Portland, Australia
-K:pto
+K:PTO
 V:tm:Pato Branco, PR, Brazil
-K:ptp
+K:PTP
 V:tm:Pointe a Pitre, Guadeloupe
-K:pty
+K:PTY
 V:tm:Panama City, Panama
-K:pub
+K:PUB
 V:tm:Pueblo, CO, USA
-K:puf
+K:PUF
 V:tm:Pau, France
-K:pug
+K:PUG
 V:tm:Port Augusta, Australia
-K:puj
+K:PUJ
 V:tm:Punta Cana, Dominican Republic
-K:puq
+K:PUQ
 V:tm:Punta Arenas, Chile
-K:pus
+K:PUS
 V:tm:Pusan, South Korea
-K:puw
+K:PUW
 V:tm:Pullman, WA, USA
-K:puy
+K:PUY
 V:tm:Pula, Croatia
-K:pvd
+K:PVD
 V:tm:Providence, RI, USA
-K:pvh
+K:PVH
 V:tm:Porto Velho, RO, Brazil
-K:pvi
+K:PVI
 V:tm:Paranavai, PR, Brazil
-K:pvk
+K:PVK
 V:tm:Preveza/Lefkas, Greece
-K:pvr
+K:PVR
 V:tm:Puerto Vallarta, Mexico
-K:pwm
+K:PWM
 V:tm:Portland, ME, USA
-K:pxm
+K:PXM
 V:tm:Puerto Escondido, Mexico
-K:pxo
+K:PXO
 V:tm:Porto Santo, Portugal
-K:pyx
+K:PYX
 V:tm:Pattaya, Thailand
-K:pzb
+K:PZB
 V:tm:Pietermaritzburg, South Africa
-K:pzh
+K:PZH
 V:tm:Zhob, Pakistan
-K:pzo
+K:PZO
 V:tm:Puerto Ordaz, Venezuela
-K:qab
+K:QAB
 V:tm:Brusque, SC, Brazil
-K:qau
+K:QAU
 V:tm:Bededouro, SP, Brazil
-K:qav
+K:QAV
 V:tm:Benjamin Constant, AM, Brazil
-K:qbd
+K:QBD
 V:tm:Barra do Pirai, RJ, Brazil
-K:qbn
+K:QBN
 V:tm:Barra Mansa, RJ, Brazil
-K:qbx
+K:QBX
 V:tm:Sobral, CE, Brazil
-K:qcb
+K:QCB
 V:tm:Currais Novos, RN, Brazil
-K:qcc
+K:QCC
 V:tm:Camacari, BA, Brazil
-K:qcd
+K:QCD
 V:tm:Campo Bom, RS, Brazil
-K:qch
+K:QCH
 V:tm:Colatina, ES, Brazil
-K:qcj
+K:QCJ
 V:tm:Botucatu, SP, Brazil
-K:qcn
+K:QCN
 V:tm:Canelas, RS, Brazil
-K:qcs
+K:QCS
 V:tm:Cataguases, MG, Brazil
-K:qcv
+K:QCV
 V:tm:Garulhos, SP, Brazil
-K:qcx
+K:QCX
 V:tm:Sao Caetano do Sul, Sp, Brazil
-K:qda
+K:QDA
 V:tm:Charquedas, RS, Brazil
-K:qdb
+K:QDB
 V:tm:Cachoeirado do Sul, RS, Brazil
-K:qde
+K:QDE
 V:tm:Catanduva, SP, Brazil
-K:qdf
+K:QDF
 V:tm:Consolheiro Lafaite, MG, Brazil
-K:qdg
+K:QDG
 V:tm:Divinopolis, MG, Brazil
-K:qdo
+K:QDO
 V:tm:Icoaraci, PA, Brazil
-K:qdp
+K:QDP
 V:tm:Dom Pedrito, RS, Brazil
-K:qdq
+K:QDQ
 V:tm:Duque de Caixas, RJ, Brazil
-K:qds
+K:QDS
 V:tm:Itsjuba, SC, Brazil
-K:qdw
+K:QDW
 V:tm:Diadema, SP, Brazil
-K:qfs
+K:QFS
 V:tm:Sao Franzisco do Sul, SC, Brazil
-K:qga
+K:QGA
 V:tm:Guaira, PR, Brazil
-K:qgb
+K:QGB
 V:tm:Garanhuns, PE, Brazil
-K:qgf
+K:QGF
 V:tm:Montenegro, PS, Brazil
-K:qgk
+K:QGK
 V:tm:Palmares, PE, Brazil
-K:qgr
+K:QGR
 V:tm:Pusso Alegre, MG, Brazil
-K:qgs
+K:QGS
 V:tm:Alagorinhas, BA, Brazil
-K:qhe
+K:QHE
 V:tm:Sao Bento do Sul, SC, Brazil
-K:qhl
+K:QHL
 V:tm:Castunhal, PA, Brazil
-K:qht
+K:QHT
 V:tm:Teresopolis, RJ, Brazil
-K:qhv
+K:QHV
 V:tm:Novo Hamburgo, RS, Brazil
-K:qid
+K:QID
 V:tm:Tres Coracoes, MG, Brazil
-K:qih
+K:QIH
 V:tm:Tres Rios, RJ, Brazil
-K:qja
+K:QJA
 V:tm:Jaragua do Sul, SC, Brazil
-K:qju
+K:QJU
 V:tm:Kanpur, India
-K:qlb
+K:QLB
 V:tm:Lajeado, RS, Brazil
-K:qli
+K:QLI
 V:tm:Limassol, Cyprus
-K:qll
+K:QLL
 V:tm:Sao Leopoldo, RS, Brazil
-K:qlw
+K:QLW
 V:tm:Lavras, MG, Brazil
-K:qmc
+K:QMC
 V:tm:Mairiporu, SP, Brazil
-K:qmf
+K:QMF
 V:tm:Mafra, SC, Brazil
-K:qmi
+K:QMI
 V:tm:Mogi das Crazes, SP, Brazil
-K:qml
+K:QML
 V:tm:Mirpur, Pakistan
-K:qna
+K:QNA
 V:tm:Ballina, Australia
-K:qnb
+K:QNB
 V:tm:Anand, India
-K:qnd
+K:QND
 V:tm:Novi Sad, Yugoslavia
-K:qne
+K:QNE
 V:tm:Santa Maria, RS, Brazil
-K:qnh
+K:QNH
 V:tm:Canoinhas, SC, Brazil
-K:qns
+K:QNS
 V:tm:Canoas, RS, Brazil
-K:qnt
+K:QNT
 V:tm:Niteroi, RJ, Brazil
-K:qnv
+K:QNV
 V:tm:Nova Iguacu, RJ, Brazil
-K:qoa
+K:QOA
 V:tm:Mococa, SP, Brazil
-K:qoc
+K:QOC
 V:tm:Osasco, SP, Brazil
-K:qoi
+K:QOI
 V:tm:Cotia, SP, Brazil
-K:qox
+K:QOX
 V:tm:Mossoro, RN, Brazil
-K:qpe
+K:QPE
 V:tm:Petropolis, RJ, Brazil
-K:qpf
+K:QPF
 V:tm:Pompeia, SP, Brazil
-K:qrk
+K:QRK
 V:tm:Arcos, MG, Brazil
-K:qrq
+K:QRQ
 V:tm:Caruaru, PE, Brazil
-K:qru
+K:QRU
 V:tm:Rio so Sul, SC, Brazil
-K:qrz
+K:QRZ
 V:tm:Resende, RJ, Brazil
-K:qsb
+K:QSB
 V:tm:Sao Bernardo do Campo, SP, Brazil
-K:qsc
+K:QSC
 V:tm:Sao Carlos, SP, Brazil
-K:qsd
+K:QSD
 V:tm:Sao Gancalo, RJ, Brazil
-K:qse
+K:QSE
 V:tm:Santo Andre, SP, Brazil
-K:qsj
+K:QSJ
 V:tm:Sao Jouo del Rei, MG, Brazil
-K:qta
+K:QTA
 V:tm:Atibaia, SP, Brazil
-K:qtd
+K:QTD
 V:tm:Timbauba, PE, Brazil
-K:qte
+K:QTE
 V:tm:Sao Goncalo do Amarante, RN, Brazil
-K:qto
+K:QTO
 V:tm:Toledo, PR, Brazil
-K:qur
+K:QUR
 V:tm:Muriae, MG, Brazil
-K:qvb
+K:QVB
 V:tm:Uniao do Vitoria, PR, Brazil
-K:qvh
+K:QVH
 V:tm:Vila Velho, ES, Brazil
-K:qvr
+K:QVR
 V:tm:Volta Redonda, RJ, Brazil
-K:qxj
+K:QXJ
 V:tm:Caixas do Sul, RS, Brazil
-K:raj
+K:RAJ
 V:tm:Rajkot, India
-K:rak
+K:RAK
 V:tm:Marrakesch, Morocco
-K:rao
+K:RAO
 V:tm:Riberirao Preto, SP, Brazil
-K:rap
+K:RAP
 V:tm:Rapid City, SD, USA
-K:rar
+K:RAR
 V:tm:Rarotonga, Cook island
-K:raz
+K:RAZ
 V:tm:Rawala Kot, Pakistan
-K:rba
+K:RBA
 V:tm:Rabat, Morocco
-K:rbr
+K:RBR
 V:tm:Rio Branco, AC, Brazil
-K:rcb
+K:RCB
 V:tm:Richards Bay, South Africa
-K:rdd
+K:RDD
 V:tm:Redding, CA, USA
-K:rdg
+K:RDG
 V:tm:Reading, PA, USA
-K:rdm
+K:RDM
 V:tm:Redmond, OR, USA
-K:rdu
+K:RDU
 V:tm:Raleigh/Durham, NC, USA
-K:rdz
+K:RDZ
 V:tm:Rodez, France
-K:rec
+K:REC
 V:tm:Recife, PE, Brazil
-K:reg
+K:REG
 V:tm:Reggio Calabria, Italy
-K:rek
+K:REK
 V:tm:Reykjavik, Iceland
-K:reu
+K:REU
 V:tm:Reus, Spain
-K:rfd
+K:RFD
 V:tm:Rockford, IL, USA
-K:rfp
+K:RFP
 V:tm:Raiatea Society, islands
-K:rgi
+K:RGI
 V:tm:Rangiroa, Tuamaotou, Pacific
-K:rgn
+K:RGN
 V:tm:Yangoon, Myanmar
-K:rhi
+K:RHI
 V:tm:Rhinelander, WI, USA
-K:rho
+K:RHO
 V:tm:Rhodos, Greece
-K:ria
+K:RIA
 V:tm:Santa Maria, RS, Brazil
-K:ric
+K:RIC
 V:tm:Richmond, VA, USA
-K:rig
+K:RIG
 V:tm:Rio Grande, RS, Brazil
-K:rik
+K:RIK
 V:tm:Riga, Lithuania
-K:rio
+K:RIO
 V:tm:Rio de Janeiro, RJ, Brazil
-K:rix
+K:RIX
 V:tm:Riga, Lithuania
-K:rjk
+K:RJK
 V:tm:Rijeka, Yugoslavia
-K:rkd
+K:RKD
 V:tm:Rockland, ME, USA
-K:rks
+K:RKS
 V:tm:Rock Springs, WY, USA
-K:rkt
+K:RKT
 V:tm:Ras al Khaymah, United Arab Emirates (UAE)
-K:rlt
+K:RLT
 V:tm:Arlit, Niger
-K:rmi
+K:RMI
 V:tm:Rimini, Italy
-K:rnb
+K:RNB
 V:tm:Ronneby, Sweden
-K:rne
+K:RNE
 V:tm:Roanne, France
-K:rnn
+K:RNN
 V:tm:Roenne, Denmark
-K:rno
+K:RNO
 V:tm:Reno, NV, USA
-K:rns
+K:RNS
 V:tm:Rennes, France
-K:roa
+K:ROA
 V:tm:Roanoke, VA, USA
-K:roc
+K:ROC
 V:tm:Rochester, NY, USA
-K:rok
+K:ROK
 V:tm:Rockhampton, Australia
-K:rom
+K:ROM
 V:tm:Rome, Italy
-K:ros
+K:ROS
 V:tm:Rosario, Argentinia
-K:rot
+K:ROT
 V:tm:Rotorua, New Zealand
-K:rou
+K:ROU
 V:tm:Ruse, Bulgaria
-K:rrg
+K:RRG
 V:tm:Rodrigues Insel, Mauritius
-K:rsd
+K:RSD
 V:tm:Rock Sound, Bahamas
-K:rst
+K:RST
 V:tm:Rochester, MN, USA
-K:rsw
+K:RSW
 V:tm:Fort Myers, FL, USA
-K:rtm
+K:RTM
 V:tm:Rotterdam, The Netherlands
-K:ruh
+K:RUH
 V:tm:Riyadh, Saudi Arabia
-K:run
+K:RUN
 V:tm:Saint Denis de la Reunion, Reunion, Indian Ocean
-K:rvn
+K:RVN
 V:tm:Rovaniemi, Finland
-K:rwi
+K:RWI
 V:tm:Rocky Mount/Wilson, NC, USA
-K:rwp
+K:RWP
 V:tm:Rawalpindi, Pakistan
-K:ryk
+K:RYK
 V:tm:Rahim Yar Khan, Pakistan
-K:sah
+K:SAH
 V:tm:Sanaa (Sana'a), Yemen
-K:sal
+K:SAL
 V:tm:San Salvador, El Salvador
-K:san
+K:SAN
 V:tm:San Diego, CA, USA
-K:sao
+K:SAO
 V:tm:Sao Paulo, Brazil
-K:sap
+K:SAP
 V:tm:San Pedro Sula, Honduras
-K:sat
+K:SAT
 V:tm:San Antonio, TX, USA
-K:sav
+K:SAV
 V:tm:Savannah, GA, USA
-K:say
+K:SAY
 V:tm:Salisbury, Zimbabwe
-K:sba
+K:SBA
 V:tm:Santa Barbara, CA, USA
-K:sbk
+K:SBK
 V:tm:Saint Brieuc, France
-K:sbn
+K:SBN
 V:tm:South Bend, IN, USA
-K:sbp
+K:SBP
 V:tm:San Luis Obisco, CA, USA
-K:sbu
+K:SBU
 V:tm:Springbok, South Africa
-K:sbw
+K:SBW
 V:tm:Sibu, Malaysia
-K:sby
+K:SBY
 V:tm:Salisbury, MD, USA
-K:scc
+K:SCC
 V:tm:Prudhoe Bay, AK, USA
-K:sce
+K:SCE
 V:tm:State College/Belefonte, PA, USA
-K:scf
+K:SCF
 V:tm:Scottsdale, AZ, USA
-K:sck
+K:SCK
 V:tm:Stockton, CA, USA
-K:scl
+K:SCL
 V:tm:Santiago de Chile, Chile
-K:scn
+K:SCN
 V:tm:Saarbruecken, Germany
-K:scq
+K:SCQ
 V:tm:Santiago de Compostela, Spain
-K:sda
+K:SDA
 V:tm:Bagdad - Saddam International, Irak
-K:sdf
+K:SDF
 V:tm:Louisville, KY, USA
-K:sdj
+K:SDJ
 V:tm:Sendai, Japan
-K:sdl
+K:SDL
 V:tm:Sundsvall, Sweden
-K:sdq
+K:SDQ
 V:tm:Santo Domingo, Dominican Republic
-K:sdr
+K:SDR
 V:tm:Santander, Spain
-K:sdt
+K:SDT
 V:tm:Saidu Sharif, Pakistan
-K:sdu
+K:SDU
 V:tm:Rio de Janeiro - Santos Dumont, RJ, Brazil
-K:sdy
+K:SDY
 V:tm:Sidney, MT, USA
-K:sea
+K:SEA
 V:tm:Seattle/Tacoma, WA, USA
-K:seb
+K:SEB
 V:tm:Sehba, Libya
-K:sel
+K:SEL
 V:tm:Seoul, South Korea
-K:sen
+K:SEN
 V:tm:Southend, Great Britan
-K:sez
+K:SEZ
 V:tm:Mahe, Seychelles
-K:sfa
+K:SFA
 V:tm:Sfax, Tunisia
-K:sfg
+K:SFG
 V:tm:St. Martin, St. Martin
-K:sfj
+K:SFJ
 V:tm:Soendre Stroemfjord, Greenland
-K:sfo
+K:SFO
 V:tm:San Franzisco, SA, USA
-K:sgd
+K:SGD
 V:tm:Soenderborg, Denmark
-K:sgf
+K:SGF
 V:tm:Springfield, MO, USA
-K:sgn
+K:SGN
 V:tm:Ho Chi Minh (Saigon), Vietnam
-K:sgu
+K:SGU
 V:tm:St. George, UT, USA
-K:sgy
+K:SGY
 V:tm:Skagway, AK, USA
-K:sha
+K:SHA
 V:tm:Shanghai, China
-K:shd
+K:SHD
 V:tm:Shenandoah Valley/Stauton, VA, USA
-K:shj
+K:SHJ
 V:tm:Sharjah, United Arab Emirates (UAE)
-K:shr
+K:SHR
 V:tm:Sheridan, WY, USA
-K:shv
+K:SHV
 V:tm:Shreveport, LA, USA
-K:sid
+K:SID
 V:tm:Sal, Kap Verde
-K:sin
+K:SIN
 V:tm:Singapore, Singapore
-K:sip
+K:SIP
 V:tm:Simferopol, Ucrainia
-K:sis
+K:SIS
 V:tm:Sishen, South Africa
-K:sit
+K:SIT
 V:tm:Sitka, AK, USA
-K:six
+K:SIX
 V:tm:Singleton, Australia
-K:sjc
+K:SJC
 V:tm:San Jose, CA, USA
-K:sjd
+K:SJD
 V:tm:Los Cabos, Mexico
-K:sjj
+K:SJJ
 V:tm:Sarajevo, Yugoslavia
-K:sjk
+K:SJK
 V:tm:Sao Jose dos Lampos, SP, Brazil
-K:sjo
+K:SJO
 V:tm:San Jose, Costa Rica
-K:sjp
+K:SJP
 V:tm:Sao Jose do Rio Preto, SP, Brazil
-K:sjt
+K:SJT
 V:tm:San Angelo, TX, USA
-K:sju
+K:SJU
 V:tm:San Juan, Perto Rico
-K:sjy
+K:SJY
 V:tm:Seinaejoki, Finland
-K:skb
+K:SKB
 V:tm:St. Kitts, Leeward Insel
-K:skd
+K:SKD
 V:tm:Samarkand, Usbecistan
-K:skg
+K:SKG
 V:tm:Saloniki, Greece
-K:skp
+K:SKP
 V:tm:Skopje, Yugoslavia
-K:sks
+K:SKS
 V:tm: Skrydstrup, Denmark
-K:skz
+K:SKZ
 V:tm:Sukkur, Pakistan
-K:slc
+K:SLC
 V:tm:Salt Lake City, UT, USA
-K:sle
+K:SLE
 V:tm:Salem, OR, USA
-K:sll
+K:SLL
 V:tm:Salalah, Oman
-K:slp
+K:SLP
 V:tm:San Luis Potosi, Mexico
-K:sls
+K:SLS
 V:tm:Silistra, Bulgaria
-K:slu
+K:SLU
 V:tm:St. Lucia - Vigle, St. Lucia
-K:slz
+K:SLZ
 V:tm:Sao Luis, MA, Brazil
-K:sma
+K:SMA
 V:tm:Santa Maria, Portugal
-K:smf
+K:SMF
 V:tm:Sacramento, CA, USA
-K:smi
+K:SMI
 V:tm:Samos, Greece
-K:smx
+K:SMX
 V:tm:Santa Maria, CA, USA
-K:sna
+K:SNA
 V:tm:Orange County (Santa Ana), CA, USA
-K:snn
+K:SNN
 V:tm:Shannon (Limerick), Ireland
-K:sof
+K:SOF
 V:tm:Sofia, Bulgaria
-K:sog
+K:SOG
 V:tm:Sogndal, Norway
-K:soi
+K:SOI
 V:tm:South Molle island, Australia
-K:son
+K:SON
 V:tm:Santo, Vanuatu
-K:sot
+K:SOT
 V:tm:Sodankylae, Finland
-K:sou
+K:SOU
 V:tm:Sothampton, Great Britan
-K:spc
+K:SPC
 V:tm:Santa Cruz de la Palma, Spain
-K:spi
+K:SPI
 V:tm:Springfield, IL, USA
-K:spk
+K:SPK
 V:tm:Saporro, Japan
-K:spn
+K:SPN
 V:tm:Saipan, Pacific
-K:sps
+K:SPS
 V:tm:Wichita Falls, TX, USA
-K:spu
+K:SPU
 V:tm:Split, Yugoslavia
-K:spy
+K:SPY
 V:tm:San Pedro, Ivory Coast
-K:sra
+K:SRA
 V:tm:Santa Rosa, RS, Brazil
-K:srq
+K:SRQ
 V:tm:Sarasota/Bradenton, FL, USA
-K:srz
+K:SRZ
 V:tm:Santa Cruz de la Sierra, Bolivia
-K:ssa
+K:SSA
 V:tm:Salvador, BA, Brazil
-K:ssg
+K:SSG
 V:tm:Malabo, Equatorial Guinea
-K:ssh
+K:SSH
 V:tm:Sharm el Sheik, Egypt
-K:ssz
+K:SSZ
 V:tm:Santos, Brazil
-K:stl
+K:STL
 V:tm:St. Louis, MO, USA
-K:stm
+K:STM
 V:tm:Santarem, Brazil
-K:stn
+K:STN
 V:tm:Stansted (London), Great Britan
-K:sto
+K:STO
 V:tm:Stockholm, Sweden
-K:str
+K:STR
 V:tm:Stuttgart, Germany
-K:sts
+K:STS
 V:tm:Santa Rosa, CA, USA
-K:stt
+K:STT
 V:tm:St. Thomas, Virgin Islands
-K:stv
+K:STV
 V:tm:Surat, India
-K:stx
+K:STX
 V:tm:St. Croix, Virgin Islands
-K:sub
+K:SUB
 V:tm:Surabaya, Indonesia
-K:suf
+K:SUF
 V:tm:Lamezia Terme, Italy
-K:sul
+K:SUL
 V:tm:Sui, Pakistan
-K:sum
+K:SUM
 V:tm:Agana, Guam
-K:sun
+K:SUN
 V:tm:Sun Valley, ID, USA
-K:suv
+K:SUV
 V:tm:Suva, Fiji
-K:sux
+K:SUX
 V:tm:Sioux City, IA, USA
-K:svd
+K:SVD
 V:tm:St. Vincent, St. Vincent
-K:svg
+K:SVG
 V:tm:Stavanger, Norway
-K:svl
+K:SVL
 V:tm:Savonlinna, Finland
-K:svo
+K:SVO
 V:tm:Moscow - Sheremetyevo 2, Russia
-K:svq
+K:SVQ
 V:tm:Sevilla, Spain
-K:swf
+K:SWF
 V:tm:Newburgh, NY, USA
-K:swp
+K:SWP
 V:tm:Swakopmund, Namibia
-K:sxb
+K:SXB
 V:tm:Strassburg, France
-K:sxf
+K:SXF
 V:tm:Berlin - Schoenefeld, Germany
-K:sxl
+K:SXL
 V:tm:Sligo, Ireland
-K:sxm
+K:SXM
 V:tm:St. Marteen, West Indian Isles
-K:sxr
+K:SXR
 V:tm:Srinagar, India
-K:syd
+K:SYD
 V:tm:Sydney, Australia
-K:syr
+K:SYR
 V:tm:Syracuse, NY, USA
-K:syy
+K:SYY
 V:tm:Stornway, Great Britan
-K:szg
+K:SZG
 V:tm:Salzburg, Austria
-K:szk
+K:SZK
 V:tm:Skukuza, South Africa
-K:szz
+K:SZZ
 V:tm:Stettin, Poland
-K:tak
+K:TAK
 V:tm:Takamatsu, Japan
-K:tam
+K:TAM
 V:tm:Tampico, Mexico
-K:tas
+K:TAS
 V:tm:Taschkent, Usbecistan
-K:tat
+K:TAT
 V:tm:Poprad (Tatry), CSFR
-K:tay
+K:TAY
 V:tm:Taipei - Sungshan, Taiwan
-K:tbs
+K:TBS
 V:tm:Tiblissi (Tiflis), Georgia
-K:tbt
+K:TBT
 V:tm:Tabatinga, AM, Brazil
-K:tbu
+K:TBU
 V:tm:Nuku'alofa, Tonga
-K:tca
+K:TCA
 V:tm:Tennant Creek, Australia
-K:tcb
+K:TCB
 V:tm:Treasure Cay, Bahamas
-K:tci
+K:TCI
 V:tm:Teneriffa, Spain
-K:tcl
+K:TCL
 V:tm:Tuscaloosa, AL, USA
-K:tcu
+K:TCU
 V:tm:Thaba'Nchu, South Africa
-K:ted
+K:TED
 V:tm:Thisted, Denmark
-K:tem
+K:TEM
 V:tm:Temora, Australia
-K:ter
+K:TER
 V:tm:Terceira, Portugal
-K:teu
+K:TEU
 V:tm:Te Anau, New Zealand
-K:tex
+K:TEX
 V:tm:Telluride, CO, USA
-K:tff
+K:TFF
 V:tm:Tefe, MA, Brazil
-K:tfn
+K:TFN
 V:tm:Los Rodeos (Teneriffa), Spain
-K:tfs
+K:TFS
 V:tm:Reina Sofia (Teneriffa), Spain
-K:tgd
+K:TGD
 V:tm:Titograd, Yugoslavia
-K:tgu
+K:TGU
 V:tm:Tegucigalpa, Honduras
-K:tgv
+K:TGV
 V:tm:Targovishte, Bulgaria
-K:tgz
+K:TGZ
 V:tm:Tuxtla Gutierrez, Mexico
-K:the
+K:THE
 V:tm:Teresina, PI, Brazil
-K:thf
+K:THF
 V:tm:Berlin - Tempelhof, Germany
-K:thg
+K:THG
 V:tm:Biloela, Australia
-K:thr
+K:THR
 V:tm:Teheran, Iran
-K:tia
+K:TIA
 V:tm:Tirana, Albanien
-K:tif
+K:TIF
 V:tm:Taif, Saudi Arabia
-K:tij
+K:TIJ
 V:tm:Tijuana, Mexico
-K:tip
+K:TIP
 V:tm:Triplis, Libya
-K:tis
+K:TIS
 V:tm:Thursday Island, Australia
-K:tiv
+K:TIV
 V:tm:Tivat, Yugoslavia
-K:tka
+K:TKA
 V:tm:Talkeetna, AK, USA
-K:tks
+K:TKS
 V:tm:Tokushima, Japan
-K:tku
+K:TKU
 V:tm:Turku, Finland
-K:tlh
+K:TLH
 V:tm:Tallahassee, FL, USA
-K:tll
+K:TLL
 V:tm:Tallinn, Estonia
-K:tls
+K:TLS
 V:tm:Toulouse, France
-K:tlv
+K:TLV
 V:tm:Tel Aviv, Israel
-K:tmp
+K:TMP
 V:tm:Tampere, Finland
-K:tms
+K:TMS
 V:tm:Sao Tome, Sao Tome & Principe
-K:tmt
+K:TMT
 V:tm:Porto  Trombetas, PA, Brazil
-K:tmw
+K:TMW
 V:tm:Tamworth, Australia
-K:tmz
+K:TMZ
 V:tm:Termez (Termes), Usbecistan
-K:tng
+K:TNG
 V:tm:Tanger, Morocco
-K:tnr
+K:TNR
 V:tm:Antananarivo (Tanannarive), Madagascar
-K:tod
+K:TOD
 V:tm:Tioman, Indonesia
-K:tol
+K:TOL
 V:tm:Toledo, OH, USA
-K:tos
+K:TOS
 V:tm:Tromsoe, Norway
-K:tou
+K:TOU
 V:tm:Touho   France, New Caledonia
-K:tpa
+K:TPA
 V:tm:Tampa/St. Petersburg/Clearwater, FL, USA
-K:tpe
+K:TPE
 V:tm:Taipei - Chiang Kaisek, Taiwan
-K:tpr
+K:TPR
 V:tm:Tom Price, Australia
-K:tps
+K:TPS
 V:tm:Trapani, Italy
-K:trd
+K:TRD
 V:tm:Trondheim, Norway
-K:trf
+K:TRF
 V:tm:Sandefjord, Norway
-K:tri
+K:TRI
 V:tm:Tri City Airport, TN, USA
-K:trn
+K:TRN
 V:tm:Turin, Italy
-K:tro
+K:TRO
 V:tm:Taree, Australia
-K:trs
+K:TRS
 V:tm:Triest, Italy
-K:trv
+K:TRV
 V:tm:Trivandrum, India
-K:trz
+K:TRZ
 V:tm:Tiruchirapally, India
-K:tsa
+K:TSA
 V:tm:Taipei (Domestic ?), Taiwan
-K:tsb
+K:TSB
 V:tm:Tsumeb, Namibia
-K:tsf
+K:TSF
 V:tm:Treviso, Italy
-K:tsv
+K:TSV
 V:tm:Townsville, Australia
-K:ttn
+K:TTN
 V:tm:Trenton/Princeton, NJ, USA
-K:tuk
+K:TUK
 V:tm:Turbat, Pakistan
-K:tul
+K:TUL
 V:tm:Tulsa, OK, USA
-K:tun
+K:TUN
 V:tm:Tunis, Tunisia
-K:tup
+K:TUP
 V:tm:Tulepo, MS, USA
-K:tus
+K:TUS
 V:tm:Tuscon, AZ, USA
-K:tuu
+K:TUU
 V:tm:Tabuk, Saudi Arabia
-K:tvc
+K:TVC
 V:tm:Traverse City, MI, USA
-K:tvf
+K:TVF
 V:tm:Thief River Falls, MN, USA
-K:tvl
+K:TVL
 V:tm:Lake Tahoe, CA, USA
-K:twb
+K:TWB
 V:tm:Toowoomba, Australia
-K:twf
+K:TWF
 V:tm:Twin Falls, ID, USA
-K:twu
+K:TWU
 V:tm:Tawau, Malaysia
-K:txk
+K:TXK
 V:tm:Texarkana, AR, USA
-K:txl
+K:TXL
 V:tm:Berlin - Tegel, Germany
-K:tyn
+K:TYN
 V:tm:Taiyuan, China
-K:tyo
+K:TYO
 V:tm:Tokyo, Japan
-K:tyr
+K:TYR
 V:tm:Tyler, TX, USA
-K:tys
+K:TYS
 V:tm:Knoxville, TN, USA
-K:uak
+K:UAK
 V:tm:Narsarsuaq, Greenland
-K:uba
+K:UBA
 V:tm:Uberaba, MG, Brazil
-K:uca
+K:UCA
 V:tm:Utica, NY, USA
-K:udi
+K:UDI
 V:tm:Uberlandia, MG, Brazil
-K:uee
+K:UEE
 V:tm:Queenstown, Australia
-K:uet
+K:UET
 V:tm:Quetta, Pakistan
-K:uin
+K:UIN
 V:tm:Quincy, IL, USA
-K:uio
+K:UIO
 V:tm:Quito, Ecuador
-K:uip
+K:UIP
 V:tm:Quimper, France
-K:ukb
+K:UKB
 V:tm:Kobe, Japan
-K:uld
+K:ULD
 V:tm:Ulundi, South Africa
-K:uln
+K:ULN
 V:tm:Ulan Bator, Mongolia
-K:ulu
+K:ULU
 V:tm:Ulan Ude, Russia
-K:umr
+K:UMR
 V:tm:Woomera, Australia
-K:umu
+K:UMU
 V:tm:Umuarama, PR, Brazil
-K:upg
+K:UPG
 V:tm:Ujung Pandang, Indonesia
-K:urc
+K:URC
 V:tm:Urumqi, China
-K:urg
+K:URG
 V:tm:Uruguaiana, RS, Brazil
-K:utn
+K:UTN
 V:tm:Upington, South Africa
-K:utp
+K:UTP
 V:tm:Utapao (Pattaya), Thailand
-K:utt
+K:UTT
 V:tm:Umtata, South Africa
-K:uve
+K:UVE
 V:tm:Oyem ??/Ouvea ??, Gabon/Loyautte
-K:uvf
+K:UVF
 V:tm:St. Lucia - Hewanorra, St. Lucia
-K:uvl
+K:UVL
 V:tm:New Valley, Egypt
-K:vaa
+K:VAA
 V:tm:Vaasa, Finland
-K:vap
+K:VAP
 V:tm:Valparaiso, Chile
-K:var
+K:VAR
 V:tm:Varna, Bulgaria
-K:vby
+K:VBY
 V:tm:Visby, Sweden
-K:vce
+K:VCE
 V:tm:Venedig, Italy
-K:vcp
+K:VCP
 V:tm:Sao Paulo - Viracopos, Brazil
-K:vda
+K:VDA
 V:tm:Elat - Ovula, Israel
-K:vde
+K:VDE
 V:tm:Valverde, Spain
-K:vdz
+K:VDZ
 V:tm:Valdez, AK, USA
-K:vek
+K:VEK
 V:tm:Velikiye Luki (Welikije Luki), Russia
-K:vel
+K:VEL
 V:tm:Vernal, UT, USA
-K:ver
+K:VER
 V:tm:Veracruz, Mexico
-K:vfa
+K:VFA
 V:tm:Victoria Falls, Zimbabwe
-K:vgo
+K:VGO
 V:tm:Vigo, Spain
-K:vid
+K:VID
 V:tm:Vidin, Bulgaria
-K:vie
+K:VIE
 V:tm:Wien (Vienna), Austria
-K:vij
+K:VIJ
 V:tm:Virgin Gorda, Virgin Islands
-K:vis
+K:VIS
 V:tm:Visalia, CA, USA
-K:vit
+K:VIT
 V:tm:Vitoria, Spain
-K:vix
+K:VIX
 V:tm:Vitoria, ES, Brazil
-K:vko
+K:VKO
 V:tm:Moscow - Vnukovo, Russia
-K:vlc
+K:VLC
 V:tm:Valencia, Spain
-K:vld
+K:VLD
 V:tm:Valdosta, GA, USA
-K:vli
+K:VLI
 V:tm:Port Vila, Vanuatu
-K:vll
+K:VLL
 V:tm:Valladolid, Spain
-K:vln
+K:VLN
 V:tm:Valencia, Venezuela
-K:vno
+K:VNO
 V:tm:Wilna (Vilnius), Lithavia
-K:vns
+K:VNS
 V:tm:Varanasi, India
-K:vot
+K:VOT
 V:tm:Votuporanga, SP, Brazil
-K:vps
+K:VPS
 V:tm:Fort Walton Beach, FL, USA
-K:vra
+K:VRA
 V:tm:Varadero, Cuba
-K:vrb
+K:VRB
 V:tm:Vero Beach/Ft. Pierce, FL, USA
-K:vrk
+K:VRK
 V:tm:Varkaus, Finland
-K:vrn
+K:VRN
 V:tm:Verona, Italy
-K:vsa
+K:VSA
 V:tm:Villahermosa, Mexico
-K:vst
+K:VST
 V:tm:Vasteras, Sweden
-K:vte
+K:VTE
 V:tm:Vietiane, Laos
-K:vxo
+K:VXO
 V:tm:Vaexjoe, Sweden
-K:vyd
+K:VYD
 V:tm:Vryheid, South Africa
-K:was
+K:WAS
 V:tm:Washington, DC, USA
-K:waw
+K:WAW
 V:tm:Warschau, Poland
-K:wdh
+K:WDH
 V:tm:Windhoek - International, Namibia
-K:wei
+K:WEI
 V:tm:Weipa, Australia
-K:wel
+K:WEL
 V:tm:Welkom, South Africa
-K:wga
+K:WGA
 V:tm:Wagga, Australia
-K:whk
+K:WHK
 V:tm:Whakatane, New Zealand
-K:whm
+K:WHM
 V:tm:Wickham, Australia
-K:wic
+K:WIC
 V:tm:Wick, Great Britan
-K:wlb
+K:WLB
 V:tm:Labouchere Bay, AK, USA
-K:wlg
+K:WLG
 V:tm:Wellington, New Zealand
-K:wls
+K:WLS
 V:tm:Wallis, Wallis Archipel, Pacific
-K:wmb
+K:WMB
 V:tm:Warrnambool, Australia
-K:wns
+K:WNS
 V:tm:Nawab Shah, Pakistan
-K:wol
+K:WOL
 V:tm:Wollongong, Australia
-K:wre
+K:WRE
 V:tm:Whangarei, New Zealand
-K:wrg
+K:WRG
 V:tm:Wrangell, AK, USA
-K:wrl
+K:WRL
 V:tm:Worland, WY, USA
-K:wsy
+K:WSY
 V:tm:Airline Beach, Australia
-K:wun
+K:WUN
 V:tm:Wiluna, Australia
-K:wvb
+K:WVB
 V:tm:Walvis Bay, South Africa
-K:wya
+K:WYA
 V:tm:Whyalla, Australia
-K:wyn
+K:WYN
 V:tm:Wyndham, Australia
-K:wys
+K:WYS
 V:tm:West Yellowstone, MT, USA
-K:xap
+K:XAP
 V:tm:Chapeco, SC, Brazil
-K:xlb
+K:XLB
 V:tm:Lac Brochet, MB, Canada
-K:xmh
+K:XMH
 V:tm:Manihi, Tuamaotou, Pacific
-K:xpk
+K:XPK
 V:tm:Pukatawagan, Canada
-K:xry
+K:XRY
 V:tm:Jerez de la Frontera, Spain
-K:xsi
+K:XSI
 V:tm:South Indian Lake, MB, Canada
-K:yak
+K:YAK
 V:tm:Yakutat, AK, USA
-K:yao
+K:YAO
 V:tm:Yaonde, Cameroon
-K:yat
+K:YAT
 V:tm:Attawapiskat, NT, Canada
-K:ycb
+K:YCB
 V:tm:Cambridge Bay, Canada
-K:ydf
+K:YDF
 V:tm:Deer Lake/Corner Brook, Canada
-K:yea
+K:YEA
 V:tm:Edmonton, Canada
-K:yeg
+K:YEG
 V:tm:Edmonton - International, Canada
-K:yev
+K:YEV
 V:tm:Inuvik, Canada
-K:yfa
+K:YFA
 V:tm:Fort Albert, Canada
-K:yfb
+K:YFB
 V:tm:Iqaluit (Frobisher Bay), Canada
-K:yfc
+K:YFC
 V:tm:Fredericton, Canada
-K:yfo
+K:YFO
 V:tm:Flin Flon, Canada
-K:ygl
+K:YGL
 V:tm:La Grande, Canada
-K:ygw
+K:YGW
 V:tm:Kuujjuarapik (Poste de la Baleine), Canada
-K:ygx
+K:YGX
 V:tm:Gillam, Canada
-K:yhm
+K:YHM
 V:tm:Hamilton, Canada
-K:yhr
+K:YHR
 V:tm:Harrington Harbour, PQ, Canada
-K:yhx
+K:YHX
 V:tm:Hay River, Canada
-K:yhy
+K:YHY
 V:tm:Hay River, Canada
-K:yhz
+K:YHZ
 V:tm:Halifax, Canada
-K:yif
+K:YIF
 V:tm:St. Augustin, PQ, Canada
-K:ykm
+K:YKM
 V:tm:Yakima, WA, USA
-K:ylr
+K:YLR
 V:tm:Leaf Rapids, Canada
-K:ylw
+K:YLW
 V:tm:Kelowna, Canada
-K:ylw
+K:YLW
 V:tm:Kelowna, BC, Canada
-K:ymm
+K:YMM
 V:tm:Fort McMurray, Canada
-K:ymq
+K:YMQ
 V:tm:Montreal, Canada
-K:ymx
+K:YMX
 V:tm:Montreal - Mirabel, Canada
-K:ynb
+K:YNB
 V:tm:Yanbu, Saudi Arabia
-K:yng
+K:YNG
 V:tm:Youngstown/Warren, OH/Sharon, PA, USA
-K:yok
+K:YOK
 V:tm:Yokohama, Japan
-K:yop
+K:YOP
 V:tm:Rainbow Lake, AB, Canada
-K:yow
+K:YOW
 V:tm:Ottawa - Hull, Canada
-K:ypn
+K:YPN
 V:tm:Port Menier, PQ Canada
-K:ypr
+K:YPR
 V:tm:Prince Rupert/Digby Island, Canada
-K:yqb
+K:YQB
 V:tm:Quebec, Canada
-K:yqd
+K:YQD
 V:tm:The Pas, Canada
-K:yqr
+K:YQR
 V:tm:Regina, Canada
-K:yqt
+K:YQT
 V:tm:Thunder Bay, Canada
-K:yqx
+K:YQX
 V:tm:Gander, Canada
-K:yrb
+K:YRB
 V:tm:Resolute Bay, Canada
-K:ysj
+K:YSJ
 V:tm:Saint John, Canada
-K:ysm
+K:YSM
 V:tm:Fort Smith, Canada
-K:ysr
+K:YSR
 V:tm:Nanisivik, Canada
-K:yth
+K:YTH
 V:tm:Thompson, Canada
-K:yto
+K:YTO
 V:tm:Toronto, Canada
-K:ytz
+K:YTZ
 V:tm:Toronto - Island, Canada
-K:yul
+K:YUL
 V:tm:Montreal - Dorval, Canada
-K:yum
+K:YUM
 V:tm:Yuma, AZ, USA
-K:yux
+K:YUX
 V:tm:Hall Beach, Canada
-K:yva
+K:YVA
 V:tm:Moroni, Comores
-K:yvb
+K:YVB
 V:tm:Bonaventure, PQ, Canada
-K:yvo
+K:YVO
 V:tm:Val d'Or, Canada
-K:yvp
+K:YVP
 V:tm:Kuujjuaq (Fort Chimo), Canada
-K:yvq
+K:YVQ
 V:tm:Norman Wells, Canada
-K:yvr
+K:YVR
 V:tm:Vancouver, Canada
-K:ywg
+K:YWG
 V:tm:Winnipeg, Canada
-K:ywk
+K:YWK
 V:tm:Wabush, Canada
-K:yxd
+K:YXD
 V:tm:Edmonton - Municipal, Canada
-K:yxe
+K:YXE
 V:tm:Saskatoon, Canada
-K:yxj
+K:YXJ
 V:tm:Fort St. John, Canada
-K:yxn
+K:YXN
 V:tm:Whale Cove, NT, Canada
-K:yxs
+K:YXS
 V:tm:Prince George, Canada
-K:yxt
+K:YXT
 V:tm:Terrace, Canada
-K:yxu
+K:YXU
 V:tm:London, Canada
-K:yxy
+K:YXY
 V:tm:Whitehorse, Canada
-K:yyc
+K:YYC
 V:tm:Calgary/Banff, Canada
-K:yyd
+K:YYD
 V:tm:Smithers, Canada
-K:yyj
+K:YYJ
 V:tm:Victoria, Canada
-K:yyq
+K:YYQ
 V:tm:Churchill, Canada
-K:yyr
+K:YYR
 V:tm:Goose Bay, Canada
-K:yyt
+K:YYT
 V:tm:St. John's, Canada
-K:yyz
+K:YYZ
 V:tm:Toronto - Lester B. Pearson International, Canada
-K:yzf
+K:YZF
 V:tm:Yellowknife, Canada
-K:yzp
+K:YZP
 V:tm:Sandspit, Canada
-K:zad
+K:ZAD
 V:tm:Zadar, Yugoslavia
-K:zag
+K:ZAG
 V:tm:Zagreb, Yugoslavia
-K:zaz
+K:ZAZ
 V:tm:Zaragoza, Spain
-K:zbo
+K:ZBO
 V:tm:Bowen, Australia
-K:zcl
+K:ZCL
 V:tm:Zacatecas, Mexico
-K:zdj
+K:ZDJ
 V:tm:Bern, Switzerland
-K:zih
+K:ZIH
 V:tm:Ixtapa/Zihuatenejo, Mexico
-K:zke
+K:ZKE
 V:tm:Kaschechawan, PQ, Canada
-K:zlo
+K:ZLO
 V:tm:Manzanillo, Mexico
-K:znd
+K:ZND
 V:tm:Zinder, Niger
-K:zne
+K:ZNE
 V:tm:Newman, Australia
-K:zqn
+K:ZQN
 V:tm:Queenstown, New Zealand
-K:zrh
+K:ZRH
 V:tm:Zuerich (Zurich), Switzerland
-K:zss
+K:ZSS
 V:tm:Sassandra, Ivory Coast
-K:zth
+K:ZTH
 V:tm:Zakynthos, Greece
-K:ztm
+K:ZTM
 V:tm:Shamattawa, MB, Canada
-K:zyl
+K:ZYL
 V:tm:Sylhet, Bangla Desh

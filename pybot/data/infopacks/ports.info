@@ -7,11 +7,11 @@ h:port numbers:ports?\s+numbers?
 H:The ports infopack provides a database of port numbers. You can check what service is usually provided in a port number using "port <num>".
 T:what(?:'s|\s+is)\s+(?:the\s+)?port\s+(?:number\s+)?([0-9]+)(?:\s+for)\s*(?:!*\?[!?]*)?$
 T:port\s+(\d+)[!?.]*$
-M:This port is for %s.
+M:Port %(key) is for %(value)s.
 D:t:I haven't found anything about this port.
 D:t:I don't know what this port is for.
 K:0
-V:t:This is a reserved port.
+V:t:Port 0 is reserved.
 K:1
 V:tm:tcpmux - TCP Port Service Multiplexer 
 K:2

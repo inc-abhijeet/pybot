@@ -1,3 +1,10 @@
+2003-08-27 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/permissions.py: Implemented permission
+	  parameters.
+	* modules/{remoteinfo.py,infopack.py}: Adapted to
+	  work with premission parameters.
+	* modules/infopack.py: Implemented infopack searching.
+
 2003-08-26 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* pybot/misc.py: Introduced striphtml().
 	* pybot/rss.py: Allow all news to be colapsed in one line.

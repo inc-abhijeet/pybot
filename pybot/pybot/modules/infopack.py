@@ -28,15 +28,26 @@ infopack, put it in the infopack directory (check the configuration
 file), and use the command "[load|reload|unload] infopack <name>
 [in memory]" (the "infopackadmin" permission is needed).
 ""","""
-To show which infopacks are loaded, send me "show infopacks". You
-can also ask for help about some specific infopack with "help infopack
-<name>".
+After you load some infopack, you must say explicitly which
+users/channels and servers will be able to obtain information from
+it. To do that give the permission "infopack(<name>)" for these you
+want to allow. To show which infopacks are loaded, send me
+"show infopacks". You can also ask for help about some specific
+infopack with "help infopack <name>".
 """
 
 PERM_INFOPACKADMIN = """
 Users with the "infopackadmin" permission can change infopack
 settings. Check "help infopack" for more information.
 """
+
+PERM_INFOPACK = """
+Users will be able to access information in some infopack if
+they have the "infopack(<name>)" permission. Check "help infopack"
+for more information.
+"""
+
+MAXSEARCHRESULTS = 3
 
 class Info:
     def __init__(self, phrase="", action=0, notice=0, tonick=0):
@@ -78,9 +89,9 @@ class Infopack:
         for line in file.xreadlines():
             if line and line[0] != "#":
                 if line[0] == "K":
-                    if values != []:
-                        values = []
-                    self._info[line[2:].rstrip()] = values
+                    values = []
+                    self._info[line[2:].rstrip().lower()] = \
+                            (line[2:].rstrip(), values)
                 elif line[0] == "V":
                     value = line[2:].split(":", 1)
                     value[1] = value[1].rstrip()
@@ -146,12 +157,12 @@ class Infopack:
         values = []
         found = 0
         file = open(self._filename)
-        for line in file.xreadlines():
+        for line in file.readlines():
             if line and line[0] != "#":
                 if not found:
                     if line[0] == "K":
                         key = line[2:].rstrip()
-                        if key == findkey:
+                        if key.lower() == findkey:
                             found = 1
                             foundvalue = 0
                 else:
@@ -163,8 +174,7 @@ class Infopack:
                     elif foundvalue:
                         break
         file.close()
-        return values
-        
+        return key, values
     
     def get(self, line):
         for trigger in self._triggers:
@@ -172,9 +182,12 @@ class Infopack:
             if m:
                 key = m.group(1).lower()
                 if self._info:
-                    values = self._info.get(key)
+                    try:
+                        key, values = self._info[key]
+                    except KeyError:
+                        values = None
                 else:
-                    values = self.getinfo(key)
+                    key, values = self.getinfo(key)
                 if values:
                     value = random.choice(values)
                 elif self._defaults:
@@ -188,10 +201,51 @@ class Infopack:
                 info.tonick = "t" in flags
                 if "m" in flags:
                     mask = random.choice(self._masks)
-                    info.phrase = mask%value[1]
+                    info.phrase = mask % {"key": key, "value": value[1]}
                 else:
                     info.phrase = value[1]
                 return info
+
+    def _search(self, pattern, key, values, results):
+        found = 0
+        if pattern.match(key):
+            found = 1
+            value = random.choice(values)
+        else:
+            if len(values) > 1:
+                random.shuffle(values)
+            for value in values:
+                if pattern.match(value[1]):
+                    found = 1
+                    break
+        if found:
+            mask = random.choice(self._masks)
+            phrase = mask % {"key": key, "value": random.choice(values)[1]}
+            results.append(phrase)
+ 
+    def search(self, pattern):
+        results = []
+        if self._info:
+            for key, values in self._info.values():
+                self._search(pattern, key, values, results)
+        else:
+            file = open(self._filename)
+            values = []
+            for line in file.readlines():
+                if line and line[0] != "#":
+                    if line[0] == "K":
+                        if values:
+                            self._search(pattern, key, values, results)
+                        key = line[2:].rstrip()
+                        values = []
+                    elif line[0] == "V":
+                        value = line[2:].split(":", 1)
+                        value[1] = value[1].rstrip()
+                        values.append(value)
+            if values:
+                self._search(pattern, key, values, results)
+            file.close()
+        return results
 
 class InfopackModule:
     def __init__(self):
@@ -213,11 +267,14 @@ class InfopackModule:
                 else:
                     pack.loadcore()
         
-        # [load|reload|unload] infopack <name> [in memory] [.|!]
+        # [load|reload|unload] infopack <name> [in memory]
         self.re1 = regexp(r"(?P<action>re|un)?load infopack (?P<name>\w+)(?P<inmemory> in memory)?")
 
         # show infopacks
         self.re2 = regexp(r"show infopacks")
+
+        # search infopack <name> for /<regexp>/
+        self.re3 = regexp(r"search infopack (?P<name>\S+) for /(?P<regexp>.*)/")
 
         # infopack[s]
         mm.register_help("infopacks?", HELP, "infopack")
@@ -321,12 +378,15 @@ class InfopackModule:
                                              [".", "!"])
                 else:
                     # Unload infopack
+                    cursor = db.cursor()
                     if not self.packs.has_key(name):
                         msg.answer("%:", ["Oops!", "Sorry!"],
                                          "This infopack is not loaded",
                                          [".", "!"])
                     else:
                         del self.packs[name]
+                        cursor.execute("delete from infopack where name=%s",
+                                       name)
                         msg.answer("%:", ["Unloaded", "Done", "Ok"],
                                          [".", "!"])
             else:
@@ -348,8 +408,53 @@ class InfopackModule:
                                  "\"help infopack <name>\".")
             return 0
 
+        m = self.re3.match(msg.line)            
+        if m:
+            name = m.group("name")
+            regexp = m.group("regexp")
+            try:
+                pack = self.packs[name]
+            except KeyError:
+                msg.answer("%:", ["Oops!", "Sorry!"],
+                                 "This infopack is not loaded",
+                                 [".", "!"])
+                return 0
+            try:
+                pattern = re.compile(regexp, re.I)
+            except re.error:
+                msg.answer("%:", "Invalid pattern", [".", "!"])
+                return 0
+            results = pack.search(pattern)
+            reslen = len(results)
+            if not results:
+                msg.answer("%:", ["Pattern not found",
+                                  "Couldn't find anything with that pattern",
+                                  "Nothing found"], [".", "!"])
+            elif reslen > MAXSEARCHRESULTS:
+                msg.answer("%:", ["Found too many entries",
+                                  "There are many entries like this",
+                                  "There are many matches"],
+                                  ", here are the first %d:"%MAXSEARCHRESULTS)
+            elif reslen > 1:
+                msg.answer("%:", ["Found %d entries:" % reslen,
+                                  "Found %d matches:" % reslen])
+            else:
+                msg.answer("%:", ["Found one entry:",
+                                  "Found one match:"])
+            n = 0
+            for result in results:
+                msg.answer("-", result)
+                n += 1
+                if n == MAXSEARCHRESULTS:
+                    break
+            return 0
+
+        allowed = mm.permparams(msg, "infopack")
+
         found = 0
-        for pack in self.packs.values():
+        for name, pack in self.packs.items():
+            if name not in allowed:
+                continue
             info = pack.get(msg.line)
             if info:
                 found = 1

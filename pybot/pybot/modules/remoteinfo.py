@@ -89,8 +89,16 @@ class Info:
 
 class RemoteInfo:
     def __init__(self):
-        db.table("remoteinfo", "url,regex,interval")
-        db.table("remoteinfoallow", "url,servername,target")
+        db.table("remoteinfo", "id integer primary key, url, regex, interval",
+                 constraints="unique (url)",
+                 triggers=[
+                   "create trigger remoteinfo1 after delete on remoteinfo "
+                   "begin"
+                   " delete from remoteinfoallow where infoid=old.id;"
+                   "end"
+                 ])
+        db.table("remoteinfoallow", "infoid, servername, target",
+                 constraints="unique (infoid, servername, target)")
         self.info = options.get("RemoteInfo.info", {})
         self.info_lock = options.get("RemoteInfo.info_lock", {})
         self.lock = thread.allocate_lock()
@@ -211,12 +219,15 @@ class RemoteInfo:
 
     def get_allowed_urls(self, servername, target):
         cursor = db.cursor()
-        cursor.execute("select * from remoteinfoallow")
+        cursor.execute("select remoteinfo.url,remoteinfoallow.* "
+                       "from remoteinfoallow left join remoteinfo "
+                       "on remoteinfo.id=remoteinfoallow.infoid")
+        # [0] url, [1] infoid, [2] servername, [3] target
         allowed = {}
         for row in cursor.fetchall():
-            if (not row.servername or row.servername == servername) and \
-               (not row.target or row.target == target):
-                allowed[row.url] = 1
+            if (not row[2] or row[2] == servername) and \
+               (not row[3] or row[3] == target):
+                allowed[row[0]] = 1
         return allowed.keys()
     
     def message_remoteinfo(self, msg):
@@ -295,18 +306,17 @@ class RemoteInfo:
                     return 0
 
                 cursor = db.cursor()
-                cursor.execute("select * from remoteinfo where url=%s",
-                               (url,))
-                if cursor.rowcount:
+                try:
+                    cursor.execute("insert into remoteinfo values "
+                                   "(NULL,%s,%s,%s)",
+                                   (url, regex, interval))
+                except db.error:
                     msg.answer("%:", ["I can't do that.", "Nope.", None],
                                      ["I'm already loading that url",
                                       "Can't insert repeated urls",
                                       "This url is already in my database"],
                                      [".", "!"])
                 else:
-                    cursor.execute("insert into remoteinfo values "
-                                   "(%s,%s,%s)",
-                                   (url, regex, interval))
                     msg.answer("%:", ["Loading",
                                       "No problems",
                                       "Starting right now",
@@ -350,8 +360,6 @@ class RemoteInfo:
                         self.unlock_url(url)
                         cursor.execute("delete from remoteinfo where url=%s",
                                        (url,))
-                        cursor.execute("delete from remoteinfoallow where "
-                                       "url=%s", (url,))
                         msg.answer("%:", ["Done", "Of course", "Ready"],
                                          [".", "!"])
                 else:
@@ -392,33 +400,32 @@ class RemoteInfo:
                                       "This url is not in my database"],
                                      [".", "!"])
                     return 0
-                cursor.execute("select * from remoteinfoallow where url=%s "
-                               "and servername=%s and target=%s",
-                               (url, server, target))
-                if cursor.rowcount:
-                    if m.group("dont"):
-                        cursor.execute("delete from remoteinfoallow where "
-                                       "url=%s and servername=%s and target=%s",
-                                       (url, server, target))
+                if m.group("dont"):
+                    cursor.execute("delete from remoteinfoallow where "
+                            "infoid=(select id from remoteinfo where url=%s) "
+                            "and servername=%s and target=%s",
+                            (url, server, target))
+                    if cursor.rowcount:
                         msg.answer("%:", ["Sure", "Done", "Removed", "Ok"],
                                          [".", "!"])
                     else:
-                        msg.answer("%:", ["I can't do that.", "Nope.", None],
-                                         ["This target is already allowed",
-                                          "I'm already allowing this target",
-                                          "This target is already in my database"],
-                                         [".", "!"])
-                else:
-                    if m.group("dont"):
                         msg.answer("%:", ["I can't do that.", "Nope.", None],
                                          ["This target doesn't exist",
                                           "I'm not allowing this target",
                                           "This target is not in my database"],
                                          [".", "!"])
-                    else:
+                else:
+                    try:
                         cursor.execute("insert into remoteinfoallow values "
-                                       "(%s,%s,%s)",
-                                       (url, server, target))
+                               "((select id from remoteinfo where url=%s),"
+                               " %s,%s)", (url, server, target))
+                    except db.error:
+                        msg.answer("%:", ["I can't do that.", "Nope.", None],
+                                         ["This target is already allowed",
+                                          "I'm already allowing this target",
+                                          "This target is already in my database"],
+                                         [".", "!"])
+                    else:
                         msg.answer("%:", ["Sure", "Done", "Added", "Ok"],
                                          [".", "!"])
             else:
@@ -451,7 +458,7 @@ class RemoteInfo:
                         if interval > 1:
                             unit += "s"
                         cursor.execute("select * from remoteinfoallow where "
-                                       "url=%s", (row.url,))
+                                       "infoid=%s", (row.id,))
                         if cursor.rowcount:
                             allowed = "(for "
                             first = 1
@@ -473,8 +480,11 @@ class RemoteInfo:
                                 allowed += ")"
                         else:
                             allowed = "(for nobody)"
+                        regex = row.regex
+                        if regex and regex[0] == "\\":
+                            regex = "\\"+regex
                         msg.answer("-", row.url, "each", str(interval), unit,
-                                   "with regex", row.regex, allowed)
+                                   "with regex", regex, allowed)
                 else:
                     msg.answer("%:", "No remote info urls are currently "
                                      "being loaded", [".", "!"])

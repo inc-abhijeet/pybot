@@ -92,18 +92,23 @@ class Log:
         file.close()
         return logmsg
 
-    def search(self, regexp, max):
+    def search(self, regexp, max, searchline):
         p = re.compile(regexp, re.I)
         file = open(self.__logname)
         l = []
         for line in file.xreadlines():
+            line = line[:-1]
             stime, servername, type, src, dest, line = line.split(" ", 5)
             if src == "-" or dest == "-":
                 continue
             if p.search(line):
                 l.append(LogMsg(int(stime), servername, type, src, dest, line))
-            if len(l) > max:
+            if len(l) > max+1:
                 l.pop(0)
+        if l and l[-1].line == searchline:
+            l.pop()
+        elif len(l) > max:
+            l.pop(0)
         file.close()
         return l
 
@@ -112,16 +117,16 @@ class LogModule:
         self.log = Log()
         
         hooks.register("Message", self.message)
-        hooks.register("Message", self.log_message, 90)
-        hooks.register("CTCP", self.log_ctcp, 90)
-        hooks.register("OutMessage", self.log_outmessage, 90)
-        hooks.register("OutCTCP", self.log_outctcp, 90)
+        hooks.register("Message", self.log_message, 95)
+        hooks.register("CTCP", self.log_ctcp, 95)
+        hooks.register("OutMessage", self.log_outmessage, 95)
+        hooks.register("OutCTCP", self.log_outctcp, 95)
 
         # Match '[have you] seen <nick> [!?]'
         self.re1 = re.compile(r"(?:have\s+you\s+)?seen\s+(?P<nick>[^\s!?]+)\s*[!?]*$", re.I)
 
         # Match '[show] (log[s]|message[s]) [with] /<regexp>/[.!]'
-        self.re2 = re.compile("(?:show\s+)?(?:log|message)s?\s+(?:with\s+)?/(?P<regexp>.*)/\s*[.!?]*", re.I)
+        self.re2 = re.compile("(?:show\s+|search\s+)?(?:log|message)s?\s+(?:with\s+|search\s+)?/(?P<regexp>.*)/\s*[.!?]*$", re.I)
 
         # Match 'seen'
         mm.register_help(0, "seen", HELP_SEEN)
@@ -131,10 +136,10 @@ class LogModule:
         
     def unload(self):
         hooks.unregister("Message", self.message)
-        hooks.unregister("Message", self.log_message, 90)
-        hooks.unregister("CTCP", self.log_ctcp, 90)
-        hooks.unregister("OutMessage", self.log_outmessage, 90)
-        hooks.unregister("OutCTCP", self.log_outctcp, 90)
+        hooks.unregister("Message", self.log_message, 95)
+        hooks.unregister("CTCP", self.log_ctcp, 95)
+        hooks.unregister("OutMessage", self.log_outmessage, 95)
+        hooks.unregister("OutCTCP", self.log_outctcp, 95)
 
         mm.unregister_help(0, HELP_SEEN)
         mm.unregister_help(0, HELP_SEARCH)
@@ -155,7 +160,8 @@ class LogModule:
             if m:
                 if mm.hasperm(1, msg.server.servername, msg.target, msg.user, "logsearch"):
                     max = 5
-                    logmsgs = self.log.search(m.group("regexp"), max)
+                    logmsgs = self.log.search(m.group("regexp"), max,
+                                              msg.rawline)
                     if logmsgs:
                         llen = len(logmsgs)
                         if llen == 1:

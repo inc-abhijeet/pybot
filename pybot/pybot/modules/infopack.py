@@ -53,7 +53,7 @@ class Infopack:
                     value[1] = value[1].rstrip()
                     values.append(value)
                 elif line[0] == "T":
-                    pattern = re.compile(line[2:].rstrip())
+                    pattern = re.compile(line[2:].rstrip(), re.I)
                     self.__triggers.append(pattern)
                 elif line[0] == "M":
                     self.__masks.append(line[2:].rstrip())
@@ -72,7 +72,7 @@ class Infopack:
         for line in file.xreadlines():
             if line and line[0] != "#":
                 if line[0] == "T":
-                    pattern = re.compile(line[2:].rstrip())
+                    pattern = re.compile(line[2:].rstrip(), re.I)
                     self.__triggers.append(pattern)
                 elif line[0] == "M":
                     self.__masks.append(line[2:].rstrip())

@@ -33,7 +33,7 @@ class Social:
         self.re2 = re.compile(r'(?P<nick>\w+)\s*!+$', re.I)
         
         # Match '[thank[']s|thank you|thx|tnk[']s] [!|.]'
-        self.re3 = re.compile(r'(?:thank|thx|tnk)(?:\'?s|\s+you)(?:\s+(?P<nick>\w+))\s*[!.]*', re.I)
+        self.re3 = re.compile(r'(?:thank|thx|tnk)(?:\'?s|\s+you)(?:\s+(?P<nick>\w+))?\s*[!.]*', re.I)
         
         # Match 'are you ok?|how are you [doing]?'
         self.re4 = re.compile(r'(?:are\s+you\s+ok|how\s+are\s+you(?:\s+doing)?)\s*[!?]*$', re.I)
@@ -76,7 +76,7 @@ class Social:
 
         m = self.re3.match(msg.line)
         if m and (msg.forme or m.group("nick") == usernick):
-            msg.answer("%:", ["No problems", "You're welcome", "I'm glad to help you", "I'm here for things like this..."], ["!", "."])
+            msg.answer("%:", ["No problems", "You're welcome", "I'm glad to help you", "I'm here for things like this", "Not at all"], ["!", "."])
             return 0
         
         if msg.forme:

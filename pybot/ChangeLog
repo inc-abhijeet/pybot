@@ -4,6 +4,8 @@
 	* modules/{remoteinfo.py,infopack.py}: Adapted to
 	  work with premission parameters.
 	* modules/infopack.py: Implemented infopack searching.
+	* data/infopacks/rfc.info,contrib/rfcindex2info.py:
+	  Created infopack with an RFC index.
 
 2003-08-26 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* pybot/misc.py: Introduced striphtml().

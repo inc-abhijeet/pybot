@@ -60,7 +60,7 @@ class Messages:
         mm.unregister_help(HELP)
         mm.unregister_perm("messages")
 
-    def checkmsgs(self, server, target, user, asked):
+    def checkmsgs(self, server, target, user, asked=0):
         # XXX: Must check if user is registered and logged!
         nick = STRIPNICK.sub(r"\1", user.nick.lower())
         cursor = db.cursor()

@@ -29,7 +29,7 @@ class Pong:
         
     def pong(self, cmd):
         if cmd.cmd == "PING":
-            cmd.server.sendcmd("", "PONG", cmd.params, priority=10)
+            cmd.server.sendcmd("", "PONG", cmd.line, priority=10)
     
     def ping(self):
         for server in servers.getall():

@@ -70,6 +70,8 @@ class Command:
                     self.answertarget = self.target
                 self.answered = 0
         else:
+            self.prefix = ""
+            self.cmd = ""
             self.target = ""
             self.answertarget = ""
             self.forme = 0

@@ -210,35 +210,36 @@ class ServerControl:
             self.send_join(server, row.channel, row.keyword)
     
     def command(self, cmd):
+        params = cmd.line.split()
         if cmd.cmd == "001":
             cmd.server.sendcmd("", "WHOIS", cmd.server.user.nick, priority=10)
-        elif cmd.cmd == "311" and cmd.server.user.nick == cmd.params[1]:
-            cmd.server.user.set(cmd.params[1], cmd.params[2], cmd.params[3])
+        elif cmd.cmd == "311" and cmd.server.user.nick == params[1]:
+            cmd.server.user.set(params[1], params[2], params[3])
             hooks.call("Registered", cmd.server)
         elif cmd.cmd == "JOIN":
             if cmd.prefix == cmd.server.user.string:
-                hooks.call("Joined", cmd.server, cmd.params[0][1:])
+                hooks.call("Joined", cmd.server, params[0][1:])
             else:
                 user = User()
                 user.setstring(cmd.prefix)
-                hooks.call("UserJoined", cmd.server, cmd.params[0][1:], user)
+                hooks.call("UserJoined", cmd.server, params[0][1:], user)
         elif cmd.cmd == "PART":
             if cmd.prefix == cmd.server.user.string:
-                hooks.call("Parted", cmd.server, cmd.params[0])
+                hooks.call("Parted", cmd.server, params[0])
             else:
                 user = User()
                 user.setstring(cmd.prefix)
-                if len(cmd.params) > 1:
-                    reason = join([cmd.params[1][1:]]+cmd.params[2:])
+                if len(params) > 1:
+                    reason = join([params[1][1:]]+params[2:])
                 else:
                     reason = None
                 hooks.call("UserParted",
-                           cmd.server, cmd.params[0], user, reason)
+                           cmd.server, params[0], user, reason)
         elif cmd.cmd == "QUIT":
             user = User()
             user.setstring(cmd.prefix)
-            if len(cmd.params) > 0:
-                reason = join([cmd.params[0][1:]]+cmd.params[2:])
+            if len(params) > 0:
+                reason = join([params[0][1:]]+params[2:])
             else:
                 reason = None
             hooks.call("UserQuitted", cmd.server, user, reason)

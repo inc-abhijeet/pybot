@@ -3,7 +3,8 @@
 # This file has been generated using infobot's database. You may find more
 # information about infobot at http://www.infobot.org.
 #
-H:This infopack provides a database of airport locations around the world. You can ask for an airport location using "airport <code>".
+h:airports:airports?
+H:The airport infopack provides a database of airport locations around the world. You can ask for an airport location using "airport <code>".
 T:(?:what|where)(?:'s|\s+is)\s+(?:the\s+)?airport\s+(?:code\s+)?([a-z]{3})\s*(?:!*\?[!?]*)?$
 T:airport\s+([a-zA-Z]{3})\s*(?:!*\?[!?]*)?$
 M:That's the airport code for %s.

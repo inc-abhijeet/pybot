@@ -64,14 +64,15 @@ class Help:
                     for pattern, text, triggers in self.data:
                         match = pattern.match(something)
                         if match:
-                            found = 1
                             if callable(text):
-                                text(msg, match)
+                                found |= text(msg, match)
                             elif type(text) in (ListType, TupleType):
+                                found = 1
                                 for line in text:
                                     line = line.replace("\n", " ").strip()
                                     msg.answer("%:", line)
                             else:
+                                found = 1
                                 text = text.replace("\n", " ").strip()
                                 msg.answer("%:", text)
                 else:
@@ -79,7 +80,10 @@ class Help:
                     msg.answer("%:", HELP.replace("\n", " ").strip())
                     alltriggers = []
                     for pattern, text, triggers in self.data:
-                        alltriggers.extend(triggers)
+                        if len(triggers) == 1 and callable(triggers[0]):
+                            alltriggers.extend(triggers[0]())
+                        else:
+                            alltriggers.extend(triggers)
                     if alltriggers:
                         alltriggers.sort()
                         s = "At least the following help topics are known: "
@@ -103,6 +107,7 @@ class Help:
         pattern = pattern.replace(" *", r"\s*")
         pattern = pattern.replace(" ?", r"\s*")
         pattern = pattern.replace(" ", r"\s+")
+        pattern = pattern+"\s*$"
         self.data.append((re.compile(pattern, re.I), text, triggers))
 
     def mm_unregister_help(self, text):

@@ -3,7 +3,8 @@
 # This file has been generated using infobot's database. You may find more
 # information about infobot at http://www.infobot.org.
 #
-H:This infopack provides a database of port numbers. You can check what service is usually provided in a port number using "port <num>".
+h:port numbers:ports?\s+numbers?
+H:The ports infopack provides a database of port numbers. You can check what service is usually provided in a port number using "port <num>".
 T:what(?:'s|\s+is)\s+(?:the\s+)?port\s+(?:number\s+)?([0-9]+)(?:\s+for)\s*(?:!*\?[!?]*)?$
 T:port\s+(\d+)[!?.]*$
 M:This port is for %s.

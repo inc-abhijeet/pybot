@@ -48,19 +48,31 @@ class Info:
 class Infopack:
     def __init__(self, filename):
         self._filename = filename
+        self.reset()
+
+    def reset(self):
         self._info = {}
         self._triggers = []
         self._masks = []
         self._defaults = []
-        self._help = []
+        self._help_patterns = []
+        self._help_triggers = []
+        self._help_text = []
 
-    def help(self):
-        return self._help
- 
+    def help_match(self, line):
+        for pattern in self._help_patterns:
+            if pattern.match(line):
+                return 1
+        return 0
+
+    def help_triggers(self):
+        return self._help_triggers
+
+    def help_text(self):
+        return self._help_text
+
     def load(self):
-        self._info = {}
-        self._triggers = []
-        self._masks = []
+        self.reset()
         values = []
         file = open(self._filename)
         for line in file.xreadlines():
@@ -79,7 +91,13 @@ class Infopack:
                 elif line[0] == "M":
                     self._masks.append(line[2:].rstrip())
                 elif line[0] == "H":
-                    self._help.append(line[2:].rstrip())
+                    self._help_text.append(line[2:].rstrip())
+                elif line[0] == "h":
+                    tokens = line[2:].rstrip().split(":", 1)
+                    if tokens[0]:
+                        self._help_triggers.append(tokens[1])
+                    if tokens[1]:
+                        self._help_patterns.append(re.compile(tokens[0]))
                 elif line[0] == "D":
                     value = line[2:].split(":", 1)
                     value[1] = value[1].rstrip()
@@ -87,9 +105,7 @@ class Infopack:
         file.close()
     
     def loadcore(self):
-        self._info = {}
-        self._triggers = []
-        self._masks = []
+        self.reset()
         values = []
         file = open(self._filename)
         for line in file.xreadlines():
@@ -100,7 +116,13 @@ class Infopack:
                 elif line[0] == "M":
                     self._masks.append(line[2:].rstrip())
                 elif line[0] == "H":
-                    self._help.append(line[2:].rstrip())
+                    self._help_text.append(line[2:].rstrip())
+                elif line[0] == "h":
+                    tokens = line[2:].rstrip().split(":", 1)
+                    if tokens[0]:
+                        self._help_triggers.append(tokens[0])
+                    if tokens[1]:
+                        self._help_patterns.append(re.compile(tokens[1]))
                 elif line[0] == "D":
                     value = line[2:].split(":", 1)
                     value[1] = value[1].rstrip()
@@ -110,9 +132,7 @@ class Infopack:
         file.close()
     
     def unload(self):
-        self._info = {}
-        self._triggers = []
-        self._phrases = []
+        self.reset()
     
     def reload(self):
         hasinfo = self._info != {}
@@ -203,7 +223,11 @@ class InfopackModule:
         mm.register_help("infopacks?", HELP, "infopack")
 
         # infopack <name>
-        mm.register_help("infopack (?P<name>\S+)", self.help)
+        mm.register_help("infopack (?P<name>\S+)", self.help_infopack)
+
+        # .+
+        mm.register_help("(?P<something>.+)", self.help_match,
+                                              self.help_triggers)
 
         mm.register_perm("infopackadmin", PERM_INFOPACKADMIN)
     
@@ -213,15 +237,32 @@ class InfopackModule:
         mm.unregister_help(self.help)
         mm.unregister_perm("infopackadmin")
 
-    def help(self, msg, match):
+    def help_infopack(self, msg, match):
         name = match.group("name")
         try:
-            help = self.packs[name].help()
+            help = self.packs[name].help_text()
         except KeyError:
             msg.answer("%:", "There's no infopack with that name.")
         else:
             for line in help:
                 msg.answer("%:", line)
+        return 1
+
+    def help_match(self, msg, match):
+        something = match.group("something")
+        found = 0
+        for pack in self.packs.values():
+            if pack.help_match(something):
+                found = 1
+                for line in pack.help_text():
+                    msg.answer("%:", line)
+        return found
+
+    def help_triggers(self):
+        alltriggers = []
+        for pack in self.packs.values():
+            alltriggers.extend(pack.help_triggers())
+        return alltriggers
  
     def message(self, msg):
         if not msg.forme:

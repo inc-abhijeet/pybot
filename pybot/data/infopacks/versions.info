@@ -1,7 +1,8 @@
 # Infopack for pybot providing information about versions of packages
 # released in Conectiva Linux.
 #
-H:This infopack provides information about which package versions were released in past versions of Conectiva Linux. You can check a given package with "[show] versions [of] <packagename>".
+h:versions:(?:package\s+)?versions?
+H:The versions infopack provides information about which package versions were released in past versions of Conectiva Linux. You can check a given package with "[show] versions [of] <packagename>".
 T:(?:show\s+)?versions\s+(?:of\s+)?(\S+)
 D:t:No information about that package.
 D:t:I have never seen that package.

@@ -6,6 +6,13 @@
 #
 # ftp://ftp.gnu.org/gnu/vera
 #
+H:This infopack provides the VERA database of acronyms. You can check for a given a acronym using "acronym <acronym>".
+T:acronym\s+(\w+)\s*\?*$
+D:t:No acronym for that.
+D:t:I don't know this acronym.
+D:t:Sorry, I haven't found this acronym.
+M:That's the acronym for %s.
+M:This acronym is for %s.
 K:100vg
 V:tm:100 Voice Grade [technology]
 K:2s2d

@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import hooks, mm, options
+from pybot.locals import *
 from types import ListType, TupleType
 import re
 
@@ -39,7 +39,7 @@ class Help:
         hooks.register("Message", self.message)
         
         # [show] help [about] <keyword>
-        self.re1 = re.compile(r"(?:show\s+)?help(?:\s+about)?(?:\s+(?P<something>.+?))?\s*[.!]*$", re.I)
+        self.re1 = regexp(r"(?:show )?help(?: about)?(?: (?P<something>.+?))?")
 
         self.mm_register_perm("help", PERM_HELP)
         
@@ -100,6 +100,9 @@ class Help:
             triggers = []
         elif type(triggers) is not ListType:
             triggers = [triggers]
+        pattern = pattern.replace(" *", r"\s*")
+        pattern = pattern.replace(" ?", r"\s*")
+        pattern = pattern.replace(" ", r"\s+")
         self.data.append((re.compile(pattern, re.I), text, triggers))
 
     def mm_unregister_help(self, text):

@@ -19,6 +19,7 @@
 from types import StringType, TupleType, ListType, InstanceType
 from random import randint
 from string import rfind
+import re
 
 __all__ = ["buildanswer", "breakline"]
 
@@ -39,37 +40,39 @@ def buildanswer(pattern, target=None, nick=None):
             elif tmptok != None:
                 recret = buildanswer(tmptok, target, nick)
                 ret.append(recret)
-        elif tok[0] == ":":
-            tok = tok[1:]
-            if tok[0] == "%":
-                if nick != target:
+        elif tok:
+            tok = str(tok)
+            if tok[0] == ":":
+                tok = tok[1:]
+                if tok[0] == "%":
+                    if nick != target:
+                        ret.append(":"+nick+tok[1:])
+                elif tok[0] == "/":
                     ret.append(":"+nick+tok[1:])
-            elif tok[0] == "/":
-                ret.append(":"+nick+tok[1:])
-            elif tok[0] == "\\":
-                ret.append(":"+tok[1:])
-            elif tok != None:
-                ret.append(":"+tok)
-        else:
-            if tok[0] == "%":
-                if nick != target:
+                elif tok[0] == "\\":
+                    ret.append(":"+tok[1:])
+                else:
+                    ret.append(":"+tok)
+            else:
+                if tok[0] == "%":
+                    if nick != target:
+                        ret.append(nick+tok[1:])
+                elif tok[0] == "/":
                     ret.append(nick+tok[1:])
-            elif tok[0] == "/":
-                ret.append(nick+tok[1:])
-            elif tok[0] == "\\":
-                ret.append(tok[1:])
-            elif tok != None:
-                ret.append(tok)
+                elif tok[0] == "\\":
+                    ret.append(tok[1:])
+                else:
+                    ret.append(tok)
     if ret:
-        str = ret[0]
+        s = ret[0]
         for tok in ret[1:]:
             if tok[0] in [".","!","?",","]:
-                str = str+tok
+                s += tok
             else:
-                str = str+" "+tok
+                s += " "+tok
     else:
-        str = ""
-    return str
+        s = ""
+    return s
 
 def breakline(line):
     lenline = len(line)
@@ -86,5 +89,24 @@ def breakline(line):
         sublines.append(line[startpos:endpos])
         startpos = endpos
         endpos = startpos+MAXLINESIZE
+
+def regexp(*args, **kwargs):
+    expr = "".join([str(x) for x in args])
+    expr = expr.replace(" *", r"\s*")
+    expr = expr.replace(" ?", r"\s*")
+    expr = expr.replace(" ", r"\s+")
+    if kwargs.get("needpunct"):
+        if kwargs.get("question"):
+            expr += "[!\s]*\?[!?\s*]*$"
+        else:
+            expr += "\s*[.!][.!\s]*$"
+    else:
+        if kwargs.get("question"):
+            expr += "[!?.\s]*$"
+        elif not kwargs.get("nopunct"):
+            expr += "[!.\s]*$"
+        else:
+            expr += "\s*$"
+    return re.compile(expr, re.I)
 
 # vim:ts=4:sw=4:et

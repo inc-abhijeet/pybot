@@ -16,12 +16,11 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import hooks, mm, rm, servers, db
+from pybot.locals import *
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from types import StringType
 import xmlrpclib
 import traceback
-import re
 
 HELP = """
 The xmlrpc service is based on method names and permissions. If you
@@ -79,13 +78,13 @@ class XmlRpc:
         hooks.register("Loop", self.loop)
 
         # (add|create) xmlrpc user <user> with [pass|password] <passwd> [!.]
-        self.re1 = re.compile(r"(?:add|create)\s+xmlrpc\s+user\s+(?P<user>\S+)\s+with\s+(?:password|pass)\s+(?P<passwd>\S+)\s*[.!]*$")
+        self.re1 = regexp(r"(?:add|create) xmlrpc user (?P<user>\S+) with (?:password|pass) (?P<passwd>\S+)")
 
         # (del|delete|remove) xmlrpc user <user>
-        self.re2 = re.compile(r"(?:del|delete|remove)\s+xmlrpc\s+user\s+(?P<user>\S+)\s*[.!]*$")
+        self.re2 = regexp(r"(?:del|delete|remove) xmlrpc user (?P<user>\S+)")
 
         # [don[']t|do not] allow xmlrpc (func[tion]|method) <method> [(to|for) user <user>] [(to|for|on|at) [user|channel] <target>] [[and] [on|at] server <server>]
-        self.re3 = re.compile(r"(?P<dont>don'?t\s+|do not\s+)?allow\s+xmlrpc\s+(?:func(?:tion)?|method)\s+(?P<method>\S+)(?:\s+(?:to\s+|for\s+)user\s+(?P<user>\S+))?(?:\s+(?:to|for|on|at)\s+(?:user\s+|channel\s+)?(?P<target>\S+))?(?:\s+(?:and\s+)?(?:on\s+|at\s+)?server\s+(?P<server>\S+))?\s*[.!]*$")
+        self.re3 = regexp(r"(?P<dont>don'?t |do not )?allow xmlrpc (?:func(?:tion)?|method) (?P<method>\S+)(?: (?:to |for )user (?P<user>\S+))?(?: (?:to|for|on|at) (?:user |channel )?(?P<target>\S+))?(?: (?:and )?(?:on |at )?server (?P<server>\S+))?")
     
         # xmlrpc
         mm.register_help("xmlrpc", HELP, "xmlrpc")

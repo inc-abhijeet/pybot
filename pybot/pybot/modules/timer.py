@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options
+from pybot.locals import *
 from time import time
 from thread import start_new_thread
 

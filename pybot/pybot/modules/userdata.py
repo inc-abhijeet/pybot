@@ -16,9 +16,8 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options, config, db
+from pybot.locals import *
 import time
-import re
 
 HELP_REGISTER = """
 You may register yourself with "register [nick] <password>". After that,
@@ -83,16 +82,16 @@ class UserData:
         self.last_cleanup = 0
 
         # ([un]register|ident[ify]) [with] [[nick] <nick> [and]] [password] <passwd>
-        self.re1 = re.compile(r"(?P<cmd>(?:un)?register|ident(?:ify)?)\s+(?:with\s+)?(?:(?:nick\s+)?(?P<nick>\S+)\s+(?:and\s+)?)?(?:password\s+)?(?P<passwd>\S+)\s*[!.]?$", re.I)
+        self.re1 = regexp(r"(?P<cmd>(?:un)?register|ident(?:ify)?) (?:with )?(?:(?:nick )?(?P<nick>\S+) (?:and )?)?(?:password )?(?P<passwd>\S+)")
 
         # (set|add) <type> <value>
-        self.re2 = re.compile(r"(?P<cmd>set|add)\s+(?P<type>\S+)\s+(?P<value>.+?)\s*$", re.I)
+        self.re2 = regexp(r"(?P<cmd>set|add) (?P<type>\S+) (?P<value>.+?)")
     
         # unset <type>|remove <type> <value>
-        self.re3 = re.compile(r"unset\s+(?P<type1>\S+)\s*|remove\s+(?P<type2>\S+)\s+(?P<value>.+?)\s*$", re.I)
+        self.re3 = regexp(r"unset (?P<type1>\S+) *|remove (?P<type2>\S+) (?P<value>.+?)")
 
         # unident[ify]|forget me
-        self.re4 = re.compile(r"unident(?:ify)?|forget\s+me", re.I)
+        self.re4 = regexp(r"unident(?:ify)?|forget me")
     
         # [un]register|identify
         mm.register_help("(?:un)?register|ident(?:ify)?", HELP_REGISTER,

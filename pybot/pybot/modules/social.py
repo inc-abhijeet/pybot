@@ -16,9 +16,8 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import hooks
+from pybot.locals import *
 from time import time
-import re
 
 class Social:
     def __init__(self):
@@ -27,31 +26,31 @@ class Social:
         hooks.register("UnhandledMessage", self.unhandled_message)
 
         # (re|hi|hello|hallo|olá|ola|hola|wb|welcome|good (morning|afternoon|evening)|bom dia|boa tarde|gutten tag) [there|back|everybody|all|guys|folks|people|pessoal|(a|para) todos|pybot] [!|.]
-        self.re1 = re.compile(r'(?:re|hi|hello|hallo|olá|ola|hola|wb|welcome\s+back|good\s+(?:morning|afternoon|evening)|bom\s+dia|boa\s+tarde|gutten\s+tag)(?:\s+(?:there|everybody|all|guys|folks|people|pessoal|(à|a|para)\s+todos|(?P<nick>\w+)))?\s*[!.]*$', re.I)
+        self.re1 = regexp(r'(?:re|hi|hello|hallo|olá|ola|hola|wb|welcome back|good (?:morning|afternoon|evening)|bom dia|boa tarde|gutten tag)(?: (?:there|everybody|all|guys|folks|people|pessoal|(à|a|para) todos|(?P<nick>\w+)))?')
         
         # pybot!
-        self.re2 = re.compile(r'(?P<nick>\w+)\s*!+$', re.I)
+        self.re2 = regexp(r'(?P<nick>\w+)', needpunct=1)
         
-        # [thank[']s|thank you|thx|tnk[']s] [!|.]
-        self.re3 = re.compile(r'(?:thank|thx|tnk)(?:\'?s|\s+you)(?:\s+(?P<nick>\w+))?\s*[!.]*', re.I)
+        # [thank[']s|thank you|thx|tnk[']s]
+        self.re3 = regexp(r'(?:thank|thx|tnk)(?:\'?s| you)(?: (?P<nick>\w+))?')
         
         # are you ok?|how are you [doing]?
-        self.re4 = re.compile(r'(?:are\s+you\s+ok|how\s+are\s+you(?:\s+doing)?)\s*[!?]*$', re.I)
+        self.re4 = regexp(r'(?:are you ok|how are you(?: doing)?)', question=1)
         
-        # pybot?
-        self.re5 = re.compile(r'!*\?[?!]*$', re.I)
+        # pybot[?]
+        self.re5 = regexp(r'', question=1)
     
-        # never mind [!|.]
-        self.re6 = re.compile(r'never\s+mind\s*[!.]*$', re.I)
+        # never mind
+        self.re6 = regexp(r'never mind')
 
-        # [very|pretty] (nice|good|great) [.|!]
-        self.re7 = re.compile(r'(?:(?:very|pretty)\s+)?(?:nice|good|great)\s*[.!]*$', re.I)
+        # [very|pretty] (nice|good|great)
+        self.re7 = regexp(r'(?:(?:very|pretty) )?(?:nice|good|great)')
         
         # (gay|stupid|fuck|idiot|imbecile|cretin)
-        self.re8 = re.compile(r'.*(?:gay|stupid|fuck|idiot|imbecile|cretin)', re.I)
+        self.re8 = regexp(r'.*(?:gay|stupid|fuck|idiot|imbecile|cretin).*')
         
         # h[e|u|a]h
-        self.re9 = re.compile(r'h[eua]h', re.I)
+        self.re9 = regexp(r'h[eua]h')
         
     def unload(self):
         hooks.unregister("Message", self.message)
@@ -111,7 +110,7 @@ class Social:
                 return 0
             
             if self.re9.match(msg.line):
-                msg.answer("%:", ["Heh", "Huh"], ["?", "!?", "!?!?", ".."])
+                msg.answer("%:", ["Heh", "Huh"], ["?", "!?", "!?!?"])
                 return 0
     
     def unhandled_message(self, msg):

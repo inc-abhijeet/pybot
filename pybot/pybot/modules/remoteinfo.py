@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import config, options, hooks, mm, db
+from pybot.locals import *
 import thread, time
 import urllib
 import re
@@ -99,20 +99,20 @@ class RemoteInfo:
         hooks.register("CTCP", self.message_remoteinfo, priority=1000)
 
         # load remote[ ]info [from] <url> [each <n>[ ](s[econds]|m[inutes]|h[ours])] [[with|using] regex <regex>]
-        self.re1 = re.compile(r"load\s+remote\s*info\s+(?:from\s+)?(?P<url>\S+)(?:\s+each\s+(?P<interval>[0-9]+)\s*(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?:\s+(?:with\s+|using\s+)?regex\s+(?P<regex>.*))?\s*$", re.I)
+        self.re1 = regexp(r"load remote *info (?:from )?(?P<url>\S+)(?: each (?P<interval>[0-9]+) *(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?: (?:with |using )?regex (?P<regex>.*))?")
 
         # (un|re)load remote[ ]info [from] <url>
-        self.re2 = re.compile(r"(?P<cmd>un|re)load\s+remote\s*info\s+(?:from\s+)?(?P<url>\S+)\s*$", re.I)
+        self.re2 = regexp(r"(?P<cmd>un|re)load remote *info (?:from )?(?P<url>\S+)")
 
         # [(don[']t|do not)] allow remote[ ]info [from] <url> [(to|for|on|at|in) (user|channel) <target>] [(to|for|on|at|in) server <server>]
-        self.re3 = re.compile(r"(?P<dont>don'?t\s+|do not\s+)?allow\s+remote\s*info\s+(?:from\s+)?(?P<url>\S+)(?:\s+(?:to|for|on|at|in)\s+(?:user|channel)\s+(?P<target>\S+))?(?:\s+(?:to|for|on|at|in)\s+server\s+(?P<server>\S+))?\s*$", re.I)
+        self.re3 = regexp(r"(?P<dont>don'?t |do not )?allow remote *info (?:from )?(?P<url>\S+)(?: (?:to|for|on|at|in) (?:user|channel) (?P<target>\S+))?(?: (?:to|for|on|at|in) server (?P<server>\S+))?")
 
         # show remote[ ]info[s]
-        self.re4 = re.compile(r"show\s+remote\s*infos?$", re.I)
+        self.re4 = regexp(r"show remote *infos?")
 
         # remote[ ]info
-        mm.register_help("remote\s*info?$", HELP, "remoteinfo")
-        mm.register_help("remote\s*infos?\s*syntax$", HELP_SYNTAX,
+        mm.register_help("remote *info?$", HELP, "remoteinfo")
+        mm.register_help("remote *infos? *syntax$", HELP_SYNTAX,
                          "remoteinfo syntax")
 
         mm.register_perm("remoteinfo", PERM_REMOTEINFO)

@@ -16,9 +16,8 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import hooks, main, mm
+from pybot.locals import *
 import math
-import re
 
 HELP = """
 The "eval <expr>" command allows you to evaluate expressions
@@ -67,8 +66,8 @@ class Eval:
         self.dict["filter"] = filter
         self.dict["coerce"] = coerce
 
-        # Match 'eval <expr>[!|.]'
-        self.re1 = re.compile(r"eval\s+(?P<expr>.*?)[!.]*$")
+        # Match 'eval <expr>'
+        self.re1 = regexp(r"eval (?P<expr>.*?)")
 
         # eval[uate|uation]
         mm.register_help("eval(?:uate|uation)?", HELP, "eval")

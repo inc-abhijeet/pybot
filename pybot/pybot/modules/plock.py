@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, config, db
+from pybot.locals import *
 import time
 import sys
 import os
@@ -69,23 +69,23 @@ class PLock:
         self.pdir = config.get("plock", "dirpath")
         hooks.register("Message", self.message)
         
-        # [force] plock <package> [,<package>] [!|.]
-        self.re1 = re.compile(r"(?P<force>force\s+)?plock\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*[!.]*$")
+        # [force] plock <package> [,<package>]
+        self.re1 = regexp(r"(?P<force>force )?plock (?P<package>[\w_\.-]+(?:(?: *,? *and |[, ]+)[\w_\.-]+)*)")
         
         # [force] (unplock|punlock) <package> [,<package>] [!|.]
-        self.re2 = re.compile(r"(?P<force>force\s+)?(?:unplock|punlock)\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*[!.]*$")
+        self.re2 = regexp(r"(?P<force>force )?(?:unplock|punlock) (?P<package>[\w_\.-]+(?:(?: *,? *and |[, ]+)[\w_\.-]+)*)")
         
         # (my plocks|plocks of <user>) [?]
-        self.re3 = re.compile(r"(?:(?P<my>my)\s+plocks|plocks\s+of\s+(?P<user>[\w\.@_-]+))\s*(?:!*\?[?!]*)?$")
+        self.re3 = regexp(r"(?:(?P<my>my) plocks|plocks of (?P<user>[\w\.@_-]+))", question=1)
 
         # ([who] [has] plocked|plocker [of]) <package> [,<package>] [?]
-        self.re4 = re.compile(r"(?:(?:who\s+)?(?:has\s+)plocked|plocker\s+(?:of\s+)?)(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*(?:!*\?[?!]*)?$")
+        self.re4 = regexp(r"(?:(?:who )?(?:has )plocked|plocker (?:of )?)(?P<package>[\w_\.-]+(?:(?: *,? *and |[, ]+)[\w_\.-]+)*)", question=1)
 
         # plock <package> [,<package>] ?
-        self.re5 = re.compile(r"plock\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*(?:!*\?[?!]*)$")
+        self.re5 = regexp(r"plock (?P<package>[\w_\.-]+(?:(?: *,? *and |[, ]+)[\w_\.-]+)*)$", question=1, needpunct=1)
 
         # [un]plock[ing] | <package|pkg> lock[ing]
-        mm.register_help("(?:un)?plock(?:ing)?|(?:package|pkg)\s+lock(?:ing)?",
+        mm.register_help("(?:un)?plock(?:ing)?|(?:package|pkg) lock(?:ing)?",
                          HELP, "plock")
 
         mm.register_perm("plock", PERM_PLOCK)

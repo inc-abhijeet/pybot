@@ -16,33 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot.locals import *
-
-class Pong:
-    def __init__(self):
-        hooks.register("Command", self.pong, 0)
-        mm.hooktimer(60, self.ping, ())
-    
-    def unload(self):
-        hooks.unregister("Command", self.pong, 0)
-        mm.unhooktimer(60, self.ping, ())
-        
-    def pong(self, cmd):
-        if cmd.cmd == "PING":
-            cmd.server.sendcmd(None, "PONG", cmd.line, priority=10)
-    
-    def ping(self):
-        for server in servers.getall():
-            if server.servername != "console":
-                server.sendcmd(None, "PING", server.user.nick)
-
-def __loadmodule__():
-    global mod
-    mod = Pong()
-
-def __unloadmodule__():
-    global mod
-    mod.unload()
-    del mod
+from pybot import *
+from pybot.misc import regexp
 
 # vim:ts=4:sw=4:et

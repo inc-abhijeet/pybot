@@ -16,11 +16,10 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, servers, config, db
+from pybot.locals import *
 import urllib
 import thread
 import string
-import re
 
 HELP = """
 You may tell me which channels/users I have to notify of freshmeat news
@@ -49,10 +48,10 @@ class Freshmeat:
         mm.hooktimer(self.interval*60, self.checknews, ())
         
         # [don[']t|do not] show freshmeat news [(to|on|at|for) [channel|user] <target> [[on|at] server <server>]]
-        self.re1 = re.compile(r"(?P<dont>don'?t\s+|do\s+not\s+)?show\s+freshmeat\s+news(?:\s+(?:to|on|at|for)(?:\s+channel|\s+user)?\s+(?P<target>\S+)(?:(?:\s+on|\s+at)?\s+server\s+(?P<server>\S+?))?)?\s*[!.]*$", re.I)
+        self.re1 = regexp(r"(?P<dont>don'?t |do not )?show freshmeat news(?: (?:to|on|at|for)(?: channel| user)? (?P<target>\S+)(?:(?: on| at)? server (?P<server>\S+?))?)?")
         
         # freshmeat [news]
-        mm.register_help("freshmeat(?:\s+news)?", HELP, "freshmeat")
+        mm.register_help("freshmeat(?: news)?", HELP, "freshmeat")
 
         mm.register_perm("freshmeat", PERM_FRESHMEAT)
 

@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import config, hooks, mm, servers, db
+from pybot.locals import *
 from pybot.user import User
 import time
 import re
@@ -132,17 +132,17 @@ class LogModule:
         hooks.register("OutMessage", self.log_outmessage, 150)
         hooks.register("OutCTCP", self.log_outctcp, 150)
 
-        # [have you] seen <nick> [!?]
-        self.re1 = re.compile(r"(?:have\s+you\s+)?seen\s+(?P<nick>[^\s!?]+)\s*[!?]*$", re.I)
+        # [have you] seen <nick>
+        self.re1 = regexp(r"(?:have you )?seen (?P<nick>[^\s!?]+)$", question=1)
 
-        # [show|search] (log[s]|message[s]) [with] /<regexp>/[.!]
-        self.re2 = re.compile("(?:show\s+|search\s+)?(?:log|message)s?\s+(?:with\s+|search\s+)?/(?P<regexp>.*)/\s*[.!?]*$", re.I)
+        # [show|search] (log[s]|message[s]) [with] /<regexp>/
+        self.re2 = regexp(r"(?:show |search )?(?:log|message)s? (?:with |search )?/(?P<regexp>.*)/")
 
         # seen
         mm.register_help("seen", HELP_SEEN, "seen")
 
         # log|(search|show) (log[s]|message[s])
-        mm.register_help("log|(?:search|show)\s+(?:log|message)s?",
+        mm.register_help("log|(?:search|show) (?:log|message)s?",
                          HELP_SEARCH, "log")
 
         mm.register_perm("seen", PERM_SEEN)

@@ -16,10 +16,9 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options
+from pybot.locals import *
 import calendar
 import time
-import re
 
 HELP = """
 I can tell you for how much time I'm online with "[show] uptime". You can
@@ -33,10 +32,10 @@ class Uptime:
         hooks.register("Message", self.message)
 
         # [show|display] uptime
-        self.re1 = re.compile(r"(?:(?:show|display)\s+)?uptime\s*[!.?]*$")
+        self.re1 = regexp(r"(?:(?:show|display) )?uptime")
 
         # reset uptime
-        self.re2 = re.compile(r"reset\s+uptime\s*[!.]*$")
+        self.re2 = regexp(r"reset uptime")
 
         # uptime
         mm.register_help("uptime", HELP, "uptime")

@@ -16,9 +16,8 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import hooks, mm
+from pybot.locals import *
 from random import randint
-import re
 
 HELP = """
 You can give you some random numbers if you send me "[give|tell|show]
@@ -36,10 +35,10 @@ class RandNum:
         hooks.register("Message", self.message)
         
         # [give|tell|show] [me] [a|one|<n>] [random] number[s] between <num1> and <num2>
-        self.re1 = re.compile(r"(?:give|tell|show)\s+(?:me\s+)?(?P<n>a|one|\d+)\s+(?:random\s+)?numbers?\s+between\s+(?P<num1>\d+)\s+and\s+(?P<num2>\d+)\s*[.!]*$", re.I)
+        self.re1 = regexp(r"(?:give|tell|show) (?:me )?(?P<n>a|one|\d+) (?:random )?numbers? between (?P<num1>\d+) and (?P<num2>\d+)")
 
         # randnum[s]|random number[s]
-        mm.register_help("randnums?|random\s+numbers?", HELP, "randnum")
+        mm.register_help("randnums?|random numbers?", HELP, "randnum")
 
         mm.register_perm("randnum", PERM_RANDNUM)
     

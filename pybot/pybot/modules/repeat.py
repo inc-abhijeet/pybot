@@ -16,9 +16,8 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, servers
+from pybot.locals import *
 from string import join
-import re
 
 HELP = """
 You can ask me to repeat or stop repeating something with the message
@@ -54,7 +53,7 @@ class Repeat:
         hooks.register("Message", self.message)
 
         # [don[']t|do not] repeat [each <n>[ ](s[econds]|m[inutes]|h[ours])] (to|at|on) [channel|user] <target> [[on|at] server <server>]: [/me|/notice] ...
-        self.re1 = re.compile(r"(?:(?P<dont>don'?t|do\s+not)\s+)?repeat(?:\s+each\s+(?P<interval>[0-9]+)\s*(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?:\s+(?:to|at|on)(?:\s+(?:channel|user))?\s+(?P<target>\S+))?(?:\s+(?:on|at)?\s+server\s+(?P<server>\S+))?\s*:\s+(?P<action>/me\s)?(?P<notice>/notice\s)?(?P<phrase>.*)$")
+        self.re1 = regexp(r"(?:(?P<dont>don'?t|do not) )?repeat(?: each (?P<interval>[0-9]+)\s*(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?: (?:to|at|on)(?: (?:channel|user))? (?P<target>\S+))?(?: (?:on|at)? server (?P<server>\S+))?\s*: (?P<action>/me\s)?(?P<notice>/notice\s)?(?P<phrase>.*)")
 
         # repeat
         mm.register_help(r"repeat", HELP, "repeat")

@@ -16,10 +16,8 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks
+from pybot.locals import *
 import time
-
-import re
 
 HELP = """
 This is a module implementation showing how to work with threaded
@@ -38,10 +36,10 @@ class ThreadedExample:
         hooks.register("Message", self.message)
     
         # test threaded message
-        self.re1 = re.compile(r"test\s+threaded\s+message\s*[.!]*$", re.I)
+        self.re1 = regexp(r"test threaded message")
 
         # (start|stop) threaded timer
-        self.re2 = re.compile(r"(?P<cmd>start|stop)\s+threaded\s+timer\s*[.!]*$", re.I)
+        self.re2 = regexp(r"(?P<cmd>start|stop) threaded timer")
 
         mm.register_help(r"threadedexample", HELP, "threadedexample")
 

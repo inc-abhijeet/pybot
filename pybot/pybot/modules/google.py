@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, config
+from pybot.locals import *
 from pybot.util import SOAPpy
 import thread
 import re
@@ -45,9 +45,9 @@ class Google:
         hooks.register("Message", self.message)
 
         # [search] google [<n>]: <search>
-        self.re1 = re.compile(r"(?:search\s+)?google(?:\s+(?P<n>\d+))?:\s*(?P<search>.+)$", re.I)
+        self.re1 = regexp(r"(?:search )?google(?: (?P<n>\d+))?:\s*(?P<search>.+)")
         
-        mm.register_help("(?:search\s+)?google(?:\s+search)?", HELP,
+        mm.register_help("(?:search )?google(?: search)?", HELP,
                          "google")
 
         mm.register_perm("google", PERM_GOOGLE)

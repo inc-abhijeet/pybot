@@ -16,10 +16,9 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, servers, main, db, config
+from pybot.locals import *
 from pybot.user import User
 from string import join
-import re
 
 HELP_CONNECT = """
 If you want me to connect to another server, use "connect [to] [server]
@@ -93,31 +92,31 @@ class ServerControl:
             self.default_nick = "_pybot_"
 
         # connect [to] [server] <server> [[with|using] servername <servername>] [and] [[with|using] nick <nick>]
-        self.re1 = re.compile(r"connect\s+(?:to\s+)?(?:server\s+)?(?P<server>\S+)(?:(?:\s+with|\s+using)?\s+servername\s+(?P<servername>\S+))?(?:\s+and)?(?:(?:\s+with|\s+using)?\s+nick\s+(?P<nick>\S+))?\s*$", re.I)
+        self.re1 = regexp(r"connect (?:to )?(?:server )?(?P<server>\S+)(?:(?: with| using)? servername (?P<servername>\S+))?(?: and)?(?:(?: with| using)? nick (?P<nick>\S+))?")
 
         # (re|dis)connect [to|from] <server> [with <reason>]
-        self.re2 = re.compile(r"(?P<cmd>(?:re|dis)connect)(?:\s+(?:to\s+|from\s+)?(?:server\s+)?(?P<server>\S+))?(?:\s+with\s+(?P<reason>.+))?\s*$", re.I)
+        self.re2 = regexp(r"(?P<cmd>(?:re|dis)connect)(?: (?:to |from )?(?:server )?(?P<server>\S+))?(?: with (?P<reason>.+))?")
 
         # join [channel] <channel> [[with|using] keyword <keyword>] [[on|at] [server] <server>]
-        self.re3 = re.compile(r"join\s+(?:channel\s+)?(?P<channel>\S+)(?:(?:\s+with|\s+using)?\s+keyword\s+(?P<keyword>\S+))?(?:(?:\s+on|\s+at)?(?:\s+server)?\s+(?P<server>\S+))?\s*$", re.I)
+        self.re3 = regexp(r"join (?:channel )?(?P<channel>\S+)(?:(?: with| using)? keyword (?P<keyword>\S+))?(?:(?: on| at)?(?: server)? (?P<server>\S+))?")
 
         # (leave|part) [[from] [channel] <channel> [[on|at] [server] <server>] [with <reason>]]
-        self.re4 = re.compile(r"(?:leave|part)(?:\s+(?:from\s+)?(?:channel\s+)?(?P<channel>\S+)(?:(?:\s+on|\s+at)?(?:\s+server)?\s+(?P<server>\S+))?(?:\s+with\s+(?P<reason>\S+))?)?\s*$", re.I)
+        self.re4 = regexp(r"(?:leave|part)(?: (?:from )?(?:channel )?(?P<channel>\S+)(?:(?: on| at)?(?: server)? (?P<server>\S+))?(?: with (?P<reason>\S+))?)?")
 
         # show servers
-        self.re5 = re.compile(r"show\s+servers\s*$", re.I)
+        self.re5 = regexp(r"show servers")
 
         # show channels [[at|on|from|in] [server] <server>]
-        self.re6 = re.compile(r"show\s+channels(?:(?:\s+on|\s+at|\s+from)?(?:\s+server)?\s+(?P<server>\S+))?\s*$", re.I)
+        self.re6 = regexp(r"show channels(?:(?: on| at| from)?(?: server)? (?P<server>\S+))?")
 
         # (quit|reboot) [with <reason>]
-        self.re7 = re.compile(r"(?P<cmd>quit|reboot)(?:\s+with\s+(?P<reason>.+))?$", re.I)
+        self.re7 = regexp(r"(?P<cmd>quit|reboot)(?: with (?P<reason>.+))?")
 
         # [remove] connection message to <target> [on [server] <server>]: <msg>
-        self.re8 = re.compile(r"(?P<remove>remove\s+)?connection\s+message\s+to\s+(?P<target>\S+)(?:\s+(?:on|at)\s+(?:server\s+)?(?P<server>\S+))?\s*:\s*(?P<msg>.*?)\s*$", re.I)
+        self.re8 = regexp(r"(?P<remove>remove )?connection message to (?P<target>\S+)(?: (?:on|at) (?:server )?(?P<server>\S+))? *: *(?P<msg>.*?)")
 
         # show connection messages
-        self.re9 = re.compile(r"show\s+connection\s+messages?\s*$", re.I)
+        self.re9 = regexp(r"show connection messages?")
 
         # [dis|re]connect
         mm.register_help(r"(?:dis|re)?connect$", HELP_CONNECT,
@@ -128,11 +127,11 @@ class ServerControl:
                          ["join", "leave"])
 
         # show[ ](channels|servers)
-        mm.register_help(r"show\s*(?:channels|servers)$", HELP_SHOW,
+        mm.register_help(r"show *(?:channels|servers)$", HELP_SHOW,
                          ["show channels", "show servers"])
 
         # connection message[s]
-        mm.register_help(r"connection\s+messages?", HELP_CONNECTION_MESSAGES,
+        mm.register_help(r"connection messages?", HELP_CONNECTION_MESSAGES,
                          "connection messages")
 
         mm.register_perm("showchannels", PERM_SHOWCHANNELS)

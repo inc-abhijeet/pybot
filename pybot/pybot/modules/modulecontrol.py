@@ -16,8 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, modls, db
-import re
+from pybot.locals import *
 
 HELP = """
 You can load, unload, and reload modules with "[re|un]load module <module>".
@@ -33,13 +32,13 @@ class ModuleControl:
         modls.loadlist(self.get_modules())
         
         # [re|un]load [the] [module] <module>
-        self.re1 = re.compile(r"(?P<command>(?:re|un)?load)(?:\s+the)?(?:\s+module)?\s+(?P<module>[\w_-]+)\s*[.!]*$", re.I)
+        self.re1 = regexp(r"(?P<command>(?:re|un)?load)(?: the)?(?: module)? (?P<module>[\w_-]+)")
 
         # show modules
-        self.re2 = re.compile(r"show\s+modules\s*[.!]*$", re.I)
+        self.re2 = regexp(r"show modules")
 
         # [[un|re]load] module[s]
-        mm.register_help(r"(?:(?:un|re)?load\s+)?modules?", HELP, "modules")
+        mm.register_help(r"(?:(?:un|re)?load )?modules?", HELP, "modules")
 
     def get_modules(self):
         cursor = db.cursor()

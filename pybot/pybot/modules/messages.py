@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import hooks, mm, db
+from pybot.locals import *
 import string
 import time
 import re
@@ -44,13 +44,13 @@ class Messages:
         db.table("message", "servername,nickfrom,nickto,timestamp,flags,message")
 
         # [priv[ate]] message (to|for) <nick>: <message>
-        self.re1 = re.compile(r"(?P<private>priv(?:ate)?\s+)?message\s+(?:to|for)\s+(?P<nick>\S+?)\s*:\s+(?P<message>.*)$", re.I)
+        self.re1 = regexp(r"(?P<private>priv(?:ate)? )?message (?:to|for) (?P<nick>\S+?)\s*: (?P<message>.*)")
 
         # [any] message[s]?
-        self.re2 = re.compile(r"(?:any\s+)?messages?\s*\?$", re.I)
+        self.re2 = regexp(r"(?:any )?messages?", question=1, needpunct=1)
 
         # [leav(e|ing)] message[s]
-        mm.register_help("(?:leav(?:e|ing)\s+)?messages?", HELP, "messages")
+        mm.register_help("(?:leav(?:e|ing) )?messages?", HELP, "messages")
 
         mm.register_perm("messages", PERM_MESSAGES)
 

@@ -16,9 +16,8 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, config
+from pybot.locals import *
 from string import join
-import re
 import os
 
 HELP_COMPILETIME = """
@@ -44,7 +43,7 @@ class Testadora:
         hooks.register("Message", self.message)
         
         # [show] (compiletime|compile time) [for] <package>
-        self.re1 = re.compile(r"(?:show\s+)?compile\s*time\s+(?:for\s+)?(?P<package>\S+)$")
+        self.re1 = regexp(r"(?:show )?compile\s*time (?:for )?(?P<package>\S+)")
 
         # testadora
         mm.register_help("testadora", HELP_TESTADORA, "testadora")

@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, db
+from pybot.locals import *
 import string
 import time
 import re
@@ -48,13 +48,13 @@ class Notes:
         mm.register("getnotetopics", self.mm_getnotetopics)
 
         # [add|new|create|include] note [about] <topic>: <note>
-        self.re1 = re.compile(r"(?:add\s+|new\s+|create\s+|include\s+)?note(?:\s+about)?\s+(?P<topic>[^:]+):\s*(?P<note>.+)$", re.I)
+        self.re1 = regexp(r"(?:add |new |create |include )?note(?: about)? (?P<topic>[^:]+):\s*(?P<note>.+)")
     
         # [del|delete|remove] note[s] [about] <topic> [: <num> [, ...]]
-        self.re2 = re.compile(r"(?:del|delete|remove)\s+notes?(?:\s+about)?\s+(?P<topic>[^:]+)(?:\s*:\s*(?P<nums>.+))?\s*$", re.I)
+        self.re2 = regexp(r"(?:del|delete|remove) notes?(?: about)? (?P<topic>[^:]+)(?:\s*:\s*(?P<nums>.+))?")
         
         # [show] note[s] [[about] <topic> [?]]
-        self.re3 = re.compile(r"(?:show\s+)?notes?(?:(?:\s+about)?\s+(?P<topic>[^?]+))?\s*\?*$", re.I)
+        self.re3 = regexp(r"(?:show )?notes?(?:(?: about)? (?P<topic>[^?]+))?")
 
         # note[s]
         mm.register_help(r"notes?$", HELP, "notes")

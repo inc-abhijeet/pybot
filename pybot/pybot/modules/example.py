@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options, db
+from pybot.locals import *
 import time
 import re
 
@@ -36,7 +36,7 @@ class Example:
         hooks.register("Message", self.message)
     
         # hello (world|irc)
-        self.re1 = re.compile(r"hello\s+(?P<what>world|irc)\s*[.!]*$", re.I)
+        self.re1 = regexp(r"hello (?P<what>world|irc)")
 
         mm.register_help(r"example", HELP, "example")
 

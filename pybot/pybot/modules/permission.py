@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options, config, db
+from pybot.locals import *
 from pybot.user import User
 from types import StringType
 import re
@@ -63,13 +63,13 @@ class Permission:
                     self.staticadmins.append(tuple(pair))
 
         # (give|remove|del|delete|take) perm[ission] <perm> [to|from] [everyone | [user <user>] [[and] nick <nick>] [on|at] [this channel|channel <channel>] [on|at|to] [this server|server <server>]]
-        self.re1 = re.compile("(?P<cmd>give|remove|del|delete|take)\s+(?:perm(?:ission)?\s+(?P<perm1>\S+)|(?P<perm2>\S+)\s+perm(?:ission)?)(?:\s+to|\s+from)?(?:(?P<everyone>\s+everyone)|(?:\s+user\s+(?P<user>\S+))?(?:(?:\s+and)?\s+nick\s+(?P<nick>\S+))?(?:\s+on|\s+at)?(?:\s+(?P<thischannel>this\s+channel)|\s+channel\s+(?P<channel>\S+))?(?:\s+on|\s+at|\s+to)?(?:\s+(?P<thisserver>this\s+server)|\s+server\s+(?P<server>\S+))?)?\s*[!.]*$", re.I)
+        self.re1 = regexp("(?P<cmd>give|remove|del|delete|take) (?:perm(?:ission)? (?P<perm1>\S+)|(?P<perm2>\S+) perm(?:ission)?)(?: to| from)?(?:(?P<everyone> everyone)|(?: user (?P<user>\S+))?(?:(?: and)? nick (?P<nick>\S+))?(?: on| at)?(?: (?P<thischannel>this channel)| channel (?P<channel>\S+))?(?: on| at| to)?(?: (?P<thisserver>this server)| server (?P<server>\S+))?)?")
 
         # (show|list) perm[ission][s] [<perm>]
-        self.re2 = re.compile("(?:show|list)\s+perm(?:ission)?s?(?:\s+(?P<perm>\w+))?\s*[!.]*$", re.I)
+        self.re2 = regexp("(?:show|list) perm(?:ission)?s?(?: (?P<perm>\w+))?")
 
         # perm[ission][s] [system]
-        mm.register_help("perm(?:ission)?s?(?:\s+system)?", HELP,
+        mm.register_help("perm(?:ission)?s?(?: system)?", HELP,
                          "permissions")
 
         mm.register_perm("admin", PERM_ADMIN)

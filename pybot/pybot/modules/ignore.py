@@ -16,8 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, db
-import re
+from pybot.locals import *
 
 HELP = """
 You can make me ignore and unignore people sending me the message
@@ -46,7 +45,7 @@ class Ignore:
         hooks.register("Message", self.message)
 
         # [do not|don't] ignore [user <user>] [on|at] [this channel|channel <channel>] [on|at] [this server|server <server>]
-        self.re1 = re.compile(r"(?P<dont>do\s+not\s+|don't\s+)?ignore\s+(?:user\s+(?P<user>\S+?))?(?:(?:on\s+|at\s+)?(?:(?P<thischannel>this\s+channel)|channel\s+(?P<channel>\S+)))?(?:(?:on\s+|at\s+)?(?:(?P<thisserver>this\s+server)|server\s+(?P<server>\S+?)))?\s*$", re.I)
+        self.re1 = regexp(r"(?P<dont>do not |don't )?ignore (?:user (?P<user>\S+?))?(?:(?:on |at )?(?:(?P<thischannel>this channel)|channel (?P<channel>\S+)))?(?:(?:on |at )?(?:(?P<thisserver>this server)|server (?P<server>\S+?)))?")
 
         # [un]ignore
         mm.register_help(r"(?:un)?ignore", HELP, "ignore")

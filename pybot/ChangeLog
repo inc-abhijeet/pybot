@@ -1,8 +1,21 @@
+2003-08-24 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pybot/misc.py,modules/help.py,modules/*: Now regular
+	  expressions are using a single space, and misc.regexp()
+	  and mm.register_help() convert them to \s+ and \s*.
+	* pybot/misc.py: Fixed small issues on buildanswer().
+
 2003-08-23 Gustavo Niemeyer <niemeyer@conectiva.com>
         * pybot/__init__.py,modules/{remoteinfo.py,freshmeat.py}:
 	  Instead of setting the proxy settings in each module
 	  using urllib, set the http_proxy environment variable
 	  in pybot.init().
+	* pybot/locals.py,pybot/misc.py,modules/*:
+	  Introduced pybot.locals. All basic instances of the pybot
+	  API are now defined on this file, and all modules are
+	  running "from pybot.locals import *".
+	* pybot/misc.py,modules/*: Introduced misc.regexp(). This
+	  function is a wrapper on top of re.compile() which will
+	  deal better with the pybot triggers expressions.
 
 2003-08-22 Gustavo Niemeyer <niemeyer@conectiva.com>
         * modules/servercontrol.py: Implemented arbitrary setup of

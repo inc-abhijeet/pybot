@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import config, hooks, mm, db
+from pybot.locals import *
 import random
 import re
 import os
@@ -194,16 +194,16 @@ class InfopackModule:
                     pack.loadcore()
         
         # [load|reload|unload] infopack <name> [in memory] [.|!]
-        self.re1 = re.compile(r"(?P<action>re|un)?load\s+infopack\s+(?P<name>\w+)(?P<inmemory>\s+in\s+memory)?\s*[.!]*$", re.I)
+        self.re1 = regexp(r"(?P<action>re|un)?load infopack (?P<name>\w+)(?P<inmemory> in memory)?")
 
         # show infopacks
-        self.re2 = re.compile(r"show\s+infopacks\s*[!.]*$", re.I)
+        self.re2 = regexp(r"show infopacks")
 
         # infopack[s]
-        mm.register_help("infopacks?$", HELP, "infopack")
+        mm.register_help("infopacks?", HELP, "infopack")
 
         # infopack <name>
-        mm.register_help("infopack\s+(?P<name>\S+)\s*$", self.help)
+        mm.register_help("infopack (?P<name>\S+)", self.help)
 
         mm.register_perm("infopackadmin", PERM_INFOPACKADMIN)
     

@@ -16,12 +16,11 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options, config
+from pybot.locals import *
 from types import ListType, DictType
 import os
 import string
 import cPickle
-import re
 
 HELP = """
 You can read and write persistent options, if they exist, using
@@ -41,19 +40,19 @@ class Options:
         self.safe_env = {"__builtins__": {}, "None": None}
 
         # (read|write) options
-        self.re1 = re.compile(r"(?P<cmd>read|write)\s+options\s*[!.]*$", re.I)
+        self.re1 = regexp(r"(?P<cmd>read|write) options")
         
         # set option <name> to <value>
-        self.re2 = re.compile(r"set\s+option\s+(?P<name>\S+)\s+to\s+(?P<value>.+)$", re.I)
+        self.re2 = regexp(r"set option (?P<name>\S+) to (?P<value>.+)")
  
         # (show|del[ete]|remove) option <name>
-        self.re3 = re.compile(r"(?P<cmd>show|del|delete|remove)\s+option\s+(?P<name>\S+)$", re.I)
+        self.re3 = regexp(r"(?P<cmd>show|del|delete|remove) option (?P<name>\S+)")
 
         # show options
-        self.re4 = re.compile(r"show\s+options$", re.I)
+        self.re4 = regexp(r"show options")
 
         # option[s]
-        mm.register_help(r"options?$", HELP, "options")
+        mm.register_help(r"options?", HELP, "options")
     
     def unload(self):
         self.write()

@@ -16,9 +16,8 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, servers, db
+from pybot.locals import *
 from string import join
-import re
 
 HELP = """
 You can make me forward messages between servers and/or channels using
@@ -53,13 +52,13 @@ class Forward:
         hooks.register("Message", self.message)
 
         # forward messages [for you] [(from|on|at) [user|channel] <fromtarget>] [(from|on|at) server <fromserver>]] to [user|channel] <totarget> [(on|at) server <toserver>] [with (server|channel [and server]|<withstring>)] [!|.]
-        self.re1 = re.compile(r"(?P<dont>do\s+not\s+|don't\s+)?forward\s+messages\s+(?P<foryou>for\s+you\s+)?(?:(?:from\s+|on\s+|at\s+)(?:channel\s+|user\s+)?(?P<fromtarget>\S+)\s+)?(?:(?:from\s+|on\s+|at\s+)(?:server\s+)?(?P<fromserver>\S+)\s+)?to\s+(?:user\s+|channel\s+)?(?P<totarget>\S+)(?:\s+(?:on\s+|at\s+)server\s+(?P<toserver>\S+))?(?:\s+with\s+(?P<withchannel>channel)?(?:\s+and\s+)?(?P<withserver>server)?(?P<withstring>\S+)?)?\s*$", re.I)
+        self.re1 = regexp(r"(?P<dont>do not |don't )?forward messages (?P<foryou>for you )?(?:(?:from |on |at )(?:channel |user )?(?P<fromtarget>\S+) )?(?:(?:from |on |at )(?:server )?(?P<fromserver>\S+) )?to (?:user |channel )?(?P<totarget>\S+)(?: (?:on |at )server (?P<toserver>\S+))?(?: with (?P<withchannel>channel)?(?: and)?(?P<withserver> server)?(?P<withstring>\S+)?)?")
 
         # show forwards
-        self.re2 = re.compile(r"show\s+forwards\s*$", re.I)
+        self.re2 = regexp(r"show forwards")
 
         # [message] forward[ing]
-        mm.register_help("(?:message\s+)?forward(?:ing)?", HELP, "forward")
+        mm.register_help("(?:message )?forward(?:ing)?", HELP, "forward")
 
         mm.register_perm("forward", PERM_FORWARD)
     

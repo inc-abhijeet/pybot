@@ -246,12 +246,16 @@ class RSS:
                                        (feedid, servername, target, flags,
                                         prefix, interval, feedid))
                     except db.error:
-                        msg.answer("%:", ["Not needed", "It's not needed",
-                                          "Oops"], [".", "!"],
-                                         ["I'm already showing that feed",
-                                          "This feed is already being shown",
-                                          "I'm already showing news from that"
-                                          " feed"], [".", "!"])
+                        cursor.execute("update rsstarget set "
+                                       "flags=%s, prefix=%s, interval=%s "
+                                       "where feedid=%s and servername=%s "
+                                       "and target=%s",
+                                       (flags, prefix, interval,
+                                        feedid, servername, target))
+                        msg.answer("%:", ["Feed updated",
+                                          "Information updated",
+                                          "Feed information updated"],
+                                         [".", "!"])
                     else:
                         msg.answer("%:", ["Done", "Ok", "Sure"], [".", "!"])
             else:

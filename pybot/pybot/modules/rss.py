@@ -150,7 +150,7 @@ class RSS:
                 for item in cursor.fetchall():
                     text = item.title
                     if "l" in target.flags and item.link:
-                        text += " [%s]" % item.link
+                        text += " <%s>" % item.link
                     if "d" in target.flags and item["description"]:
                         # item.description() is a method
                         text += " - "+item["description"]

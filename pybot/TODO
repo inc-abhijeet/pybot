@@ -15,3 +15,12 @@ This are some of the features to be implemented in the future:
 - Limit log search to the same server.
 
 - Develop admin module for direct sql access.
+
+- Add timed messages in the messages.py module.
+
+- Perhaps a google module (including a random link fetcher)?
+
+- Perhaps a "karma" module, implementing word++ and word--?
+
+- Check ideas from http://olut.ton.tut.fi/~karhu/ and http://supybot.sf.net.
+

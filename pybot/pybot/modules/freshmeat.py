@@ -37,10 +37,6 @@ more information.
 
 class Freshmeat:
     def __init__(self):
-        if config.has_option("global", "http_proxy"):
-            self.proxy = config.get("global", "http_proxy")
-        else:
-            self.proxy = None
         self.url = config.get("freshmeat", "url")
         self.interval = config.getint("freshmeat", "interval")
 
@@ -84,12 +80,8 @@ class Freshmeat:
                                newsmsg, notice=1)
     
     def fetchnews(self):
-        urlopener = urllib.URLopener()
-        if self.proxy:
-            proxy = {"http": self.proxy}
-            urlopener.proxies.update(proxy)
         try:
-            url = urlopener.open(self.url)
+            url = urllib.urlopen(self.url)
         except:
             pass
         else:

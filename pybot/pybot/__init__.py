@@ -52,6 +52,9 @@ def init():
 
     db = SQLiteDB()
     
+    if config.has_option("global", "http_proxy"):
+        os.environ["http_proxy"] = config.get("global", "http_proxy")
+    
     main = Main()
     
 # vim:ts=4:sw=4:et

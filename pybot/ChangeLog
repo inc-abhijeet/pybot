@@ -1,3 +1,9 @@
+2003-08-23 Gustavo Niemeyer <niemeyer@conectiva.com>
+        * pybot/__init__.py,modules/{remoteinfo.py,freshmeat.py}:
+	  Instead of setting the proxy settings in each module
+	  using urllib, set the http_proxy environment variable
+	  in pybot.init().
+
 2003-08-22 Gustavo Niemeyer <niemeyer@conectiva.com>
         * modules/servercontrol.py: Implemented arbitrary setup of
 	  after-connection messages, allowing nick registration on

@@ -94,10 +94,6 @@ class RemoteInfo:
         self.info = options.get("RemoteInfo.info", {})
         self.info_lock = options.get("RemoteInfo.info_lock", {})
         self.lock = thread.allocate_lock()
-        if config.has_option("global", "http_proxy"):
-            self.proxy = config.get("global", "http_proxy")
-        else:
-            self.proxy = None
         hooks.register("Message", self.message)
         hooks.register("Message", self.message_remoteinfo, priority=1000)
         hooks.register("CTCP", self.message_remoteinfo, priority=1000)
@@ -175,12 +171,8 @@ class RemoteInfo:
 
     def _reload(self, url, regex):
         try:
-            urlopener = urllib.URLopener()
-            if self.proxy:
-                proxy = {"http": self.proxy}
-                urlopener.proxies.update(proxy)
             try:
-                infourl = urlopener.open(url)
+                infourl = urllib.urlopen(url)
             except:
                 import traceback
                 traceback.print_exc()

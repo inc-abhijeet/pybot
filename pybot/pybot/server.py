@@ -160,10 +160,11 @@ class Server(BaseServer):
                     try:
                         lines_sent = 0
                         while lines_sent < 3 and self._outlines and (self._outlines[0][1] <= 20 or self._last_sent < time()):
-                            if self._last_sent+2 < time():
-                                self._last_sent_timeout = 1
-                            elif self._last_sent_timeout < 5 and self._outlines[0][1] > 20:
-                                    self._last_sent_timeout = self._last_sent_timeout+1
+                            # Disabled for now.
+                            #if self._last_sent+1 < time():
+                            #    self._last_sent_timeout = 1
+                            #elif self._last_sent_timeout < 2 and self._outlines[0][1] > 20:
+                            #        self._last_sent_timeout = self._last_sent_timeout+1
                             self._last_sent = time()+self._last_sent_timeout;
                             line = self._outlines[0][0]+"\r\n"
                             del self._outlines[0]

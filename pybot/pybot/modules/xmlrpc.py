@@ -70,11 +70,11 @@ class XmlRpc:
         self.server = SimpleXMLRPCServer(("0.0.0.0", 8460))
         self.server.socket.setblocking(0)
         
-        rm.register("sendmsg", self.rm_sendmsg)
-        
         xro = XmlRpcObject(rm.get_methods(), self.hasperm)
         self.server.register_instance(xro)
         
+        rm.register("sendmsg", self.rm_sendmsg)
+
         hooks.register("Message", self.message)
         hooks.register("Loop", self.loop)
 
@@ -223,7 +223,7 @@ class XmlRpc:
         cursor = db.cursor()
         cursor.execute("select * from xmlrpcperm "
                        "natural left join xmlrpcuser where "
-                       "username=%s and password=%s and "
+                       "xmlrpcuser.username=%s and password=%s and "
                        "(servername isnull or servername=%s) and "
                        "(target isnull or target=%s)",
                        username, password, server, target)

@@ -39,7 +39,7 @@ class Social:
         self.re4 = re.compile(r'(?:are\s+you\s+ok|how\s+are\s+you(?:\s+doing)?)\s*[!?]*$', re.I)
         
         # Match 'pybot?'
-        self.re5 = re.compile(r'!*?[?!]*$', re.I)
+        self.re5 = re.compile(r'!*\?[?!]*$', re.I)
     
         # Match 'never mind [!|.]'
         self.re6 = re.compile(r'never\s+mind\s*[!.]*$', re.I)

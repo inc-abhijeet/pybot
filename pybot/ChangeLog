@@ -1,5 +1,10 @@
 2002-04-03 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* scripts/pybot.py: Fixed.
+	* modules/freshmeat.py: Fixed little bug in regular expression and
+	  implemented help system.
+	* modules/messages.py: unregister_help() must have a defret
+	  parameter.
+	* modules/freshmeat.py: Removed since AppWatch is dead.
 
 2001-12-03 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* pybot.py, pybot/runner.py: New files with new startup system.

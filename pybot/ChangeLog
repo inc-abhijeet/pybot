@@ -1,3 +1,11 @@
+2003-05-08 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/xmlrpc.py: New xmlrpc module.
+	* modules/testadora.py: New testadora module, supporting
+	  compile time command, for now. This is useful for Conectiva
+	  only.
+	* modules/permission.py: Accept "(remove|delete|del) permission"
+	  as well.
+
 2002-06-19 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* scripts/pybotsetup.py: Adopted new admin permission working.
 	* modules/log.py: Created logging facilities.

@@ -24,28 +24,26 @@ import string
 import random
 import time
 import cPickle
-
-if os.path.isfile("options"):
-    sys.exit("You already have an options file!")
-    # For the future:
-    file = open("options")
-    option = cPickle.load(file)
-    file.close()               
-else:
-    option = {}
+import shutil
 
 if os.path.isdir("pybot"):
     sys.path.append(".")
+
+if os.path.isfile("options"):
+    file = open("options")
+    option = cPickle.load(file)
+    file.close() 
+else:
+    option = {}
 
 from pybot.user import User
 
 try:
     print """
 This program does the basic setup for pybot. It will allow you to
-set the first nick, username and server you want pybot to connect,
-and also who you are (supposing you're the one who pybot will obey
-to). Further setup (including connecting to other servers and
-setting new masters) may be done talking with him, after connected.
+set the first nick, username and server you want pybot to connect.
+Further setup (including setting administrators and connecting to
+channels and servers) may be done by talking with him, after connected.
 
 You may also use it to recover a previous setup. You may need to
 do so if your nick is takeovered or if pybot is not able to connect
@@ -54,24 +52,6 @@ basic configuration (servers and masters), but will preserve
 everything else.
 """
     raw_input("Press [ENTER] to continue...")
-
-    print """
-Enter the nick you're going to use while talking to pybot."""
-    nick = raw_input("Your nick: ")
-
-    print """Enter the username you're going to use while talking to pybot.
-Please, note that you may have a '~' added to your username, depending on
-your host's configuration. If you want to be sure what your username is,
-issue a '/whois %s' while connected to your irc server. You may also
-use a wildcard, like *username, if you're not sure at all."""%nick
-    username = raw_input("Your username: ")
-
-    print """
-Enter the hostname you're going to use while talking to pybot.
-If you're not sure, you should also look at the output of the command
-'/whois %s' while connected to your irc server. A wildcard like
-*.my.host also work here, but be careful!"""%nick
-    hostname = raw_input("Your host: ")
 
     print """
 Enter the server name:port where pybot will connect to. This is
@@ -95,14 +75,27 @@ Enter the real name pybot will use in this server."""
 except EOFError:
     sys.exit("Interrupted!")
 
-option["Permission.gosh"] = [User(nick, username, hostname)]
-option["ServerControl.servers"] = {server:[pybotnick, pybotusername, "0", pybotrealname, {}]}
-option["ModuleControl.modules"] = ["servercontrol", "pong", "permission", "help", "social"]
+if option["Permission.perm"].has_key("admin"):
+    del option["Permission.perm"]["admin"]
+#option["ServerControl.servers"] = {server:[pybotnick, pybotusername, "0", pybotrealname, {}]}
+#option["ModuleControl.modules"] = ["servercontrol", "pong", "permission", "help", "social"]
 
+# Clean old permission system
+if option.has_key("Permission.gosh"):
+    del option["Permission.gosh"]
+
+if os.path.isfile("options"):
+    shutil.copyfile("options", "options.old")
 file = open("options", "w")
 option = cPickle.dump(option,file,1)
 file.close()
 
-print "Options saved!"
+print """
+Options saved!
+
+WARNING: As soon as your bot connects to the new server, you must set
+the "admin" permission, otherwise your bot will be free to hack by
+anyone. To understand how to do this, ask the bot "help permissions".
+"""
 
 # vim:ts=4:sw=4:et

@@ -1,3 +1,9 @@
+2002-06-19 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* scripts/pybotsetup.py: Adopted new admin permission working.
+	* modules/log.py: Created logging facilities.
+	* modules/permission.py: Improved permission handling a lot,
+	  included help system, and changed admin permission system.
+
 2002-04-03 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* scripts/pybot.py: Fixed.
 	* modules/freshmeat.py: Fixed little bug in regular expression and

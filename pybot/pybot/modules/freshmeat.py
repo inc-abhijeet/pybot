@@ -25,13 +25,13 @@ import re
 HELP = [
 ("""\
 You may tell me which channels/users I have to notify of freshmeat news \
-with "[don't] show freshmeat news (on|to) [channel|user] <target> [on \
-server <server>]".\
+with "[don't] show freshmeat news [(on|to) [channel|user] <target> [on \
+server <server>]]".\
 """,)]
 
 URL = "http://freshmeat.net/backend/recentnews.txt"
 PROXY = None
-# PROXY = {"http":"http://proxy.conectiva.com.br:3128"}
+# PROXY = {"http":"http://proxy.url.com:3128"}
 FETCHINTERVAL = 10
 
 class Freshmeat:
@@ -43,7 +43,7 @@ class Freshmeat:
         hooks.register("Message", self.message)
         mm.hooktimer(0, FETCHINTERVAL*60, self.checknews, ())
         
-        # Match '[don[']t|do not] show freshmeat news (to|on|at|for) [channel|user] <target> [[on|at] server <server>] [!|.]'
+        # Match '[don[']t|do not] show freshmeat news [(to|on|at|for) [channel|user] <target> [[on|at] server <server>]] [!|.]'
         self.re1 = re.compile(r"(?P<dont>don'?t\s+|do\s+not\s+)?show\s+freshmeat\s+news(?:\s+(?:to|on|at|for)(?:\s+channel|\s+user)?\s+(?P<target>\S+)(?:(?:\s+on|\s+at)?\s+server\s+(?P<server>\S+?))?)?\s*[!.]*$", re.I)
         
         # Match '[leav(e|ing)] message[s]'

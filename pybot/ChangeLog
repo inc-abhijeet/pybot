@@ -5,6 +5,10 @@
 	  only.
 	* modules/permission.py: Accept "(remove|delete|del) permission"
 	  as well.
+	* sqlitedb.py,__init__.py: Implemented sqlite db storage.
+	* modules/log.py: Use sqlite storage to maintain logs.
+	* modules/modulecontrol.py: Adopted re system, and added a command
+	  to show loaded modules.
 
 2002-06-19 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* scripts/pybotsetup.py: Adopted new admin permission working.

@@ -22,11 +22,12 @@ def init():
     from pybot.server import Servers
     from pybot.hook import Hooks
     from pybot.main import Main
+    from pybot.sqlitedb import SQLiteDB
     
     from ConfigParser import ConfigParser
     import os
     
-    global main, modls, servers, options, hooks, mm, rm, config
+    global main, modls, servers, options, hooks, mm, rm, config, db
     
     hooks = Hooks()
     servers = Servers()
@@ -38,6 +39,8 @@ def init():
 
     config = ConfigParser()
     defaults = config.defaults()
+
+    db = SQLiteDB()
     
     if os.path.isfile("./pybot.conf") and os.path.isdir("pybot"):
         config.read("./pybot.conf")

@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import config, options, hooks, mm, servers
+from pybot import config, options, hooks, mm, servers, db
 from pybot.user import User
 import time
 import re
@@ -37,14 +37,14 @@ this to work.\
 """,)]
 
 class LogMsg:
-    def __init__(self, time, servername, type, src, dest, line):
-        self.time = time
-        self.servername = servername
-        self.type = type
-        self.src = src
-        self.dest = dest
-        self.line = line
-
+    def __init__(self, data)
+        self.time = int(data.time)
+        self.servername = data.servername
+        self.type = data.type
+        self.src = data.src
+        self.dest = data.dest
+        self.line = data.line
+        
     def __str__(self):
         src = User()
         src.setstring(self.src)
@@ -65,51 +65,59 @@ class LogMsg:
             s = "on %d-%d-%d at %d:%d" % msg[:5]
         return s
  
+STRIPNICK = re.compile(r"^[\W_]*([^\W_]+)[\W_]*$")
 
 class Log:
     def __init__(self):
-        self.__logname = config.get("log", "logfile")
+        self.create_database()
 
-    def append(self, servername, type, src, dest, line):
-        file = open(self.__logname, "a")
-        file.write("%d %s %s %s %s %s\n" %
-                   (int(time.time()), servername, type, src, dest, line))
-        file.close()
+    def create_database(self):
+        cursor = db.cursor()
+        try:
+            cursor.execute("create table log "
+                           "(timestamp, servername, type,"
+                           " nick, src, dest, line)")
+        except db.error:
+            pass
+
+    def xformnick(self, nick):
+        return STRIPNICK.sub(r"\1", nick.lower())
+
+    def append(self, servername, type, nick, src, dest, line):
+        nick = self.xformnick(nick)
+        cursor = db.cursor()
+        values = (int(time.time()), servername, type, nick, src, dest, line)
+        places = ','.join(['%s']*len(values))
+        cursor.execute("insert into log values (%s)" % places, values)
 
     def seen(self, nick):
-        stripnick = re.compile(r"^[\W_]*([^\W_]+)[\W_]*$")
-        nick = stripnick.sub(r"\1", nick.lower())
-        file = open(self.__logname)
-        logmsg = None
-        for line in file.xreadlines():
-            stime, servername, type, src, dest, line = line.split(" ", 5)
-            if src == "-" or dest == "-":
-                continue
-            user = User()
-            user.setstring(src)
-            if stripnick.sub(r"\1", user.nick.lower()) == nick:
-                logmsg = LogMsg(int(stime), servername, type, src, dest, line)
-        file.close()
-        return logmsg
+        nick = self.xformnick(nick)
+        cursor = db.cursor()
+        cursor.execute("select * from log where nick=%s and src != '' "
+                       "and dest != '' order by timestamp desc limit 1",
+                       (nick,))
+        row = cursor.fetchone()
+        if row:
+            return LogMsg(row)
+        return None
 
     def search(self, regexp, max, searchline):
         p = re.compile(regexp, re.I)
-        file = open(self.__logname)
+        file = open(self.logname)
         l = []
-        for line in file.xreadlines():
-            line = line[:-1]
-            stime, servername, type, src, dest, line = line.split(" ", 5)
-            if src == "-" or dest == "-":
-                continue
-            if p.search(line):
-                l.append(LogMsg(int(stime), servername, type, src, dest, line))
+        cursor = db.cursor()
+        cursor.execute("select * from log where src != '' and dest != ''")
+        row = cursor.fetchone()
+        while row:
+            if p.search(row.line):
+                l.append(LogMsg(row))
             if len(l) > max+1:
                 l.pop(0)
+            row = cursor.fetchone()
         if l and l[-1].line == searchline:
             l.pop()
         elif len(l) > max:
             l.pop(0)
-        file.close()
         return l
 
 class LogModule:
@@ -183,32 +191,38 @@ class LogModule:
                 return 0
     
     def log_message(self, msg):
-        target = msg.direct and "-" or msg.target
-        self.log.append(msg.server.servername, "MESSAGE", msg.user.string,
-                        target, msg.rawline)
+        if msg.direct:
+            target = ""
+        else:
+            target = msg.target
+        self.log.append(msg.server.servername, "MESSAGE", msg.user.nick(),
+                        msg.user.string, target, msg.rawline)
     
     def log_ctcp(self, msg):
         if msg.ctcp == "ACTION":
-            target = msg.direct and "-" or msg.target
-            self.log.append(msg.server.servername, "ACTION", msg.user.string,
-                            target, msg.rawline)
+            if msg.direct:
+                target = ""
+            else:
+                target = msg.target
+            self.log.append(msg.server.servername, "ACTION", msg.user.nick(),
+                            msg.user.string, target, msg.rawline)
 
     def log_outmessage(self, msg):
-        self.log.append(msg.server.servername, "MESSAGE", "-",
+        self.log.append(msg.server.servername, "MESSAGE", "", "",
                         msg.target, msg.rawline)
     
     def log_outctcp(self, msg):
         if msg.ctcp == "ACTION":
-            self.log.append(msg.server.servername, "ACTION", "-",
+            self.log.append(msg.server.servername, "ACTION", "", "",
                             msg.target, msg.rawline)
 
 def __loadmodule__(bot):
-    global module
-    module = LogModule()
+    global mod
+    mod = LogModule()
 
 def __unloadmodule__(bot):
-    global module
-    module.unload()
-    del module
+    global mod
+    mod.unload()
+    del mod
 
 # vim:ts=4:sw=4:et

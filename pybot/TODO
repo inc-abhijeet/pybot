@@ -12,8 +12,6 @@ This are some of the features to be implemented in the future:
 
 - Setup pybot nick when connecting.
 
-- Limit log search to the same server.
-
 - Develop admin module for direct sql access.
 
 - Add timed messages in the messages.py module.

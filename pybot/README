@@ -12,6 +12,14 @@ Requirements
 Pybot requires the sqlite (http://sqlite.org) SQL database library,
 and its python module (http://pysqlite.sf.net).
 
+Download
+--------
+
+Current access to its source is available trough CVS only, in the
+sourceforge pybot project:
+
+http://sourceforge.net/projects/pybot
+
 End user features
 -----------------
 
@@ -25,7 +33,6 @@ End user features
 - very flexible permission system;
 - full online help;
 - auto recover from network errors;
-- flood protection;
 - auto timming of messages to avoid being kicked by the server.
 - lots of additional functionalities through available modules;
 - even basic functionality is implemented using modules;
@@ -137,5 +144,9 @@ Standard modules
         Also implements a sendmsg() remote method, allowing external
         services to send messages and notices using pybot (demo client
         included);
+
+- remoteinfo
+        Allows pybot to acquire knowledge from remote URLs in a very
+        flexible way.
 
 vim:st=4:sw=4:et

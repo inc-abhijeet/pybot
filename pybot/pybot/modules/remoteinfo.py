@@ -84,8 +84,7 @@ class Info:
 
 class RemoteInfo:
     def __init__(self):
-        db.table("remoteinfo", "id integer primary key, url, regex, interval",
-                 constraints="unique (url)")
+        db.table("remoteinfo", "url unique, regex, interval")
         self.info = options.get("RemoteInfo.info", {})
         self.info_lock = options.get("RemoteInfo.info_lock", {})
         self.lock = thread.allocate_lock()
@@ -201,27 +200,10 @@ class RemoteInfo:
         finally:
             self.unlock_url(url)
 
-    def get_allowed_urls(self, servername, target):
-        cursor = db.cursor()
-        cursor.execute("select remoteinfo.url,remoteinfoallow.* "
-                       "from remoteinfoallow left join remoteinfo "
-                       "on remoteinfo.id=remoteinfoallow.infoid")
-        # [0] url, [1] infoid, [2] servername, [3] target
-        allowed = {}
-        for row in cursor.fetchall():
-            if (not row[2] or row[2] == servername) and \
-               (not row[3] or row[3] == target):
-                allowed[row[0]] = 1
-        return allowed.keys()
-    
     def message_remoteinfo(self, msg):
         ret = None
-        #allowed = self.get_allowed_urls(msg.server.servername,
-        #                                msg.answertarget)
         allowed = mm.permparams(msg, "remoteinfo")
         for url, info in self.info.items():
-            #if not mm.hasperm(msg, "remoteinfo", url):
-            #    continue
             if url not in allowed:
                 continue
             for p in info.patterns:
@@ -365,8 +347,7 @@ class RemoteInfo:
 
         m = self.re3.match(msg.line)
         if m:
-            if mm.hasperm(msg, "remoteinfo") or \
-               mm.hasperm(msg, "reloadremoteinfo"):
+            if mm.hasperm(msg, "remoteinfoadmin"):
                 cursor = db.cursor()
                 cursor.execute("select * from remoteinfo")
                 if cursor.rowcount:
@@ -384,34 +365,11 @@ class RemoteInfo:
                             unit = "second"
                         if interval > 1:
                             unit += "s"
-                        cursor.execute("select * from remoteinfoallow where "
-                                       "infoid=%s", (row.id,))
-                        if cursor.rowcount:
-                            allowed = "(for "
-                            first = 1
-                            for _row in cursor.fetchall():
-                                if not first:
-                                    allowed += ", "
-                                if _row.servername and _row.target:
-                                    allowed += "%s at %s" % (_row.target,
-                                                             _row.servername)
-                                elif _row.servername:
-                                    allowed += "server %s" % _row.servername
-                                elif _row.target:
-                                    allowed += _row.target
-                                else:
-                                    allowed = "(for everybody)"
-                                    break
-                                first = 0
-                            else:
-                                allowed += ")"
-                        else:
-                            allowed = "(for nobody)"
                         regex = row.regex
                         if regex and regex[0] == "\\":
                             regex = "\\"+regex
                         msg.answer("-", row.url, "each", str(interval), unit,
-                                   "with regex", regex, allowed)
+                                   "with regex", regex)
                 else:
                     msg.answer("%:", "No remote info urls are currently "
                                      "being loaded", [".", "!"])

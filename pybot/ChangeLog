@@ -2,6 +2,12 @@
 	* modules/userdata.py,modules/permission.py: A much better userdata
 	  registry and permission system was developed.
 	* misc.py: Increased maximum line size to 400 characters.
+	* server.py,runner.py,modules/permission.py: Implemented a
+	  pybot console, allowing one to talk to pybot locally.
+	* scripts/*: Removed setup scripts. They're not needed anymore
+	  now that we have a console.
+	* core.py: Removed (why was it still here?).
+	* modules/options.py: Get filename from configuration file.
 
 2003-05-08 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/xmlrpc.py: New xmlrpc module.

@@ -17,10 +17,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from errno import EINPROGRESS, EALREADY, EWOULDBLOCK
-from thread import allocate_lock
+from thread import allocate_lock, start_new_thread
 from select import select
 from string import split
-from time import time
+from time import time, sleep
 import socket
 
 from pybot.misc import buildanswer, breakline
@@ -35,8 +35,11 @@ class Servers:
         self.servers = []
 
     def add(self, servername):
-        self.servers.append(Server(self, servername))
+        self.servers.append(Server(servername))
     
+    def add_console(self):
+        self.servers.append(ConsoleServer())
+
     def remove(self, servername):
         for i in range(len(self.servers)):
             if server[i].servername == servername:
@@ -50,12 +53,49 @@ class Servers:
     def getall(self):
         return self.servers
 
-class Server:
-    def __init__(self, bot, servername):
-        self.changeserver(servername)
-        self._bot = bot
-        self._inbuffer = ""
+class BaseServer:
+    def __init__(self, servername):
+        self.servername = servername
+        self.killed = 0
         self._inlines = []
+        self.user = User()
+
+    def interaction(self):
+        pass
+
+    def changeserver(self, servername):
+        pass
+
+    def kill(self):
+        pass
+    
+    def reconnect(self):
+        pass
+
+    def sendcmd(self, prefix, cmd, *params, **kw):
+        pass
+
+    def sendmsg(self, target, nick, *params, **kw):
+        pass
+
+    def readline(self):
+        """Return one line from the buffer (and remove it).
+
+        This method is not thread safe, since it must be called only
+        by the main loop.
+        """
+        line = None
+        if len(self._inlines) > 0:
+            line = self._inlines[0]
+            del self._inlines[0]
+        return line
+
+class Server(BaseServer):
+    def __init__(self, servername):
+        BaseServer.__init__(self, servername)
+
+        self.changeserver(servername)
+        self._inbuffer = ""
         self._outlines = []
         self._outlines_lock = allocate_lock()
         self._last_sent = 0
@@ -63,14 +103,12 @@ class Server:
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.setblocking(0)
         self._timeout = 0
-        self.connected = 0
         self._connect = 1
         self._reconnect = 0
-        self.killed = 0
-        self.user = User()
+        self._connected = 0
     
     def interaction(self):
-        if not self.connected:
+        if not self._connected:
             if self._timeout:
                 self._timeout = self._timeout-1
             elif self._connect:
@@ -83,7 +121,7 @@ class Server:
                         pybot.hooks.call("ConnectingError", self)
                         self._disconnect()
                         return
-                self.connected = 1
+                self._connected = 1
                 pybot.hooks.call("Connected", self)
         else:
             try:
@@ -156,7 +194,7 @@ class Server:
             self._socket.close()
         except:
             pass
-        self.connected = 0
+        self._connected = 0
         self._outlines = []
 
     def kill(self):
@@ -164,21 +202,9 @@ class Server:
         self.killed = 1
     
     def reconnect(self):
-        if self.connected:
+        if self._connected:
             self._reconnect = 1
             self._timeout = CONNECTDELAY
-
-    def readline(self):
-        """Return one line from the buffer (and remove it).
-
-        This method is not thread safe, since it must be called only
-        by the main loop.
-        """
-        line = None
-        if len(self._inlines) > 0:
-            line = self._inlines[0]
-            del self._inlines[0]
-        return line
 
     def sendline(self, line, priority=50, outhooks=1):
         """Send one line for the server.
@@ -230,5 +256,55 @@ class Server:
         for subline in breakline(line):
             subline = linemask%subline
             self.sendline(subline, priority, outhooks)
+
+from cmd import Cmd
+
+class ConsoleServer(BaseServer, Cmd):
+    def __init__(self):
+        BaseServer.__init__(self, "console")
+        self.user.set("pybot", "pybot", "console")
+
+        Cmd.__init__(self)
+        self.prompt = "pybot> "
+        start_new_thread(self.cmdloop, ())
+        del Cmd.do_help
+        
+        self._outlines = []
+        self._outlines_lock = allocate_lock()
+
+    def sendcmd(self, prefix, cmd, *params, **kw):
+        outline = "[CMD] %s %s" % \
+                  (cmd, buildanswer(params, None, self.user.nick))
+        self._outlines_lock.acquire()
+        self._outlines.append(outline)
+        self._outlines_lock.release()
+
+    def sendmsg(self, target, nick, *params, **kw):
+        outline = "[MSG] %s" % buildanswer(params, target, nick)
+        self._outlines_lock.acquire()
+        self._outlines.append(outline)
+        self._outlines_lock.release()
+
+    def show_lines(self):
+        self._outlines_lock.acquire()
+        for line in self._outlines:
+            print line
+        self._outlines = []
+        self._outlines_lock.release()
+
+    def default(self, line):
+        if line == "EOF":
+            print
+            return 1
+        inline = ":master!master@console PRIVMSG pybot :%s" % line
+        self._inlines.append(inline)
+        sleep(0.5)
+        self.show_lines()
+
+    def emptyline(self):
+        pass
+
+    def postloop(self):
+        pybot.main.quit = 1
 
 # vim:ts=4:sw=4:et

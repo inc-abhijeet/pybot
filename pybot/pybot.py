@@ -29,8 +29,9 @@ def main():
     except ImportError:
         sys.exit("error: couldn't find module pybot.runner")
     module[0].close()
+    args = ' '.join(["'%s'"%x for x in sys.argv[1:]])
     while 1:
-        ret = os.system("python "+module[1])
+        ret = os.system("python %s %s" % (module[1], args))
         if ret != 0:
             break
         time.sleep(5)

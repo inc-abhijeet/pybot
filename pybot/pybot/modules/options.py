@@ -27,6 +27,7 @@ class Options:
         hooks.register("Message", self.message)
         hooks.register("Reboot", self.write, 1000)
         hooks.register("Quit", self.write, 1000)
+        self.path = config.get("options", "path")
         self.read()
         self.safe_env = {"__builtins__": {}, "None": None}
     
@@ -37,13 +38,13 @@ class Options:
         hooks.unregister("Quit", self.write, 1000)
 
     def write(self):
-        file = open("options", "w")
+        file = open(self.path, "w")
         cPickle.dump(options.getharddict(), file, 1)
         file.close()
     
     def read(self):
-        if os.path.exists("options"):
-            file = open("options")
+        if os.path.exists(self.path):
+            file = open(self.path)
             newoption = cPickle.load(file)
             oldoption = options.getharddict()
             file.close()

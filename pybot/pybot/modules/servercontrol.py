@@ -145,7 +145,7 @@ class ServerControl:
 					msg.answer("%:", ["Sorry,", "Oops!", "But,", None], "I'm already connected to this", ["server!", "server, sir!"])
 				else:
 					msg.answer("%:", ["I'm connecting, sir!", "I'm going there!", "At your order, sir!", "No problems!", "Right now!", "Ok!"])
-					self.servers[var[0]] = ["pybot", "pybot", "0", "PyBot", []]
+					self.servers[var[0]] = ["pybot", "pybot", "0", "PyBot", {}]
 					servers.add(var[0])
 			else:
 				msg.answer("%:", [("You're not", ["allowed to connect.", "that good...", "allowed to do this..."]), "No, sir!", "Nope."])

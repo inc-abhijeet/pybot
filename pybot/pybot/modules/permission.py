@@ -161,6 +161,8 @@ class Permission:
                 return 0
                     
     def mm_hasperm(self, defret, servername, channel, user, perm):
+        if servername == "console":
+            return 1
         if (servername, mm.loggednick(0, servername, user)) in \
            self.staticadmins:
             return 1

@@ -32,10 +32,7 @@ class Main:
         random.seed(time())
         self.reboot = 0
         self.quit = 0
-        # Aaron told SIGQUIT is not available in Windows. We must figure
-        # out which platforms it is available and what's the most clean
-        # way to use it.
-        # signal.signal(signal.SIGQUIT, self.signalhandler)
+        signal.signal(signal.SIGQUIT, self.signalhandler)
         signal.signal(signal.SIGTERM, self.signalhandler)
     
     def signalhandler(self, signum, frame):

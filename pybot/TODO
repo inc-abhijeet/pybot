@@ -3,8 +3,6 @@ This are some of the features to be implemented in the future:
 
 - A better website for pybot.
 
-- Documentation!! Please, write documentation. :-)
-
 - Include every module in the online help system.
 
 - Adapt distutils classes to install every necessary file in their respective
@@ -17,3 +15,12 @@ This are some of the features to be implemented in the future:
 
 - Remove the parameter from __loadmodule() and __unloadmodule__(), and convert
   them to use a general "mod" name for the instance.
+
+- Cross identification between servers.
+
+- Include help topics when registering a help entry.
+
+- Include help for permissions.
+
+- Perhaps move all option system to sqlite.
+

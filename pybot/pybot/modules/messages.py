@@ -24,8 +24,8 @@ import re
 HELP = [
 ("""\
 You may leave a message to another user with "[priv[ate]] message (to|for) \
-<nick>: <message>". I'll let <nick> know about your message when he join \
-or speak something in one of the channels I'm in.\
+<nick>: <message>". I'll let <nick> know about your message when he joins \
+or speaks something in one of the channels I'm in.\
 """,)]
 
 class Messages:
@@ -44,6 +44,8 @@ class Messages:
     def unload(self):
         hooks.unregister("Message", self.message)
         hooks.unregister("UserJoined", self.checkmsgs)
+
+        mm.unregister_help(HELP)
 
     def checkmsgs(self, server, target, user):
         lowernick = user.nick.lower()

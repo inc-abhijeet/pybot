@@ -63,7 +63,7 @@ class PLockFile:
 
 class PLock:
     def __init__(self, bot):
-        self.pdir = "/mnt/locks/"
+        self.pdir = "/cnc/distro/locks/"
         hooks.register("Message", self.message)
         options.gethard("UserData.type", {}).setdefault("email", "~")
         

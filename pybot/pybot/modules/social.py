@@ -32,8 +32,8 @@ class Social:
 		# Match 'pybot!'
 		self.re2 = re.compile(r'(?P<nick>\w+)\s*!+$', re.I)
 		
-		# Match '[thank[']s|thank you] [!|.]'
-		self.re3 = re.compile(r'thank(?:\'?s)?\s+you(?:\s+(?P<nick>\w+))\s*[!.]*', re.I)
+		# Match '[thank[']s|thank you|thx|tnk[']s] [!|.]'
+		self.re3 = re.compile(r'(?:thank|thx|tnk)(?:\'?s|\s+you)(?:\s+(?P<nick>\w+))\s*[!.]*', re.I)
 		
 		# Match 'are you ok?|how are you [doing]?'
 		self.re4 = re.compile(r'(?:are\s+you\s+ok|how\s+are\s+you(?:\s+doing)?)\s*[!?]*$', re.I)
@@ -49,6 +49,9 @@ class Social:
 		
 		# Match ' (gay|stupid|fuck|idiot|imbecile|cretin) '
 		self.re8 = re.compile(r'.*(?:gay|stupid|fuck|idiot|imbecile|cretin)', re.I)
+		
+		# Match 'h[e|u|a]h'
+		self.re9 = re.compile(r'h[eua]h', re.I)
 		
 	def unload(self):
 		hooks.unregister("Message", self.message)
@@ -95,6 +98,10 @@ class Social:
 
 			if self.re8.match(msg.line):
 				msg.answer("%:", ["Be polite while talking to me!", "I should talk to your mother!", "Hey! What's this?", "I'll pretend to be blind."])
+				return 0
+			
+			if self.re9.match(msg.line):
+				msg.answer("%:", ["Heh", "Huh"], ["?", "!?", "!?!?", ".."])
 				return 0
 	
 	def unhandled_message(self, msg):

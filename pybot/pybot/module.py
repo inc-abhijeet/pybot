@@ -26,6 +26,42 @@ class Modules:
 	def isloaded(self, name):
 		return self.__modules.has_key(name)
 	
+	def loadlist(self, names):
+		"""Load list of given modules considering level attribute."""
+		modulelist = []
+		for name in names:
+			try:
+				module = __import__("pybot.modules."+name)
+				module = getattr(module, "modules")
+				module = getattr(module, name)
+				reload(module)
+				func = getattr(module, "__loadmodule__")
+				try:
+					level = getattr(module, "__loadlevel__")
+				except AttributeError:
+					level = 100
+				l = len(modulelist)
+				i = 0
+				while i < l:
+					if modulelist[i][-1] > level:
+						modulelist.insert(i, (name, module, func, level))
+						break
+					i = i + 1
+				else:
+					modulelist.append((name, module, func, level))
+			except (AttributeError, ImportError):
+				traceback.print_exc()
+		ret = []
+		for name, module, func, level in modulelist:
+			try:
+				func(self)
+			except:
+				traceback.print_exc()
+			else:
+				self.__modules[name] = module
+				ret.append(name)
+		return ret
+		
 	def load(self, name):
 		try:
 			module = __import__("pybot.modules."+name)

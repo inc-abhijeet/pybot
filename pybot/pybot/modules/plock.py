@@ -82,11 +82,12 @@ class PLock:
 		# Match 'plock <package> [,<package>] ?'
 		self.re5 = re.compile(r"plock\s+(?P<package>[\w_-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_-]+)*)\s*(?:!*\?[?!]*)$")
 
-		mm.register_help(0, ["plock", "unplock"], HELP)
+		# Match '[un]plock[ing] | <package|pkg> lock[ing]
+		mm.register_help(0, "(?:un)?plock(?:ing)?|(?:package|pkg)\s+lock(?:ing)?", HELP)
 
 	def unload(self):
 		hooks.unregister("Message", self.message)
-		mm.unregister_help(0, ["plock", "unplock"])
+		mm.unregister_help(0, HELP)
 	
 	def getnick(self, server, email):
 		emails = mm.getuserdataall({}, server, "email")

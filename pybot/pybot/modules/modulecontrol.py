@@ -22,8 +22,7 @@ class ModuleControl:
 	def __init__(self, bot):
 		self.modules = options.gethard("ModuleControl.modules", [])
 		hooks.register("Message", self.message)
-		for module in self.modules:
-			modls.load(module)
+		modls.loadlist(self.modules)
 
 	def unload(self):
 		hooks.unregister("Message", self.message)

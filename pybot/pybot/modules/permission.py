@@ -36,7 +36,7 @@ class Permission:
 	
 	def message(self, msg):
 		var = []
-		if msg.match(var, 6, "%", "give", 0, "~", ["permission", "perm"], "to", [("user", 1, "~"), None], [(["on", "at", None], [(2, "~this", "channel"), ("channel", 3, "^[#&+!][^,^G]+$")]), None], [(["on", "at", None], [(4, "~this", "server"), ("server", 5, "~")]), None], ["!", ".", None]):
+		if msg.match(var, 6, "%", "give", 0, "~", ["permission", "perm"], "to", [("user", 1, "~"), None], [(["on", "at", None], [(2, "~this", "channel"), ("channel", 3, "^[#&+!][^,^G]+$")]), None], [(["on", "at", "to", None], [(4, "~this", "server"), ("server", 5, "~")]), None], ["!", ".", None]):
 			if self.mm_hasperm(0, msg.server.servername, msg.target, msg.user, None):
 				if var[1] or var[2] or var[3] or var[4]:
 					if var[2]:

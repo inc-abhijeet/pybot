@@ -21,19 +21,19 @@ import re
 
 HELP = [
 ("""\
-You may ask for help using "[show] help [about] <keyword>".\
+You may ask for help using "[show] help [about] <something>".\
 """,)
 ]
 
 class Help:
 	def __init__(self, bot):
-		self.data = options.getsoft("Help.data", {})
+		self.data = options.getsoft("Help.data", [])
 		mm.register("register_help", self.mm_register_help)
 		mm.register("unregister_help", self.mm_unregister_help)
 		hooks.register("Message", self.message)
 		
 		# [show] help [about] <keyword>
-		self.re1 = re.compile(r"(?:show\s+)?help(?:\s+about)?(?:\s+(?P<keyword>\S+))?\s*[.!]*$", re.I)
+		self.re1 = re.compile(r"(?:show\s+)?help(?:\s+about)?(?:\s+(?P<something>.+?))?\s*[.!]*$", re.I)
 		
 	def unload(self):
 		hooks.unregister("Message", self.message)
@@ -45,30 +45,37 @@ class Help:
 			m = self.re1.match(msg.line)
 			if m:
 				if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "help"):
-					keyword = m.group("keyword")
-					if keyword:
-						text = self.data.get(keyword)
+					something = m.group("something")
+					if something:
+						found = 0
+						for pattern, text in self.data:
+							if pattern.match(something):
+								found = 1
+								for line in text:
+									msg.answer("%:", *line)
 					else:
-						text = HELP
-					if text:
-						for line in text:
+						found = 1
+						for line in HELP:
 							msg.answer("%:", *line)
-					else:
+					if not found:
 						msg.answer("%:", ["No", "Sorry, no", "Sorry, but there's no"], "help about that", [".", "!"])
 				else:
 					msg.answer("%:", ["Sorry, you", "You"], ["can't", "are not allowed to"], "ask for help", [".", "!"])
 				return 0
 			
-	def mm_register_help(self, defret, keywords, text):
-		for keyword in keywords:
-			self.data[keyword] = text
+	def mm_register_help(self, defret, pattern, text):
+		self.data.append((re.compile(pattern, re.I), text))
 
-	def mm_unregister_help(self, defret, keywords):
-		for keyword in keywords:
-			try: 
-				del self.data[keyword]
-			except KeyError:
-				pass
+	def mm_unregister_help(self, defret, text):
+		for i in range(len(self.data)-1,-1,-1):
+			if self.data[i][1] == text:
+				del self.data[i]
+
+
+# Make sure it is loaded first to let mm.register_help()
+# available to everyone.
+__loadlevel__ = 90
+
 
 def __loadmodule__(bot):
 	global help

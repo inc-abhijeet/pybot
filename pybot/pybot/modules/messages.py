@@ -16,10 +16,17 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import hooks, options
+from pybot import hooks, options, mm
 import string
 import time
 import re
+
+HELP = [
+("""\
+You may leave a message to another user with "[priv[ate]] message (to|for) \
+<nick>: <message>". I'll let <nick> know about your message when he join \
+or speak something in one of the channels I'm in.\
+""",)]
 
 class Messages:
     def __init__(self, bot):
@@ -30,6 +37,9 @@ class Messages:
 
         # Match '[priv[ate]] message (to|for) <nick>: <message>'
         self.re1 = re.compile(r"(?P<private>priv(?:ate)?\s+)?message\s+(?:to|for)\s+(?P<nick>\S+?)\s*:\s+(?P<message>.*)$", re.I)
+
+        # Match '[leav(e|ing)] message[s]'
+        mm.register_help(0, "(?:leav(?:e|ing)\s+)?messages?", HELP)
 
     def unload(self):
         hooks.unregister("Message", self.message)

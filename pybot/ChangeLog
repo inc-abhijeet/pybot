@@ -1,3 +1,15 @@
+2001-11-14 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/messages.py: Added help.
+	* modules/help.py: Reduced load level.
+	* module.py, modules/modulecontrol.py: Added handling of load levels,
+	  allowing one to control module loading order.
+
+2001-11-13 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* option.py: Fixed little bug in Options.getsoft() keepalive handling.
+	* modules/{help,plock}.py: Implemented help module, offering an online
+	  help api for other modules (have a look at plock.py for an example).
+	* social.py: Minor changes.
+ 
 2001-11-01 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* pybot was completely reestructured.
 

@@ -24,14 +24,20 @@ import string
 import random
 import time
 import cPickle
-import pybot
 
 if os.path.isfile("options"):
+    sys.exit("You already have an options file!")
+    # For the future:
     file = open("options")
     option = cPickle.load(file)
     file.close()               
 else:
     option = {}
+
+if os.path.isdir("pybot"):
+    sys.path.append(".")
+
+from pybot.user import User
 
 try:
     print """
@@ -89,8 +95,9 @@ Enter the real name pybot will use in this server."""
 except EOFError:
     sys.exit("Interrupted!")
 
-option["Permission.gosh"] = [pybot.User(nick, username, hostname)]
-option["ServerControl.servers"] = {server:[pybotnick, pybotusername, "0", pybotrealname, []]}
+option["Permission.gosh"] = [User(nick, username, hostname)]
+option["ServerControl.servers"] = {server:[pybotnick, pybotusername, "0", pybotrealname, {}]}
+option["ModuleControl.modules"] = ["servercontrol", "pong", "permission", "help", "social"]
 
 file = open("options", "w")
 option = cPickle.dump(option,file,1)

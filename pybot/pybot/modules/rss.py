@@ -23,7 +23,7 @@ import time
 
 HELP = """
 You can ask me to show RSS news from any site and for any user/channel
-and server with "[dont] show (news|rss news) [from] <url> [with link[s]]
+and server with "[dont] show (rss|news) [from] <url> [with link[s]]
 [with desc[ription][s]] [with prefix "<prefix>"] [each <n>(m|h)]
 [(on|for) (user|channel) <target>] [(on|at) server <server>]". Notice
 that after <url> you can use any order, and also that the given interval
@@ -85,9 +85,9 @@ class RSS:
 
         mm.hooktimer(60, self.update, ())
 
-        # [dont] show (news|rss news) [from] <url> [with link[s]] [with desc[ription][s]] [with prefix "<prefix>"] [each <n>(m|h)] [[on|at|in|for] (user|channel) <target>] [[on|at|in|for] server <server>]
+        # [dont] show (rss|news|rss news) [from] <url> [with link[s]] [with desc[ription][s]] [with prefix "<prefix>"] [each <n>(m|h)] [[on|at|in|for] (user|channel) <target>] [[on|at|in|for] server <server>]
         self.re1 = regexp(refrag.dont(optional=1),
-                          r"show (?:rss news |news )(?:from )?(?P<url>(?:https?|ftp)\S+)"
+                          r"show (?:rss |news |rss news )(?:from )?(?P<url>(?:https?|ftp)\S+)"
                           r"(?:"
                             r" with prefix \"(?P<prefix>.*?)\"|"
                             r"(?P<links> with links?)|"
@@ -218,13 +218,17 @@ class RSS:
                 else:
                     cursor.execute("insert into rssfeed values (NULL, %s, 0)",
                                    (url,))
+                    cursor.execute("select id from rssfeed where url=%s",
+                                   (url,))
+                    feedid = cursor.fetchone().id
                     try:
                         cursor.execute("insert into rsstarget values "
-                                       "(NULL,"
-                                       " (select id from rssfeed where url=%s),"
-                                       " %s, %s, %s, %s, %s, -1)",
-                                       (url, servername, target, flags,
-                                        prefix, interval))
+                                       "(NULL, %s, %s, %s, %s, %s, %s, "
+                                       " (select max(id) from rssitem where "
+                                       "  feedid=%s)"
+                                       ")",
+                                       (feedid, servername, target, flags,
+                                        prefix, interval, feedid))
                     except db.error:
                         msg.answer("%:", ["Not needed", "It's not needed",
                                           "Oops"], [".", "!"],

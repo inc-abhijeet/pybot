@@ -1,0 +1,49 @@
+
+Here is a quick startup tutorial:
+
+----------
+
+% cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/pybot co pybot     
+
+cvs server: Updating pybot
+U pybot/ChangeLog
+U pybot/LICENSE
+U pybot/README
+U pybot/TODO
+U pybot/pybot.conf
+U pybot/pybot.py
+(...)
+
+% cd pybot
+% vi pybot.conf
+(... defaults are usually ok ...)
+
+% ./pybot.py -c
+pybot>
+pybot> help
+(...)
+pybot> 
+pybot> connect to irc.freenode.net with servername freenode and with nick MyBot
+[MSG] I'm going there!
+pybot> 
+pybot> 
+pybot> join #conectiva on freenode
+pybot> 
+[MSG] No problems.
+pybot> quit
+(... bot disconnects ...)
+
+% ./pybot.py -c
+(... bot automatically reconnects to freenode ...)
+pybot> 
+pybot> show channels
+[MSG] In server freenode, I'm in the following channels: #conectiva
+pybot> help modules
+(... check the help and load additional modules ...)
+pybot> help permissions
+(... check the help and give some permissions ...)
+pybot> quit
+
+% ./pybot.py & 
+[1] 8528
+

@@ -6,6 +6,7 @@
 	* pybot/rss.py: Introduced generic RSS module! It's based on
 	  Mark Pilgrim's "ultra liberal" parser, and allows one
 	  to send news from any RSS feed to any user/channel/server.
+	* QUICK_START: Added small startup tutorial.
 
 2003-08-24 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* pybot/misc.py,modules/help.py,modules/*: Now regular

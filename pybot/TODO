@@ -4,8 +4,6 @@ This are some of the features to be implemented in the future:
 - Adapt distutils classes to install every necessary file in their respective
   directories.
 
-- Develop a README explaining how to do the basic setup of pybot.
-
 - Cross identification between servers (is this useful?).
 
 - Develop admin module for direct sql access.

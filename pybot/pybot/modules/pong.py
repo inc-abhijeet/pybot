@@ -16,18 +16,24 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import hooks
+from pybot import hooks, mm, servers
 
 class Pong:
     def __init__(self, bot):
         hooks.register("Command", self.pong, 0)
+        mm.hooktimer(0, 60, self.ping, ())
     
     def unload(self):
         hooks.unregister("Command", self.pong, 0)
+        mm.unhooktimer(0, 60, self.ping, ())
         
     def pong(self, cmd):
         if cmd.cmd == "PING":
             cmd.server.sendcmd("", "PONG", cmd.params, priority=10)
+    
+    def ping(self):
+        for server in servers.getall():
+            server.sendcmd("", "PING", server.user.nick)
 
 def __loadmodule__(bot):
     global pong

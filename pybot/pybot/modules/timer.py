@@ -16,13 +16,13 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks
+from pybot import mm, hooks, options
 from time import time
 from thread import start_new_thread
 
 class Timer:
     def __init__(self, bot):
-        self._timer = []
+        self._timer = options.getsoft("Timer.data", [])
         mm.register("hooktimer", self.mm_hooktimer)
         mm.register("unhooktimer", self.mm_unhooktimer)
         hooks.register("Loop", self.loop)
@@ -62,6 +62,9 @@ class Timer:
         for i in r:
             del self._timer[i]
         return ret
+
+# Load first to let hooktimer() available to other modules.
+__loadlevel__ = 90
 
 def __loadmodule__(bot):
     global timer

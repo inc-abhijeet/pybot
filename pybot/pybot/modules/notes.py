@@ -57,7 +57,7 @@ class Notes:
         self.re3 = regexp(r"(?:show )?notes?(?:(?: about)? (?P<topic>[^?]+))?")
 
         # note[s]
-        mm.register_help(r"notes?$", HELP, "notes")
+        mm.register_help(r"notes?", HELP, "notes")
 
         mm.register_perm("notes", PERM_NOTES)
 

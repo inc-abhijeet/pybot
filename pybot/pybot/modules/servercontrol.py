@@ -119,7 +119,7 @@ class ServerControl:
         self.re9 = regexp(r"show connection messages?")
 
         # [dis|re]connect
-        mm.register_help(r"(?:dis|re)?connect$", HELP_CONNECT,
+        mm.register_help(r"(?:dis|re)?connect", HELP_CONNECT,
                          ["connect", "disconnect", "reconnect"])
 
         # (join|leave|part) [channel[s]]
@@ -127,7 +127,7 @@ class ServerControl:
                          ["join", "leave"])
 
         # show[ ](channels|servers)
-        mm.register_help(r"show *(?:channels|servers)$", HELP_SHOW,
+        mm.register_help(r"show *(?:channels|servers)", HELP_SHOW,
                          ["show channels", "show servers"])
 
         # connection message[s]

@@ -82,7 +82,7 @@ class PLock:
         self.re4 = regexp(r"(?:(?:who )?(?:has )plocked|plocker (?:of )?)(?P<package>[\w_\.-]+(?:(?: *,? *and |[, ]+)[\w_\.-]+)*)", question=1)
 
         # plock <package> [,<package>] ?
-        self.re5 = regexp(r"plock (?P<package>[\w_\.-]+(?:(?: *,? *and |[, ]+)[\w_\.-]+)*)$", question=1, needpunct=1)
+        self.re5 = regexp(r"plock (?P<package>[\w_\.-]+(?:(?: *,? *and |[, ]+)[\w_\.-]+)*)", question=1, needpunct=1)
 
         # [un]plock[ing] | <package|pkg> lock[ing]
         mm.register_help("(?:un)?plock(?:ing)?|(?:package|pkg) lock(?:ing)?",

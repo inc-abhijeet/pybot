@@ -133,7 +133,7 @@ class LogModule:
         hooks.register("OutCTCP", self.log_outctcp, 150)
 
         # [have you] seen <nick>
-        self.re1 = regexp(r"(?:have you )?seen (?P<nick>[^\s!?]+)$", question=1)
+        self.re1 = regexp(r"(?:have you )?seen (?P<nick>[^\s!?]+)", question=1)
 
         # [show|search] (log[s]|message[s]) [with] /<regexp>/
         self.re2 = regexp(r"(?:show |search )?(?:log|message)s? (?:with |search )?/(?P<regexp>.*)/")

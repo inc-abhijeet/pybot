@@ -111,8 +111,8 @@ class RemoteInfo:
         self.re4 = regexp(r"show remote *infos?")
 
         # remote[ ]info
-        mm.register_help("remote *info?$", HELP, "remoteinfo")
-        mm.register_help("remote *infos? *syntax$", HELP_SYNTAX,
+        mm.register_help("remote *info?", HELP, "remoteinfo")
+        mm.register_help("remote *infos? *syntax", HELP_SYNTAX,
                          "remoteinfo syntax")
 
         mm.register_perm("remoteinfo", PERM_REMOTEINFO)

@@ -33,7 +33,8 @@ class Pong:
     
     def ping(self):
         for server in servers.getall():
-            server.sendcmd("", "PING", server.user.nick)
+            if server.servername != "console":
+                server.sendcmd("", "PING", server.user.nick)
 
 def __loadmodule__(bot):
     global pong

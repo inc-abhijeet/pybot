@@ -89,6 +89,11 @@ class Messages:
                 priv = m.group("private") != None
                 message = m.group("message")
                 snick = STRIPNICK.sub(r"\1", nick.lower())
+                if snick == STRIPNICK.sub(r"\1", msg.server.user.nick):
+                    msg.answer("%:", ["I'm not used to talk to myself.",
+                                      "I don't talk to myself.",
+                                      "Are you nuts?"])
+                    return 0
                 flags = ""
                 if priv:
                     flags += "p"

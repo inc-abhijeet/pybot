@@ -2,6 +2,7 @@
 	* modules/remoteinfo.py: Introduced "allow" concept, which
 	  defines which channels/servers are allowed to "see" some
 	  remoteinfo.
+	* modules/messages.py: Prevent messages to the bot itself.
 
 2003-08-19 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/servercontrol.py: Minor typos fixed.

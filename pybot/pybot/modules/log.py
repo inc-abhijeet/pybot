@@ -31,7 +31,7 @@ last message the user wrote.\
 
 HELP_SEARCH = [
 ("""\
-You may search the log files with "[show] (log[s]|message[s]) \
+You may search the log files with "[show|search] (log[s]|message[s]) \
 [with] /<regexp>/'. You must have the "logsearch" permission for \
 this to work.\
 """,)]
@@ -130,17 +130,18 @@ class LogModule:
         hooks.register("OutMessage", self.log_outmessage, 150)
         hooks.register("OutCTCP", self.log_outctcp, 150)
 
-        # Match '[have you] seen <nick> [!?]'
+        # [have you] seen <nick> [!?]
         self.re1 = re.compile(r"(?:have\s+you\s+)?seen\s+(?P<nick>[^\s!?]+)\s*[!?]*$", re.I)
 
-        # Match '[show] (log[s]|message[s]) [with] /<regexp>/[.!]'
+        # [show|search] (log[s]|message[s]) [with] /<regexp>/[.!]
         self.re2 = re.compile("(?:show\s+|search\s+)?(?:log|message)s?\s+(?:with\s+|search\s+)?/(?P<regexp>.*)/\s*[.!?]*$", re.I)
 
-        # Match 'seen'
-        mm.register_help(0, "seen", HELP_SEEN)
+        # seen
+        mm.register_help(0, "seen", HELP_SEEN, "seen")
 
-        # Match '(log|search (log[s]|message[s]))'
-        mm.register_help(0, "log|search\s+(?:log|message)s?", HELP_SEARCH)
+        # log|(search|show) (log[s]|message[s])
+        mm.register_help(0, "log|(?:search|show)\s+(?:log|message)s?",
+                         HELP_SEARCH, "log")
         
     def unload(self):
         hooks.unregister("Message", self.message)

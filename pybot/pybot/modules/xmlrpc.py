@@ -91,7 +91,7 @@ class XmlRpc:
         self.re3 = re.compile(r"(?P<dont>don'?t\s+|do not\s+)?allow\s+xmlrpc\s+(?:func(?:tion)?|method)\s+(?P<func>\S+)(?:\s+(?:to\s+|for\s+)user\s+(?P<user>\S+))?(?:\s+(?:to|for|on|at)\s+(?:user\s+|channel\s+)?(?P<target>\S+))?(?:\s+(?:and\s+)?(?:on\s+|at\s+)?server\s+(?P<server>\S+))?\s*[.!]*$")
     
         # xmlrpc
-        mm.register_help(0, "xmlrpc", HELP)
+        mm.register_help(0, "xmlrpc", HELP, "xmlrpc")
         
     def unload(self):
         hooks.unregister("Message", self.message)

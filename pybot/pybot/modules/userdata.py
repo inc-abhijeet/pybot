@@ -90,10 +90,11 @@ class UserData:
         self.re4 = re.compile(r"unident(?:ify)?|forget\s+me", re.I)
     
         # [un]register|identify
-        mm.register_help(0, "(?:un)?register|ident(?:ify)?", HELP_REGISTER)
+        mm.register_help(0, "(?:un)?register|ident(?:ify)?", HELP_REGISTER,
+                         "register")
 
         # set|unset|add|remove
-        mm.register_help(0, "set|unset|add|remove", HELP_SET)
+        mm.register_help(0, "set|unset|add|remove", HELP_SET, ["set","unset"])
     
     def unload(self):
         hooks.unregister("Message", self.message)

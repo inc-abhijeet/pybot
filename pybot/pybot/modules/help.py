@@ -17,6 +17,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from pybot import hooks, mm, options
+from types import ListType
 import re
 
 HELP = [
@@ -28,6 +29,7 @@ You may ask for help using "[show] help [about] <something>".\
 class Help:
     def __init__(self, bot):
         self.data = options.getsoft("Help.data", [])
+        self.triggers = options.getsoft("Help.triggers", {})
         mm.register("register_help", self.mm_register_help)
         mm.register("unregister_help", self.mm_unregister_help)
         hooks.register("Message", self.message)
@@ -48,7 +50,7 @@ class Help:
                     something = m.group("something")
                     if something:
                         found = 0
-                        for pattern, text in self.data:
+                        for pattern, text, triggers in self.data:
                             if pattern.match(something):
                                 found = 1
                                 for line in text:
@@ -57,20 +59,31 @@ class Help:
                         found = 1
                         for line in HELP:
                             msg.answer("%:", *line)
+                        alltriggers = []
+                        for pattern, text, triggers in self.data:
+                            alltriggers.extend(triggers)
+                        if alltriggers:
+                            alltriggers.sort()
+                            s = "At least the following help items are known: "
+                            s += ", ".join(alltriggers)
+                            msg.answer("%:", s)
                     if not found:
                         msg.answer("%:", ["No", "Sorry, no", "Sorry, but there's no"], "help about that", [".", "!"])
                 else:
                     msg.answer("%:", ["Sorry, you", "You"], ["can't", "are not allowed to"], "ask for help", [".", "!"])
                 return 0
-            
-    def mm_register_help(self, defret, pattern, text):
-        self.data.append((re.compile(pattern, re.I), text))
+
+    def mm_register_help(self, defret, pattern, text, triggers=None):
+        if not triggers:
+            triggers = []
+        elif type(triggers) is not ListType:
+            triggers = [triggers]
+        self.data.append((re.compile(pattern, re.I), text, triggers))
 
     def mm_unregister_help(self, defret, text):
         for i in range(len(self.data)-1,-1,-1):
             if self.data[i][1] == text:
                 del self.data[i]
-
 
 # Make sure it is loaded first to let mm.register_help()
 # available to everyone.

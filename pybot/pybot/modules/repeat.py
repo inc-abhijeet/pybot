@@ -41,7 +41,7 @@ class Repeat:
     def __init__(self, bot):
         hooks.register("Message", self.message)
 
-        # Match: '[don[']t|do not] repeat [each <n> seconds] (to|at|on) [channel|user] <target> [[on|at] server <server>] [/me|/notice] ...'
+        # [don[']t|do not] repeat [each <n> seconds] (to|at|on) [channel|user] <target> [[on|at] server <server>] [/me|/notice] ...
         self.re1 = re.compile(r"(?:(?P<dont>don'?t|do\s+not)\s+)?repeat(?:\s+each\s+(?P<interval>[0-9]+)\s*(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?:\s+(?:to|at|on)(?:\s+(?:channel|user))?\s+(?P<target>\S+))?(?:\s+(?:on|at)?\s+server\s+(?P<server>\S+))?\s+(?P<action>/me\s)?(?P<notice>/notice\s)?(?P<phrase>.*)$")
 
     def unload(self):

@@ -32,14 +32,14 @@ class ModuleControl:
         hooks.register("Message", self.message)
         modls.loadlist(self.modules)
         
-        # Match '[re|un]load [the] [module] <module>'
+        # [re|un]load [the] [module] <module>
         self.re1 = re.compile("(?P<command>(?:re|un)?load)(?:\s+the)?(?:\s+module)?\s+(?P<module>[\w_-]+)\s*[.!]*$", re.I)
 
-        # Match '(show|list) [loaded] modules'
+        # (show|list) [loaded] modules
         self.re2 = re.compile("(?:show|list)(?:\s+loaded)\s+modules\s*[.!]*$", re.I)
 
-        # Match '[[un|re]load] module[s]'
-        mm.register_help(0, "(?:(?:un|re)?load\s+)?modules?", HELP)
+        # [[un|re]load] module[s]
+        mm.register_help(0, "(?:(?:un|re)?load\s+)?modules?", HELP, "modules")
 
     def unload(self):
         hooks.unregister("Message", self.message)

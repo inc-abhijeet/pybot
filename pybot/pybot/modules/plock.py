@@ -67,23 +67,24 @@ class PLock:
         self.pdir = config.get("plock", "dirpath")
         hooks.register("Message", self.message)
         
-        # Match '[force] plock <package> [,<package>] [!|.]'
+        # [force] plock <package> [,<package>] [!|.]
         self.re1 = re.compile(r"(?P<force>force\s+)?plock\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*[!.]*$")
         
-        # Match '[force] (unplock|punlock) <package> [,<package>] [!|.]'
+        # [force] (unplock|punlock) <package> [,<package>] [!|.]
         self.re2 = re.compile(r"(?P<force>force\s+)?(?:unplock|punlock)\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*[!.]*$")
         
-        # Match '(my plocks|plocks of <user>) [?]'
+        # (my plocks|plocks of <user>) [?]
         self.re3 = re.compile(r"(?:(?P<my>my)\s+plocks|plocks\s+of\s+(?P<user>[\w\.@_-]+))\s*(?:!*\?[?!]*)?$")
 
-        # Match '([who] [has] plocked|plocker [of]) <package> [,<package>] [?]'
+        # ([who] [has] plocked|plocker [of]) <package> [,<package>] [?]
         self.re4 = re.compile(r"(?:(?:who\s+)?(?:has\s+)plocked|plocker\s+(?:of\s+)?)(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*(?:!*\?[?!]*)?$")
 
-        # Match 'plock <package> [,<package>] ?'
+        # plock <package> [,<package>] ?
         self.re5 = re.compile(r"plock\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*(?:!*\?[?!]*)$")
 
-        # Match '[un]plock[ing] | <package|pkg> lock[ing]
-        mm.register_help(0, "(?:un)?plock(?:ing)?|(?:package|pkg)\s+lock(?:ing)?", HELP)
+        # [un]plock[ing] | <package|pkg> lock[ing]
+        mm.register_help(0, "(?:un)?plock(?:ing)?|(?:package|pkg)\s+lock(?:ing)?",
+                         HELP, "plock")
 
     def unload(self):
         hooks.unregister("Message", self.message)

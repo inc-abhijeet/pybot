@@ -47,8 +47,8 @@ class Freshmeat:
         # Match '[don[']t|do not] show freshmeat news [(to|on|at|for) [channel|user] <target> [[on|at] server <server>]] [!|.]'
         self.re1 = re.compile(r"(?P<dont>don'?t\s+|do\s+not\s+)?show\s+freshmeat\s+news(?:\s+(?:to|on|at|for)(?:\s+channel|\s+user)?\s+(?P<target>\S+)(?:(?:\s+on|\s+at)?\s+server\s+(?P<server>\S+?))?)?\s*[!.]*$", re.I)
         
-        # Match '[leav(e|ing)] message[s]'
-        mm.register_help(0, "freshmeat(?:\s+news)?", HELP)
+        # freshmeat [news]
+        mm.register_help(0, "freshmeat(?:\s+news)?", HELP, "freshmeat")
 
     def unload(self):
         hooks.unregister("Message", self.message)

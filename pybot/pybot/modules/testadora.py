@@ -29,7 +29,8 @@ using "[show] (compiletime|compile time) [for] <package>".\
 
 HELP_TESTADORA = [
 ("""\
-Use "help compile time" to get help on the available testadora commands.\
+For now, only the "compile time" command is available. Use "help compile \
+time" for more information on this command.\
 """,)]
 
 class Testadora:
@@ -45,7 +46,7 @@ class Testadora:
         mm.register_help(0, "compile\s*time", HELP_COMPILETIME)
 
         # testadora
-        mm.register_help(0, "testadora", HELP_TESTADORA)
+        mm.register_help(0, "testadora", HELP_TESTADORA, "testadora")
 
     def unload(self):
         hooks.unregister("Message", self.message)

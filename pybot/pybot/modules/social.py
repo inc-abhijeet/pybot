@@ -26,31 +26,31 @@ class Social:
         hooks.register("Message", self.message)
         hooks.register("UnhandledMessage", self.unhandled_message)
 
-        # Match '(hi|hello) [there|everybody|all|guys|folks|pybot] [!|.]'
+        # (hi|hello) [there|everybody|all|guys|folks|pybot] [!|.]
         self.re1 = re.compile(r'(?:hi|hello)(?:\s+(?:there|everybody|all|guys|folks|(?P<nick>\w+)))?\s*[!.]*$', re.I)
         
-        # Match 'pybot!'
+        # pybot!
         self.re2 = re.compile(r'(?P<nick>\w+)\s*!+$', re.I)
         
-        # Match '[thank[']s|thank you|thx|tnk[']s] [!|.]'
+        # [thank[']s|thank you|thx|tnk[']s] [!|.]
         self.re3 = re.compile(r'(?:thank|thx|tnk)(?:\'?s|\s+you)(?:\s+(?P<nick>\w+))?\s*[!.]*', re.I)
         
-        # Match 'are you ok?|how are you [doing]?'
+        # are you ok?|how are you [doing]?
         self.re4 = re.compile(r'(?:are\s+you\s+ok|how\s+are\s+you(?:\s+doing)?)\s*[!?]*$', re.I)
         
-        # Match 'pybot?'
+        # pybot?
         self.re5 = re.compile(r'!*\?[?!]*$', re.I)
     
-        # Match 'never mind [!|.]'
+        # never mind [!|.]
         self.re6 = re.compile(r'never\s+mind\s*[!.]*$', re.I)
 
-        # Match '[very|pretty] (nice|good|great) [.|!]'
+        # [very|pretty] (nice|good|great) [.|!]
         self.re7 = re.compile(r'(?:(?:very|pretty)\s+)?(?:nice|good|great)\s*[.!]*$', re.I)
         
-        # Match ' (gay|stupid|fuck|idiot|imbecile|cretin) '
+        # (gay|stupid|fuck|idiot|imbecile|cretin)
         self.re8 = re.compile(r'.*(?:gay|stupid|fuck|idiot|imbecile|cretin)', re.I)
         
-        # Match 'h[e|u|a]h'
+        # h[e|u|a]h
         self.re9 = re.compile(r'h[eua]h', re.I)
         
     def unload(self):

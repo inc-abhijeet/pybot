@@ -21,19 +21,28 @@ import calendar
 import time
 import re
 
+HELP = [
+("""\
+The "uptime" command shows you for how much time I'm online.\
+""",)]
+
 class Uptime:
     def __init__(self, bot):
         self.uptime = options.getsoft("Uptime.uptime", int(time.time()))
         hooks.register("Message", self.message)
 
-        # Match '[show|display] uptime [!|.|?]'
+        # [show|display] uptime [!|.|?]
         self.re1 = re.compile(r"(?:(?:show|display)\s+)?uptime\s*[!.?]*$")
 
-        # Match 'reset uptime [!|.]'
+        # reset uptime [!|.]
         self.re2 = re.compile(r"reset\s+uptime\s*[!.]*$")
+
+        # uptime
+        mm.register_help(0, "uptime", HELP, "uptime")
     
     def unload(self):
         hooks.unregister("Message", self.message)
+        mm.unregister_help(0, HELP)
     
     def days_in_last_month(self, tuple):
         year = tuple[0]

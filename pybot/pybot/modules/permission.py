@@ -62,7 +62,8 @@ class Permission:
         self.re2 = re.compile("(?:show|list)\s+perm(?:ission)?s?(?:\s+(?P<perm>\w+))?\s*[!.]*$", re.I)
 
         # perm[ission][s] [system]
-        mm.register_help(0, "perm(?:ission)?s?(?:\s+system)?", HELP)
+        mm.register_help(0, "perm(?:ission)?s?(?:\s+system)?", HELP,
+                         "premissions")
 
     def unload(self):
         mm.unregister("hasperm")

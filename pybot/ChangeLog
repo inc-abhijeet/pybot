@@ -8,6 +8,9 @@
 	  now that we have a console.
 	* core.py: Removed (why was it still here?).
 	* modules/options.py: Get filename from configuration file.
+	* modules/*: Added new triggers option in register_help(). Now
+	  the "help" command alone also shows items the user can ask
+	  for help on.
 
 2003-05-08 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/xmlrpc.py: New xmlrpc module.

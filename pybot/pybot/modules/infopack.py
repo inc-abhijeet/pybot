@@ -239,8 +239,6 @@ class InfopackModule:
                         msg.answer(info.phrase, notice=info.notice, ctcp=action)
             if found:
                 return 0
-                    
-            
 
 def __loadmodule__(bot):
     global infopack

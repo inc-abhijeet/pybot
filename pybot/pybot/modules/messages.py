@@ -35,11 +35,11 @@ class Messages:
         self.messages = options.gethard("Messages.messages", {})
         self.strip_nick = re.compile(r"^[\W_]*([^\W_]+)[\W_]*$")
 
-        # Match '[priv[ate]] message (to|for) <nick>: <message>'
+        # [priv[ate]] message (to|for) <nick>: <message>
         self.re1 = re.compile(r"(?P<private>priv(?:ate)?\s+)?message\s+(?:to|for)\s+(?P<nick>\S+?)\s*:\s+(?P<message>.*)$", re.I)
 
-        # Match '[leav(e|ing)] message[s]'
-        mm.register_help(0, "(?:leav(?:e|ing)\s+)?messages?", HELP)
+        # [leav(e|ing)] message[s]
+        mm.register_help(0, "(?:leav(?:e|ing)\s+)?messages?", HELP, "messages")
 
     def unload(self):
         hooks.unregister("Message", self.message)

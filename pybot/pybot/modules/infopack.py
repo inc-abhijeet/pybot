@@ -291,7 +291,8 @@ class InfopackModule:
     def unload(self):
         hooks.unregister("Message", self.message)
         mm.unregister_help(HELP)
-        mm.unregister_help(self.help)
+        mm.unregister_help(self.help_infopack)
+        mm.unregister_help(self.help_match)
         mm.unregister_perm("infopackadmin")
 
     def help_infopack(self, msg, match):

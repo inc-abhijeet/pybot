@@ -17,7 +17,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from pybot import config, hooks, mm, db
-from random import randrange
+import random
 import re
 import os
 
@@ -156,9 +156,9 @@ class Infopack:
                 else:
                     values = self.getinfo(key)
                 if values:
-                    value = values[randrange(len(values))]
+                    value = random.choice(values)
                 elif self._defaults:
-                    value = self._defaults[randrange(len(self._defaults))]
+                    value = random.choice(self._defaults)
                 else:
                     break
                 flags = value[0]
@@ -167,7 +167,7 @@ class Infopack:
                 info.notice = "n" in flags
                 info.tonick = "t" in flags
                 if "m" in flags:
-                    mask = self._masks[randrange(len(self._masks))]
+                    mask = random.choice(self._masks)
                     info.phrase = mask%value[1]
                 else:
                     info.phrase = value[1]

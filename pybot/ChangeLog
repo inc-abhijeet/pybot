@@ -1,3 +1,8 @@
+2003-05-16 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* contrib/vera2info.py: Updated to add multiple values in the
+	  same key, when the keys are the same.
+	* data/infopacks/vera.info: Updated to vera 1.9.
+
 2003-05-12 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* *: Major work on pybot!!
 	* modules/*: All modules moved to the new re matching system.

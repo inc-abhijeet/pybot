@@ -11,3 +11,7 @@ This are some of the features to be implemented in the future:
 - Cross identification between servers (is this useful?).
 
 - Setup pybot nick when connecting.
+
+- Limit log search to the same server.
+
+- Develop admin module for direct sql access.

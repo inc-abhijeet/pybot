@@ -80,6 +80,10 @@ Standard modules
 - pong (*)
         Answers ping requests, and pings servers from time to time.
 
+- log
+        Allows searching in logs, and checking what was the last time
+        the bot has seen somebody.
+
 - ignore
         Allows ignoring given users/channels/servers.
 

@@ -1,3 +1,6 @@
+2003-09-11 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/eval.py: Added random functions to eval.
+
 2003-08-28 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/eval.py: Implemented a forking/timeout scheme to
 	  protect against DoS evaluations. Now it should be possible

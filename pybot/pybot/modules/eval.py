@@ -21,6 +21,7 @@ import thread
 import signal
 import time
 import math
+import random
 import os
 from types import StringType
 
@@ -59,6 +60,7 @@ class Eval:
         self.dict["True"] = True
         self.dict["abs"] = abs
         self.dict["bool"] = bool
+        self.dict["choice"] = random.choice
         self.dict["chr"] = chr
         self.dict["cmp"] = cmp
         self.dict["coerce"] = coerce
@@ -80,10 +82,14 @@ class Eval:
         self.dict["oct"] = oct
         self.dict["ord"] = ord
         self.dict["pow"] = pow
+        self.dict["randint"] = random.randint
+        self.dict["random"] = random.random
+        self.dict["randrange"] = random.randrange
         self.dict["range"] = range
         self.dict["reduce"] = reduce
         self.dict["repr"] = repr
         self.dict["round"] = round
+        self.dict["shuffle"] = random.shuffle
         self.dict["str"] = str
         self.dict["tuple"] = tuple
         self.dict["unichr"] = unichr

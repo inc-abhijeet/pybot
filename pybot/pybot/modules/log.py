@@ -102,12 +102,13 @@ class Log:
             return LogMsg(row)
         return None
 
-    def search(self, regexp, max, target, searchline):
+    def search(self, servername, target, regexp, max, searchline):
         p = re.compile(regexp, re.I)
         l = []
         cursor = db.cursor()
-        cursor.execute("select * from log where src != '' and dest == %s "
-                       "order by timestamp", (target,))
+        cursor.execute("select * from log where servername == %s and "
+                       "dest == %s and src != '' order by timestamp",
+                       (servername, target))
         row = cursor.fetchone()
         while row:
             if p.search(row.line):
@@ -189,8 +190,10 @@ class LogModule:
             if m:
                 if mm.hasperm(msg, "log"):
                     max = 5
-                    logmsgs = self.log.search(m.group("regexp"), max,
-                                              msg.target, msg.rawline)
+                    logmsgs = self.log.search(msg.server.servername,
+                                              msg.target,
+                                              m.group("regexp"), max,
+                                              msg.rawline)
                     if logmsgs:
                         llen = len(logmsgs)
                         if llen == 1:

@@ -22,8 +22,16 @@ import thread
 import string
 import re
 
+HELP = [
+("""\
+You may tell me which channels/users I have to notify of freshmeat news \
+with "[don't] show freshmeat news (on|to) [channel|user] <target> [on \
+server <server>]".\
+""",)]
+
 URL = "http://freshmeat.net/backend/recentnews.txt"
-PROXY = {"http":"http://proxy.conectiva.com.br:3128"}
+PROXY = None
+# PROXY = {"http":"http://proxy.conectiva.com.br:3128"}
 FETCHINTERVAL = 10
 
 class Freshmeat:
@@ -36,12 +44,17 @@ class Freshmeat:
         mm.hooktimer(0, FETCHINTERVAL*60, self.checknews, ())
         
         # Match '[don[']t|do not] show freshmeat news (to|on|at|for) [channel|user] <target> [[on|at] server <server>] [!|.]'
-        self.re1 = re.compile(r"(?P<dont>don'?t\s+|do\s+not\s+)?show\s+freshmeat\s+news(?:(?:to|on|at|for)(?:\s+channel|\s+user)?\s+(?P<target>\S+)(?:(?:\s+on|\s+at)?\s+server\s+(?P<server>\S+?))?)?\s*[!.]*$", re.I)
+        self.re1 = re.compile(r"(?P<dont>don'?t\s+|do\s+not\s+)?show\s+freshmeat\s+news(?:\s+(?:to|on|at|for)(?:\s+channel|\s+user)?\s+(?P<target>\S+)(?:(?:\s+on|\s+at)?\s+server\s+(?P<server>\S+?))?)?\s*[!.]*$", re.I)
         
+        # Match '[leav(e|ing)] message[s]'
+        mm.register_help(0, "freshmeat(?:\s+news)?", HELP)
+
     def unload(self):
         hooks.unregister("Message", self.message)
         mm.unhooktimer(0, FETCHINTERVAL*60, self.checknews, ())
     
+        mm.unregister_help(0, HELP)
+
     def shownews(self, newslist):
         first = 1
         newsmsg = ""
@@ -60,7 +73,8 @@ class Freshmeat:
     
     def fetchnews(self):
         urlopener = urllib.URLopener()
-        urlopener.proxies.update(PROXY)
+        if PROXY:
+            urlopener.proxies.update(PROXY)
         try:
             url = urlopener.open(URL)
         except:

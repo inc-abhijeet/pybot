@@ -83,7 +83,7 @@ class Forward:
             if (row.fromserver is None or
                 row.fromserver == server.servername) and \
                (row.fromtarget is None or row.fromtarget == target) and \
-               (forme or "f" in row.flags):
+               (forme or "f" not in row.flags):
                 fwdserver = servers.get(row.toserver)
                 if fwdserver:
                     s = nick
@@ -189,6 +189,11 @@ class Forward:
                         msg.answer("%:", ["Sure", "I'll forward",
                                           "Right now", "Of course"],
                                          ["!", "."])
+            else:
+                msg.answer("%:", ["You're not allowed to work with forwards",
+                                  "Unfortunately, you can't do that",
+                                  "You're not able to do that"],
+                                 [".", "!"])
             return 0
         
         m = self.re2.match(msg.line)
@@ -231,6 +236,11 @@ class Forward:
                     elif "s" in row.with:
                         str = str+" with server"
                     msg.answer("%:", str, ".")
+            else:
+                msg.answer("%:", ["You're not allowed to work with forwards",
+                                  "Unfortunately, you can't do that",
+                                  "You're not able to do that"],
+                                 [".", "!"])
             return 0
     
 def __loadmodule__():

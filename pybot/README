@@ -6,6 +6,35 @@ Pybot is a full featured IRC bot written in Python. It was originally
 developed to integrate many sources of information into IRC channels,
 and has since then evolved into a full featured bot.
 
+End user features
+-----------------
+
+- easy administration through local console;
+- may join multiple servers and multiple channels at once
+  (implemented without threads);
+- remembers last state, even if killed;
+- full online control (just talk to him);
+- load, reload and unload modules at runtime;
+- flexible user registry, allowing automatic identification
+  and manual identification under different nicks;
+- very flexible permission system;
+- full online help;
+- auto recover from network errors;
+- lots of additional functionalities through available modules;
+- even basic functionality is implemented using modules;
+- random answers, to humanify the bot a little bit;
+- persistence implemented with transparent pickling and sqlite database;
+
+Developer features
+------------------
+
+- nice API for inter-module communication;
+- object oriented;
+- hook system for multidispatch with priority setting;
+- message priority;
+- example modules;
+- user registry allows pluggable meta-data;
+
 Requirements
 ------------
 
@@ -19,36 +48,6 @@ Current access to its source is available trough CVS only, in the
 sourceforge pybot project:
 
 http://sourceforge.net/projects/pybot
-
-End user features
------------------
-
-- easy administration through local console;
-- may join multiple servers and multiple channels at once
-  (implemented without threads);
-- full online control (just talk to him);
-- load, reload and unload modules at runtime;
-- flexible user registry, allowing automatic identification and
-  manual identification under different nicks;
-- very flexible permission system;
-- full online help;
-- auto recover from network errors;
-- auto timming of messages to avoid being kicked by the server.
-- lots of additional functionalities through available modules;
-- even basic functionality is implemented using modules;
-- random answers, to humanify the bot a little bit;
-- persistence implemented with transparent pickling and sqlite
-  database;
-
-Developer features
-------------------
-
-- nice API for inter-module communication;
-- object oriented;
-- hook system for multidispatch with priority setting;
-- message priority;
-- example modules;
-- user registry allows pluggable meta-data;
 
 Standard modules
 ----------------
@@ -90,6 +89,11 @@ Standard modules
 - log
         Allows searching in logs, and checking what was the last time
         the bot has seen somebody.
+
+- rss
+        Generic RSS module. It's based on Mark Pilgrim's "ultra liberal"
+        parser, and allows one to send news from any RSS feed to any
+        user/channel/server.
 
 - ignore
         Allows ignoring given users/channels/servers.

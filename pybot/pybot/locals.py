@@ -17,6 +17,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from pybot import *
+from pybot import refrag
 from pybot.misc import regexp
 
 # vim:ts=4:sw=4:et

@@ -16,16 +16,17 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, servers, main, db
+from pybot import mm, hooks, servers, main, db, config
 from pybot.user import User
 from string import join
 import re
 
 HELP_CONNECT = """
 If you want me to connect to another server, use "connect [to] [server]
-<server> [[with|using] servername <servername>]". If you provide a
-servername, all commands and configurations will use that servername. This
-is useful since IRC servers can change their domains.
+<server> [[with|using] servername <servername>] [and]
+[[with|using] nick <nick>]". If you provide a servername, all commands and
+configurations will use that servername. This is useful since IRC servers
+can change their domains.
 ""","""
 To make me to disconnect or reconnect to a given server, you can use
 "(re|dis)connect [to|from] <server> [with <reason>]". If a reason is
@@ -76,8 +77,13 @@ class ServerControl:
         db.table("host",  "servername,host")
         db.table("channel", "servername,channel,keyword")
 
-        # connect [to] [server] <server> [[with|using] servername <servername>]
-        self.re1 = re.compile(r"connect\s+(?:to\s+)?(?:server\s+)?(?P<server>\S+)(?:(?:\s+with|\s+using)?\s+servername\s+(?P<servername>\S+))?\s*$", re.I)
+        if config.has_option("global", "default_nick"):
+            self.default_nick = config.get("global", "default_nick")
+        else:
+            self.default_nick = "_pybot_"
+
+        # connect [to] [server] <server> [[with|using] servername <servername>] [and] [[with|using] nick <nick>]
+        self.re1 = re.compile(r"connect\s+(?:to\s+)?(?:server\s+)?(?P<server>\S+)(?:(?:\s+with|\s+using)?\s+servername\s+(?P<servername>\S+))?(?:\s+and)?(?:(?:\s+with|\s+using)?\s+nick\s+(?P<nick>\S+))?\s*$", re.I)
 
         # (re|dis)connect [to|from] <server> [with <reason>]
         self.re2 = re.compile(r"(?P<cmd>(?:re|dis)connect)(?:\s+(?:to\s+|from\s+)?(?:server\s+)?(?P<server>\S+))?(?:\s+with\s+(?P<reason>.+))?\s*$", re.I)
@@ -222,6 +228,7 @@ class ServerControl:
             if mm.hasperm(msg, "admin"):
                 host = m.group("server")
                 servername = m.group("servername") or host
+                nick = m.group("nick") or self.default_nick
                 cursor = db.cursor()
                 cursor.execute("select * from server where servername=%s",
                                servername)
@@ -232,7 +239,7 @@ class ServerControl:
                 else:
                     msg.answer("%:", ["Connecting", "I'm going there", "At your order", "No problems", "Right now", "Ok"], [".", "!"])
                     cursor.execute("insert into server values (%s,%s,%s,%s,%s)",
-                                   servername, "pybot", "pybot", "0", "PyBot")
+                                   servername, nick, "pybot", "0", "PyBot")
                     cursor.execute("insert into host values (%s,%s)",
                                    servername, host)
                     servers.add(host, servername)

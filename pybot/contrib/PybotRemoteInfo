@@ -6,6 +6,8 @@
 ## pybot: load remote info from
 ##   http://example.com/moin.cgi/PybotRemoteInfo?action=raw
 ##   with regex \s(?:\[(?P<flags>\w*)\])?\s*(?P<trigger>.*?)\s*::(?P<msg>.*)
+##
+## Don't forget to use "allow remoteinfo".
 
 = Pybot Remote Information System =
 
@@ -20,6 +22,7 @@ Notice that the line must start with a space, and the flags part is optional.
 The following flags are understood:
  * '''a''' -- disable the inclusion of the user nick at the start of the line on channel messages;
  * '''g''' -- check even channel messages not targeted to pybot;
+ * '''c''' -- check also CTCP messages with ACTION type (/me)
  * '''s''' -- makes the regex case sensitive.
 
 The message may also be prefixed by '''/me''' or '''/notice''' to have the expected meanings.

@@ -100,6 +100,7 @@ class RemoteInfo:
             self.proxy = None
         hooks.register("Message", self.message)
         hooks.register("Message", self.message_remoteinfo, priority=1000)
+        hooks.register("CTCP", self.message_remoteinfo, priority=1000)
 
         # load remote[ ]info [from] <url> [each <n>[ ](s[econds]|m[inutes]|h[ours])] [[with|using] regex <regex>]
         self.re1 = re.compile(r"load\s+remote\s*info\s+(?:from\s+)?(?P<url>\S+)(?:\s+each\s+(?P<interval>[0-9]+)\s*(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?:\s+(?:with\s+|using\s+)?regex\s+(?P<regex>.*))?\s*$", re.I)
@@ -130,6 +131,7 @@ class RemoteInfo:
         mm.unhooktimer(30, self.reload_all, ())
         hooks.unregister("Message", self.message)
         hooks.unregister("Message", self.message_remoteinfo, priority=1000)
+        hooks.unregister("CTCP", self.message_remoteinfo, priority=1000)
         mm.unregister_help(HELP)
         mm.unregister_help(HELP_SYNTAX)
         mm.unregister_perm("remoteinfo")
@@ -236,6 +238,8 @@ class RemoteInfo:
                 flags, infomsg = info.patterns[p]
                 if not ('g' in flags or msg.forme):
                     continue
+                if msg.ctcp and (msg.ctcp != "ACTION" or 'c' not in flags):
+                    continue
                 m = p.match(msg.line)
                 if m:
                     try:
@@ -259,7 +263,7 @@ class RemoteInfo:
                         msg.answer(infomsg, ctcp=ctcp, notice=notice)
                     ret = 0
         return ret
-        
+
     def message(self, msg):
         if not msg.forme:
             return None

@@ -1,7 +1,9 @@
 2003-08-21 Gustavo Niemeyer <niemeyer@conectiva.com>
+        * modules/servercontrol.py: Allow setting the bot nick when
+	  connecting.
 	* modules/remoteinfo.py: Introduced "allow" concept, which
 	  defines which channels/servers are allowed to "see" some
-	  remoteinfo.
+	  remoteinfo. Added 'c' flag to handle CTCP messages.
 	* modules/messages.py: Prevent messages to the bot itself.
 	  Fixed sending of messages when user talks directly to the
 	  bot. Introduced command to ask for messages.

@@ -79,7 +79,7 @@ class Weather:
             else:
                 msg.answer("%:", ["You have no permission for that",
                                   "You are not allowed to do this",
-                                  "You can show weather"],
+                                  "You can't show weather"],
                                  [".", "!"])
             return 0
 

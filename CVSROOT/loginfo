@@ -25,5 +25,5 @@
 # or
 #DEFAULT (echo ""; id; echo %{sVv}; date; cat) >> $CVSROOT/CVSROOT/commitlog
 CVSROOT $CVSROOT/CVSROOT/syncmail %{sVv} niemeyer@conectiva.com
-DEFAULT $CVSROOT/CVSROOT/syncmail %{sVv} pybot-commits@lists.sourceforge.net
+DEFAULT $CVSROOT/CVSROOT/syncmail %{sVv} pybot-commits@pybot.org
 

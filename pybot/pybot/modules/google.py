@@ -65,7 +65,7 @@ class Google:
             result = proxy.doGoogleSearch(self.key, search, n, 1,
                                           SOAPpy.booleanType(1), "",
                                           SOAPpy.booleanType(0), "",
-                                          "", "")
+                                          "latin1", "latin1")
             if not len(result.resultElements):
                 msg.answer("%:", ["Nothing found",
                                   "Google couldn't find anything",

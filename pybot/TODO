@@ -8,8 +8,6 @@ This are some of the features to be implemented in the future:
 
 - Cross identification between servers (is this useful?).
 
-- Implement nickserv identification (with generic messages on connection).
-
 - Develop admin module for direct sql access.
 
 - Add timed messages in the messages.py module.

@@ -64,7 +64,9 @@ information. Check "help register" and "help set" for more information.
 
 class UserData:
     def __init__(self):
-        hooks.register("Message", self.message)
+        # Use a lower priority, since we use some
+        # regexes which are very generic here.
+        hooks.register("Message", self.message, priority=600)
         db.table("userdata", "servername,nick,type,value")
         db.table("login", "servername,userstr,lasttime,nick")
         mm.register("getuserdata", self.mm_getuserdata)
@@ -102,7 +104,7 @@ class UserData:
         mm.register_perm("userdata", PERM_USERDATA)
     
     def unload(self):
-        hooks.unregister("Message", self.message)
+        hooks.unregister("Message", self.message, priority=600)
         mm.unregister("getuserdata")
         mm.unregister("setuserdata")
         mm.unregister("unsetuserdata")
@@ -151,7 +153,9 @@ class UserData:
     def message(self, msg):
         self.login_update(msg)
 
-        if not msg.forme:
+        # Check if it's already answered, since we use some
+        # regexes which are very generic here.
+        if not msg.forme or msg.answered:
             return None
 
         m = self.re1.match(msg.line)

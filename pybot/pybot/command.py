@@ -65,6 +65,7 @@ class Command:
                 self.forme = 0
                 self.direct = 0
                 self.answertarget = ""
+                self.answered = 0
             else:
                 self.target = m.group(4)
                 self.ctcp = m.group(5)
@@ -84,6 +85,7 @@ class Command:
                 else:
                     self.direct = 0
                     self.answertarget = self.target
+                self.answered = 0
         else:
             self.target = ""
             self.answertarget = ""
@@ -92,6 +94,7 @@ class Command:
             self.line = ""
             self.rawline = ""
             self._index = 2
+            self.answered = 0
         
     def _internalset(self):
         self.user.setstring(self.prefix)
@@ -132,8 +135,10 @@ class Command:
             self.rawmsg = []
             self.forme = 0
             self.direct = 0
+            self.answered = 0
 
     def answer(self, *params, **kw):
         self.server.sendmsg(self.answertarget, self.user.nick, *params, **kw)
+        self.answered = 1
     
 # vim:ts=4:sw=4:et

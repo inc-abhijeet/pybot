@@ -34,6 +34,15 @@ given, that will be shown to the users which observe my departure.
 Only admins are allowed to work with connections.
 """
 
+HELP_CONNECTION_MESSAGES = """
+If necessary, you may ask me to send messages to given targets just
+after connecting to some server. This is useful, for example, to
+identify me to some nick controlling service (like nickserv). To
+do that use "[remove] connection message to <target> [on [server]
+<server>]: <msg>". To check which messages are configured, use
+"show connection messages". Only admins are allowed to use this.
+"""
+
 HELP_JOIN = """
 You can ask me to join in a given channel using "join [channel] <channel>
 [[with] keyword <keyword>] [[on|at] [server] <server>]. To make me leave,
@@ -76,6 +85,7 @@ class ServerControl:
         db.table("server", "servername,nick,username,mode,realname")
         db.table("host",  "servername,host")
         db.table("channel", "servername,channel,keyword")
+        db.table("connectmsg", "servername,target,msg")
 
         if config.has_option("global", "default_nick"):
             self.default_nick = config.get("global", "default_nick")
@@ -103,6 +113,12 @@ class ServerControl:
         # (quit|reboot) [with <reason>]
         self.re7 = re.compile(r"(?P<cmd>quit|reboot)(?:\s+with\s+(?P<reason>.+))?$", re.I)
 
+        # [remove] connection message to <target> [on [server] <server>]: <msg>
+        self.re8 = re.compile(r"(?P<remove>remove\s+)?connection\s+message\s+to\s+(?P<target>\S+)(?:\s+(?:on|at)\s+(?:server\s+)?(?P<server>\S+))?\s*:\s*(?P<msg>.*?)\s*$", re.I)
+
+        # show connection messages
+        self.re9 = re.compile(r"show\s+connection\s+messages?\s*$", re.I)
+
         # [dis|re]connect
         mm.register_help(r"(?:dis|re)?connect$", HELP_CONNECT,
                          ["connect", "disconnect", "reconnect"])
@@ -114,6 +130,10 @@ class ServerControl:
         # show[ ](channels|servers)
         mm.register_help(r"show\s*(?:channels|servers)$", HELP_SHOW,
                          ["show channels", "show servers"])
+
+        # connection message[s]
+        mm.register_help(r"connection\s+messages?", HELP_CONNECTION_MESSAGES,
+                         "connection messages")
 
         mm.register_perm("showchannels", PERM_SHOWCHANNELS)
         mm.register_perm("showservers", PERM_SHOWSERVERS)
@@ -180,6 +200,10 @@ class ServerControl:
     def registered(self, server):
         self.registered_server[server] = 1
         cursor = db.cursor()
+        cursor.execute("select * from connectmsg where servername=%s",
+                       server.servername)
+        for row in cursor.fetchall():
+            server.sendmsg(row.target, None, row.msg)
         cursor.execute("select * from channel where servername=%s",
                        server.servername)
         for row in cursor.fetchall():
@@ -283,6 +307,8 @@ class ServerControl:
                     cursor.execute("delete from channel where servername=%s",
                                    server.servername)
                     cursor.execute("delete from host where servername=%s",
+                                   server.servername)
+                    cursor.execute("delete from connectmsg where servername=%s",
                                    server.servername)
                     server.sendcmd("", "QUIT")
                     server.kill()
@@ -476,6 +502,67 @@ class ServerControl:
                     main.quit = 1
                 else:
                     main.reboot = 1
+            else:
+                msg.answer("%:", [("You're not", ["that good",
+                                                  "allowed to do this",
+                                                  "my lord"]),
+                                  "No", "Nope"], [".", "!"])
+            return 0
+
+        m = self.re8.match(msg.line)
+        if m:
+            if mm.hasperm(msg, "admin"):
+                target = m.group("target")
+                servername = m.group("server")
+                _msg = m.group("msg")
+                if servername:
+                    server = servers.get(servername)
+                    if not servers.get(servername):
+                        msg.answer("%:", ["Sorry,", "Oops!", "Hummm..."],
+                                         "I'm not in this server", [".", "!"])
+                        return 0
+                else:
+                    servername = msg.server.servername
+                cursor = db.cursor()
+                if m.group("remove"):
+                    cursor.execute("delete from connectmsg where "
+                                   "servername=%s and target=%s and msg=%s",
+                                   (servername, target, _msg))
+                    if cursor.rowcount:
+                        msg.answer("%:", ["Ok", "Done", "Sure", "No problems"],
+                                         [".", "!"])
+                    else:
+                        msg.answer("%:", ["Message not found",
+                                          "Couldn't find that message",
+                                          "I wasn't able to find that message"],
+                                         [".", "!"])
+                else:
+                    cursor.execute("insert into connectmsg values (%s,%s,%s)",
+                                   (servername, target, _msg))
+                    msg.answer("%:", ["Ok", "Done", "Sure", "No problems"],
+                                     [".", "!"])
+            else:
+                msg.answer("%:", [("You're not", ["that good",
+                                                  "allowed to do this",
+                                                  "my lord"]),
+                                  "No", "Nope"], [".", "!"])
+            return 0
+
+        m = self.re9.match(msg.line)
+        if m:
+            if mm.hasperm(msg, "admin"):
+                cursor = db.cursor()
+                cursor.execute("select * from connectmsg")
+                if cursor.rowcount:
+                    msg.answer("%:",
+                               "The following messages are being sent after "
+                               "connection:")
+                    for row in cursor.fetchall():
+                        msg.answer("- \"%s\" to %s on server %s" %
+                                   (row.msg, row.target, row.servername))
+                else:
+                    msg.answer("%:", "No messages are being sent after "
+                                     "connection.")
             else:
                 msg.answer("%:", [("You're not", ["that good",
                                                   "allowed to do this",

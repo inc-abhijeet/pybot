@@ -88,7 +88,7 @@ class ModuleControl:
                     if not self.modules:
                         msg.answer("%:", ["There are no", "No"], "loaded modules", [".", "!"])
                     else:
-                        msg.answer("%:", ["These are the loaded modules:", "The following modules are loaded:", ", ".join(self.modules))
+                        msg.answer("%:", ["These are the loaded modules:", "The following modules are loaded:"], ", ".join(self.modules))
                 else:
                     msg.answer("%:", ["You're not that good", "You are not able to work with modules", "No, you can't do this"], [".", "!",". I'm sorry!"])
                 return 0

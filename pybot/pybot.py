@@ -21,6 +21,7 @@
 import imp
 import sys
 import os
+import time
 
 def main():
     try:
@@ -32,6 +33,7 @@ def main():
         ret = os.system("python "+module[1])
         if ret != 0:
             break
+        time.sleep(5)
 
 if __name__ == "__main__":
     main()

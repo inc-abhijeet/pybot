@@ -40,17 +40,17 @@ def init():
     config = ConfigParser()
     defaults = config.defaults()
 
-    db = SQLiteDB()
-    
     if os.path.isfile("./pybot.conf") and os.path.isdir("pybot"):
         config.read("./pybot.conf")
         defaults["datadir"] = os.path.abspath("./data")
-    elif os.path.isfile(os.path.expanduser("~/.pybot/pybot.conf")):
-        config.read(os.path.expanduser("~/.pybot/pybot.conf"))
+    elif os.path.isfile(os.path.expanduser("~/.pybot/config")):
+        config.read(os.path.expanduser("~/.pybot/config"))
         defaults["datadir"] = os.path.expanduser("~/.pybot/data")
     elif os.path.isfile("/etc/pybot.conf"):
         config.read("/etc/pybot.conf")
-        defaults["datadir"] = ("/usr/share/pybot")
+        defaults["datadir"] = ("/var/lib/pybot")
+
+    db = SQLiteDB()
     
     main = Main()
     

@@ -37,7 +37,7 @@ this to work.\
 """,)]
 
 class LogMsg:
-    def __init__(self, data)
+    def __init__(self, data):
         self.time = int(data.time)
         self.servername = data.servername
         self.type = data.type
@@ -106,7 +106,8 @@ class Log:
         file = open(self.logname)
         l = []
         cursor = db.cursor()
-        cursor.execute("select * from log where src != '' and dest != ''")
+        cursor.execute("select * from log where src != '' and dest != '' "
+                       "order by timestamp desc")
         row = cursor.fetchone()
         while row:
             if p.search(row.line):
@@ -195,7 +196,7 @@ class LogModule:
             target = ""
         else:
             target = msg.target
-        self.log.append(msg.server.servername, "MESSAGE", msg.user.nick(),
+        self.log.append(msg.server.servername, "MESSAGE", msg.user.nick,
                         msg.user.string, target, msg.rawline)
     
     def log_ctcp(self, msg):
@@ -204,7 +205,7 @@ class LogModule:
                 target = ""
             else:
                 target = msg.target
-            self.log.append(msg.server.servername, "ACTION", msg.user.nick(),
+            self.log.append(msg.server.servername, "ACTION", msg.user.nick,
                             msg.user.string, target, msg.rawline)
 
     def log_outmessage(self, msg):

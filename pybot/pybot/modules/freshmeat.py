@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options, servers
+from pybot import mm, hooks, options, servers, config
 import urllib
 import thread
 import string
@@ -29,13 +29,14 @@ with "[don't] show freshmeat news [(on|to) [channel|user] <target> [on \
 server <server>]]".\
 """,)]
 
-URL = "http://freshmeat.net/backend/recentnews.txt"
-PROXY = None
-# PROXY = {"http":"http://proxy.url.com:3128"}
-FETCHINTERVAL = 10
-
 class Freshmeat:
     def __init__(self, bot):
+        self.url = config.get("freshmeat", "url")
+        if config.has_option("freshmeat", "proxy"):
+            self.proxy = config.get("freshmeat", "proxy")
+        else:
+            self.proxy = None
+        self.interval = config.getint("freshmeat", "interval")
         self.newslast = options.gethard("Freshmeat.newslast", [None])
         self.newstargets = options.gethard("Freshmeat.newstargets", [])
         self.newstargets_lock = thread.allocate_lock()
@@ -51,7 +52,7 @@ class Freshmeat:
 
     def unload(self):
         hooks.unregister("Message", self.message)
-        mm.unhooktimer(0, FETCHINTERVAL*60, self.checknews, ())
+        mm.unhooktimer(0, self.interval*60, self.checknews, ())
     
         mm.unregister_help(0, HELP)
 
@@ -73,10 +74,11 @@ class Freshmeat:
     
     def fetchnews(self):
         urlopener = urllib.URLopener()
-        if PROXY:
-            urlopener.proxies.update(PROXY)
+        if self.proxy:
+            proxy = {"http": self.proxy}
+            urlopener.proxies.update(proxy)
         try:
-            url = urlopener.open(URL)
+            url = urlopener.open(self.url)
         except:
             pass
         else:

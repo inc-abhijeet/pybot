@@ -16,12 +16,12 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import config
+import pybot
 import sqlite
 
 class SQLiteDB:
     def __init__(self):
-        self._path = config.get("sqlite", "path")
+        self._path = pybot.config.get("sqlite", "path")
         self._conn = sqlite.connect(self._path)
         self._conn.autocommit = 1
 

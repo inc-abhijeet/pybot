@@ -16,7 +16,7 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from pybot import mm, hooks, options
+from pybot import mm, hooks, options, config
 import time
 import sys
 import os
@@ -36,7 +36,7 @@ email with "register email your@email".\
 class PLockFile:
     def __init__(self, dir, name):
         self.name = name
-        self.file = dir + name
+        self.file = os.path.join(dir, name)
         self.line = None
         self.isfile = os.path.isfile(self.file)
 
@@ -63,24 +63,24 @@ class PLockFile:
 
 class PLock:
     def __init__(self, bot):
-        self.pdir = "/cnc/distro/locks/"
+        self.pdir = config.get("plock", "dirpath")
         hooks.register("Message", self.message)
         options.gethard("UserData.type", {}).setdefault("email", "~")
         
         # Match '[force] plock <package> [,<package>] [!|.]'
-        self.re1 = re.compile(r"(?P<force>force\s+)?plock\s+(?P<package>[\w_-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_-]+)*)\s*[!.]*$")
+        self.re1 = re.compile(r"(?P<force>force\s+)?plock\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*[!.]*$")
         
         # Match '[force] (unplock|punlock) <package> [,<package>] [!|.]'
-        self.re2 = re.compile(r"(?P<force>force\s+)?(?:unplock|punlock)\s+(?P<package>[\w_-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_-]+)*)\s*[!.]*$")
+        self.re2 = re.compile(r"(?P<force>force\s+)?(?:unplock|punlock)\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*[!.]*$")
         
         # Match '(my plocks|plocks of <user>) [?]'
-        self.re3 = re.compile(r"(?:(?P<my>my)\s+plocks|plocks\s+of\s+(?P<user>[\w.@_-]+))\s*(?:!*\?[?!]*)?$")
+        self.re3 = re.compile(r"(?:(?P<my>my)\s+plocks|plocks\s+of\s+(?P<user>[\w\.@_-]+))\s*(?:!*\?[?!]*)?$")
 
         # Match '([who] [has] plocked|plocker [of]) <package> [,<package>] [?]'
-        self.re4 = re.compile(r"(?:(?:who\s+)?(?:has\s+)plocked|plocker\s+(?:of\s+)?)(?P<package>[\w_-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_-]+)*)\s*(?:!*\?[?!]*)?$")
+        self.re4 = re.compile(r"(?:(?:who\s+)?(?:has\s+)plocked|plocker\s+(?:of\s+)?)(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*(?:!*\?[?!]*)?$")
 
         # Match 'plock <package> [,<package>] ?'
-        self.re5 = re.compile(r"plock\s+(?P<package>[\w_-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_-]+)*)\s*(?:!*\?[?!]*)$")
+        self.re5 = re.compile(r"plock\s+(?P<package>[\w_\.-]+(?:(?:\s*,?\s*and\s+|[, ]+)[\w_\.-]+)*)\s*(?:!*\?[?!]*)$")
 
         # Match '[un]plock[ing] | <package|pkg> lock[ing]
         mm.register_help(0, "(?:un)?plock(?:ing)?|(?:package|pkg)\s+lock(?:ing)?", HELP)

@@ -9,6 +9,8 @@
 	* modules/log.py: Use sqlite storage to maintain logs.
 	* modules/modulecontrol.py: Adopted re system, and added a command
 	  to show loaded modules.
+	* modules/{freshmeat.py,plock.py}: Get static configuration from
+	  config file.
 
 2002-06-19 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* scripts/pybotsetup.py: Adopted new admin permission working.

@@ -191,6 +191,7 @@ class Eval:
         if m:
             if mm.hasperm(msg, "eval"):
                 keywords = self.dict.keys()
+                keywords.remove("__builtins__")
                 keywords.sort()
                 msg.answer("%:", "The following keywords are available:",
                            ", ".join(keywords))

@@ -23,14 +23,14 @@ import re
 class Forward:
     def __init__(self, bot):
         self.data = options.gethard("Forward.data", [])
-        hooks.register("Message", self.message_forward, 90)
-        hooks.register("OutMessage", self.message_forward, 90)
-        hooks.register("Notice", self.notice_forward, 90)
-        hooks.register("OutNotice", self.notice_forward, 90)
-        hooks.register("CTCP", self.ctcp_forward, 90)
-        hooks.register("OutCTCP", self.ctcp_forward, 90)
-        hooks.register("UserJoined", self.joined_forward, 90)
-        hooks.register("UserParted", self.parted_forward, 90)
+        hooks.register("Message", self.message_forward, 100)
+        hooks.register("OutMessage", self.message_forward, 100)
+        hooks.register("Notice", self.notice_forward, 100)
+        hooks.register("OutNotice", self.notice_forward, 100)
+        hooks.register("CTCP", self.ctcp_forward, 100)
+        hooks.register("OutCTCP", self.ctcp_forward, 100)
+        hooks.register("UserJoined", self.joined_forward, 100)
+        hooks.register("UserParted", self.parted_forward, 100)
         hooks.register("Message", self.message)
 
         # Match 'forward messages [[(from|on|at) server <fromserver1>] | for you | [(from|on|at) [user|channel] <fromtarget>] [(from|on|at) server <fromserver2>]] to [user|channel] <totarget> [(on|at) server <toserver>] [with (server|channel [and server]|<withstring>)] [!|.]'
@@ -40,14 +40,14 @@ class Forward:
         self.re2 = re.compile(r"what(?:'re|\s+are)\s+you\s+forwarding\s*\?*$", re.I)
     
     def unload(self):
-        hooks.unregister("Message", self.message_forward, 90)
-        hooks.unregister("OutMessage", self.message_forward, 90)
-        hooks.unregister("Notice", self.notice_forward, 90)
-        hooks.unregister("OutNotice", self.notice_forward, 90)
-        hooks.unregister("CTCP", self.ctcp_forward, 90)
-        hooks.unregister("OutCTCP", self.ctcp_forward, 90)
-        hooks.unregister("UserJoined", self.joined_forward, 90)
-        hooks.unregister("UserParted", self.parted_forward, 90)
+        hooks.unregister("Message", self.message_forward, 100)
+        hooks.unregister("OutMessage", self.message_forward, 100)
+        hooks.unregister("Notice", self.notice_forward, 100)
+        hooks.unregister("OutNotice", self.notice_forward, 100)
+        hooks.unregister("CTCP", self.ctcp_forward, 100)
+        hooks.unregister("OutCTCP", self.ctcp_forward, 100)
+        hooks.unregister("UserJoined", self.joined_forward, 100)
+        hooks.unregister("UserParted", self.parted_forward, 100)
         hooks.unregister("Message", self.message)
     
     def do_forward(self, server, target, nick, forme, before, after):

@@ -22,11 +22,11 @@ from pybot.user import User
 class Ignore:
     def __init__(self, bot):
         self.ignoredata = options.gethard("Ignore.ignore", [])
-        hooks.register("Message", self.message_ignore, 100)
+        hooks.register("Message", self.message_ignore, 200)
         hooks.register("Message", self.message)
     
     def unload(self):
-        hooks.unregister("Message", self.message_ignore, 100)
+        hooks.unregister("Message", self.message_ignore, 200)
         hooks.unregister("Message", self.message)
 
     def message_ignore(self, msg):

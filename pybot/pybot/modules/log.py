@@ -117,10 +117,10 @@ class LogModule:
         self.log = Log()
         
         hooks.register("Message", self.message)
-        hooks.register("Message", self.log_message, 95)
-        hooks.register("CTCP", self.log_ctcp, 95)
-        hooks.register("OutMessage", self.log_outmessage, 95)
-        hooks.register("OutCTCP", self.log_outctcp, 95)
+        hooks.register("Message", self.log_message, 150)
+        hooks.register("CTCP", self.log_ctcp, 150)
+        hooks.register("OutMessage", self.log_outmessage, 150)
+        hooks.register("OutCTCP", self.log_outctcp, 150)
 
         # Match '[have you] seen <nick> [!?]'
         self.re1 = re.compile(r"(?:have\s+you\s+)?seen\s+(?P<nick>[^\s!?]+)\s*[!?]*$", re.I)
@@ -136,10 +136,10 @@ class LogModule:
         
     def unload(self):
         hooks.unregister("Message", self.message)
-        hooks.unregister("Message", self.log_message, 95)
-        hooks.unregister("CTCP", self.log_ctcp, 95)
-        hooks.unregister("OutMessage", self.log_outmessage, 95)
-        hooks.unregister("OutCTCP", self.log_outctcp, 95)
+        hooks.unregister("Message", self.log_message, 150)
+        hooks.unregister("CTCP", self.log_ctcp, 150)
+        hooks.unregister("OutMessage", self.log_outmessage, 150)
+        hooks.unregister("OutCTCP", self.log_outctcp, 150)
 
         mm.unregister_help(0, HELP_SEEN)
         mm.unregister_help(0, HELP_SEARCH)

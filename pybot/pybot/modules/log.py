@@ -178,10 +178,10 @@ class LogModule:
                                          (nick, logmsg.timestr()))
                     return 0
                 else:
-                    msg.answer("%:", [("You're not",
-                                       ["allowed to know when was the "
-                                        "last time I saw somebody",
-                                        "that good", "allowed to do this"]),
+                    msg.answer("%:", "You're not",
+                                     ["allowed to know when was the "
+                                      "last time I saw somebody",
+                                      "that good", "allowed to do this"],
                                      [".", "!"])
                 return 0
 

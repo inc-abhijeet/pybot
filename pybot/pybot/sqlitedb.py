@@ -16,22 +16,19 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-import pybot
 import sqlite
 import re
 
-FIELDS = re.compile(r"\((.*)\)")
-
 class SQLiteDB:
-    def __init__(self):
-        self._path = pybot.config.get("sqlite", "path")
+    def __init__(self, path):
+        self._path = path
         self._conn = sqlite.connect(self._path)
         self.error = sqlite.DatabaseError
         self.autocommit(1)
         self.table("dict", "name,value")
 
     def copy(self):
-        return SQLiteDB()
+        return SQLiteDB(self._path)
 
     def cursor(self):
         return self._conn.cursor()
@@ -42,7 +39,7 @@ class SQLiteDB:
     def autocommit(self, enable):
         self._conn.autocommit = enable
 
-    def table(self, name, fields):
+    def table(self, name, fields, oncreate=[]):
         """\
         Besides creating tables when they don't exist, this function
         will ensure that the given table has the given fields in the
@@ -56,23 +53,25 @@ class SQLiteDB:
         if not row:
             # No, it doesn't exist yet.
             cursor.execute("create table %s (%s)" % (name, fields))
-        elif row.sql.find("(%s)" % fields) == -1:
+            for sql in oncreate: cursor.execute(sql)
+        elif getxform(fields) != getfields(name, row.sql):
             # It exist, but is invalid. We'll have to fix it.
             self.autocommit(0)
             cursor.execute("create temporary table temp_table (%s)" % fields)
-            m = FIELDS.search(row.sql)
-            if not m:
-                raise ValueError, "invalid sql in table '%s'" % name
-            oldfields = [x.strip() for x in m.group(1).split(",")]
-            copyfields = ",".join([x for x in fields.split(",")
-                                   if x in oldfields])
+            oldfieldnames = [getname(x) for x in
+                             getfields(name, row.sql).split(",")]
+            newfieldnames = [getname(x) for x in
+                             fields.split(",")]
+            copyfields = ",".join([x for x in newfieldnames
+                                   if x in oldfieldnames])
             cursor.execute("insert into temp_table (%s) select %s from %s"
                            % (copyfields, copyfields, name))
             cursor.execute("drop table %s" % name)
             cursor.execute("create table %s (%s)" % (name, fields))
             cursor.execute("insert into %s select %s from temp_table"
-                           % (name, fields))
+                           % (name, ",".join(newfieldnames)))
             cursor.execute("drop table temp_table")
+            for sql in oncreate: cursor.execute(sql)
             self.commit()
             self.autocommit(1)
 
@@ -91,5 +90,19 @@ class SQLiteDB:
     def __delitem__(self, name):
         cursor = self.cursor()
         cursor.execute("delete from dict where name=%s", name)
+
+def getxform(fields):
+    return ",".join([x.strip() for x in fields.split(",")])
+
+GETFIELDS = re.compile(r"\((.*)\)")
+def getfields(name, sql):
+    m = GETFIELDS.search(sql)
+    if not m:
+        raise ValueError, "invalid sql in table '%s': %s" % (name, sql)
+    return getxform(m.group(1))
+
+GETNAME = re.compile(r"^\s*(\S+).*$")
+def getname(field):
+    return GETNAME.sub(r"\1", field)
 
 # vim:ts=4:sw=4:et

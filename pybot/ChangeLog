@@ -3,6 +3,13 @@
 	  expressions are using a single space, and misc.regexp()
 	  and mm.register_help() convert them to \s+ and \s*.
 	* pybot/misc.py: Fixed small issues on buildanswer().
+	* pybot/{sqlite.db,__init__.py}: Improved SQLiteDB.table().
+	  Now it handles spaces in the fields list gracefully
+	  without changing the table. Introduced new oncreate
+	  parameter to table() that accepts random sql commands
+	  on table creation. Changed SQLiteDB constructor to
+	  accept the path as a parameter, so that sqlitedb doesn't
+	  import pybot anymore.
 
 2003-08-23 Gustavo Niemeyer <niemeyer@conectiva.com>
         * pybot/__init__.py,modules/{remoteinfo.py,freshmeat.py}:

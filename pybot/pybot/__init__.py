@@ -50,7 +50,7 @@ def init():
         config.read("/etc/pybot.conf")
         defaults["datadir"] = ("/var/lib/pybot")
 
-    db = SQLiteDB()
+    db = SQLiteDB(config.get("sqlite", "path"))
     
     if config.has_option("global", "http_proxy"):
         os.environ["http_proxy"] = config.get("global", "http_proxy")

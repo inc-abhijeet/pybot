@@ -23,7 +23,7 @@ import re
 HELP = """
 You can ask me to repeat or stop repeating something with the message
 "[don't] repeat [each <n>(s|m|h)] (to|at|on) [channel|user] <target>
-[[on|at] server <server>] [/me|/notice] <message>". You need the "repeat"
+[[on|at] server <server>]: [/me|/notice] <message>". You need the "repeat"
 permission for this.
 """
 
@@ -53,8 +53,8 @@ class Repeat:
     def __init__(self):
         hooks.register("Message", self.message)
 
-        # [don[']t|do not] repeat [each <n>[ ](s[econds]|m[inutes]|h[ours])] (to|at|on) [channel|user] <target> [[on|at] server <server>] [/me|/notice] ...
-        self.re1 = re.compile(r"(?:(?P<dont>don'?t|do\s+not)\s+)?repeat(?:\s+each\s+(?P<interval>[0-9]+)\s*(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?:\s+(?:to|at|on)(?:\s+(?:channel|user))?\s+(?P<target>\S+))?(?:\s+(?:on|at)?\s+server\s+(?P<server>\S+))?\s+(?P<action>/me\s)?(?P<notice>/notice\s)?(?P<phrase>.*)$")
+        # [don[']t|do not] repeat [each <n>[ ](s[econds]|m[inutes]|h[ours])] (to|at|on) [channel|user] <target> [[on|at] server <server>]: [/me|/notice] ...
+        self.re1 = re.compile(r"(?:(?P<dont>don'?t|do\s+not)\s+)?repeat(?:\s+each\s+(?P<interval>[0-9]+)\s*(?P<intervalunit>se?c?o?n?d?s?|mi?n?u?t?e?s?|ho?u?r?s?))?(?:\s+(?:to|at|on)(?:\s+(?:channel|user))?\s+(?P<target>\S+))?(?:\s+(?:on|at)?\s+server\s+(?P<server>\S+))?\s*:\s+(?P<action>/me\s)?(?P<notice>/notice\s)?(?P<phrase>.*)$")
 
         # repeat
         mm.register_help(r"repeat", HELP, "repeat")

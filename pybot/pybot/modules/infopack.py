@@ -211,14 +211,14 @@ class Infopack:
 
     def _search(self, pattern, key, values, results):
         found = 0
-        if pattern.match(key):
+        if pattern.search(key):
             found = 1
             value = random.choice(values)
         else:
             if len(values) > 1:
                 random.shuffle(values)
             for value in values:
-                if pattern.match(value[1]):
+                if pattern.search(value[1]):
                     found = 1
                     break
         if found:

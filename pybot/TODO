@@ -18,3 +18,6 @@ This are some of the features to be implemented in the future:
   detect when the user has left and auto-logout him
 
 - Develop a README explaining how to do the basic setup of pybot.
+
+- Remove the parameter from __loadmodule() and __unloadmodule__(), and convert
+  them to use a general "mod" name for the instance.

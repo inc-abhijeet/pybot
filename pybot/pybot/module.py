@@ -120,7 +120,7 @@ class ModuleMethods:
         if self.__methods.has_key(name):
             del self.__methods[name]
 
-class SoapMethods:
+class RemoteMethods:
     def __init__(self):
         self.__func = {}
     

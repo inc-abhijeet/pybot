@@ -17,7 +17,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 def init():
-    from pybot.module import Modules, ModuleMethods, SoapMethods
+    from pybot.module import Modules, ModuleMethods, RemoteMethods
     from pybot.option import Options
     from pybot.server import Servers
     from pybot.hook import Hooks
@@ -26,7 +26,7 @@ def init():
     from ConfigParser import ConfigParser
     import os
     
-    global main, modls, servers, options, hooks, mm, sm, config
+    global main, modls, servers, options, hooks, mm, rm, config
     
     hooks = Hooks()
     servers = Servers()
@@ -34,7 +34,7 @@ def init():
     options = Options()
     modls = Modules()
     mm = ModuleMethods()
-    sm = SoapMethods()
+    rm = RemoteMethods()
 
     config = ConfigParser()
     defaults = config.defaults()

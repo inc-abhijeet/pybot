@@ -130,6 +130,8 @@ class RSS:
                         cursor.execute("update rssfeed set lastfetch=%s "
                                        "where id=%s", (now, feed.id))
                         thread.start_new_thread(self.fetch_news, (feed, now))
+                        # Try not to fetch more than one at the same time
+                        break
         
         # Now check if we must show something
         cursor.execute("select * from rsstarget")

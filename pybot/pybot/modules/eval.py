@@ -62,7 +62,7 @@ class Eval:
             if m:
                 if mm.hasperm(0, msg.server.servername, msg.target, msg.user, "eval"):
                     try:
-                        answer = eval(m.group("expr"), self.dict)
+                        answer = str(eval(m.group("expr"), self.dict))
                     except:
                         msg.answer("%:", ["Can't evaluate this", "There's something wrong with this expression"], [".", "!"])
                     else:

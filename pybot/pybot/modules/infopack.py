@@ -419,34 +419,40 @@ class InfopackModule:
                                  "This infopack is not loaded",
                                  [".", "!"])
                 return 0
-            try:
-                pattern = re.compile(regexp, re.I)
-            except re.error:
-                msg.answer("%:", "Invalid pattern", [".", "!"])
-                return 0
-            results = pack.search(pattern)
-            reslen = len(results)
-            if not results:
-                msg.answer("%:", ["Pattern not found",
-                                  "Couldn't find anything with that pattern",
-                                  "Nothing found"], [".", "!"])
-            elif reslen > MAXSEARCHRESULTS:
-                msg.answer("%:", ["Found too many entries",
-                                  "There are many entries like this",
-                                  "There are many matches"],
-                                  ", here are the first %d:"%MAXSEARCHRESULTS)
-            elif reslen > 1:
-                msg.answer("%:", ["Found %d entries:" % reslen,
-                                  "Found %d matches:" % reslen])
+            if mm.hasperm(msg, "infopack", name):
+                try:
+                    pattern = re.compile(regexp, re.I)
+                except re.error:
+                    msg.answer("%:", "Invalid pattern", [".", "!"])
+                    return 0
+                results = pack.search(pattern)
+                reslen = len(results)
+                if not results:
+                    msg.answer("%:", ["Pattern not found",
+                                      "Couldn't find anything with that pattern",
+                                      "Nothing found"], [".", "!"])
+                elif reslen > MAXSEARCHRESULTS:
+                    msg.answer("%:", ["Found too many entries",
+                                      "There are many entries like this",
+                                      "There are many matches"],
+                                      ", here are the first %d:"%MAXSEARCHRESULTS)
+                elif reslen > 1:
+                    msg.answer("%:", ["Found %d entries:" % reslen,
+                                      "Found %d matches:" % reslen])
+                else:
+                    msg.answer("%:", ["Found one entry:",
+                                      "Found one match:"])
+                n = 0
+                for result in results:
+                    msg.answer("-", result)
+                    n += 1
+                    if n == MAXSEARCHRESULTS:
+                        break
             else:
-                msg.answer("%:", ["Found one entry:",
-                                  "Found one match:"])
-            n = 0
-            for result in results:
-                msg.answer("-", result)
-                n += 1
-                if n == MAXSEARCHRESULTS:
-                    break
+                msg.answer("%:", ["You're not allowed to search on "
+                                  "this infopack",
+                                  "You can't search on this infopack"],
+                                  [".", "!"])
             return 0
 
         allowed = mm.permparams(msg, "infopack")

@@ -1,0 +1,40 @@
+## This is a sample file for MoinMoin (http://moin.sourceforge.net) to
+## use with the remoteinfo module.
+##
+## Add in pybot with the following message:
+## 
+## pybot: load remote info from
+##   http://example.com/moin.cgi/PybotRemoteInfo?action=raw
+##   with regex \s(?:\[(?P<flags>\w*)\])?\s*(?P<trigger>.*?)\s*::(?P<msg>.*)
+
+= Pybot Remote Information System =
+
+== Documentation ==
+This file will be loaded into pybot each 10 minutes to include additional
+intelligence in the bot. Each line in that file has the following syntax:
+
+{{{ [flags] regex:: message}}}
+
+Notice that the line must start with a space, and the flags part is optional.
+
+The following flags are understood:
+ * '''a''' -- disable the inclusion of the user nick at the start of the line on channel messages;
+ * '''g''' -- check even channel messages not targeted to pybot;
+ * '''s''' -- makes the regex case sensitive.
+
+The message may also be prefixed by '''/me''' or '''/notice''' to have the expected meanings.
+
+Group replacement may happen on the message.
+
+Here is a nice example:
+
+{{{ [g] Hi (?P<someone>.*?)[.!]*:: /me says hi to %(someone)s as well!}}}
+
+If you don't want to wait 10 minutes to see your changes in pybot, you can ask him to load
+them immediately, with the following message:
+
+{{{pybot: reload remote info from https://moin.conectiva.com.br/PybotRemoteInfo?action=raw}}}
+
+== Information ==
+ 
+ Is remote\s*info working\?:: Sure!

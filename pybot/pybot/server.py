@@ -168,6 +168,11 @@ class Server(BaseServer):
                             self._last_sent = time()+self._last_sent_timeout;
                             line = self._outlines[0][0]+"\r\n"
                             del self._outlines[0]
+                            if isinstance(line, unicode):
+                                try:
+                                    line = line.encode('iso-8859-1')
+                                except UnicodeError:
+                                    line = line.encode('utf8')
                             self._socket.send(line)
                             lines_sent = lines_sent + 1
                     finally:
@@ -295,6 +300,11 @@ class ConsoleServer(BaseServer, Cmd):
     def show_lines(self):
         self._outlines_lock.acquire()
         for line in self._outlines:
+            if isinstance(line, unicode):
+                try:
+                    line = line.encode('iso-8859-1')
+                except UnicodeError:
+                    line = line.encode('utf8')
             print line
         self._outlines = []
         self._outlines_lock.release()

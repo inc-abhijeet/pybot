@@ -35,7 +35,7 @@ can also ask for help about some specific infopack with "help infopack
 
 PERM_INFOPACKADMIN = """
 Users with the "infopackadmin" permission can change infopack
-settings. Check "help infopack" for more informatino.
+settings. Check "help infopack" for more information.
 """
 
 class Info:

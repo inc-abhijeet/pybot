@@ -26,8 +26,8 @@ class Social:
         hooks.register("Message", self.message)
         hooks.register("UnhandledMessage", self.unhandled_message)
 
-        # (hi|hello|olá|ola|hola) [there|everybody|all|guys|folks|people|pessoal|pybot] [!|.]
-        self.re1 = re.compile(r'(?:hi|hello|olá|ola|hola)(?:\s+(?:there|everybody|all|guys|folks|people|pessoal|(?P<nick>\w+)))?\s*[!.]*$', re.I)
+        # (re|hi|hello|hallo|olá|ola|hola|wb|welcome|good (morning|afternoon|evening)|bom dia|boa tarde|gutten tag) [there|back|everybody|all|guys|folks|people|pessoal|(a|para) todos|pybot] [!|.]
+        self.re1 = re.compile(r'(?:re|hi|hello|hallo|olá|ola|hola|wb|welcome\s+back|good\s+(?:morning|afternoon|evening)|bom\s+dia|boa\s+tarde|gutten\s+tag)(?:\s+(?:there|everybody|all|guys|folks|people|pessoal|(à|a|para)\s+todos|(?P<nick>\w+)))?\s*[!.]*$', re.I)
         
         # pybot!
         self.re2 = re.compile(r'(?P<nick>\w+)\s*!+$', re.I)

@@ -1,3 +1,10 @@
+2003-06-02 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/remoteinfo.py: New module!
+
+2003-05-30 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* server.py: If unable to transform string to ISO-8859-1, send
+	  it in UTF8.
+
 2003-05-29 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/google.py: Introduced basic google module using the
 	  google SOAP api.

@@ -302,14 +302,23 @@ class InfopackModule:
         except KeyError:
             msg.answer("%:", "There's no infopack with that name.")
         else:
-            for line in help:
-                msg.answer("%:", line)
+            if mm.hasperm(msg, "infopack", name):
+                for line in help:
+                    msg.answer("%:", line)
+            else:
+                msg.answer("%:", ["You have no permission to use that"
+                                  "infopack",
+                                  "You can't use that infopack"],
+                                 [".", "!"])
         return 1
 
     def help_match(self, msg, match):
         something = match.group("something")
+        allowed = mm.permparams(msg, "infopack")
         found = 0
-        for pack in self.packs.values():
+        for name, pack in self.packs.items():
+            if name not in allowed:
+                continue
             if pack.help_match(something):
                 found = 1
                 for line in pack.help_text():
@@ -457,7 +466,6 @@ class InfopackModule:
             return 0
 
         allowed = mm.permparams(msg, "infopack")
-
         found = 0
         for name, pack in self.packs.items():
             if name not in allowed:

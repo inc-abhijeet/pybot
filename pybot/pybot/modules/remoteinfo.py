@@ -31,9 +31,16 @@ load and unload remote infos you'll need the "remoteinfo" permission,
 and to show and reload you need either the "remoteinfo" or the
 "remoteinforeload" permission. 
 ""","""
-The default reload interval is 10 minutes. To understand how to build the
-regex for the remote info command or how to build the remote information
-check "help remote info syntax".
+After you setup some URL for remote loading, you must say explicitly
+which users/channels and servers will be able to obtain information from
+it. To do that use the command "[don't] allow remote info [from] <url>
+[(for|on|at) (user|channel) <target>] [(for|on|at) server <server>]".
+Notice that you may omit user/channel and/or server to give wider
+permissions.
+""","""
+The default reload interval is 10 minutes. To understand
+how to build the regex for the remote info command or how to build the
+remote information check "help remote info syntax".
 """
 
 HELP_SYNTAX = """
@@ -83,6 +90,7 @@ class Info:
 class RemoteInfo:
     def __init__(self):
         db.table("remoteinfo", "url,regex,interval")
+        db.table("remoteinfoallow", "url,servername,target")
         self.info = options.get("RemoteInfo.info", {})
         self.info_lock = options.get("RemoteInfo.info_lock", {})
         self.lock = thread.allocate_lock()
@@ -99,8 +107,11 @@ class RemoteInfo:
         # (un|re)load remote[ ]info [from] <url>
         self.re2 = re.compile(r"(?P<cmd>un|re)load\s+remote\s*info\s+(?:from\s+)?(?P<url>\S+)\s*$", re.I)
 
+        # [(don[']t|do not)] allow remote[ ]info [from] <url> [(to|for|on|at|in) (user|channel) <target>] [(to|for|on|at|in) server <server>]
+        self.re3 = re.compile(r"(?P<dont>don'?t\s+|do not\s+)?allow\s+remote\s*info\s+(?:from\s+)?(?P<url>\S+)(?:\s+(?:to|for|on|at|in)\s+(?:user|channel)\s+(?P<target>\S+))?(?:\s+(?:to|for|on|at|in)\s+server\s+(?P<server>\S+))?\s*$", re.I)
+
         # show remote[ ]info[s]
-        self.re3 = re.compile(r"show\s+remote\s+infos?$", re.I)
+        self.re4 = re.compile(r"show\s+remote\s*infos?$", re.I)
 
         # remote[ ]info
         mm.register_help("remote\s*info?$", HELP, "remoteinfo")
@@ -203,10 +214,24 @@ class RemoteInfo:
                 self.info[url] = info
         finally:
             self.unlock_url(url)
+
+    def get_allowed_urls(self, servername, target):
+        cursor = db.cursor()
+        cursor.execute("select * from remoteinfoallow")
+        allowed = {}
+        for row in cursor.fetchall():
+            if (not row.servername or row.servername == servername) and \
+               (not row.target or row.target == target):
+                allowed[row.url] = 1
+        return allowed.keys()
     
     def message_remoteinfo(self, msg):
         ret = None
-        for info in self.info.values():
+        allowed = self.get_allowed_urls(msg.server.servername,
+                                        msg.answertarget)
+        for url, info in self.info.items():
+            if url not in allowed:
+                continue
             for p in info.patterns:
                 flags, infomsg = info.patterns[p]
                 if not ('g' in flags or msg.forme):
@@ -329,6 +354,8 @@ class RemoteInfo:
                         self.unlock_url(url)
                         cursor.execute("delete from remoteinfo where url=%s",
                                        (url,))
+                        cursor.execute("delete from remoteinfoallow where "
+                                       "url=%s", (url,))
                         msg.answer("%:", ["Done", "Of course", "Ready"],
                                          [".", "!"])
                 else:
@@ -356,6 +383,58 @@ class RemoteInfo:
 
         m = self.re3.match(msg.line)
         if m:
+            if mm.hasperm(msg, "remoteinfo"):
+                url = m.group("url")
+                target = m.group("target") or ""
+                server = m.group("server") or ""
+                cursor = db.cursor()
+                cursor.execute("select * from remoteinfo where url=%s",
+                               (url,))
+                if not cursor.rowcount:
+                    msg.answer("%:", ["I can't do that.", "Nope.", None],
+                                     ["I'm not loading that url",
+                                      "This url is not in my database"],
+                                     [".", "!"])
+                    return 0
+                cursor.execute("select * from remoteinfoallow where url=%s "
+                               "and servername=%s and target=%s",
+                               (url, server, target))
+                if cursor.rowcount:
+                    if m.group("dont"):
+                        cursor.execute("delete from remoteinfoallow where "
+                                       "url=%s and servername=%s and target=%s",
+                                       (url, server, target))
+                        msg.answer("%:", ["Sure", "Done", "Removed", "Ok"],
+                                         [".", "!"])
+                    else:
+                        msg.answer("%:", ["I can't do that.", "Nope.", None],
+                                         ["This target is already allowed",
+                                          "I'm already allowing this target",
+                                          "This target is already in my database"],
+                                         [".", "!"])
+                else:
+                    if m.group("dont"):
+                        msg.answer("%:", ["I can't do that.", "Nope.", None],
+                                         ["This target doesn't exist",
+                                          "I'm not allowing this target",
+                                          "This target is not in my database"],
+                                         [".", "!"])
+                    else:
+                        cursor.execute("insert into remoteinfoallow values "
+                                       "(%s,%s,%s)",
+                                       (url, server, target))
+                        msg.answer("%:", ["Sure", "Done", "Added", "Ok"],
+                                         [".", "!"])
+            else:
+                msg.answer("%:", [("You're not",
+                                   ["allowed to change remote info options",
+                                    "that good",
+                                    "allowed to do this"]),
+                                  "Nope"], [".", "!"])
+            return 0
+        
+        m = self.re4.match(msg.line)
+        if m:
             if mm.hasperm(msg, "remoteinfo") or \
                mm.hasperm(msg, "reloadremoteinfo"):
                 cursor = db.cursor()
@@ -375,8 +454,31 @@ class RemoteInfo:
                             unit = "second"
                         if interval > 1:
                             unit += "s"
+                        cursor.execute("select * from remoteinfoallow where "
+                                       "url=%s", (row.url,))
+                        if cursor.rowcount:
+                            allowed = "(for "
+                            first = 1
+                            for _row in cursor.fetchall():
+                                if not first:
+                                    allowed += ", "
+                                if _row.servername and _row.target:
+                                    allowed += "%s at %s" % (_row.target,
+                                                             _row.servername)
+                                elif _row.servername:
+                                    allowed += "server %s" % _row.servername
+                                elif _row.target:
+                                    allowed += _row.target
+                                else:
+                                    allowed = "(for everybody)"
+                                    break
+                                first = 0
+                            else:
+                                allowed += ")"
+                        else:
+                            allowed = "(for nobody)"
                         msg.answer("-", row.url, "each", str(interval), unit,
-                                   "with regex", row.regex)
+                                   "with regex", row.regex, allowed)
                 else:
                     msg.answer("%:", "No remote info urls are currently "
                                      "being loaded", [".", "!"])

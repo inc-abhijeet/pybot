@@ -1,3 +1,8 @@
+2003-08-21 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/remoteinfo.py: Introduced "allow" concept, which
+	  defines which channels/servers are allowed to "see" some
+	  remoteinfo.
+
 2003-08-19 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/servercontrol.py: Minor typos fixed.
 	* modules/log.py: Only allow log searching inside

@@ -46,9 +46,9 @@ class User:
         self.string = nick+"!"+username+"@"+host
     
     def match(self, nick="*", username="*", host="*"):
-        if (nick=="*" or nick==self.nick) and \
-           (username=="*" or username==self.username) and \
-           (host=="*" or (host[0]=="*" and host[1:]==self.host[-(len(host)-1):]) or host==self.host):
+        if (nick=="*" or nick.lower()==self.nick.lower()) and \
+           (username=="*" or username.lower()==self.username.lower()) and \
+           (host=="*" or (host[0]=="*" and host[1:].lower()==self.host[-(len(host)-1):].lower()) or host.lower()==self.host.lower()):
             return 1
     
     def matchstr(self, str):

@@ -26,11 +26,9 @@ You can ask me to show RSS news from any site and for any user/channel
 and server with "[dont] show (rss|news) [from] <url> [with link[s]]
 [with desc[ription][s]] [with prefix "<prefix>"] [each <n>(m|h)]
 [(on|for) (user|channel) <target>] [(on|at) server <server>]". Notice
-that after <url> you can use any order, and also that the given interval
-is the maximum interval.
-""","""
-To check what is being shown and for which targets, you can send me
-"show rss".  You need the "rss" permission to use these commands.
+that the given interval is the maximum interval. To check what is being
+shown and for which targets, you can send me "show rss". You need the
+"rss" permission to use these commands.
 """
 
 PERM_RSS = """
@@ -42,12 +40,13 @@ more information.
 # Fetching below 30 minutes is evil, but some active services will
 # make pybot flood the channel with more than 10 minutes.
 MININTERVAL = 10*60
+DEFINTERVAL = 30*60
 
 # Maximum number of stored news from each feed
 CACHELIMIT = 50
 
 # Maxium news to send from a single feed per minute
-ONETIMELIMIT = 5
+ONETIMELIMIT = 1
 
 class RSS:
     def __init__(self):
@@ -89,13 +88,11 @@ class RSS:
         # [dont] show (rss|news|rss news) [from] <url> [with link[s]] [with desc[ription][s]] [with prefix "<prefix>"] [each <n>(m|h)] [[on|at|in|for] (user|channel) <target>] [[on|at|in|for] server <server>]
         self.re1 = regexp(refrag.dont(optional=1),
                           r"show (?:rss |news |rss news )(?:from )?(?P<url>(?:https?|ftp)\S+)"
-                          r"(?:"
-                            r" with prefix \"(?P<prefix>.*?)\"|"
-                            r"(?P<links> with links?)|"
-                            r"(?P<descs> with desc(?:ription)?s?)|",
-                            refrag.interval(), r"|",
-                            refrag.target(),
-                          r")*")
+                          r"(?P<links> with links?)?"
+                          r"(?P<descs> with desc(?:ription)?s?)?"
+                          r"(?: with prefix \"(?P<prefix>.*?)\")?",
+                          refrag.interval(optional=1),
+                          refrag.target(optional=1))
 
         # show rss [settings]
         self.re2 = regexp(r"show rss")
@@ -145,9 +142,9 @@ class RSS:
                         text = "%s %s" % (target.prefix, item.title)
                     else:
                         text = item.title
-                    if "l" in target.flags:
+                    if "l" in target.flags and item.link:
                         text += " [%s]" % item.link
-                    if "d" in target.flags:
+                    if "d" in target.flags and item["description"]:
                         # item.description() is a method
                         text += " - "+item["description"]
                     server.sendmsg(target.target, None, text, notice=1)
@@ -183,13 +180,11 @@ class RSS:
                 dont = refrag.dont.get(msg, m)
                 target, servername = refrag.target.get(msg, m)
                 interval = refrag.interval.get(msg, m,
-                                               default="%ds" % MININTERVAL)
+                                               default="%ds" % DEFINTERVAL)
                 if interval < MININTERVAL:
                     msg.answer("%:", "That's below the minimum interval",
                                      [".", "!"])
                     return 0
-                interval = refrag.interval.get(msg, m,
-                                               default="%ds" % MININTERVAL)
                 url = m.group("url")
                 prefix = m.group("prefix") or ""
                 flags = ""
@@ -225,8 +220,9 @@ class RSS:
                     try:
                         cursor.execute("insert into rsstarget values "
                                        "(NULL, %s, %s, %s, %s, %s, %s, "
-                                       " (select max(id) from rssitem where "
-                                       "  feedid=%s)"
+                                       " ifnull("
+                                       "  (select max(id) from rssitem where "
+                                       "   feedid=%s), -1)"
                                        ")",
                                        (feedid, servername, target, flags,
                                         prefix, interval, feedid))

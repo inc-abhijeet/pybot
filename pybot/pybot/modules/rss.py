@@ -301,8 +301,8 @@ class RSS:
                         else:
                             interval = "%d seconds" % target.interval
                         msg.answer("  for", target.target, "on",
-                                   target.servername, "each", interval,
-                                   oneline, links, descs, prefix)
+                                   target.servername, "each",
+                                   oneline, links, descs, prefix, interval)
             else:
                 msg.answer("%:", ["You can't", "You're not allowed to",
                                   "You're not good enough to"],

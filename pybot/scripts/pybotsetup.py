@@ -77,8 +77,8 @@ except EOFError:
 
 if option["Permission.perm"].has_key("admin"):
     del option["Permission.perm"]["admin"]
-#option["ServerControl.servers"] = {server:[pybotnick, pybotusername, "0", pybotrealname, {}]}
-#option["ModuleControl.modules"] = ["servercontrol", "pong", "permission", "help", "social"]
+option["ServerControl.servers"] = {server:[pybotnick, pybotusername, "0", pybotrealname, {}]}
+option["ModuleControl.modules"] = ["servercontrol", "pong", "permission", "help", "social"]
 
 # Clean old permission system
 if option.has_key("Permission.gosh"):

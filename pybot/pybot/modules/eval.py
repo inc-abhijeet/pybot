@@ -17,7 +17,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from pybot.locals import *
+import thread
+import signal
+import time
 import math
+import os
 
 HELP = """
 The "eval <expr>" command allows you to evaluate expressions
@@ -37,6 +41,8 @@ This permission allows users to use the "eval" command. For more
 information send me "help eval".
 """
 
+TIMEOUT = 3
+
 class Eval:
     def __init__(self):
         hooks.register("Message", self.message)
@@ -46,25 +52,41 @@ class Eval:
         del self.dict["__doc__"]
         del self.dict["__file__"]
         del self.dict["__name__"]
-        self.dict["map"] = map
-        self.dict["zip"] = zip
-        self.dict["len"] = len
-        self.dict["min"] = min
-        self.dict["max"] = max
-        self.dict["chr"] = chr
-        self.dict["ord"] = ord
+        self.dict["False"] = False
+        self.dict["True"] = True
         self.dict["abs"] = abs
+        self.dict["bool"] = bool
+        self.dict["chr"] = chr
+        self.dict["cmp"] = cmp
+        self.dict["coerce"] = coerce
+        self.dict["complex"] = complex
+        self.dict["dict"] = dict
+        self.dict["divmod"] = divmod
+        self.dict["filter"] = filter
+        self.dict["float"] = float
+        self.dict["hash"] = hash
         self.dict["hex"] = hex
+        self.dict["id"] = id
         self.dict["int"] = int
-        self.dict["oct"] = oct
+        self.dict["len"] = len
         self.dict["list"] = list
         self.dict["long"] = long
-        self.dict["float"] = float
-        self.dict["round"] = round
-        self.dict["tuple"] = tuple
+        self.dict["map"] = map
+        self.dict["max"] = max
+        self.dict["min"] = min
+        self.dict["oct"] = oct
+        self.dict["ord"] = ord
+        self.dict["pow"] = pow
+        self.dict["range"] = range
         self.dict["reduce"] = reduce
-        self.dict["filter"] = filter
-        self.dict["coerce"] = coerce
+        self.dict["repr"] = repr
+        self.dict["round"] = round
+        self.dict["str"] = round
+        self.dict["tuple"] = tuple
+        self.dict["unichr"] = unichr
+        self.dict["unicode"] = unicode
+        self.dict["xrange"] = range
+        self.dict["zip"] = zip
 
         # Match 'eval <expr>'
         self.re1 = regexp(r"eval (?P<expr>.*?)")
@@ -78,7 +100,69 @@ class Eval:
         hooks.unregister("Message", self.message)
         mm.unregister_help(HELP)
         mm.unregister_perm("eval")
-    
+
+    def fork_eval(self, expr):
+        try:
+            code = compile(expr, "<string>", "eval")
+        except:
+            return None
+        r, w = os.pipe()
+        pid = os.fork()
+        if pid == 0:
+            os.close(r)
+            fw = os.fdopen(w, "w")
+            try:
+                fw.write(str(eval(code, self.dict)))
+            except:
+                pass
+            fw.close()
+            os._exit(1)
+        os.close(w)
+        fr = os.fdopen(r, "r")
+        answer = None
+        timeout = TIMEOUT
+        while 1:
+            try:
+                _pid, status = os.waitpid(pid, os.WNOHANG)
+            except os.error:
+                os.kill(pid, signal.SIGKILL)
+                time.sleep(0.5)
+                try:
+                    os.waitpid(pid, os.WNOHANG)
+                except os.error:
+                    pass
+                break
+            if pid == _pid:
+                answer = fr.read()
+                break
+            else:
+                timeout -= 1
+                if not timeout:
+                    answer = ["Couldn't wait for your answer.",
+                              "Processing your answer took too long.",
+                              "I'm in a hurry and can't wait for "
+                              "your answer."]
+                    os.kill(pid, signal.SIGKILL)
+                    time.sleep(0.5)
+                    try:
+                        os.waitpid(pid, os.WNOHANG)
+                    except os.error:
+                        pass
+                    break
+                time.sleep(1)
+        return answer
+
+    def eval(self, msg, expr):
+        answer = self.fork_eval(expr)
+        if not answer:
+            msg.answer("%:", ["Can't evaluate this",
+                              "There's something wrong with this "
+                              "expression"], [".", "!"])
+        elif len(answer) > 255:
+            msg.answer("%:", "Your answer is too long", [".", "!"])
+        else:
+            msg.answer("%:", answer)
+
     def message(self, msg):
         if not msg.forme:
             return None
@@ -86,17 +170,7 @@ class Eval:
         m = self.re1.match(msg.line)
         if m:
             if mm.hasperm(msg, "eval"):
-                try:
-                    answer = str(eval(m.group("expr"), self.dict))
-                except:
-                    msg.answer("%:", ["Can't evaluate this",
-                                      "There's something wrong with this "
-                                      "expression"], [".", "!"])
-                else:
-                    if len(answer) > 255:
-                        msg.answer("%:", "Sorry, your answer is too long...")
-                    else:
-                        msg.answer("%:", str(answer))
+                thread.start_new_thread(self.eval, (msg, m.group("expr")))
             else:
                 msg.answer("%:", ["Sorry...", "Oops!"],
                                  "You don't have this power", [".", "!"])

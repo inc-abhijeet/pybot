@@ -1,3 +1,8 @@
+2003-08-28 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* modules/eval.py: Implemented a forking/timeout scheme to
+	  protect against DoS evaluations. Now it should be possible
+	  to give wider access to the module.
+
 2003-08-27 Gustavo Niemeyer <niemeyer@conectiva.com>
 	* modules/permissions.py: Implemented permission parameters.
 	* modules/{remoteinfo.py,infopack.py}: Adapted to work with
@@ -7,7 +12,7 @@
 	  infopack with an RFC index.
 	* data/infopacks/weather.info,contrib/icao2info.py: Created
 	  infopack with weather station codes.
-	* pybot/modules/weather.py: Implemented module using the
+	* modules/weather.py: Implemented module using the
 	  pymetar.py module for consulting NOAA weather information
 	  from any station available there.
 

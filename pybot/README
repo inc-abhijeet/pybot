@@ -153,4 +153,8 @@ Standard modules
         Allows pybot to acquire knowledge from remote URLs in a very
         flexible way.
 
+- weather
+        Module which retrieves weather information from any station available
+        at the NOAA.
+
 vim:st=4:sw=4:et

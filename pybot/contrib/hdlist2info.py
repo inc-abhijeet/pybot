@@ -48,7 +48,7 @@ def main():
         file.write("K:%s\n" % packagename)
         v = ""
         distros = packages[packagename]
-        distronames = distros.keys()
+        distronames = [SortStr(x) for x in distros.keys()]
         distronames.sort()
         for distroname in distronames:
             if v:
@@ -58,6 +58,57 @@ def main():
             v += "%s: %s" % (distroname, ", ".join(versions))
         file.write("V:tm:%s\n" % v)
     file.close()
+
+class SortStr(str):
+    def __cmp__(self, other):
+        return vercmppart(str(self), str(other))
+    def __lt__(self, other):
+        return cmp(self, other) < 0
+    def __eq__(self, other):
+        return cmp(self, other) == 0
+    def __gt__(self, other):
+        return cmp(self, other) > 0
+
+def vercmppart(a, b):
+    if a == b:
+        return 0
+    ai = 0
+    bi = 0
+    la = len(a)
+    lb = len(b)
+    while ai < la and bi < lb:
+        while ai < la and not a[ai].isalnum(): ai += 1
+        while bi < lb and not b[bi].isalnum(): bi += 1
+        aj = ai
+        bj = bi
+        if a[aj].isdigit():
+            while aj < la and a[aj].isdigit(): aj += 1
+            while bj < lb and b[bj].isdigit(): bj += 1
+            isnum = 1
+        else:
+            while aj < la and a[aj].isalpha(): aj += 1
+            while bj < lb and b[bj].isalpha(): bj += 1
+            isnum = 0
+        if aj == ai:
+            return -1
+        if bj == bi:
+            return isnum and 1 or -1
+        if isnum:
+            while ai < la and a[ai] == '0': ai += 1
+            while bi < lb and b[bi] == '0': bi += 1
+            if aj-ai > bj-bi: return 1
+            if bj-bi > aj-ai: return -1
+        rc = cmp(a[ai:aj], b[bi:bj])
+        if rc:
+            return rc
+        ai = aj
+        bi = bj
+    if ai == la and bi == lb:
+        return 0
+    if ai == la:
+        return -1
+    else:
+        return 1
 
 if __name__ == "__main__":
     main()

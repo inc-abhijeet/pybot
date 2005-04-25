@@ -47,9 +47,6 @@ Options:
     -d    Enable debug mode
     -h    Show this message
 
-Examples:
-    repsys submit https://repos/svn/cnc/snapshot/foo 14800
-    repsys submit -l https://repos
 """
 
 def parse_options():
@@ -72,7 +69,7 @@ def parse_options():
     return obj
 
 def main():
-    pybot.init() # Initialize globaly acessible data
+    pybot.init() # Initialize globally acessible data
     opts = parse_options()
     if opts.console:
         pybot.servers.add_console()

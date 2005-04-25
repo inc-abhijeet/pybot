@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -26,7 +26,7 @@ modules". Only admins are allowed to do that.
 
 class ModuleControl:
     def __init__(self):
-        db.table("module", "name")
+        db.table("module", "name text primary key")
         hooks.register("Message", self.message)
 
         modls.loadlist(self.get_modules())
@@ -41,19 +41,17 @@ class ModuleControl:
         mm.register_help(r"(?:(?:un|re)?load )?modules?", HELP, "modules")
 
     def get_modules(self):
-        cursor = db.cursor()
-        cursor.execute("select * from module order by name")
-        return [x.name for x in cursor.fetchall()]
+        return [row[0] for row in
+                db.execute("select name from module order by name")]
 
     def add_module(self, name):
-        cursor = db.cursor()
-        cursor.execute("select * from module where name=%s", name)
-        if not cursor.rowcount:
-            cursor.execute("insert into module values (%s)", name)
+        try:
+            db.execute("insert into module values (?)", name)
+        except db.error:
+            pass
 
     def del_module(self, name):
-        cursor = db.cursor()
-        cursor.execute("delete from module where name=%s", name)
+        db.execute("delete from module where name=?", name)
 
     def unload(self):
         hooks.unregister("Message", self.message)

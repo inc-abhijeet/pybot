@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -79,25 +79,23 @@ STRIPNICK = re.compile(r"^[\W_]*([^\W_]+)[\W_]*$")
 
 class Log:
     def __init__(self):
-        db.table("log", "timestamp,servername,type,nick,src,dest,line")
+        db.table("log", "timestamp integer, servername text, type text, "
+                        "nick text, src text, dest text, line text")
 
     def xformnick(self, nick):
         return STRIPNICK.sub(r"\1", nick.lower())
 
     def append(self, servername, type, nick, src, dest, line):
         nick = self.xformnick(nick)
-        cursor = db.cursor()
         values = (int(time.time()), servername, type, nick, src, dest, line)
-        places = ','.join(['%s']*len(values))
-        cursor.execute("insert into log values (%s)" % places, values)
+        places = ','.join(['?']*len(values))
+        db.execute("insert into log values (%s)" % places, *values)
 
     def seen(self, nick):
         nick = self.xformnick(nick)
-        cursor = db.cursor()
-        cursor.execute("select * from log where nick=%s and src != '' "
-                       "and dest != '' order by timestamp desc limit 1",
-                       (nick,))
-        row = cursor.fetchone()
+        row = db.execute("select * from log where nick=? and src != '' "
+                         "and dest != '' order by timestamp desc limit 1",
+                         nick).fetchone()
         if row:
             return LogMsg(row)
         return None
@@ -105,17 +103,13 @@ class Log:
     def search(self, servername, target, regexp, max, searchline):
         p = re.compile(regexp, re.I)
         l = []
-        cursor = db.cursor()
-        cursor.execute("select * from log where servername == %s and "
-                       "dest == %s and src != '' order by timestamp",
-                       (servername, target))
-        row = cursor.fetchone()
-        while row:
+        for row in db.execute("select * from log where servername == ? and "
+                              "dest == ? and src != '' order by timestamp",
+                              servername, target):
             if p.search(row.line):
                 l.append(LogMsg(row))
             if len(l) > max+1:
                 l.pop(0)
-            row = cursor.fetchone()
         if l and l[-1].line == searchline:
             l.pop()
         elif len(l) > max:

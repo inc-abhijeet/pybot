@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -39,8 +39,10 @@ Check "help forward" for more information.
 
 class Forward:
     def __init__(self):
-        db.table("forward", "fromserver,fromtarget,toserver,totarget,"
-                            "flags,with")
+        db.table("forward", "fromserver text, fromtarget text, toserver text, "
+                            "totarget text, flags text, with text",
+                 constraints="unique (fromserver,fromtarget,"
+                                     "toserver,totarget,flags)")
         hooks.register("Message", self.message_forward, 100)
         hooks.register("OutMessage", self.message_forward, 100)
         hooks.register("Notice", self.notice_forward, 100)
@@ -76,9 +78,7 @@ class Forward:
         mm.unregister_perm("forward")
     
     def do_forward(self, server, target, nick, forme, before, after):
-        cursor = db.cursor()
-        cursor.execute("select * from forward")
-        for row in cursor.fetchall():
+        for row in db.execute("select * from forward"):
             if (row.fromserver is None or
                 row.fromserver == server.servername) and \
                (row.fromtarget is None or row.fromtarget == target) and \
@@ -147,26 +147,25 @@ class Forward:
                 flags = ""
                 if foryou:
                     flags += "f"
-                cursor = db.cursor()
-                where = []
-                wargs = []
-                if fromserver:
-                    where.append("fromserver=%s")
-                    wargs.append(fromserver)
-                else:
-                    where.append("fromserver isnull")
-                if fromtarget:
-                    where.append("fromtarget=%s")
-                    wargs.append(fromtarget)
-                else:
-                    where.append("fromtarget isnull")
-                where.extend(["toserver=%s", "totarget=%s",
-                              "flags=%s", "with=%s"])
-                wstr = " and ".join(where)
-                wargs.extend([toserver, totarget, flags, with])
                 if m.group("dont"):
-                    cursor.execute("delete from forward where "+wstr, *wargs)
-                    if not cursor.rowcount:
+                    where = []
+                    wargs = []
+                    if fromserver:
+                        where.append("fromserver=?")
+                        wargs.append(fromserver)
+                    else:
+                        where.append("fromserver isnull")
+                    if fromtarget:
+                        where.append("fromtarget=?")
+                        wargs.append(fromtarget)
+                    else:
+                        where.append("fromtarget isnull")
+                    where.extend(["toserver=?", "totarget=?",
+                                  "flags=?", "with=?"])
+                    wstr = " and ".join(where)
+                    wargs.extend([toserver, totarget, flags, with])
+                    db.execute("delete from forward where "+wstr, *wargs)
+                    if not db.changed:
                         msg.answer("%:", ["Sorry, but",
                                           "Oops! I think", None],
                                          "I'm not forwarding any messages "
@@ -176,18 +175,15 @@ class Forward:
                                           "Of course", "No problems"],
                                          ["!", "."])
                 else:
-                    cursor.execute("select * from forward where "+wstr,
-                                   *wargs)
-                    if cursor.rowcount:
-                        msg.answer("%:", "I'm already forwarding this.")
-                    else:
-                        cursor.execute("insert into forward values "
-                                       "(%s,%s,%s,%s,%s,%s)",
-                                       fromserver, fromtarget,
-                                       toserver, totarget, flags, with)
+                    try:
+                        db.execute("insert into forward values (?,?,?,?,?,?)",
+                                   fromserver, fromtarget, toserver,
+                                   totarget, flags, with)
                         msg.answer("%:", ["Sure", "I'll forward",
                                           "Right now", "Of course"],
                                          ["!", "."])
+                    except db.error:
+                        msg.answer("%:", "I'm already forwarding this.")
             else:
                 msg.answer("%:", ["You're not allowed to work with forwards",
                                   "Unfortunately, you can't do that",
@@ -198,14 +194,11 @@ class Forward:
         m = self.re2.match(msg.line)
         if m:
             if mm.hasperm(msg, "forward"):
-                cursor = db.cursor()
-                cursor.execute("select * from forward")
-                rows = cursor.fetchall()
-                if not rows:
+                db.execute("select * from forward")
+                if not db.results:
                     msg.answer("%:", "I'm not forwarding anything", ["!", "."])
                     return 0
-
-                for row in rows:
+                for row in db:
                     str = "I'm forwarding messages"
                     if "f" in row.flags:
                         str += " for me"

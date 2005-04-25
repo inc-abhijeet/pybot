@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -66,15 +66,13 @@ class Example:
         # of entries in the table, but was included to show a table with
         # more than one field).
         #db.table("test", "num,timestamp")
-        #cursor = db.cursor()
-        #cursor.execute("select max(num) from test")
-        #row = cursor.fetchone()
+        #db.execute("select max(num) from test")
+        #row = db.fetchone()
         #if row[0]:
         #    loads = int(row[0])+1
         #else:
         #    loads = 1
-        #cursor.execute("insert into test values (%s,%s)",
-        #               loads, int(time.time()))
+        #db.execute("insert into test values (?,?)", loads, int(time.time()))
 
     def unload(self):
         hooks.unregister("Message", self.message)

@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -41,7 +41,8 @@ class Messages:
         hooks.register("Message", self.message)
         hooks.register("UserJoined", self.checkmsgs)
 
-        db.table("message", "servername,nickfrom,nickto,timestamp,flags,message")
+        db.table("message", "servername text, nickfrom text, nickto text, "
+                            "timestamp integer, flags text, message text")
 
         # [priv[ate]] message (to|for) <nick>: <message>
         self.re1 = regexp(r"(?P<private>priv(?:ate)? )?message (?:to|for) (?P<nick>\S+?) *: (?P<message>.*)")
@@ -63,11 +64,11 @@ class Messages:
     def checkmsgs(self, server, target, user, asked=0):
         # XXX: Must check if user is registered and logged!
         nick = STRIPNICK.sub(r"\1", user.nick.lower())
-        cursor = db.cursor()
-        cursor.execute("select * from message where "
-                       "servername=%s and nickto=%s",
-                       server.servername, nick)
-        for row in cursor.fetchall():
+        db.execute("select * from message where servername=? and nickto=?",
+                   server.servername, nick)
+        found = False
+        for row in db:
+            found = True
             if "p" in row.flags:
                 trgt = nick
             else:
@@ -79,10 +80,9 @@ class Messages:
             server.sendmsg(trgt, user.nick,
                            "%:", "Message from %s:" % row.nickfrom,
                            row.message)
-        if cursor.rowcount:
-            cursor.execute("delete from message where "
-                           "servername=%s and nickto=%s",
-                           server.servername, nick)
+        if found:
+            db.execute("delete from message where servername=? and nickto=?",
+                       server.servername, nick)
         if asked:
             server.sendmsg(target, user.nick, "%:",
                            ["No.", "Nope.", "None.", "I don't think so."])
@@ -116,11 +116,9 @@ class Messages:
                 flags = ""
                 if priv:
                     flags += "p"
-                cursor = db.cursor()
-                cursor.execute("insert into message values "
-                               "(%s,%s,%s,%s,%s,%s)",
-                               msg.server.servername, msg.user.nick, snick,
-                               int(time.time()), flags, message)
+                db.execute("insert into message values (?,?,?,?,?,?)",
+                           msg.server.servername, msg.user.nick, snick,
+                           int(time.time()), flags, message)
                 msg.answer("%:", ["I'll let "+nick+" know", "No problems",
                                   "Sure", "Ok"], ["!","."])
             else:

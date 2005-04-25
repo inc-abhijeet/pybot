@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -53,8 +53,8 @@ ONETIMELIMIT = 5
 class RSS:
     def __init__(self):
         db.table("rssfeed", "id integer primary key, "
-                            "url unique on conflict ignore, "
-                            "lastfetch",
+                            "url text unique on conflict ignore, "
+                            "lastfetch integer",
                  triggers=[
                    "create trigger rssfeed1 after delete on rssfeed"
                    " begin"
@@ -63,18 +63,21 @@ class RSS:
                    " end"
                  ])
         db.table("rsstarget", "id integer primary key, "
-                              "feedid, servername, target, flags, "
-                              "prefix, interval, lastitemid",
+                              "feedid integer, servername text, target text, "
+                              "flags text, prefix text, interval integer, "
+                              "lastitemid integer",
                  constraints="unique (feedid, servername, target)",
                  triggers=[
                    "create trigger rsstarget1 after delete on rsstarget"
                    " begin"
                    "  delete from rssfeed where id=old.feedid and"
-                      " (select count(feedid) from rsstarget where feedid=old.feedid)==0;"
+                      " (select count(feedid) from rsstarget where "
+                      "  feedid=old.feedid)==0;"
                    " end"
                  ])
-        db.table("rssitem", "id integer primary key, feedid, timestamp, "
-                            "title, link, description",
+        db.table("rssitem", "id integer primary key, feedid integer, "
+                            "timestamp integer, title text, link text, "
+                            "description text",
                  constraints="unique (feedid, title, link, description)"
                              " on conflict ignore")
 
@@ -107,39 +110,38 @@ class RSS:
         mm.unregister_perm("rss")
 
     def update(self):
-        cursor = db.cursor()
-
         # Check if we must fetch something
-        cursor.execute("select * from rssfeed")        
+        db.execute("select * from rssfeed")        
         now = int(time.time())
-        for feed in cursor.fetchall():
+        for feed in db:
             lastfetch = int(feed.lastfetch)
             if now-lastfetch >= MININTERVAL:
                 # Clear old news
-                cursor.execute("delete from rssitem where feedid=%s and "
-                               "id not in (select id from rssitem "
-                                          "where feedid=%s "
-                                          "order by id desc limit %s)",
-                               (feed.id, feed.id, CACHELIMIT))
-                cursor.execute("select min(interval) from rsstarget where "
-                               "feedid=%s", (feed.id,))
-                row = cursor.fetchone()
+                db.execute("delete from rssitem where feedid=? and "
+                           "id not in (select id from rssitem "
+                                       "where feedid=? "
+                                       "order by id desc limit ?)",
+                           feed.id, feed.id, CACHELIMIT)
+                db.execute("select min(interval) from rsstarget where "
+                           "feedid=?", feed.id)
+                row = db.fetchone()
                 if row: # Should always be true
                     interval = int(row[0])
                     if now-lastfetch >= interval:
-                        cursor.execute("update rssfeed set lastfetch=%s "
-                                       "where id=%s", (now, feed.id))
+                        db.execute("update rssfeed set lastfetch=? "
+                                   "where id=?", now, feed.id)
                         thread.start_new_thread(self.fetch_news, (feed, now))
                         # Try not to fetch more than one at the same time
                         break
         
         # Now check if we must show something
-        cursor.execute("select * from rsstarget")
-        for target in cursor.fetchall():
-            cursor.execute("select * from rssitem where "
-                           "id > %s and feedid=%s order by id limit %s",
-                           (target.lastitemid, target.feedid, ONETIMELIMIT))
-            if cursor.rowcount:
+        db.execute("select * from rsstarget")
+        for target in db:
+            db.execute("select * from rssitem where "
+                       "id > ? and feedid=? order by id limit ?",
+                       target.lastitemid, target.feedid, ONETIMELIMIT)
+            rows = db.fetchall()
+            if rows:
                 server = servers.get(target.servername)
                 lastid = None
                 if "1" in target.flags:
@@ -147,7 +149,7 @@ class RSS:
                     fulltext = ""
                 else:
                     oneline = 0
-                for item in cursor.fetchall():
+                for item in rows:
                     text = item.title
                     if "l" in target.flags and item.link:
                         text += " <%s>" % item.link
@@ -167,8 +169,8 @@ class RSS:
                     server.sendmsg(target.target, None,
                                    target.prefix, fulltext, notice=1)
                 if lastid: # Should always be true
-                    cursor.execute("update rsstarget set lastitemid=%s "
-                                   "where id=%s", (lastid, target.id,))
+                    db.execute("update rsstarget set lastitemid=? "
+                               "where id=?", lastid, target.id)
 
     def fetch_news(self, feed, now):
         news = feedparser.parse(feed.url)
@@ -177,15 +179,14 @@ class RSS:
             # Reverse, since top items are usually newer
             items.reverse()
             localdb = db.copy() # We're in a thread
-            cursor = localdb.cursor()
             for item in items:
                 if "title" in item:
                     title = striphtml(item["title"].strip())
                     link = striphtml(item.get("link", "").strip())
                     desc = striphtml(item.get("description", "").strip())
-                    cursor.execute("insert into rssitem values "
-                                   "(NULL, %s, %s, %s, %s, %s)",
-                                   (feed.id, now, title, link, desc))
+                    localdb.execute("insert into rssitem values "
+                                    "(null,?,?,?,?,?)",
+                                    feed.id, now, title, link, desc)
 
     def message(self, msg):
         if not msg.forme:
@@ -211,13 +212,12 @@ class RSS:
                     flags += "d"
                 if m.group("oneline"):
                     flags += "1"
-                cursor = db.cursor()
                 if dont:
-                    cursor.execute("delete from rsstarget where "
-                                   "feedid=(select id from rssfeed where url=%s) "
-                                   "and servername=%s and target=%s",
-                                   (url, servername, target))
-                    if not cursor.rowcount:
+                    db.execute("delete from rsstarget where "
+                               "feedid=(select id from rssfeed where url=?) "
+                               "and servername=? and target=?",
+                               url, servername, target)
+                    if not db.changed:
                         msg.answer("%:", ["Not needed",
                                           "It's not needed",
                                           "Oops"], [".", "!"],
@@ -231,27 +231,23 @@ class RSS:
                     else:
                         msg.answer("%:", ["Done", "Ok", "Sure"], [".", "!"])
                 else:
-                    cursor.execute("insert into rssfeed values (NULL, %s, 0)",
-                                   (url,))
-                    cursor.execute("select id from rssfeed where url=%s",
-                                   (url,))
-                    feedid = cursor.fetchone().id
+                    db.execute("insert into rssfeed values (null,?,0)", url)
+                    db.execute("select id from rssfeed where url=?", url)
+                    feedid = db.fetchone()[0]
                     try:
-                        cursor.execute("insert into rsstarget values "
-                                       "(NULL, %s, %s, %s, %s, %s, %s, "
-                                       " ifnull("
-                                       "  (select max(id) from rssitem where "
-                                       "   feedid=%s), -1)"
-                                       ")",
-                                       (feedid, servername, target, flags,
-                                        prefix, interval, feedid))
+                        db.execute("insert into rsstarget values "
+                                   "(null,?,?,?,?,?,?,"
+                                   " ifnull((select max(id) from rssitem where"
+                                   "         feedid=?), -1)"
+                                   ")",
+                                   feedid, servername, target, flags,
+                                   prefix, interval, feedid)
                     except db.error:
-                        cursor.execute("update rsstarget set "
-                                       "flags=%s, prefix=%s, interval=%s "
-                                       "where feedid=%s and servername=%s "
-                                       "and target=%s",
-                                       (flags, prefix, interval,
-                                        feedid, servername, target))
+                        db.execute("update rsstarget set "
+                                   "flags=?, prefix=?, interval=? where "
+                                   "feedid=? and servername=? and target=?",
+                                   flags, prefix, interval, feedid,
+                                   servername, target)
                         msg.answer("%:", ["Feed updated",
                                           "Information updated",
                                           "Feed information updated"],
@@ -268,20 +264,19 @@ class RSS:
         m = self.re2.match(msg.line)
         if m:
             if mm.hasperm(msg, "rss"):
-                cursor = db.cursor()
-                cursor.execute("select * from rssfeed")
-                if not cursor.rowcount:
+                db.execute("select * from rssfeed")
+                if not db.results:
                     msg.answer("%:", ["No rss feeds are being shown",
                                       "There are no rss feeds being shown",
                                       "No feeds registered"],
                                       [".", "!"])
                     return 0
                 msg.answer("%:", "The following feeds are being shown:")
-                for feed in cursor.fetchall():
+                for feed in db:
                     msg.answer("-", feed.url)
-                    cursor.execute("select * from rsstarget where feedid=%s",
-                                   (feed.id,))
-                    for target in cursor.fetchall():
+                    db.execute("select * from rsstarget where feedid=?",
+                               feed.id)
+                    for target in db:
                         oneline, links, descs, prefix = ("",)*4
                         if "1" in target.flags:
                             oneline = "in one line"
@@ -301,8 +296,9 @@ class RSS:
                         else:
                             interval = "%d seconds" % target.interval
                         msg.answer("  for", target.target, "on",
-                                   target.servername, "each",
-                                   oneline, links, descs, prefix, interval)
+                                   target.servername,
+                                   oneline, links, descs, prefix,
+                                   "each", interval)
             else:
                 msg.answer("%:", ["You can't", "You're not allowed to",
                                   "You're not good enough to"],

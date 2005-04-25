@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -63,8 +63,9 @@ class XmlRpcObject:
     
 class XmlRpc:
     def __init__(self):
-        db.table("xmlrpcuser", "username,password")
-        db.table("xmlrpcperm", "username,method,servername,target")
+        db.table("xmlrpcuser", "username, password text")
+        db.table("xmlrpcperm", "username, method text, servername text, "
+                               "target text")
         
         self.server = SimpleXMLRPCServer(("0.0.0.0", 8460))
         self.server.socket.setblocking(0)
@@ -100,49 +101,44 @@ class XmlRpc:
         self.server.handle_request()
 
     def user_add(self, username, password):
-        cursor = db.cursor()
-        cursor.execute("select * from xmlrpcuser where username=%s",
-                       username)
-        if not cursor.rowcount:
-            cursor.execute("insert into xmlrpcuser values (%s,%s)",
-                           username, password)
+        db.execute("select null from xmlrpcuser where username=?",
+                   username)
+        if not db.results:
+            db.execute("insert into xmlrpcuser values (?,?)",
+                       username, password)
             return 1
         return 0
 
     def user_del(self, username):
-        cursor = db.cursor()
-        cursor.execute("delete from xmlrpcuser where username=%s",
-                       username)
-        return bool(cursor.rowcount)
+        db.execute("delete from xmlrpcuser where username=?", username)
+        return db.changed
 
     def perm_add(self, username, method, servername, target):
         if self.perm_del(username, method, servername, target, check=1):
             return 0
-        cursor = db.cursor()
-        cursor.execute("insert into xmlrpcperm values (%s,%s,%s,%s)",
-                       username, method, servername, target)
+        db.execute("insert into xmlrpcperm values (?,?,?,?)",
+                   username, method, servername, target)
         return 1
 
     def perm_del(self, username, method, servername, target, check=0):
-        where = ["username=%s", "method=%s"]
+        where = ["username=?", "method=?"]
         wargs = [username, method]
         if servername:
-            where.append("servername=%s")
+            where.append("servername=?")
             wargs.append(servername)
         else:
             where.append("servername isnull")
         if target:
-            where.append("target=%s")
+            where.append("target=?")
             wargs.append(target)
         else:
             where.append("target isnull")
         wstr = " and ".join(where)
-        cursor = db.cursor()
         if not check:
-            cursor.execute("delete from xmlrpcperm where "+wstr, *wargs)
+            db.execute("delete from xmlrpcperm where "+wstr, *wargs)
         else:
-            cursor.execute("select * from xmlrpcperm where "+wstr, *wargs)
-        return bool(cursor.rowcount)
+            db.execute("select null from xmlrpcperm where "+wstr, *wargs)
+        return db.changed or db.results
 
     def message(self, msg):
         if not msg.forme:
@@ -219,14 +215,13 @@ class XmlRpc:
         password = auth.get("password")
         server = auth.get("server")
         target = auth.get("target")
-        cursor = db.cursor()
-        cursor.execute("select * from xmlrpcperm "
-                       "natural left join xmlrpcuser where "
-                       "xmlrpcuser.username=%s and password=%s and "
-                       "(servername isnull or servername=%s) and "
-                       "(target isnull or target=%s)",
-                       username, password, server, target)
-        if cursor.rowcount:
+        db.execute("select null from xmlrpcperm "
+                   "natural left join xmlrpcuser where "
+                   "xmlrpcuser.username=? and password=? and "
+                   "(servername isnull or servername=?) and "
+                   "(target isnull or target=?)",
+                   username, password, server, target)
+        if db.results:
             return 1
         return 0
     
@@ -234,9 +229,11 @@ class XmlRpc:
         server = servers.get(auth["server"])
         if server:
             if type(msg) == StringType:
-                server.sendmsg(auth["target"], None, msg, notice=notice, ctcp=ctcp)
+                server.sendmsg(auth["target"], None,
+                               msg, notice=notice, ctcp=ctcp)
             else:
-                server.sendmsg(auth["target"], None, notice=notice, ctcp=ctcp, *msg)
+                server.sendmsg(auth["target"], None,
+                               notice=notice, ctcp=ctcp, *msg)
 
 def __loadmodule__():
     global mod

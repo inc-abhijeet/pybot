@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -84,7 +84,7 @@ class Info:
 
 class RemoteInfo:
     def __init__(self):
-        db.table("remoteinfo", "url unique, regex, interval")
+        db.table("remoteinfo", "url text unique, regex text, interval text")
         self.info = options.get("RemoteInfo.info", {})
         self.info_lock = options.get("RemoteInfo.info_lock", {})
         self.lock = thread.allocate_lock()
@@ -141,20 +141,16 @@ class RemoteInfo:
             pass
 
     def reload_all(self):
-        cursor = db.cursor()
-        cursor.execute("select * from remoteinfo")
         now = time.time()
-        for row in cursor.fetchall():
+        for row in db.execute("select * from remoteinfo"):
             info = self.info.get(row.url)
             if not info or now-info.lasttime > int(row.interval):
                 self.reload(row.url, row.regex)
 
     def reload(self, url, regex=None):
         if not regex:
-            cursor = db.cursor()
-            cursor.execute("select regex from remoteinfo where url=%s",
-                           (url,))
-            row = cursor.fetchone()
+            db.execute("select regex from remoteinfo where url=?", url)
+            row = db.fetchone()
             if not row: return
             regex = row.regex
         if self.lock_url(url):
@@ -274,11 +270,9 @@ class RemoteInfo:
                                      ["!", "."])
                     return 0
 
-                cursor = db.cursor()
                 try:
-                    cursor.execute("insert into remoteinfo values "
-                                   "(NULL,%s,%s,%s)",
-                                   (url, regex, interval))
+                    db.execute("insert into remoteinfo values "
+                               "(null,?,?,?)", url, regex, interval)
                 except db.error:
                     msg.answer("%:", ["I can't do that.", "Nope.", None],
                                      ["I'm already loading that url",
@@ -305,10 +299,8 @@ class RemoteInfo:
             if mm.hasperm(msg, "remoteinfoadmin"):
                 cmd = m.group("cmd")
                 url = m.group("url")
-                cursor = db.cursor()
-                cursor.execute("select * from remoteinfo where url=%s",
-                               (url,))
-                if not cursor.rowcount:
+                db.execute("select null from remoteinfo where url=?", url)
+                if not db.results:
                     msg.answer("%:", ["I can't do that.", "Nope.", None],
                                      ["I'm not loading that url",
                                       "This url is not in my database"],
@@ -327,8 +319,8 @@ class RemoteInfo:
                             # Unlocking is not really necessary, but
                             # politically right. ;-)
                             self.unlock_url(url)
-                            cursor.execute("delete from remoteinfo where url=%s",
-                                           (url,))
+                            db.execute("delete from remoteinfo where url=?",
+                                       url)
                             msg.answer("%:", ["Done", "Of course", "Ready"],
                                              [".", "!"])
                 else:
@@ -348,12 +340,11 @@ class RemoteInfo:
         m = self.re3.match(msg.line)
         if m:
             if mm.hasperm(msg, "remoteinfoadmin"):
-                cursor = db.cursor()
-                cursor.execute("select * from remoteinfo")
-                if cursor.rowcount:
+                db.execute("select * from remoteinfo")
+                if db.results:
                     msg.answer("%:", "The following remote info urls are "
                                      "being loaded:")
-                    for row in cursor.fetchall():
+                    for row in db:
                         interval = int(row.interval)
                         if interval % 3600 == 0:
                             interval /= 3600

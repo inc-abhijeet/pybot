@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -20,8 +20,8 @@ from pybot.locals import *
 import time
 
 HELP_REGISTER = """
-You may register yourself with "register [nick] <password>". After that,
-you can identify yourself with "ident[ify] [nick] <password>". You can
+You may register yourself with "register [<nick>] <password>". After that,
+you can identify yourself with "ident[ify] [<nick>] <password>". You can
 also configure your nick to be automatically identified with "add identity
 nick!user@host" ('*' is accepted). Be careful since anyone matching
 this identity will have access to your nick's information and permissions.
@@ -33,7 +33,7 @@ timeout period.
 ""","""
 To change your password, use "set password <newpassword>" (for more
 information on "set" and "add" use "help set"), and to unregister your
-nick, use "unregister [nick] <password>". For more information on the
+nick, use "unregister [<nick>] <password>". For more information on the
 "add identity" command, check "help add".
 ""","""
 You need the "userdata" permission to work with user data.
@@ -66,8 +66,10 @@ class UserData:
         # Use a lower priority, since we use some
         # regexes which are very generic here.
         hooks.register("Message", self.message, priority=600)
-        db.table("userdata", "servername,nick,type,value")
-        db.table("login", "servername,userstr,lasttime,nick")
+        db.table("userdata", "servername text, nick text, type text, "
+                             "value text")
+        db.table("login", "servername text, userstr text, lasttime integer, "
+                          "nick text")
         mm.register("getuserdata", self.mm_getuserdata)
         mm.register("setuserdata", self.mm_setuserdata)
         mm.register("unsetuserdata", self.mm_unsetuserdata)
@@ -117,37 +119,32 @@ class UserData:
 
     def login(self, servername, userstr, nick):
         curtime = int(time.time())
-        cursor = db.cursor()
-        cursor.execute("update login set lasttime=%s where "
-                       "servername=%s and userstr=%s and nick=%s",
-                       curtime, servername, userstr, nick)
-        if not cursor.rowcount:
-            cursor.execute("delete from login where "
-                           "servername=%s and userstr=%s",
-                           servername, userstr)
-            cursor.execute("insert into login values (%s,%s,%s,%s)",
-                           servername, userstr, curtime, nick)
+        db.execute("update login set lasttime=? where "
+                   "servername=? and userstr=? and nick=?",
+                   curtime, servername, userstr, nick)
+        if not db.changed:
+            db.execute("delete from login where "
+                       "servername=? and userstr=?",
+                       servername, userstr)
+            db.execute("insert into login values (?,?,?,?)",
+                       servername, userstr, curtime, nick)
 
     def logout(self, servername, userstr):
-        cursor = db.cursor()
-        cursor.execute("delete from login where "
-                       "servername=%s and userstr=%s",
-                       servername, userstr)
+        db.execute("delete from login where servername=? and userstr=?",
+                   servername, userstr)
 
     def login_update(self, msg):
         curtime = int(time.time())
-        cursor = db.cursor()
-        cursor.execute("update login set lasttime=%s where "
-                       "servername=%s and userstr=%s",
-                       curtime, msg.server.servername, msg.user.string)
+        db.execute("update login set lasttime=? where "
+                   "servername=? and userstr=?",
+                   curtime, msg.server.servername, msg.user.string)
         if self.last_cleanup < curtime-self.login_timeout:
             self.last_cleanup = curtime
             self.login_cleanup()
 
     def login_cleanup(self):
-        cursor = db.cursor()
-        cursor.execute("delete from login where lasttime < %s",
-                       int(time.time())-self.login_timeout)
+        db.execute("delete from login where lasttime < ?",
+                   int(time.time())-self.login_timeout)
     
     def message(self, msg):
         self.login_update(msg)
@@ -276,28 +273,24 @@ class UserData:
             return 0
 
     def mm_loggednick(self, servername, user):
-        cursor = db.cursor()
-        cursor.execute("select * from login where "
-                       "servername=%s and userstr=%s and lasttime > %s",
-                       servername, user.string,
-                       time.time()-self.login_timeout)
-        if cursor.rowcount:
-            return cursor.fetchone().nick
-        cursor.execute("select * from userdata where "
-                       "servername=%s and type='identity'",
-                       servername)
-        for row in cursor.fetchall():
+        db.execute("select * from login where "
+                   "servername=? and userstr=? and lasttime > ?",
+                   servername, user.string, time.time()-self.login_timeout)
+        row = db.fetchone()
+        if row: return row.nick
+        db.execute("select * from userdata where type='identity' and "
+                   "servername=?", servername)
+        for row in db:
             if user.matchstr(row.value):
                 self.login(servername, user.string, row.nick)
                 return row.nick
         return None
 
     def mm_getuserdata(self, servername, nick, type, single=0):
-        cursor = db.cursor()
-        cursor.execute("select value from userdata where "
-                       "servername=%s and nick=%s and type=%s",
-                       servername, nick, type)
-        values = [x.value for x in cursor.fetchall()]
+        values = [row[0] for row in
+                  db.execute("select value from userdata where "
+                             "servername=? and nick=? and type=?",
+                             servername, nick, type)]
         if single:
             if values:
                 return values[0]
@@ -310,27 +303,24 @@ class UserData:
         if typetype:
             if typetype != "list" or not append:
                 self.mm_unsetuserdata(servername, nick, type)
-            cursor = db.cursor()
-            cursor.execute("insert into userdata values (%s,%s,%s,%s)",
-                           servername, nick, type, value)
+            db.execute("insert into userdata values (?,?,?,?)",
+                       servername, nick, type, value)
 
     def mm_unsetuserdata(self, servername, nick,
                          type=None, value=None, append=0):
-        where = ["servername=%s", "nick=%s"]
+        where = ["servername=?", "nick=?"]
         wargs = [servername, nick]
-        cursor = db.cursor()
         if type is not None:
-            where.append("type=%s")
+            where.append("type=?")
             wargs.append(type)
             if value is not None:
-                where.append("value=%s")
+                where.append("value=?")
                 wargs.append(value)
         else:
-            cursor.execute("delete from login where "
-                           "servername=%s and nick=%s",
-                           servername, nick)
+            db.execute("delete from login where servername=? and nick=?",
+                       servername, nick)
         wstr = " and ".join(where)
-        cursor.execute("delete from userdata where "+wstr, *wargs)
+        db.execute("delete from userdata where "+wstr, *wargs)
 
 def __loadmodule__():
     global mod

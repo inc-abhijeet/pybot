@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -81,10 +81,11 @@ class ServerControl:
         hooks.register("Registered", self.registered)
         hooks.register("Command", self.command)
         hooks.register("Message", self.message)
-        db.table("server", "servername,nick,username,mode,realname")
-        db.table("host",  "servername,host")
-        db.table("channel", "servername,channel,keyword")
-        db.table("connectmsg", "servername,target,msg")
+        db.table("server", "servername text, nick text, username text, "
+                           "mode text, realname text")
+        db.table("host",  "servername text, host text")
+        db.table("channel", "servername text, channel text, keyword text")
+        db.table("connectmsg", "servername text, target text, msg text")
 
         if config.has_option("global", "default_nick"):
             self.default_nick = config.get("global", "default_nick")
@@ -162,20 +163,17 @@ class ServerControl:
         # In the future we can pass multiple hosts to the same
         # servername, allowing pybot to try to connect to other
         # hosts, if one of them fail. For now, use only the first.
-        scursor = db.cursor()
-        hcursor = db.cursor()
-        scursor.execute("select * from server")
-        for srow in scursor.fetchall():
-            hcursor.execute("select * from host where servername=%s",
-                            srow.servername)
-            hrow = hcursor.fetchone()
-            servers.add(hrow.host, srow.servername)
+        db.execute("select * from server")
+        for server in db:
+            db.execute("select * from host where servername=?",
+                       server.servername)
+            host = db.fetchone()
+            servers.add(host.host, server.servername)
 
     def connected(self, server):
-        cursor = db.cursor()
-        cursor.execute("select * from server where servername=%s",
-                       server.servername)
-        row = cursor.fetchone()
+        db.execute("select * from server where servername=?",
+                   server.servername)
+        row = db.fetchone()
         if not row:
             server.sendcmd("", "QUIT")
             server.kill()
@@ -198,14 +196,11 @@ class ServerControl:
     
     def registered(self, server):
         self.registered_server[server] = 1
-        cursor = db.cursor()
-        cursor.execute("select * from connectmsg where servername=%s",
-                       server.servername)
-        for row in cursor.fetchall():
+        for row in db.execute("select * from connectmsg where servername=?",
+                              server.servername):
             server.sendmsg(row.target, None, row.msg)
-        cursor.execute("select * from channel where servername=%s",
-                       server.servername)
-        for row in cursor.fetchall():
+        for row in db.execute("select * from channel where servername=?",
+                              server.servername):
             self.send_join(server, row.channel, row.keyword)
     
     def command(self, cmd):
@@ -253,19 +248,18 @@ class ServerControl:
                 host = m.group("server")
                 servername = m.group("servername") or host
                 nick = m.group("nick") or self.default_nick
-                cursor = db.cursor()
-                cursor.execute("select * from server where servername=%s",
-                               servername)
-                if cursor.rowcount:
+                db.execute("select null from server where servername=?",
+                           servername)
+                if db.results:
                     msg.answer("%:", ["Sorry,", "Oops!", "But,", None],
                                "I'm already connected to this server",
                                [".", "!"])
                 else:
                     msg.answer("%:", ["Connecting", "I'm going there", "At your order", "No problems", "Right now", "Ok"], [".", "!"])
-                    cursor.execute("insert into server values (%s,%s,%s,%s,%s)",
-                                   servername, nick, "pybot", "0", "PyBot")
-                    cursor.execute("insert into host values (%s,%s)",
-                                   servername, host)
+                    db.execute("insert into server values (?,?,?,?,?)",
+                               servername, nick, "pybot", "0", "PyBot")
+                    db.execute("insert into host values (?,?)",
+                               servername, host)
                     servers.add(host, servername)
             else:
                 msg.answer("%:", [("You're not", ["allowed to connect",
@@ -301,15 +295,15 @@ class ServerControl:
                     msg.answer("%:", ["Disconnecting", "At your order",
                                       "No problems", "Right now", "Ok"],
                                      [".", "!"])
-                    cursor = db.cursor()
-                    cursor.execute("delete from server where servername=%s",
-                                   server.servername)
-                    cursor.execute("delete from channel where servername=%s",
-                                   server.servername)
-                    cursor.execute("delete from host where servername=%s",
-                                   server.servername)
-                    cursor.execute("delete from connectmsg where servername=%s",
-                                   server.servername)
+                    db.execute("delete from server where servername=?",
+                               server.servername, dontcommit=1)
+                    db.execute("delete from channel where servername=?",
+                               server.servername, dontcommit=1)
+                    db.execute("delete from host where servername=?",
+                               server.servername, dontcommit=1)
+                    db.execute("delete from connectmsg where servername=?",
+                               server.servername, dontcommit=1)
+                    db.commit()
                     server.sendcmd("", "QUIT")
                     server.kill()
             else:
@@ -334,11 +328,10 @@ class ServerControl:
                         return 0
                 else:
                     server = msg.server
-                cursor = db.cursor()
-                cursor.execute("select * from channel where "
-                               "servername=%s and channel=%s",
-                               server.servername, channel)
-                if cursor.rowcount:
+                db.execute("select null from channel where "
+                           "servername=? and channel=?",
+                           server.servername, channel)
+                if db.results:
                     msg.answer("%:", ["Sorry,", "Oops!",
                                       "It's not necessary.", None],
                                      "I'm already there", [".", "!"])
@@ -348,8 +341,8 @@ class ServerControl:
                                       "Joining"], [".", "!"])
                     if self.registered_server.get(server):
                         self.send_join(server, channel, keyword)
-                    cursor.execute("insert into channel values (%s,%s,%s)",
-                                   server.servername, channel, keyword)
+                    db.execute("insert into channel values (?,?,?)",
+                               server.servername, channel, keyword)
             else:
                 msg.answer("%:", [("You're not", ["allowed to join",
                                                   "that good",
@@ -376,11 +369,10 @@ class ServerControl:
                         return 0
                 else:
                     server = msg.server
-                cursor = db.cursor()
-                cursor.execute("select * from channel where "
-                               "servername=%s and channel=%s",
-                               server.servername, channel)
-                if not cursor.rowcount:
+                db.execute("select null from channel where "
+                           "servername=? and channel=?",
+                           server.servername, channel)
+                if not db.results:
                     msg.answer("%:", ["Sorry,", "Oops!",
                                       "It's not necessary.", None],
                                      "I'm not there", [".", "!"])
@@ -394,9 +386,9 @@ class ServerControl:
                                            priority=10)
                         else:
                             server.sendcmd("", "PART", channel, priority=10)
-                    cursor.execute("delete from channel where "
-                                   "servername=%s and channel=%s",
-                                   server.servername, channel)
+                    db.execute("delete from channel where "
+                               "servername=? and channel=?",
+                               server.servername, channel)
             else:
                 msg.answer("%:", [("You're not", ["allowed to leave",
                                                   "that good",
@@ -409,9 +401,7 @@ class ServerControl:
         if m:
             if mm.hasperm(msg, "showservers"):
                 d = {}
-                cursor = db.cursor()
-                cursor.execute("select * from host")
-                for row in cursor.fetchall():
+                for row in db.execute("select * from host"):
                     d.setdefault(row.servername, []).append(row.host)
                 l = []
                 if d:
@@ -440,11 +430,10 @@ class ServerControl:
         if m:
             if mm.hasperm(msg, "showchannels"):
                 servername = m.group("server")
-                cursor = db.cursor()
                 if servername:
-                    cursor.execute("select servername from server "
-                                   "where servername=%s", servername)
-                    if not cursor.rowcount:
+                    db.execute("select null from server "
+                               "where servername=?", servername)
+                    if not db.results:
                         msg.answer("%:", ["You're not connected to that "
                                           "server",
                                           "You're not connected to "
@@ -453,12 +442,12 @@ class ServerControl:
                         return 0
                     servernames = [servername]
                 else:
-                    cursor.execute("select servername from server")
-                    servernames = [x.servername for x in cursor.fetchall()]
+                    servernames = [row[0] for row in
+                                   db.execute("select servername from server")]
                 for servername in servernames:
-                    cursor.execute("select channel from channel where "
-                                   "servername=%s", servername)
-                    channels = [x.channel for x in cursor.fetchall()]
+                    channels = [row[0] for row in
+                                db.execute("select channel from channel where "
+                                           "servername=?", servername)]
                     if channels:
                         msg.answer("%:", "In server %s, I'm in the "
                                          "following channels:" % servername,
@@ -523,12 +512,11 @@ class ServerControl:
                         return 0
                 else:
                     servername = msg.server.servername
-                cursor = db.cursor()
                 if m.group("remove"):
-                    cursor.execute("delete from connectmsg where "
-                                   "servername=%s and target=%s and msg=%s",
-                                   (servername, target, _msg))
-                    if cursor.rowcount:
+                    db.execute("delete from connectmsg where "
+                               "servername=%s and target=? and msg=?",
+                               servername, target, _msg)
+                    if db.changed:
                         msg.answer("%:", ["Ok", "Done", "Sure", "No problems"],
                                          [".", "!"])
                     else:
@@ -537,8 +525,8 @@ class ServerControl:
                                           "I wasn't able to find that message"],
                                          [".", "!"])
                 else:
-                    cursor.execute("insert into connectmsg values (%s,%s,%s)",
-                                   (servername, target, _msg))
+                    db.execute("insert into connectmsg values (?,?,?)",
+                               servername, target, _msg)
                     msg.answer("%:", ["Ok", "Done", "Sure", "No problems"],
                                      [".", "!"])
             else:
@@ -551,13 +539,12 @@ class ServerControl:
         m = self.re9.match(msg.line)
         if m:
             if mm.hasperm(msg, "admin"):
-                cursor = db.cursor()
-                cursor.execute("select * from connectmsg")
-                if cursor.rowcount:
+                db.execute("select * from connectmsg")
+                if db.results:
                     msg.answer("%:",
                                "The following messages are being sent after "
                                "connection:")
-                    for row in cursor.fetchall():
+                    for row in db:
                         msg.answer("- \"%s\" to %s on server %s" %
                                    (row.msg, row.target, row.servername))
                 else:

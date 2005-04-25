@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -17,6 +17,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from pybot.locals import *
+from time import time
+import re
 
 HELP = """
 You can make me ignore and unignore people sending me the message
@@ -39,7 +41,9 @@ me, even when they match some active ignore pattern.
 
 class Ignore:
     def __init__(self):
-        db.table("ignore", "servername,target,userstr")
+        self.repeat = {}
+
+        db.table("ignore", "servername text, target text, userstr text")
         
         hooks.register("Message", self.message_ignore, 200)
         hooks.register("Message", self.message)
@@ -65,9 +69,20 @@ class Ignore:
            not mm.hasperm(msg, "neverignore"):
             return -1
 
+        # Check if message is repeating
+        now = time()
+        for msgkey in self.repeat.keys():
+            if self.repeat[msgkey]+15 < now:
+                del self.repeat[msgkey]
+        msgkey = (msg.server.servername, msg.server.user.nick,
+                  re.sub("[!?,. ]", " ", msg.line.lower()).strip())
+        if msgkey in self.repeat:
+            return -1
+        self.repeat[msgkey] = now
+
     def message(self, msg):
         if not msg.forme:
-            return None
+            return
 
         m = self.re1.match(msg.line)
         if m:
@@ -104,44 +119,40 @@ class Ignore:
             return 0
 
     def ignore(self, servername, target, userstr):
-        cursor = db.cursor()
         existed = self.dontignore(servername, target, userstr, check=1)
         if existed:
             return 0
-        cursor.execute("insert into ignore values (%s,%s,%s)",
-                       servername, target, userstr)
+        db.execute("insert into ignore values (?,?,?)",
+                   servername, target, userstr)
         return 1
     
     def dontignore(self, servername, target, userstr, check=0):
         where = []
         wargs = []
         if servername:
-            where.append("servername=%s")
+            where.append("servername=?")
             wargs.append(servername)
         else:
             where.append("servername isnull")
         if target:
-            where.append("target=%s")
+            where.append("target=?")
             wargs.append(target)
         else:
             where.append("target isnull")
         if userstr:
-            where.append("userstr=%s")
+            where.append("userstr=?")
             wargs.append(userstr)
         else:
             where.append("userstr isnull")
         wstr = " and ".join(where)
-        cursor = db.cursor()
         if not check:
-            cursor.execute("delete from ignore where "+wstr, *wargs)
+            db.execute("delete from ignore where "+wstr, *wargs)
         else:
-            cursor.execute("select * from ignore where "+wstr, *wargs)
-        return bool(cursor.rowcount)
+            db.execute("select null from ignore where "+wstr, *wargs)
+        return db.changed or db.results
     
     def isignored(self, servername, target, user):
-        cursor = db.cursor()
-        cursor.execute("select * from ignore")
-        for row in cursor.fetchall():
+        for row in db.execute("select * from ignore"):
             if (not row.servername or row.servername == servername) and \
                (not row.target or row.target == target) and \
                (not row.userstr or user.matchstr(row.userstr)):

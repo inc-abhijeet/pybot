@@ -26,8 +26,9 @@ def init():
     
     from ConfigParser import ConfigParser
     import os
-    
+
     global main, modls, servers, options, hooks, mm, rm, config, db
+
     
     hooks = Hooks()
     servers = Servers()

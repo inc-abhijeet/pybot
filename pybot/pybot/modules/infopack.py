@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2001 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -252,15 +252,13 @@ class Infopack:
 
 class InfopackModule:
     def __init__(self):
-        db.table("infopack", "name,flags")
+        db.table("infopack", "name text, flags text")
         self.packs = {}
         hooks.register("Message", self.message)
 
         # Load infopacks
         infopackdir = config.get("infopack", "infopackdir")
-        cursor = db.cursor()
-        cursor.execute("select * from infopack")
-        for row in cursor.fetchall():
+        for row in db.execute("select * from infopack"):
             packname = "%s/%s.info" % (infopackdir, row.name)
             if os.path.isfile(packname):
                 pack = Infopack(packname)
@@ -347,10 +345,8 @@ class InfopackModule:
                 packname = "%s/%s.info" % (infopackdir, name)
                 if not action:
                     # Load infopack
-                    cursor = db.cursor()
-                    cursor.execute("select * from infopack where "
-                                   "name=%s", name)
-                    if cursor.rowcount:
+                    db.execute("select null from infopack where name=?", name)
+                    if db.results:
                         msg.answer("%:", ["Oops!", "Sorry!"],
                                          "This infopack is already "
                                          "loaded", [".", "!"])
@@ -362,8 +358,8 @@ class InfopackModule:
                             flags = ""
                             if inmemory:
                                 flags += "m"
-                            cursor.execute("insert into infopack values "
-                                           "(%s,%s)", name, flags)
+                            db.execute("insert into infopack values (?,?)",
+                                       name, flags)
                             if inmemory:
                                 pack.load()
                             else:
@@ -391,15 +387,13 @@ class InfopackModule:
                                              [".", "!"])
                 else:
                     # Unload infopack
-                    cursor = db.cursor()
                     if not self.packs.has_key(name):
                         msg.answer("%:", ["Oops!", "Sorry!"],
                                          "This infopack is not loaded",
                                          [".", "!"])
                     else:
                         del self.packs[name]
-                        cursor.execute("delete from infopack where name=%s",
-                                       name)
+                        db.execute("delete from infopack where name=?", name)
                         msg.answer("%:", ["Unloaded", "Done", "Ok"],
                                          [".", "!"])
             else:

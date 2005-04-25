@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -96,13 +96,11 @@ class PLock:
         mm.unregister_perm("plock")
     
     def getnick(self, servername, email):
-        cursor = db.cursor()
-        cursor.execute("select nick from userdata where "
-                       "servername=%s and type='email' and value=%s",
-                       servername, email)
-        if cursor.rowcount:
-            return cursor.fetchone().nick
-        return None
+        db.execute("select nick from userdata where "
+                   "servername=? and type='email' and value=?",
+                   servername, email)
+        row = db.fetchone()
+        return row and row[0] or None
 
     def message(self, msg):
         if msg.forme:

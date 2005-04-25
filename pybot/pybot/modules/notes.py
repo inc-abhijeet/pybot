@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -39,7 +39,7 @@ SPLITNUMS = re.compile("\s*,\s*|\s+")
 
 class Notes:
     def __init__(self):
-        db.table("note", "topic,note,timestamp")
+        db.table("note", "topic text, note text, timestamp integer")
         hooks.register("Message", self.message)
         mm.register("getnotes", self.mm_getnotes)
         mm.register("addnote", self.mm_addnote)
@@ -147,28 +147,25 @@ class Notes:
             return 0
  
     def mm_getnotes(self, topic):
-        cursor = db.cursor()
-        cursor.execute("select * from note where topic=%s order by timestamp",
-                       topic)
-        return [x.note for x in cursor.fetchall()]
+        return [row[0] for row in
+                db.execute("select note from note where topic=? "
+                           "order by timestamp", topic)]
 
     def mm_addnote(self, topic, note):
-        cursor = db.cursor()
-        cursor.execute("insert into note values (%s,%s,%s)",
-                       topic, note, int(time.time()))
+        db.execute("insert into note values (?,?,?)",
+                   topic, note, int(time.time()))
     
     def mm_delnotes(self, topic, notenums):
-        cursor = db.cursor()
         removed = 0
         if notenums:
             notes = self.mm_getnotes(topic)
             for num in notenums:
-                cursor.execute("delete from note where topic=%s and note=%s",
-                               topic, notes[num])
-                removed |= cursor.rowcount
+                db.execute("delete from note where topic=? and note=?",
+                           topic, notes[num])
+                removed |= db.changed
         else:
-            cursor.execute("delete from note where topic=%s", topic)
-            removed = cursor.rowcount
+            db.execute("delete from note where topic=?", topic)
+            removed = db.changed
         return bool(removed)
     
     def mm_shownotes(self, server, target, nick, topic):
@@ -182,9 +179,8 @@ class Notes:
             return 1
 
     def mm_getnotetopics(self):
-        cursor = db.cursor()
-        cursor.execute("select distinct topic from note order by topic")
-        return [x.topic for x in cursor.fetchall()]
+        return [row[0] for row in
+                db.execute("select distinct topic from note order by topic")]
 
 def __loadmodule__():
     global mod

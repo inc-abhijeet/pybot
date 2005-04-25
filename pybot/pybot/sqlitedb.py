@@ -16,28 +16,89 @@
 # along with pybot; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-import sqlite
+from pysqlite2 import dbapi2 as sqlite
+import fcntl
+import time
 import re
 
-class SQLiteDB:
-    def __init__(self, path):
+class SQLiteDB(object):
+
+    def __init__(self, path, _copy=False):
         self._path = path
         self._conn = sqlite.connect(self._path)
+        self._lockfile = open(path, "r+")
+        self.results = []
+        self.changed = False
         self.error = sqlite.DatabaseError
-        self.autocommit(1)
-        self.table("dict", "name,value")
+        if not _copy:
+            self.table("dict", "name text, value")
+
+    def lock(self):
+        fcntl.lockf(self._lockfile.fileno(), fcntl.LOCK_EX)
+
+    def unlock(self):
+        fcntl.lockf(self._lockfile.fileno(), fcntl.LOCK_UN)
 
     def copy(self):
-        return SQLiteDB(self._path)
+        return SQLiteDB(self._path, _copy=True)
 
-    def cursor(self):
-        return self._conn.cursor()
+    def close(self):
+        self._conn.close()
 
     def commit(self):
-        return self._conn.commit()
+        self._conn.commit()
+        self.unlock()
 
-    def autocommit(self, enable):
-        self._conn.autocommit = enable
+    def rollback(self):
+        self._conn.rollback()
+        self.unlock()
+
+    def execute(self, *args, **kwargs):
+        self.lock()
+        cursor = self._conn.cursor()
+        cursor.execute(args[0], args[1:])
+        names = {}
+        if cursor.description:
+            for i, item in enumerate(cursor.description):
+                names[item[0]] = i
+        unlock = False
+        if cursor.rowcount and not kwargs.get("dontcommit"):
+            self._conn.commit()
+            unlock = True
+        if cursor.rowcount is None:
+            self.results = [Row(row, names) for row in cursor.fetchall()]
+            self.changed = False
+        else:
+            self.results = []
+            self.changed = bool(cursor.rowcount)
+        cursor.close()
+        if unlock:
+            self.unlock()
+        return self
+
+    def fetchone(self):
+        return self.results and self.results.pop(0) or None
+
+    def fetchall(self):
+        rows, self.results = self.results, []
+        return rows
+
+    def __iter__(self):
+        rows, self.results = self.results, []
+        return iter(rows)
+
+    def __getitem__(self, name):
+        self.execute("select value from dict where name=?", name)
+        row = self.fetchone()
+        if not row:
+            return None
+        return row[0]
+
+    def __setitem__(self, name, value):
+        self.execute("insert into dict values (?,?)", name, value)
+
+    def __delitem__(self, name):
+        self.execute("delete from dict where name=?", name)
 
     def table(self, name, fields, constraints="",
               triggers=[], beforecreate=[], aftercreate=[]):
@@ -46,16 +107,16 @@ class SQLiteDB:
         will ensure that the given table has the given fields in the
         given order, and change the table if not.
         """
-        cursor = self.cursor()
+        self.lock()
+        cursor = self._conn.cursor()
         # First, drop old triggers, if existent
         cursor.execute("select name from sqlite_master where "
-                       "type='trigger' and tbl_name=%s",
-                       (name,))
+                       "type='trigger' and tbl_name=?", (name,))
         for row in cursor.fetchall():
-            cursor.execute("drop trigger %s" % row.name)
+            cursor.execute("drop trigger %s" % row[0])
         # Now check that the table exist.
-        cursor.execute("select * from sqlite_master "
-                       "where type='table' and name=%s", name)
+        cursor.execute("select sql from sqlite_master "
+                       "where type='table' and name=?", (name,))
         row = cursor.fetchone()
         if constraints:
             constraints = ","+constraints
@@ -65,12 +126,11 @@ class SQLiteDB:
             cursor.execute("create table %s (%s%s)" %
                            (name, fields, constraints))
             for sql in aftercreate: cursor.execute(sql)
-        elif getxform(fields+constraints) != getfields(name, row.sql):
-            # It exist, but is invalid. We'll have to fix it.
-            self.autocommit(0)
+        elif getxform(fields+constraints) != getfields(name, row[0]):
+            # It exists, but is invalid. We'll have to fix it.
             cursor.execute("create temporary table temp_table (%s)" % fields)
             oldfieldnames = [getname(x) for x in
-                             getfields(name, row.sql).split(",")]
+                             getfields(name, row[0]).split(",")]
             newfieldnames = [getname(x) for x in
                              fields.split(",")]
             copyfields = ",".join([x for x in newfieldnames
@@ -88,39 +148,43 @@ class SQLiteDB:
             cursor.execute("drop table temp_table")
             for sql in aftercreate: cursor.execute(sql)
             self.commit()
-            self.autocommit(1)
         # Rebuild the triggers
         for sql in triggers:
             cursor.execute(sql)
+        cursor.close()
+        self.unlock()
 
-    def __getitem__(self, name):
-        cursor = self.cursor()
-        cursor.execute("select value from dict where name=%s", name)
-        if not cursor.rowcount:
-            return None
-        return cursor.fetchone().value
+class Row(tuple):
+    
+    def __new__(klass, row, names):
+        self = tuple.__new__(klass, row)
+        self._names = names
+        return self
 
-    def __setitem__(self, name, value):
-        del self[name]
-        cursor = self.cursor()
-        cursor.execute("insert into dict values (%s,%s)", name, value)
+    def __getitem__(self, key):
+        if type(key) is int:
+            return tuple.__getitem__(self, key)
+        names = self._names
+        if key in names:
+            return self[names[key]]
+        raise KeyError, "Key '%s' not in %s" % (key, names.keys())
 
-    def __delitem__(self, name):
-        cursor = self.cursor()
-        cursor.execute("delete from dict where name=%s", name)
+    def __getattr__(self, name):
+        names = self._names
+        if name in names:
+            return self[names[name]]
+        raise AttributeError, "Attribute '%s' not in %s" % (name, names.keys())
 
 def getxform(fields):
     return ",".join([x.strip() for x in fields.split(",")])
 
-GETFIELDS = re.compile(r"\((.*)\)")
-def getfields(name, sql):
-    m = GETFIELDS.search(sql)
+def getfields(name, sql, _re=re.compile(r"\((.*)\)")):
+    m = _re.search(sql)
     if not m:
         raise ValueError, "invalid sql in table '%s': %s" % (name, sql)
     return getxform(m.group(1))
 
-GETNAME = re.compile(r"^\s*(\S+).*$")
-def getname(field):
-    return GETNAME.sub(r"\1", field)
+def getname(field, _re=re.compile(r"^\s*(\S+).*$")):
+    return _re.sub(r"\1", field)
 
 # vim:ts=4:sw=4:et

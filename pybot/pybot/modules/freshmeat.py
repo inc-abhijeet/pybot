@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -39,7 +39,7 @@ class Freshmeat:
         self.url = config.get("freshmeat", "url")
         self.interval = config.getint("freshmeat", "interval")
 
-        db.table("freshmeat", "servername,target")
+        db.table("freshmeat", "servername text, target text")
 
         self.fetch_lock = thread.allocate_lock()
 
@@ -70,9 +70,7 @@ class Freshmeat:
             else:
                 first = 0
             newsmsg = newsmsg+news[0]
-        cursor = db.cursor()
-        cursor.execute("select * from freshmeat")
-        for row in cursor.fetchall():
+        for row in db.execute("select * from freshmeat"):
             server = servers.get(row.servername)
             if server:
                 server.sendmsg(row.target, None,  "Freshmeat news:",
@@ -108,9 +106,8 @@ class Freshmeat:
         self.fetch_lock.release()
     
     def checknews(self):
-        cursor = db.cursor()
-        cursor.execute("select * from freshmeat")
-        if cursor.rowcount and self.fetch_lock.acquire(0):
+        db.execute("select null from freshmeat")
+        if db.results and self.fetch_lock.acquire(0):
             thread.start_new_thread(self.fetchnews, ())
     
     def message(self, msg):
@@ -122,25 +119,24 @@ class Freshmeat:
             if mm.hasperm(msg, "freshmeat"):
                 target = m.group("target") or msg.target
                 servername = m.group("server") or msg.server.servername
-                cursor = db.cursor()
                 if not m.group("dont"):
-                    cursor.execute("select * from freshmeat where "
-                                   "servername=%s and target=%s",
-                                   servername, target)
-                    if cursor.rowcount:
+                    db.execute("select * from freshmeat where "
+                               "servername=? and target=?",
+                               servername, target)
+                    if db.results:
                         msg.answer("%:", ["Oops!", "Sorry!", "Nope."],
                                          "I'm already showing news for "
                                          "this target", ["!", "."])
                     else:
-                        cursor.execute("insert into freshmeat values (%s,%s)",
-                                       servername, target)
+                        db.execute("insert into freshmeat values (?,?)",
+                                   servername, target)
                         msg.answer("%:", ["Sure", "I'll show",
                                           "Of course"], ["!", "."])
                 else:
-                    cursor.execute("delete from freshmeat where "
-                                   "servername=%s and target=%s",
-                                   servername, target)
-                    if not cursor.rowcount:
+                    db.execute("delete from freshmeat where "
+                               "servername=? and target=?",
+                               servername, target)
+                    if not db.changed:
                         msg.answer("%:", ["Oops!", "Sorry!", "Nope."],
                                          "I'm not showing news for "
                                          "this target", ["!", "."])

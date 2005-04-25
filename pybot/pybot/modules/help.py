@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -38,8 +38,8 @@ class Help:
         mm.register("unregister_perm", self.mm_unregister_perm)
         hooks.register("Message", self.message)
         
-        # [show] help [about] <keyword>
-        self.re1 = regexp(r"(?:show )?help(?: about)?(?: (?P<something>.+?))?")
+        # [can you] [please,] [show] help [me] [about] <keyword>
+        self.re1 = regexp(r"(?:can you )?(?:please,? )?(?:show )?help(?: me)?(?: about)?(?: (?P<something>.+?))?")
 
         self.mm_register_perm("help", PERM_HELP)
         

@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2003 Gustavo Niemeyer <niemeyer@conectiva.com>
+# Copyright (c) 2000-2005 Gustavo Niemeyer <niemeyer@conectiva.com>
 #
 # This file is part of pybot.
 # 
@@ -48,8 +48,9 @@ PARAM = re.compile(r"(?P<perm>\S+)\((?P<param>.*)\)$")
 
 class Permission:
     def __init__(self):
-        db.table("permission", "permission, param default '', "
-                               "servername, target, userstr, nick")
+        db.table("permission", "permission text, param text default '', "
+                               "servername text, target text, userstr text, "
+                               "nick text")
         self.help = options.get("Help.perm", {})
         mm.register("hasperm", self.mm_hasperm)
         mm.register("hasperm_raw", self.mm_hasperm_raw)
@@ -165,14 +166,13 @@ class Permission:
                     if help:
                         help = help.replace("\n", " ").strip()
                         msg.answer("%:", help)
-                    cursor = db.cursor()
-                    cursor.execute("select * from permission where "
-                                   "permission=%s", perm)
-                    if not cursor.rowcount:
+                    db.execute("select * from permission where permission=?",
+                               perm)
+                    if not db.results:
                         msg.answer("%:", "Nobody has this permission",
                                          [".", "!"])
                     else:
-                        rows = cursor.fetchall()
+                        rows = db.fetchall()
                         numrows = len(rows)
                         s = ""
                         for i in range(numrows):
@@ -223,14 +223,13 @@ class Permission:
                         msg.answer("%:", "With the currently loaded modules, "
                                          "I understand the following "
                                          "permissions: "+s)
-                    cursor = db.cursor()
-                    cursor.execute("select distinct permission from permission "
-                                   "order by permission")
-                    if not cursor.rowcount:
+                    db.execute("select distinct permission from permission "
+                               "order by permission")
+                    if not db.results:
                         msg.answer("%:", "There are no users with allowed "
                                          "permissions", [".", "!"])
                     else:
-                        givenperms = [x.permission for x in cursor.fetchall()]
+                        givenperms = [row[0] for row in db]
                         msg.answer("%:", "The following permissions are "
                                          "available for some people:",
                                          ", ".join(givenperms))
@@ -246,11 +245,10 @@ class Permission:
         loggednick = mm.loggednick(servername, user)
         if (servername, loggednick) in self.staticadmins:
             return 1
-        cursor = db.cursor()
-        cursor.execute("select * from permission where "
-                       "permission='admin' or "
-                       "(permission=%s and param=%s)", (perm, param))
-        for row in cursor.fetchall():
+        db.execute("select * from permission where "
+                   "permission='admin' or (permission=? and param=?)",
+                   perm, param)
+        for row in db:
             if (not row.servername or row.servername == servername) and \
                (not row.target or row.target == target) and \
                (not row.userstr or user.matchstr(row.userstr)) and \
@@ -266,50 +264,46 @@ class Permission:
         if self.mm_unsetperm(servername, target, userstr, nick,
                              perm, param, check=1):
             return 0
-        cursor = db.cursor()
-        cursor.execute("insert into permission values (%s,%s,%s,%s,%s,%s)",
-                       (perm, param, servername, target, userstr, nick))
-        return bool(cursor.rowcount)
+        db.execute("insert into permission values (?,?,?,?,?,?)",
+                   perm, param, servername, target, userstr, nick)
+        return db.changed
 
     def mm_unsetperm(self, servername, target, userstr, nick,
                      perm, param="", check=0):
-        where = ["permission=%s", "param=%s"]
+        where = ["permission=?", "param=?"]
         wargs = [perm, param]
         if servername:
-            where.append("servername=%s")
+            where.append("servername=?")
             wargs.append(servername)
         else:
             where.append("servername isnull")
         if target:
-            where.append("target=%s")
+            where.append("target=?")
             wargs.append(target)
         else:
             where.append("target isnull")
         if userstr:
-            where.append("userstr=%s")
+            where.append("userstr=?")
             wargs.append(userstr)
         else:
             where.append("userstr isnull")
         if nick:
-            where.append("nick=%s")
+            where.append("nick=?")
             wargs.append(nick)
         else:
             where.append("nick isnull")
         wstr = " and ".join(where)
-        cursor = db.cursor()
         if not check:
-            cursor.execute("delete from permission where "+wstr, *wargs)
+            db.execute("delete from permission where "+wstr, *wargs)
         else:
-            cursor.execute("select * from permission where "+wstr, *wargs)
-        return bool(cursor.rowcount)
+            db.execute("select null from permission where "+wstr, *wargs)
+        return db.changed or db.results
 
     def mm_permparams_raw(self, servername, target, user, perm):
         loggednick = mm.loggednick(servername, user)
-        cursor = db.cursor()
-        cursor.execute("select * from permission where "
-                       "permission=%s", (perm,))
+        db.execute("select * from permission where permission=?", perm)
         params = {}
-        for row in cursor.fetchall():
+        for row in db:
             if (not row.servername or row.servername == servername) and \
                (not row.target or row.target == target) and \
                (not row.userstr or user.matchstr(row.userstr)) and \

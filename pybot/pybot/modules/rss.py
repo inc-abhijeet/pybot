@@ -163,11 +163,11 @@ class RSS:
                             fulltext = text
                     else:
                         server.sendmsg(target.target, None,
-                                       target.prefix, text, notice=1)
+                                       target.prefix, "\\"+text, notice=1)
                     lastid = item.id
                 if oneline:
                     server.sendmsg(target.target, None,
-                                   target.prefix, fulltext, notice=1)
+                                   target.prefix, "\\"+fulltext, notice=1)
                 if lastid: # Should always be true
                     db.execute("update rsstarget set lastitemid=? "
                                "where id=?", lastid, target.id)

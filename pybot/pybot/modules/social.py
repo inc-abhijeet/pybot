@@ -80,8 +80,8 @@ class Social:
         # are you ...
         self.re17 = regexp(r'are you .*', question=1)
 
-        # (how|when|where|what) ...
-        self.re18 = regexp(r'(?:how|when|where|what) .*', question=1)
+        # (how|when|where|what)['s|'re] ...
+        self.re18 = regexp(r'(?:how|when|where|what)(?:\'(?:s|re))? .*', question=1)
 
         # good luck
         self.re19 = regexp(r'good luck')

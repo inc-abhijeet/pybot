@@ -54,25 +54,31 @@ class SQLiteDB(object):
         self.unlock()
 
     def execute(self, *args, **kwargs):
-        self.lock()
         cursor = self._conn.cursor()
-        cursor.execute(args[0], args[1:])
-        names = {}
-        if cursor.description:
-            for i, item in enumerate(cursor.description):
-                names[item[0]] = i
-        unlock = False
-        if cursor.rowcount and not kwargs.get("dontcommit"):
-            self._conn.commit()
-            unlock = True
-        if cursor.rowcount is None:
-            self.results = [Row(row, names) for row in cursor.fetchall()]
-            self.changed = False
-        else:
-            self.results = []
-            self.changed = bool(cursor.rowcount)
-        cursor.close()
-        if unlock:
+        self.lock()
+        try:
+            cursor.execute(args[0], args[1:])
+            names = {}
+            if cursor.description:
+                for i, item in enumerate(cursor.description):
+                    names[item[0]] = i
+            unlock = False
+            if cursor.rowcount > 0 and not kwargs.get("dontcommit"):
+                self._conn.commit()
+                unlock = True
+            if cursor.rowcount == -1:
+                self.results = [Row(row, names) for row in cursor.fetchall()]
+                self.changed = False
+                unlock = True
+            else:
+                self.results = []
+                self.changed = bool(cursor.rowcount)
+            cursor.close()
+            if unlock:
+                self.unlock()
+        except self.error:
+            cursor.close()
+            self._conn.rollback()
             self.unlock()
         return self
 
@@ -109,50 +115,52 @@ class SQLiteDB(object):
         """
         self.lock()
         cursor = self._conn.cursor()
-        # First, drop old triggers, if existent
-        cursor.execute("select name from sqlite_master where "
-                       "type='trigger' and tbl_name=?", (name,))
-        for row in cursor.fetchall():
-            cursor.execute("drop trigger %s" % row[0])
-        # Now check that the table exist.
-        cursor.execute("select sql from sqlite_master "
-                       "where type='table' and name=?", (name,))
-        row = cursor.fetchone()
-        if constraints:
-            constraints = ","+constraints
-        if not row:
-            # No, it doesn't exist yet.
-            for sql in beforecreate: cursor.execute(sql)
-            cursor.execute("create table %s (%s%s)" %
-                           (name, fields, constraints))
-            for sql in aftercreate: cursor.execute(sql)
-        elif getxform(fields+constraints) != getfields(name, row[0]):
-            # It exists, but is invalid. We'll have to fix it.
-            cursor.execute("create temporary table temp_table (%s)" % fields)
-            oldfieldnames = [getname(x) for x in
-                             getfields(name, row[0]).split(",")]
-            newfieldnames = [getname(x) for x in
-                             fields.split(",")]
-            copyfields = ",".join([x for x in newfieldnames
-                                   if x in oldfieldnames])
-            cursor.execute("insert into temp_table (%s) select %s from %s"
-                           % (copyfields, copyfields, name))
-            cursor.execute("drop table %s" % name)
-            for sql in beforecreate: cursor.execute(sql)
-            createargs = fields
+        try:
+            # First, drop old triggers, if existent
+            cursor.execute("select name from sqlite_master where "
+                           "type='trigger' and tbl_name=?", (name,))
+            for row in cursor.fetchall():
+                cursor.execute("drop trigger %s" % row[0])
+            # Now check that the table exist.
+            cursor.execute("select sql from sqlite_master "
+                           "where type='table' and name=?", (name,))
+            row = cursor.fetchone()
             if constraints:
-                createargs += constraints
-            cursor.execute("create table %s (%s)" % (name, createargs))
-            cursor.execute("insert into %s select %s from temp_table"
-                           % (name, ",".join(newfieldnames)))
-            cursor.execute("drop table temp_table")
-            for sql in aftercreate: cursor.execute(sql)
-            self.commit()
-        # Rebuild the triggers
-        for sql in triggers:
-            cursor.execute(sql)
-        cursor.close()
-        self.unlock()
+                constraints = ","+constraints
+            if not row:
+                # No, it doesn't exist yet.
+                for sql in beforecreate: cursor.execute(sql)
+                cursor.execute("create table %s (%s%s)" %
+                               (name, fields, constraints))
+                for sql in aftercreate: cursor.execute(sql)
+            elif getxform(fields+constraints) != getfields(name, row[0]):
+                # It exists, but is invalid. We'll have to fix it.
+                cursor.execute("create temporary table temp_table (%s)" % fields)
+                oldfieldnames = [getname(x) for x in
+                                 getfields(name, row[0]).split(",")]
+                newfieldnames = [getname(x) for x in
+                                 fields.split(",")]
+                copyfields = ",".join([x for x in newfieldnames
+                                       if x in oldfieldnames])
+                cursor.execute("insert into temp_table (%s) select %s from %s"
+                               % (copyfields, copyfields, name))
+                cursor.execute("drop table %s" % name)
+                for sql in beforecreate: cursor.execute(sql)
+                createargs = fields
+                if constraints:
+                    createargs += constraints
+                cursor.execute("create table %s (%s)" % (name, createargs))
+                cursor.execute("insert into %s select %s from temp_table"
+                               % (name, ",".join(newfieldnames)))
+                cursor.execute("drop table temp_table")
+                for sql in aftercreate: cursor.execute(sql)
+                self.commit()
+            # Rebuild the triggers
+            for sql in triggers:
+                cursor.execute(sql)
+        finally:
+            cursor.close()
+            self.unlock()
 
 class Row(tuple):
     

@@ -261,9 +261,9 @@ class Server(BaseServer):
         ctcp = kw.get("ctcp")
         cmd = kw.get("notice") and "NOTICE" or "PRIVMSG"
         if ctcp:
-            linemask = "%s %s :\01%s %%s \01"%(cmd, target, ctcp)
+            linemask = u"%s %s :\01%s %%s \01"%(cmd, target, ctcp)
         else:
-            linemask = "%s %s :%%s"%(cmd, target)
+            linemask = u"%s %s :%%s"%(cmd, target)
         line = buildanswer(params, target, nick)
         for subline in breakline(line):
             subline = linemask%subline
